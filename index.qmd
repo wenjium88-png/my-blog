@@ -1,0 +1,34 @@
+---
+title: "Wenjium 的个人网站"
+---
+
+# 欢迎来到我的个人主页
+
+我是一名物理专业的学生，对理论物理、 统计物理和计算科学感兴趣。
+
+## About Me
+
+开发ing
+
+## Education
+
+开发ing
+
+## Research Interests
+
+- Non-equilibrium Statistical Physics
+- complex systems
+- ai
+- quantum many body physics
+
+## Physics Notes
+
+这里将记录我的统计物理、量子力学、 相变理论等方面的学习笔记。
+
+## Projects
+
+这里将展示我的 Python 数值模拟、 计算物理和 AI 相关项目。
+
+## Thoughts and reflections
+
+这里将记录我的一些思考和感悟。
