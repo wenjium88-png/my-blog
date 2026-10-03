@@ -236,3 +236,115 @@ table td {
     grid-template-columns: 36px 1fr;
   }
 }
+
+/* =========================================
+   Section pages (Physics Notes / Projects / Thoughts)
+   ========================================= */
+
+#title-block-header .title {
+  font-size: clamp(1.9rem, 3.6vw, 2.5rem);
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+.page-lead {
+  margin: 0.5rem 0 3rem;
+  color: #3f4650;
+  font-size: 1.05rem;
+  line-height: 1.95;
+}
+
+/* ---------- Topic cards ---------- */
+
+.topic-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0 0.5rem;
+}
+
+.topic-card {
+  padding: 1.05rem 1.2rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: #fff;
+  transition: border-color 0.2s ease;
+}
+
+.topic-card:hover {
+  border-color: #c9ced6;
+}
+
+.topic-card h3 {
+  margin: 0 0 0.35rem;
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+}
+
+.topic-card p {
+  margin: 0;
+  color: var(--muted-color);
+  font-size: 0.92rem;
+  line-height: 1.7;
+}
+
+/* ---------- Entry list ---------- */
+
+.entry-list {
+  margin: 1.5rem 0 0;
+}
+
+.entry-item {
+  display: block;
+  padding: 1.3rem 0;
+  border-bottom: 1px solid var(--border-color);
+  color: inherit;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.entry-item:hover {
+  opacity: 0.7;
+  color: inherit;
+}
+
+.entry-meta {
+  margin-bottom: 0.3rem;
+  color: var(--muted-color);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+
+.entry-title {
+  margin: 0 0 0.3rem;
+  font-size: 1.12rem;
+}
+
+.entry-desc {
+  margin: 0;
+  color: #4b5259;
+  font-size: 0.95rem;
+}
+
+/* ---------- Empty state ---------- */
+
+.empty-note {
+  margin: 1.5rem 0 0;
+  padding: 2.2rem 1rem;
+  background: var(--soft-bg);
+  border-radius: 8px;
+  color: var(--muted-color);
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+/* ---------- Home section links ---------- */
+
+.section-link {
+  display: inline-block;
+  margin-top: 0.6rem;
+  font-size: 0.95rem;
+  font-weight: 550;
+}

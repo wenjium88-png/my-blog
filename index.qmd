@@ -59,7 +59,7 @@ Computation, and Ideas
 
 **Statistical Physics · Quantum Mechanics · Phase Transitions · Mathematical Physics**
 
-[Explore my physics notes →](#)
+[Explore my physics notes →](physics-notes/index.qmd){.section-link}
 
 ---
 
@@ -79,7 +79,7 @@ Python 数值计算、有限体积法以及物理系统模拟。
 
 探索机器学习与人工智能在科学研究中的可能应用。
 
-[View projects →](#)
+[View projects →](projects/index.qmd){.section-link}
 
 ---
 
@@ -90,6 +90,8 @@ Python 数值计算、有限体积法以及物理系统模拟。
 有些问题未必有明确答案。
 
 但值得认真想一想。
+
+[Read the reflections →](thoughts/index.qmd){.section-link}
 
 ---
 

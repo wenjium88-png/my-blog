@@ -1,0 +1,16 @@
+---
+title: "Thoughts and reflections"
+format:
+  html:
+    toc: false
+---
+
+<p class="page-lead">
+除了物理，我也会记录一些关于学习、科学、技术以及个人成长的思考。<br>
+有些问题未必有明确答案。<br>
+但值得认真想一想。
+</p>
+
+## Essays
+
+<p class="empty-note">还没有发布的内容。</p>

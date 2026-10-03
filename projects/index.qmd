@@ -1,0 +1,32 @@
+---
+title: "Projects"
+format:
+  html:
+    toc: false
+---
+
+<p class="page-lead">
+这里记录一些我实际完成的计算、模拟与建模项目。<br>
+每一个都尽量写清楚问题是什么、怎么做的，以及结果说明了什么。
+</p>
+
+## Directions
+
+<div class="topic-grid">
+<div class="topic-card">
+<h3>Numerical Simulation</h3>
+<p>Python 数值计算、有限体积法以及物理系统模拟。</p>
+</div>
+<div class="topic-card">
+<h3>Computational Physics</h3>
+<p>用计算方法研究物理问题，并比较解析结果与数值结果。</p>
+</div>
+<div class="topic-card">
+<h3>AI</h3>
+<p>机器学习在科学研究中的可能应用。</p>
+</div>
+</div>
+
+## Projects
+
+<p class="empty-note">项目正在整理中。</p>
