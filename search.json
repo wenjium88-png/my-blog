@@ -1,10 +1,45 @@
 [
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
+    "objectID": "projects/index.html",
+    "href": "projects/index.html",
+    "title": "Projects",
     "section": "",
-    "text": "About this site"
+    "text": "这里记录一些我实际完成的计算、模拟与建模项目。 每一个都尽量写清楚问题是什么、怎么做的，以及结果说明了什么。"
+  },
+  {
+    "objectID": "projects/index.html#directions",
+    "href": "projects/index.html#directions",
+    "title": "Projects",
+    "section": "Directions",
+    "text": "Directions\n\n\n\nNumerical Simulation\n\n\nPython 数值计算、有限体积法以及物理系统模拟。\n\n\n\n\nComputational Physics\n\n\n用计算方法研究物理问题，并比较解析结果与数值结果。\n\n\n\n\nAI\n\n\n机器学习在科学研究中的可能应用。"
+  },
+  {
+    "objectID": "projects/index.html#projects",
+    "href": "projects/index.html#projects",
+    "title": "Projects",
+    "section": "Projects",
+    "text": "Projects\n\n项目正在整理中。"
+  },
+  {
+    "objectID": "physics-notes/index.html",
+    "href": "physics-notes/index.html",
+    "title": "Physics Notes",
+    "section": "",
+    "text": "这里记录我在学习物理时重新推导、整理和思考的一些问题。 比起记下结论，我更在意一个结论是怎样被想清楚的。"
+  },
+  {
+    "objectID": "physics-notes/index.html#topics",
+    "href": "physics-notes/index.html#topics",
+    "title": "Physics Notes",
+    "section": "Topics",
+    "text": "Topics\n\n\n\nStatistical Physics\n\n\n系综理论、配分函数、涨落与输运。\n\n\n\n\nQuantum Mechanics\n\n\n波函数、算符、对称性与微扰方法。\n\n\n\n\nPhase Transitions\n\n\n临界现象、序参量与重整化。\n\n\n\n\nMathematical Physics\n\n\n复分析、微分方程与线性代数在物理中的用法。"
+  },
+  {
+    "objectID": "physics-notes/index.html#notes",
+    "href": "physics-notes/index.html#notes",
+    "title": "Physics Notes",
+    "section": "Notes",
+    "text": "Notes\n\n笔记正在整理中。"
   },
   {
     "objectID": "index.html",
@@ -39,7 +74,7 @@
     "href": "index.html#thoughts-and-reflections",
     "title": "\nPhysics, Computation, and Ideas\n",
     "section": "Thoughts and reflections",
-    "text": "Thoughts and reflections\n除了物理，我也会记录一些关于学习、科学、技术以及个人成长的思考。\n有些问题未必有明确答案。\n但值得认真想一想。"
+    "text": "Thoughts and reflections\n除了物理，我也会记录一些关于学习、科学、技术以及个人成长的思考。\n有些问题未必有明确答案。\n但值得认真想一想。\nRead the reflections →"
   },
   {
     "objectID": "index.html#about-this-site",
@@ -47,5 +82,26 @@
     "title": "\nPhysics, Computation, and Ideas\n",
     "section": "About this site",
     "text": "About this site\n这个网站记录我的学习、研究，以及一些尚未形成答案的想法。\n我希望随着时间推移，这里能够留下我如何理解物理、计算与科学的痕迹。\n\nWenjium · Physics, Computation, and Ideas"
+  },
+  {
+    "objectID": "thoughts/index.html",
+    "href": "thoughts/index.html",
+    "title": "Thoughts and reflections",
+    "section": "",
+    "text": "除了物理，我也会记录一些关于学习、科学、技术以及个人成长的思考。 有些问题未必有明确答案。 但值得认真想一想。"
+  },
+  {
+    "objectID": "thoughts/index.html#essays",
+    "href": "thoughts/index.html#essays",
+    "title": "Thoughts and reflections",
+    "section": "Essays",
+    "text": "Essays\n\n还没有发布的内容。"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
   }
 ]
