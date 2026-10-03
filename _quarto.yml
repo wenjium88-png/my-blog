@@ -2,13 +2,21 @@ project:
   type: website
 
 website:
-  title: "My-Blog"
+  title: "Wenjium"
   navbar:
     left:
       - href: index.qmd
         text: Home
-      - about.qmd
+      - href: about.qmd
+        text: About
+    right:
+      - icon: github
+        href: https://github.com/wenjium88-png
+      
 
+  page-footer: 
+      left: "© 2026 Wenjium"
+      right: "Built with Quarto"
 format:
   html:
     theme:
@@ -16,6 +24,7 @@ format:
       - brand
     css: styles.css
     toc: true
+    smooth-scroll: true
 
 
 

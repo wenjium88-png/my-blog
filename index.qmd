@@ -1,34 +1,104 @@
 ---
-title: "Wenjium 的个人网站"
+format:
+  html:
+    toc: false
 ---
 
-# 欢迎来到我的个人主页
+<h1 class="hero-title">
+Physics,<br>
+Computation, and Ideas
+</h1>
 
-我是一名物理专业的学生，对理论物理、 统计物理和计算科学感兴趣。
+我是一名物理专业学生，主要关注理论物理。目前最感兴趣的是非平衡统计物理，也在探索量子多体问题与计算科学。
 
-## About Me
-
-开发ing
-
-## Education
-
-开发ing
+我的兴趣并不严格局限于某一个方向，我更关心的是：
+**一个复杂的物理系统，其背后的结构究竟是什么？**
 
 ## Research Interests
 
-- Non-equilibrium Statistical Physics
-- complex systems
-- ai
-- quantum many body physics
+<!-- 注意：下面每行 HTML 都不要缩进到 4 个空格以上， -->
+<!-- 否则 pandoc 会把它当作缩进代码块，标签会被原样显示出来。 -->
+
+<div class="interest-item">
+<div class="interest-number">01</div>
+<div>
+<h3>Non-equilibrium Statistical Physics</h3>
+<p>
+我希望从统计物理的基本框架出发，理解远离平衡系统中的涨落、输运、动力学与涌现现象。
+</p>
+</div>
+</div>
+
+<div class="interest-item">
+<div class="interest-number">02</div>
+<div>
+<h3>Quantum Many-Body Physics</h3>
+<p>
+我对凝聚态中的量子多体问题感兴趣，尤其关注大量微观自由度如何产生复杂的集体现象与宏观性质。
+</p>
+</div>
+</div>
+
+<div class="interest-item">
+<div class="interest-number">03</div>
+<div>
+<h3>Computational Physics &amp; AI</h3>
+<p>
+我希望探索人工智能与科学计算在物理研究中的应用，并尝试将数值方法和机器学习用于具体的物理问题。
+</p>
+</div>
+</div>
+
+---
 
 ## Physics Notes
 
-这里将记录我的统计物理、量子力学、 相变理论等方面的学习笔记。
+这里记录我在学习物理时重新推导、整理和思考的一些问题。
+
+目前主要涉及：
+
+**Statistical Physics · Quantum Mechanics · Phase Transitions · Mathematical Physics**
+
+[Explore my physics notes →](#)
+
+---
 
 ## Projects
 
-这里将展示我的 Python 数值模拟、 计算物理和 AI 相关项目。
+这里记录一些我实际完成的计算、模拟与建模项目。
+
+**Numerical Simulation**
+
+Python 数值计算、有限体积法以及物理系统模拟。
+
+**Computational Physics**
+
+尝试使用计算方法研究物理问题，并比较解析结果与数值结果。
+
+**AI**
+
+探索机器学习与人工智能在科学研究中的可能应用。
+
+[View projects →](#)
+
+---
 
 ## Thoughts and reflections
 
-这里将记录我的一些思考和感悟。
+除了物理，我也会记录一些关于学习、科学、技术以及个人成长的思考。
+
+有些问题未必有明确答案。
+
+但值得认真想一想。
+
+---
+
+## About this site
+
+这个网站记录我的学习、研究，以及一些尚未形成答案的想法。
+
+我希望随着时间推移，这里能够留下我如何理解物理、计算与科学的痕迹。
+
+---
+
+*Wenjium · Physics, Computation, and Ideas*
