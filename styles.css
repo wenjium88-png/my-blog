@@ -1,1 +1,238 @@
-/* css styles */
+/* =========================================
+   Wenjium — Personal Academic Website
+   ========================================= */
+
+/* ---------- Global ---------- */
+
+:root {
+  --body-font: "Inter", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  --heading-font: "Inter", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  --accent-color: #2457a6;
+  --text-color: #202124;
+  --muted-color: #6b7280;
+  --border-color: #e5e7eb;
+  --soft-bg: #f7f8fa;
+  --content-width: 900px;
+}
+
+body {
+  font-family: var(--body-font);
+  color: var(--text-color);
+  line-height: 1.8;
+  font-size: 16px;
+}
+
+/* ---------- Main content ---------- */
+
+#quarto-content {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding-bottom: 4rem;
+}
+
+/* ---------- Navigation ---------- */
+
+.navbar {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.navbar-brand {
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.navbar-nav .nav-link {
+  font-size: 0.95rem;
+  margin-left: 0.5rem;
+  transition: opacity 0.2s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  opacity: 0.65;
+}
+
+/* ---------- Headings ---------- */
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--heading-font);
+  color: #16181d;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  line-height: 1.15;
+}
+
+.hero-title {
+  font-size: clamp(2.2rem, 4.2vw, 3.3rem);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 1.8rem;
+  margin-top: 3.5rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+h3 {
+  font-size: 1.25rem;
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+/* ---------- Intro ---------- */
+
+#title-block-header {
+  margin-bottom: 2rem;
+}
+
+#title-block-header .title {
+  font-weight: 700;
+}
+
+/* ---------- Strong text ---------- */
+
+strong {
+  font-weight: 650;
+}
+
+/* ---------- Links ---------- */
+
+a {
+  color: var(--accent-color);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  color: #163d78;
+}
+
+/* ---------- Blockquotes ---------- */
+
+blockquote {
+  margin: 2rem 0;
+  padding: 1rem 1.5rem;
+  border-left: 3px solid var(--accent-color);
+  background: var(--soft-bg);
+  color: #3f4650;
+  font-size: 1.05rem;
+}
+
+/* ---------- Horizontal rules ---------- */
+
+hr {
+  margin: 3rem 0;
+  border: 0;
+  border-top: 1px solid var(--border-color);
+}
+
+/* ---------- Code ---------- */
+
+code {
+  font-size: 0.9em;
+}
+
+pre {
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+/* ---------- Lists ---------- */
+
+li {
+  margin-bottom: 0.35rem;
+}
+
+/* ---------- Tables ---------- */
+
+table {
+  border-collapse: collapse;
+}
+
+table th,
+table td {
+  padding: 0.65rem 0.8rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* ---------- Footer ---------- */
+
+.nav-footer {
+  border-top: 1px solid var(--border-color);
+  margin-top: 4rem;
+  padding-top: 1rem;
+  color: var(--muted-color);
+  font-size: 0.9rem;
+}
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 768px) {
+
+  body {
+    font-size: 15px;
+  }
+
+  #quarto-content {
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+  }
+
+  h1 {
+    margin-top: 2rem;
+  }
+
+  h2 {
+    margin-top: 2.8rem;
+    font-size: 1.55rem;
+  }
+
+  blockquote {
+    padding: 0.8rem 1rem;
+  }
+}
+
+.interest-item {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  column-gap: 1rem;
+  padding: 1.4rem 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.interest-item:first-of-type {
+  padding-top: 1rem;
+}
+
+.interest-number {
+  padding-top: 0.15rem;
+  font-size: 0.8rem;
+  color: var(--muted-color);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+}
+
+.interest-item h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.interest-item p {
+  margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .interest-item {
+    grid-template-columns: 36px 1fr;
+  }
+}
