@@ -85,7 +85,11 @@ Python 数值计算、有限体积法以及物理系统模拟。
 
 ## Thoughts and reflections
 
-除了物理，也会记一些学习和科学方面的东西。大多是还没想清楚的问题，写下来是为了把思路理一遍。
+除了物理，也会记一些学习和科学方面的东西。
+
+有些问题未必有明确答案。
+
+但值得认真想一想。
 
 [Read the reflections →](thoughts/index.qmd){.section-link}
 
