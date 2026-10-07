@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-Hans" xml:lang="zh-Hans"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Vicsek 模型的相分离复现 – Wenjium</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-55617497126496852ff9f5a59253c640.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "没有结果",
+    "search-matching-documents-text": "匹配的文档",
+    "search-copy-link-title": "复制搜索链接",
+    "search-hide-matches-text": "隐藏其它匹配结果",
+    "search-more-match-text": "更多匹配结果",
+    "search-more-matches-text": "更多匹配结果",
+    "search-clear-button-title": "清除",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "提交",
+    "search-label": "搜索"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Wenjium</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="搜索"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="展开或折叠导航栏" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../projects/index.html"> 
+<span class="menu-text">Projects</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../physics-notes/index.html"> 
+<span class="menu-text">Notes</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/wenjium88-png"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">该页面内容</h2>
+   
+  <ul>
+  <li><a href="#这个项目在做什么" id="toc-这个项目在做什么" class="nav-link active" data-scroll-target="#这个项目在做什么">这个项目在做什么</a></li>
+  <li><a href="#模型" id="toc-模型" class="nav-link" data-scroll-target="#模型">模型</a>
+  <ul class="collapse">
+  <li><a href="#先把术语说清楚角噪声还是矢量噪声" id="toc-先把术语说清楚角噪声还是矢量噪声" class="nav-link" data-scroll-target="#先把术语说清楚角噪声还是矢量噪声">先把术语说清楚：角噪声还是矢量噪声</a></li>
+  </ul></li>
+  <li><a href="#代码结构两代实现-一条并行分支" id="toc-代码结构两代实现-一条并行分支" class="nav-link" data-scroll-target="#代码结构两代实现-一条并行分支">代码结构：两代实现 + 一条并行分支</a></li>
+  <li><a href="#复现结果" id="toc-复现结果" class="nav-link" data-scroll-target="#复现结果">复现结果</a>
+  <ul class="collapse">
+  <li><a href="#相图中的点对上了" id="toc-相图中的点对上了" class="nav-link" data-scroll-target="#相图中的点对上了">相图中的点对上了</a></li>
+  <li><a href="#与论文-fig-2a-的对照" id="toc-与论文-fig-2a-的对照" class="nav-link" data-scroll-target="#与论文-fig-2a-的对照">与论文 Fig 2(a) 的对照</a></li>
+  <li><a href="#滞后回线气体-微相分离fig-3c" id="toc-滞后回线气体-微相分离fig-3c" class="nav-link" data-scroll-target="#滞后回线气体-微相分离fig-3c">滞后回线：气体 ↔︎ 微相分离（Fig 3(c)）</a></li>
+  <li><a href="#滞后回线微相分离-极性液体fig-3d" id="toc-滞后回线微相分离-极性液体fig-3d" class="nav-link" data-scroll-target="#滞后回线微相分离-极性液体fig-3d">滞后回线：微相分离 ↔︎ 极性液体（Fig 3(d)）</a></li>
+  <li><a href="#液体侧-binodal为什么不能用剖面峰值" id="toc-液体侧-binodal为什么不能用剖面峰值" class="nav-link" data-scroll-target="#液体侧-binodal为什么不能用剖面峰值">液体侧 binodal：为什么不能用剖面峰值</a></li>
+  </ul></li>
+  <li><a href="#一个教训协议本身是结果的一部分" id="toc-一个教训协议本身是结果的一部分" class="nav-link" data-scroll-target="#一个教训协议本身是结果的一部分">一个教训：协议本身是结果的一部分</a></li>
+  <li><a href="#复现到什么程度" id="toc-复现到什么程度" class="nav-link" data-scroll-target="#复现到什么程度">复现到什么程度</a></li>
+  <li><a href="#工程侧从-516-ms步-到-33.6-ms步" id="toc-工程侧从-516-ms步-到-33.6-ms步" class="nav-link" data-scroll-target="#工程侧从-516-ms步-到-33.6-ms步">工程侧：从 516 ms/步 到 33.6 ms/步</a></li>
+  <li><a href="#背景这个模型在文献地图里的位置" id="toc-背景这个模型在文献地图里的位置" class="nav-link" data-scroll-target="#背景这个模型在文献地图里的位置">背景：这个模型在文献地图里的位置</a></li>
+  <li><a href="#下一步" id="toc-下一步" class="nav-link" data-scroll-target="#下一步">下一步</a></li>
+  <li><a href="#代码与文献" id="toc-代码与文献" class="nav-link" data-scroll-target="#代码与文献">代码与文献</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Vicsek 模型的相分离复现</h1>
+<p class="subtitle lead">研究项目 · 进行中</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p class="page-lead">
+用自己写的代码，把 Solon、Chaté 与 Tailleur 在 <em>PRL</em> <strong>114</strong>, 068101 (2015) 里的相分离图像重算一遍。<br> 下面是模型、代码结构、复现结果，以及哪些地方还没有做到。
+</p>
+<section id="这个项目在做什么" class="level2">
+<h2 class="anchored" data-anchor-id="这个项目在做什么">这个项目在做什么</h2>
+<p>那篇 PRL 的核心主张是：Vicsek 模型的”有序—无序转变”不是普通的连续相变，而是<strong>一级相变 + 微相分离</strong>。均匀有序相（Toner-Tu 相 / 极性液体）与无序气相之间隔着一段共存区，共存区里系统自发排成周期排列的有限宽”带”。</p>
+<p>我把复现目标具体到三张图：</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>论文 panel</th>
+<th>内容</th>
+<th>我的做法</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Fig 2(a)</td>
+<td>binodal 相图：<span class="math inline">\(\rho_\ell(\eta)\)</span>（气体侧）与 <span class="math inline">\(\rho_h(\eta)\)</span>（液体侧）</td>
+<td>一次共存区长程运行，取带剖面的谷值与峰值</td>
+</tr>
+<tr class="even">
+<td>Fig 3(c)</td>
+<td><span class="math inline">\(\eta=0.4\)</span> 下气体 ↔︎ 微相分离的滞后回线</td>
+<td>密度 ramp，400×100，2 seeds</td>
+</tr>
+<tr class="odd">
+<td>Fig 3(d)</td>
+<td><span class="math inline">\(\eta=0.4\)</span> 下微相分离 ↔︎ 极性液体的滞后回线</td>
+<td>密度 ramp，400×400（C++），6 seeds</td>
+</tr>
+</tbody>
+</table>
+<p><strong>为什么重写代码</strong>：这篇论文的相图对噪声约定、初态协议、盒子纵横比都很敏感。只有代码是自己写的，而且有两套独立实现互相对齐，才能确定复现的是论文里那条转变线，而不是一条形状相近的线。</p>
+</section>
+<section id="模型" class="level2">
+<h2 class="anchored" data-anchor-id="模型">模型</h2>
+<p>角噪声（scalar / angular noise）Vicsek 模型，对应论文式 (1)。所有粒子用 <span class="math inline">\(t\)</span> 时刻的信息<strong>平行更新</strong>：</p>
+<p><span id="eq-vicsek"><span class="math display">\[
+\theta_i(t+1)=\mathrm{Arg}\Big(\sum_{j\in S_i}\mathbf{v}_j(t)\Big)+\eta\,\xi_i,
+\qquad
+\mathbf{x}_i(t+1)=\mathbf{x}_i(t)+v_0\,\mathbf{e}_i(t+1)\pmod L
+\tag{1}\]</span></span></p>
+<ul>
+<li><span class="math inline">\(S_i\)</span>：与粒子 <span class="math inline">\(i\)</span> 距离 <span class="math inline">\(\le R\)</span> 的所有粒子（<strong>含自身</strong>），周期边界取最小镜像约定；</li>
+<li><span class="math inline">\(\xi_i\)</span>：<span class="math inline">\([-\pi,\pi]\)</span> 上均匀分布的随机角，噪声幅值为 <span class="math inline">\(\eta\pi\)</span>，<span class="math inline">\(\eta\in[0,1]\)</span>；</li>
+<li>标准参数：<span class="math inline">\(v_0=0.5\)</span>、<span class="math inline">\(R=1\)</span>、<span class="math inline">\(\Delta t=1\)</span>；初态为随机位置 + 随机取向，也就是”从无序出发”。</li>
+</ul>
+<section id="先把术语说清楚角噪声还是矢量噪声" class="level3">
+<h3 class="anchored" data-anchor-id="先把术语说清楚角噪声还是矢量噪声">先把术语说清楚：角噪声还是矢量噪声</h3>
+<p>同一篇文献里 “vectorial noise” 和 “angular noise” 经常被混着写，但它们是两个不同的模型。按 Ginelli &amp; Chaté, <em>EPJ ST</em> <strong>225</strong>, 2099 (2016) 的定义：</p>
+<ul>
+<li><strong>scalar / angular noise</strong>（其式 (2) 即本页式<a href="#eq-vicsek" class="quarto-xref">1</a>）：随机角 <span class="math inline">\(\eta\xi_i\)</span> 加在邻居速度<strong>和的辐角</strong>上；</li>
+<li><strong>vectorial noise</strong>（其式 (6)）：随机矢量在归一化<strong>之前</strong>加到邻居速度<strong>和</strong>上，幅值正比于邻居数。</li>
+</ul>
+<p>两者渐近性质相同，有限尺寸行为有差异，<strong>定量对照文献数值时不能混用</strong>。Solon–Chaté–Tailleur (2015) 的 Fig 2 / Fig 3 用的是角噪声版本，本项目的所有实现都与它对齐——这也是为什么下面的 <span class="math inline">\(\eta\)</span> 刻度可以和论文直接比。</p>
+</section>
+</section>
+<section id="代码结构两代实现-一条并行分支" class="level2">
+<h2 class="anchored" data-anchor-id="代码结构两代实现-一条并行分支">代码结构：两代实现 + 一条并行分支</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>文件</th>
+<th>属于</th>
+<th>做什么</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>vicsek.py</code></td>
+<td>第一代（方形盒）</td>
+<td>模型核心：精确邻域搜索、观测量、单点 CLI、自检</td>
+</tr>
+<tr class="even">
+<td><code>scan.py</code></td>
+<td>第一代</td>
+<td>并行网格扫描（多进程/线程、断点续跑、<code>--quick</code> / <code>--dense</code>）</td>
+</tr>
+<tr class="odd">
+<td><code>analyze.py</code></td>
+<td>第一代</td>
+<td>相图绘图 + <span class="math inline">\(\eta_c\)</span> 提取</td>
+</tr>
+<tr class="even">
+<td><code>vicsek_rect.py</code></td>
+<td>第二代（矩形盒）</td>
+<td>加上任意 <span class="math inline">\(L_\parallel\times L_\perp\)</span> 与 <code>ramp_run</code> 密度 ramp 协议</td>
+</tr>
+<tr class="odd">
+<td><code>vicsek_ramp.cpp</code></td>
+<td>第二代（C++ 加速）</td>
+<td>与 <code>vicsek_rect.ramp_run</code> <strong>同一物理、同一协议</strong>的编译实现</td>
+</tr>
+<tr class="even">
+<td><code>campaign.py</code></td>
+<td>复现流水线</td>
+<td>批量跑 Fig 2(a) / Fig 3(c,d) 的任务</td>
+</tr>
+<tr class="odd">
+<td><code>plot_cpp_fig3d.py</code></td>
+<td>复现流水线</td>
+<td>出 Fig 3(d) 的 C++ 对照图</td>
+</tr>
+</tbody>
+</table>
+<p>这条线是<strong>两代</strong>：方形盒的相图扫描 → 矩形盒加 ramp 协议 → 把第二代编译成 C++ 去跑论文规格的 400×400。C++ 版不是新模型，它和 Python 版在同一批用例上 <span class="math inline">\(\varphi\)</span> 相差 0.2%–0.9%。</p>
+<p><strong>另外还有一条并行分支</strong>：<code>sim/</code> 目录里有一套从头独立写的带测量工具（<code>vicsek_bands.cpp</code>，Python/scipy 版 205 ms/步已弃用）。它只做一件事——测共存区里一条带的宽度与密度，回答”噪声降低时一条带的质量为什么变小”。它不是第三代，而是一套<strong>独立写的第二实现</strong>，用来对主线的结论做交叉验证：两套代码在 <span class="math inline">\(\eta=0.4\)</span>、<span class="math inline">\(\rho=1.93\)</span>、800×100 下给出 <span class="math inline">\(\varphi\)</span> 差 <strong>0.7%</strong>、<span class="math inline">\(n_b\)</span> 同为 6。</p>
+</section>
+<section id="复现结果" class="level2">
+<h2 class="anchored" data-anchor-id="复现结果">复现结果</h2>
+<section id="相图中的点对上了" class="level3">
+<h3 class="anchored" data-anchor-id="相图中的点对上了">相图中的点对上了</h3>
+<p>用 <span class="math inline">\(L=64\)</span> 方形盒、随机初态扫描每个密度的 <span class="math inline">\(\varphi=0.5\)</span> 中点，与论文相图两条曲线的窗口中点对比：</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th><span class="math inline">\(\rho_0\)</span></th>
+<th>我的 <span class="math inline">\(\eta(\varphi=0.5)\)</span></th>
+<th>论文窗口</th>
+<th>论文中点</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0.5</td>
+<td>0.270</td>
+<td>(0.12, 0.43)</td>
+<td>0.275</td>
+</tr>
+<tr class="even">
+<td>1.0</td>
+<td>0.335</td>
+<td>(0.21, 0.47)</td>
+<td>0.340</td>
+</tr>
+<tr class="odd">
+<td>2.0</td>
+<td>0.410</td>
+<td>(0.30, 0.52)</td>
+<td>0.410</td>
+</tr>
+<tr class="even">
+<td>4.0</td>
+<td>0.470</td>
+<td>(0.41, 0.53)</td>
+<td>0.470</td>
+</tr>
+</tbody>
+</table>
+<p><strong>四个密度全部吻合到 0.01 以内</strong>。这条对齐同时确认了三件事：模型写对了、噪声约定选对了（角噪声而非矢量噪声）、<span class="math inline">\(\eta\)</span> 的标度可以直接和论文比较。</p>
+<div id="fig-phase" class="quarto-float quarto-figure quarto-figure-center anchored" alt="相图热力图与转变线">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-phase-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/res-phase-diagram.png" class="img-fluid figure-img" alt="相图热力图与转变线">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-phase-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;1: <span class="math inline">\(\varphi\)</span> 在 <span class="math inline">\(\eta\)</span>–<span class="math inline">\(\rho\)</span> 平面上的分布与提取出的转变线
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="与论文-fig-2a-的对照" class="level3">
+<h3 class="anchored" data-anchor-id="与论文-fig-2a-的对照">与论文 Fig 2(a) 的对照</h3>
+<div id="fig-fig2a" class="quarto-float quarto-figure quarto-figure-center anchored" alt="复现相图与论文 Fig 2(a) 的对照">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-fig2a-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/res-fig2a.png" class="img-fluid figure-img" alt="复现相图与论文 Fig 2(a) 的对照">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fig2a-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;2: 复现的 binodal（彩色曲线）叠在论文 Fig 2(a) 的读数上
+</figcaption>
+</figure>
+</div>
+<p>气体侧 <span class="math inline">\(\rho_\ell(\eta)\)</span> 在 <span class="math inline">\(\eta\le0.35\)</span> 收敛得很好（<span class="math inline">\(\eta=0.20\)</span>：0.089；<span class="math inline">\(\eta=0.25\)</span>：0.148；<span class="math inline">\(\eta=0.35\)</span>：0.31–0.44）。<span class="math inline">\(\eta\ge0.4\)</span> 的点系统性偏高 20–40%，原因是气体背景在给定步数内还没有完全稀释：趋势对，数值没到平衡。具体原因列在下面「复现到什么程度」一节。</p>
+</section>
+<section id="滞后回线气体-微相分离fig-3c" class="level3">
+<h3 class="anchored" data-anchor-id="滞后回线气体-微相分离fig-3c">滞后回线：气体 ↔︎ 微相分离（Fig 3(c)）</h3>
+<p><span class="math inline">\(\eta=0.4\)</span>，400×100，2 seeds：</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>量</th>
+<th>复现</th>
+<th>论文（400×400，100 runs）</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>上行支成核 <span class="math inline">\(\rho_0\)</span></td>
+<td>0.81–0.95</td>
+<td>0.90</td>
+</tr>
+<tr class="even">
+<td>下行支消失 <span class="math inline">\(\rho_0\)</span></td>
+<td>0.62–0.70</td>
+<td>0.75</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\lvert v\rvert\)</span>（<span class="math inline">\(\rho_0=1.25\)</span>）</td>
+<td>0.24</td>
+<td>0.23</td>
+</tr>
+</tbody>
+</table>
+<p>两支的相对位置、弯曲形状、右端汇合都与论文截图一致；滞后略宽，来自 seeds 数与 <span class="math inline">\(L_\perp\)</span> 的差异。</p>
+<div id="fig-fig3cd" class="quarto-float quarto-figure quarto-figure-center anchored" alt="气体与微相分离之间的滞后回线">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-fig3cd-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/res-fig3cd.png" class="img-fluid figure-img" alt="气体与微相分离之间的滞后回线">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fig3cd-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;3: Fig 3(c) 的复现对照
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="滞后回线微相分离-极性液体fig-3d" class="level3">
+<h3 class="anchored" data-anchor-id="滞后回线微相分离-极性液体fig-3d">滞后回线：微相分离 ↔︎ 极性液体（Fig 3(d)）</h3>
+<p>这一张最初是失败的：在 400×48 的窄盒子里，上行支无论如何都不崩塌，看起来像”<span class="math inline">\(\rho_h&gt;5.5\)</span>“。换成论文规格 400×400、每点 8000 步、上行用 3 条带种子、6 seeds 之后：</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th><span class="math inline">\(\rho_0\)</span></th>
+<th>上行支 <span class="math inline">\(\Delta\rho_\parallel^2\)</span></th>
+<th>下行支</th>
+<th>论文读数</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2.00</td>
+<td><span class="math inline">\(2.23\pm0.04\)</span></td>
+<td>1.14</td>
+<td>~2.1</td>
+</tr>
+<tr class="even">
+<td>2.87</td>
+<td><span class="math inline">\(2.30\pm0.11\)</span></td>
+<td>0.82</td>
+<td>~2.1</td>
+</tr>
+<tr class="odd">
+<td>3.44</td>
+<td><span class="math inline">\(1.74\pm0.17\)</span></td>
+<td>0.30</td>
+<td>~1.9</td>
+</tr>
+<tr class="even">
+<td>4.02</td>
+<td><span class="math inline">\(0.52\pm0.15\)</span></td>
+<td>0.17</td>
+<td>~1.2</td>
+</tr>
+<tr class="odd">
+<td>4.60</td>
+<td><span class="math inline">\(0.16\pm0.05\)</span></td>
+<td>0.14</td>
+<td>~0.15</td>
+</tr>
+</tbody>
+</table>
+<p>上行支平台 2.2–2.45（论文 2.1）、高密度端 0.16（论文 0.15）、下行支高密度侧 0.13–0.20（论文 ~0.15）——<strong>高密度端和平台都对上了</strong>。仍然存在的差异：我的崩塌区在 3.7–4.0，比论文（4.0–4.2）偏早，而且崩塌过程比论文<strong>更平缓</strong>（论文是在 4.0 附近陡降）。</p>
+<div id="fig-fig3d" class="quarto-float quarto-figure quarto-figure-center anchored" alt="微相分离与极性液体之间的滞后回线">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-fig3d-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/res-fig3d-cpp.png" class="img-fluid figure-img" alt="微相分离与极性液体之间的滞后回线">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fig3d-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;4: Fig 3(d) 的 400×400 C++ 重跑
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="液体侧-binodal为什么不能用剖面峰值" class="level3">
+<h3 class="anchored" data-anchor-id="液体侧-binodal为什么不能用剖面峰值">液体侧 binodal：为什么不能用剖面峰值</h3>
+<p>最开始的做法是错的：把带剖面的峰值当作 <span class="math inline">\(\rho_h\)</span>。小 <span class="math inline">\(L_\perp\)</span> 盒子里带被挤压，峰值会系统性偏高约一倍（<span class="math inline">\(\eta=0.2\)</span> 给 2.35，论文约 0.95；<span class="math inline">\(\eta=0.35\)</span> 给 5.19，论文约 2.9）。</p>
+<p>换用带稳定性判据、并做 <span class="math inline">\(L_\perp\)</span> 扫描后，证据链才清楚：</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>盒子</th>
+<th>span 演化（30000 步内）</th>
+<th>判定</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>400×48</td>
+<td>6.35 → 4.16，无趋势（均值 5.03）</td>
+<td>不溶解——窄盒子人为稳定带</td>
+</tr>
+<tr class="even">
+<td>400×200</td>
+<td>5.26 → 3.56 → 2.39 单调衰减</td>
+<td>正在溶解</td>
+</tr>
+<tr class="odd">
+<td>400×400（C++ ramp）</td>
+<td>下行支 <span class="math inline">\(\rho\ge3.7\)</span> 时 <span class="math inline">\(\Delta\rho_\parallel^2=0.14\)</span>–0.18</td>
+<td>已均匀</td>
+</tr>
+</tbody>
+</table>
+<div id="fig-rhoh" class="quarto-float quarto-figure quarto-figure-center anchored" alt="不同横向盒宽下带密度的演化">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rhoh-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/res-rho-h.png" class="img-fluid figure-img" alt="不同横向盒宽下带密度的演化">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rhoh-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;5: <span class="math inline">\(L_\perp\)</span> 有限尺寸效应对 <span class="math inline">\(\rho_h\)</span> 判定的影响
+</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="一个教训协议本身是结果的一部分" class="level2">
+<h2 class="anchored" data-anchor-id="一个教训协议本身是结果的一部分">一个教训：协议本身是结果的一部分</h2>
+<p>同一个状态点（<span class="math inline">\(\eta=0.4\)</span>、<span class="math inline">\(\rho_0=2.87\)</span>），三种协议给出三个差别很大的 <span class="math inline">\(\Delta\rho_\parallel^2\)</span>：</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>上行支协议</th>
+<th><span class="math inline">\(\rho_0=2.87\)</span> 处的 <span class="math inline">\(\Delta\rho_\parallel^2\)</span></th>
+<th>现象</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>每点 4000 步、播 2 条带</td>
+<td>3.56</td>
+<td>带被压缩（还没弛豫），偏高</td>
+</tr>
+<tr class="even">
+<td>每点 8000 步、播 3 条带</td>
+<td><strong>2.30</strong></td>
+<td>与论文的 2.1 吻合</td>
+</tr>
+<tr class="odd">
+<td>单点充分弛豫（3000+ 步自由演化）</td>
+<td>1.24</td>
+<td>带展宽、气体密度升到 1.65，偏低</td>
+</tr>
+</tbody>
+</table>
+<p><strong>太快 → 带被压缩、偏高；太慢 → 带展宽、偏低</strong>；论文的 2.1 落在中间，对应”ramp 足够慢，让带数能随密度自己调整”。所以播种的带数应该按自然带数取：</p>
+<p><span id="eq-band"><span class="math display">\[
+n_b=\frac{L_\parallel\,(\rho_0-\rho_{\rm gas})}{\mu}
+\tag{2}\]</span></span></p>
+<p>否则带会被盒子挤住。论文自己也提醒过这一点。上面那个 <span class="math inline">\(\rho_h&gt;5.5\)</span> 的假象也是同一个原因：参数没错，是盒子太小。</p>
+</section>
+<section id="复现到什么程度" class="level2">
+<h2 class="anchored" data-anchor-id="复现到什么程度">复现到什么程度</h2>
+<p>已经站得住的：</p>
+<ul>
+<li>相图中点：四个密度的 <span class="math inline">\(\eta(\varphi=0.5)\)</span> 与论文窗口吻合到 <strong>0.01 以内</strong>；</li>
+<li>Fig 3(c)：跃变位置与幅度在 0.05–0.1 以内；</li>
+<li>Fig 3(d)：上行支平台、高密度端、下行支高密度侧都对上；</li>
+<li>带态定量：<span class="math inline">\(\eta=0.40\)</span>、<span class="math inline">\(\rho_0=1.93\)</span>、800×100 下 <span class="math inline">\(\rho_{\rm gas}=0.622\)</span>（论文 0.606，差 2.6%）、峰值 4.82（论文 <span class="math inline">\(\approx4.5\)</span>）、<span class="math inline">\(n_b=6\)</span>（论文 <span class="math inline">\(\approx6\)</span>）；自洽检查 <span class="math inline">\(L_x(\rho_0-\rho_{\rm gas})/n_b=174.4\)</span> 与实测的 <span class="math inline">\(m_b/L_\perp=174.4\)</span> 完全一致；</li>
+<li>三个相区、两条 binodal 的形状、带的共存机制、双向滞后——<strong>定性全部复现</strong>。</li>
+</ul>
+<p>还没做到的：</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>现象</th>
+<th>原因</th>
+<th>需要什么</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\rho_\ell(\eta\ge0.4)\)</span> 偏高 20–40%</td>
+<td>气体背景未完全稀释（共 9000–25000 步不够）</td>
+<td>瞬态 ×3–5</td>
+</tr>
+<tr class="even">
+<td>Fig 3(d) 上行支崩塌偏平缓</td>
+<td>ramp 偏快 + <span class="math inline">\(L_\perp=48\)</span> 稳定带</td>
+<td>每点弛豫 ×5（约 4000 步）+ 更大 <span class="math inline">\(L_\perp\)</span></td>
+</tr>
+<tr class="odd">
+<td>下行支低密度端 1.1–1.3（论文 ~2.1）</td>
+<td>成核在给定步数内没有完全展开</td>
+<td>更多步数</td>
+</tr>
+<tr class="even">
+<td>滞后宽度偏大</td>
+<td>2 seeds（论文 100 runs）</td>
+<td>更多 seeds、更慢 ramp</td>
+</tr>
+<tr class="odd">
+<td>Fig 2(a) 蓝线没有独立测量</td>
+<td>需要更慢 ramp / 更大 <span class="math inline">\(L_\perp\)</span></td>
+<td>慢 ramp + 恢复 <span class="math inline">\(L_\perp\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>根本约束</strong>：论文 Fig 3(c,d) 用 400×400 盒子 + 100 runs，我这边是 16 核、纯 NumPy（没有 GPU，也没装 numba）。把 400×400 跑到收敛大约要 17 小时一条 ramp，所以对 <span class="math inline">\(L_\perp\)</span> 和步数做了缩减——这直接导致高密度支没有到平衡。上面每一条”还没做到”，原因都是算力，不是物理。</p>
+</section>
+<section id="工程侧从-516-ms步-到-33.6-ms步" class="level2">
+<h2 class="anchored" data-anchor-id="工程侧从-516-ms步-到-33.6-ms步">工程侧：从 516 ms/步 到 33.6 ms/步</h2>
+<p>要在论文规格盒子上跑，Python 就不够了。400×400（<span class="math inline">\(N=736\,000\)</span>）时同规模 NumPy 约 5.5 s/步（候选对数 <span class="math inline">\(3.1\times10^7\)</span>），一条 23k 步的 ramp 要 35 小时。C++ 版最终 <strong>33.6 ms/步</strong>（16 线程），约 <strong>160×</strong>，同一条 ramp 约 13 分钟。</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>优化</th>
+<th>效果</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SoA + <code>float</code>：位置与取向分开存，内存流量减半</td>
+<td>基础</td>
+</tr>
+<tr class="even">
+<td><strong>强制内联取整</strong>：<code>nearbyintf</code> / <code>floorf</code> 在热循环里退化为 libm 调用</td>
+<td><strong>12.8×</strong>（4 线程 744 → 58 ms/步）</td>
+</tr>
+<tr class="odd">
+<td><strong>计数排序按单元重排</strong>：邻居循环从随机散布访存变成连续内存，可预取</td>
+<td>与上项合计约 4.6×（16 线程 156 → 33.6 ms/步）</td>
+</tr>
+<tr class="even">
+<td>sin/cos 查表（4096 项 + 线性插值，误差约 <span class="math inline">\(10^{-7}\)</span>）</td>
+<td>同上</td>
+</tr>
+<tr class="odd">
+<td><code>std::thread</code> 按粒子分块（每粒子只写自己的槽位，无竞争）+ OpenMP 处理 <span class="math inline">\(O(N)\)</span> 循环</td>
+<td>16 核近线性</td>
+</tr>
+<tr class="even">
+<td>邻居单元 LUT、每线程独立 xoshiro256 随机数</td>
+<td>基础</td>
+</tr>
+</tbody>
+</table>
+<p>两个值得记下来的坑：</p>
+<ol type="1">
+<li><strong>libm 调用</strong>：<code>std::nearbyintf</code> / <code>std::floorf</code> 没被内联时是真正的函数调用，内层每对候选粒子调 2 次，即 6600 万次/步——正好解释了实测的 1.03 s/步。</li>
+<li><strong>自己写的查表 bug</strong>：把 <code>ang×NB/(2π)</code> 当作”圈数比例”之后又乘了一次 <code>NB</code>，等效把噪声角放大 6.28 倍，任意 <span class="math inline">\(\eta&gt;0\)</span> 都变成随机旋转。发现它的线索很干净：<span class="math inline">\(\eta=0\)</span> 的极限测试给出 <span class="math inline">\(\varphi=1.0000\)</span> 且所有粒子指向 <span class="math inline">\(+x\)</span>，这是”零邻居回退分支”的特征签名。</li>
+</ol>
+<p>Python 那条线也踩了两个值得写的坑：</p>
+<ul>
+<li><strong>排序后”朝向 ↔︎ 位置”错配</strong>：一开始把状态存成 <span class="math inline">\(\theta\)</span>，在单元计数排序<strong>之前</strong>算好 <span class="math inline">\((\cos\theta,\sin\theta)\)</span>，排序之后却用新槽位去索引旧顺序的三角函数值 → 张冠李戴。改成直接以 <span class="math inline">\((\cos\theta,\sin\theta)\)</span> 为状态量、scatter 时和位置一起搬运、永不重算，<span class="math inline">\(\varphi\)</span> 立刻对上参考值。</li>
+<li><strong>初态的取向展宽是要害</strong>：随机位置 + 随机朝向跑 12000 步 → 塌成一个巨团（峰值 <span class="math inline">\(\rho\approx19\)</span>）；按 6 条带密度播种但朝向随机 → 照样塌；只有”按 6 条带播种 + 朝向近似对齐（spread <span class="math inline">\(=0.1\pi\)</span>）“才稳定成 6 条带。<strong>带的形成有明确的成核/弛豫门槛</strong>，这正好呼应论文里的”临界核”与 Fig 3(c) 的滞回环。</li>
+</ul>
+<p>还有一条协议层面的：<strong>跨 <span class="math inline">\(\eta\)</span> 比较时不能配平”过剩密度”，必须配平”液相比”</strong>（杠杆定则）：</p>
+<p><span id="eq-lever"><span class="math display">\[
+\varphi_{\rm liq}=\frac{\rho_0-\rho_\ell}{\rho_h-\rho_\ell}=\text{const}
+\tag{3}\]</span></span></p>
+<p>用 <span class="math inline">\(\varphi_{\rm liq}=0.39\)</span> 从相图反解出正确的取样密度（<span class="math inline">\(\eta=0.40\to\rho_0=1.92\)</span>、<span class="math inline">\(\eta=0.35\to1.34\)</span>、<span class="math inline">\(\eta=0.30\to0.91\)</span>）。在这之前我按”<span class="math inline">\(\rho_0/\rho_h\)</span> 差不多”取样，结果落在共存窗口之外——第一波样本整体作废。</p>
+</section>
+<section id="背景这个模型在文献地图里的位置" class="level2">
+<h2 class="anchored" data-anchor-id="背景这个模型在文献地图里的位置">背景：这个模型在文献地图里的位置</h2>
+<p>复现的过程也是补背景的过程。下面几张是我读文献时整理的对照表。</p>
+<div id="fig-aim" class="quarto-float quarto-figure quarto-figure-center anchored" alt="平衡伊辛模型与 AIM 的性质对照表">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-aim-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/fig-aim-vs-xy.png" class="img-fluid figure-img" alt="平衡伊辛模型与 AIM 的性质对照表">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-aim-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;6: 平衡伊辛模型与活性伊辛模型（AIM）的对照
+</figcaption>
+</figure>
+</div>
+<div id="fig-vsaim" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Vicsek 模型与 AIM 的对称性、序参量、相分离形态对照表">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-vsaim-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/fig-vicsek-vs-aim.png" class="img-fluid figure-img" alt="Vicsek 模型与 AIM 的对称性、序参量、相分离形态对照表">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-vsaim-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;7: VM（Vicsek 模型）与 AIM 的完整对照
+</figcaption>
+</figure>
+</div>
+<div id="fig-terms" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Toner-Tu 相、极性液体、Vicsek 类、活性 XY 类等术语对照表">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-terms-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/fig-toner-tu.png" class="img-fluid figure-img" alt="Toner-Tu 相、极性液体、Vicsek 类、活性 XY 类等术语对照表">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-terms-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;8: 术语地图：文献里同一个东西的不同叫法
+</figcaption>
+</figure>
+</div>
+<div id="fig-notxy" class="quarto-float quarto-figure quarto-figure-center anchored" alt="Vicsek 模型与 XY 模型的四点本质区别">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-notxy-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/fig-vicsek-update.png" class="img-fluid figure-img" alt="Vicsek 模型与 XY 模型的四点本质区别">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-notxy-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+图&nbsp;9: 为什么 Vicsek 模型不是 XY 模型
+</figcaption>
+</figure>
+</div>
+<p>关键的一条：<strong>Vicsek 模型和 XY 模型只是”连续取向 + 铁磁对齐”这层现象相似，本质上是两类系统</strong>。XY 是平衡态晶格模型，受 Mermin–Wagner 定理约束；Vicsek 是非平衡活性系统，粒子自由飞行、邻居随运动而变，不受该定理约束，而且它的有序相伴随<strong>巨数密度涨落</strong>（<span class="math inline">\(\Delta n\propto\langle n\rangle^{0.8}\)</span>）——形成高密度带正是这种涨落的表现，平衡 XY 模型里完全不存在。</p>
+<p>也正因为如此，Vicsek 类模型（矢量序参量、<span class="math inline">\(O(2)\)</span>、巨数涨落、微相分离）和对面的活性伊辛类 AIM（标量序参量、<span class="math inline">\(\mathbb{Z}_2\)</span>、正常涨落、体相分离）在相分离形态上完全不同：前者是<strong>周期排列的有限宽带</strong>，后者是<strong>单个宏观液畴</strong>。</p>
+</section>
+<section id="下一步" class="level2">
+<h2 class="anchored" data-anchor-id="下一步">下一步</h2>
+<ol type="1">
+<li><strong>慢 ramp</strong>：每密度点 4000–6000 步（而不是 1200），<span class="math inline">\(\mathrm{d}\rho\)</span> 减半，预估 8–12 小时/条；</li>
+<li><strong>恢复 <span class="math inline">\(L_\perp\)</span></strong>：至少 100，高密度端再考虑 200–400；</li>
+<li><strong>多 seeds</strong>：每条 ramp 5–10 个种子，消掉分支噪声；</li>
+<li><strong>补上带速 <span class="math inline">\(c\)</span> 的独立测量</strong>（现在用的圆互相关够用但不够稳）；</li>
+<li><strong>可选加速</strong>：装 numba（Python 3.13 需 ≥0.61）把步进循环编译，预期再快 5–10 倍。</li>
+</ol>
+</section>
+<section id="代码与文献" class="level2">
+<h2 class="anchored" data-anchor-id="代码与文献">代码与文献</h2>
+<p><strong>代码</strong>：本页对着的源码都在仓库的 <code>projects/vicsek-model/code/</code> 下（<code>vicsek.py</code>、<code>vicsek_rect.py</code>、<code>scan.py</code>、<code>analyze.py</code>、<code>vicsek_ramp.cpp</code>、<code>campaign.py</code>、<code>plot_cpp_fig3d.py</code>），目录说明见同目录的 <code>README.md</code>。</p>
+<p><strong>文献</strong>：</p>
+<ul>
+<li>Solon, Chaté &amp; Tailleur, <em>From Phase to Microphase Separation in Flocking Models: The Essential Role of Nonequilibrium Fluctuations</em>, <strong>PRL 114</strong>, 068101 (2015) —— 复现目标。</li>
+<li>Ginelli &amp; Chaté, <em>Relevance of metric-free interactions in flocking phenomena</em>, <strong>EPJ ST 225</strong>, 2099 (2016) —— 角噪声 / 矢量噪声的术语定义出处。</li>
+</ul>
+<p>论文全文与截图仅用于本地阅读与对照，不在本站转载。</p>
+<p>
+<a class="section-link" href="../index.html">← 返回 Projects</a>
+</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "已复制");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "已复制");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/wenjium88-png\.github\.io\/my-blog\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026 Wenjium</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Built with Quarto</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

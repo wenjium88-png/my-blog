@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-Hans" xml:lang="zh-Hans"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Groups: Basic Definitions and Examples – Wenjium</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-55617497126496852ff9f5a59253c640.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "没有结果",
+    "search-matching-documents-text": "匹配的文档",
+    "search-copy-link-title": "复制搜索链接",
+    "search-hide-matches-text": "隐藏其它匹配结果",
+    "search-more-match-text": "更多匹配结果",
+    "search-more-matches-text": "更多匹配结果",
+    "search-clear-button-title": "清除",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "提交",
+    "search-label": "搜索"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Wenjium</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="搜索"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="展开或折叠导航栏" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../projects/index.html"> 
+<span class="menu-text">Projects</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../physics-notes/index.html"> 
+<span class="menu-text">Notes</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/wenjium88-png"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">该页面内容</h2>
+   
+  <ul class="collapse">
+  <li><a href="#definition-and-first-examples" id="toc-definition-and-first-examples" class="nav-link active" data-scroll-target="#definition-and-first-examples">2.1 Definition and first examples</a></li>
+  <li><a href="#subgroups-order-and-cyclic-groups" id="toc-subgroups-order-and-cyclic-groups" class="nav-link" data-scroll-target="#subgroups-order-and-cyclic-groups">2.2 Subgroups, order, and cyclic groups</a></li>
+  <li><a href="#equivalence-relations-and-residue-classes" id="toc-equivalence-relations-and-residue-classes" class="nav-link" data-scroll-target="#equivalence-relations-and-residue-classes">2.3 Equivalence relations and residue classes</a></li>
+  <li><a href="#direct-products-and-abelian-groups" id="toc-direct-products-and-abelian-groups" class="nav-link" data-scroll-target="#direct-products-and-abelian-groups">2.4 Direct products and Abelian groups</a></li>
+  <li><a href="#matrix-groups" id="toc-matrix-groups" class="nav-link" data-scroll-target="#matrix-groups">2.5 Matrix groups</a></li>
+  <li><a href="#generators-and-presentations" id="toc-generators-and-presentations" class="nav-link" data-scroll-target="#generators-and-presentations">2.6 Generators and presentations</a></li>
+  <li><a href="#application-the-pauli-group-and-stabilizer-codes" id="toc-application-the-pauli-group-and-stabilizer-codes" class="nav-link" data-scroll-target="#application-the-pauli-group-and-stabilizer-codes">2.7 Application: the Pauli group and stabilizer codes</a></li>
+  <li><a href="#key-terms-with-chinese-glosses" id="toc-key-terms-with-chinese-glosses" class="nav-link" data-scroll-target="#key-terms-with-chinese-glosses">Key terms (with Chinese glosses)</a></li>
+  <li><a href="#quizzes-to-work-through-for-our-one-by-one-discussion" id="toc-quizzes-to-work-through-for-our-one-by-one-discussion" class="nav-link" data-scroll-target="#quizzes-to-work-through-for-our-one-by-one-discussion">Quizzes to work through (for our one-by-one discussion)</a></li>
+  <li><a href="#main-propositions-of-the-chapter-proofs-above" id="toc-main-propositions-of-the-chapter-proofs-above" class="nav-link" data-scroll-target="#main-propositions-of-the-chapter-proofs-above">Main propositions of the chapter (proofs above)</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Groups: Basic Definitions and Examples</h1>
+<p class="subtitle lead">Lecture 1 · Chapter 2</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<blockquote class="blockquote">
+<p>Reading: Moore, §2 (pp.&nbsp;6–10), §3 (pp.&nbsp;10–27), §10 (pp.&nbsp;191–199); NC §10.5 (stabilizer codes).</p>
+</blockquote>
+<hr>
+<section id="definition-and-first-examples" class="level2">
+<h2 class="anchored" data-anchor-id="definition-and-first-examples">2.1 Definition and first examples</h2>
+<section id="definition-2.1-group-群" class="level3">
+<h3 class="anchored" data-anchor-id="definition-2.1-group-群">Definition 2.1 (Group 群)</h3>
+<p>A <strong>group</strong> is a quartet <span class="math inline">\((G, m, I, e)\)</span> where</p>
+<ol type="1">
+<li><span class="math inline">\(G\)</span> is a set;</li>
+<li><span class="math inline">\(m : G \times G \to G\)</span> is a <strong>multiplication</strong>;</li>
+<li><span class="math inline">\(I : G \to G\)</span> is an <strong>inversion</strong>;</li>
+<li><span class="math inline">\(e \in G\)</span> is the <strong>identity</strong> element,</li>
+</ol>
+<p>subject to</p>
+<ul>
+<li><ol type="i">
+<li><strong>Associativity:</strong> <span class="math inline">\(m(m(g_1,g_2),g_3) = m(g_1, m(g_2,g_3))\)</span>, i.e.&nbsp;<span class="math inline">\((g_1 g_2)g_3 = g_1(g_2 g_3)\)</span>;</li>
+</ol></li>
+<li><ol start="2" type="i">
+<li><strong>Identity:</strong> <span class="math inline">\(eg = ge = g\)</span> for all <span class="math inline">\(g \in G\)</span>;</li>
+</ol></li>
+<li><ol start="3" type="i">
+<li><strong>Inverse:</strong> <span class="math inline">\(g\,I(g) = I(g)\,g = e\)</span>; write <span class="math inline">\(I(g) =: g^{-1}\)</span>.</li>
+</ol></li>
+</ul>
+<blockquote class="blockquote">
+<p>Associativity is a <strong>real restriction</strong>. Two familiar operations fail it: the vector cross product <span class="math inline">\((\vec a \times \vec b) \times \vec c \neq \vec a \times (\vec b \times \vec c)\)</span> in general, and multiplication of the octonions 八元数.</p>
+</blockquote>
+</section>
+<section id="remark-2.2-notation-and-weaker-structures" class="level3">
+<h3 class="anchored" data-anchor-id="remark-2.2-notation-and-weaker-structures">Remark 2.2 (Notation and weaker structures)</h3>
+<ol type="1">
+<li>The identity is written <span class="math inline">\(e\)</span>, <span class="math inline">\(1\)</span>, <span class="math inline">\(1_G\)</span>, or <span class="math inline">\(0\)</span> depending on context.</li>
+<li>Dropping axioms gives weaker structures:</li>
+</ol>
+<pre><code>semi-group 半群 --add identity--&gt; monoid 幺半群 --add inverses--&gt; group 群
+{1,2,3,...}                     {0,1,2,...}                    Z  (under +)
+   no identity                    no inverses                  -n inverts n</code></pre>
+<ul>
+<li>A monoid need <strong>not</strong> sit inside any group: <span class="math inline">\(\{0,1,2,\dots\}\)</span> under <strong>multiplication</strong> is a monoid with identity 1, but no group contains it, because <span class="math inline">\(0\cdot 2 = 0\cdot 3\)</span> with <span class="math inline">\(2 \neq 3\)</span>, while in a group <span class="math inline">\(ab = ac \Rightarrow b = c\)</span> (multiply by <span class="math inline">\(a^{-1}\)</span>).</li>
+<li><strong>Cancellation</strong> is therefore a necessary condition for embedding a monoid in a group.</li>
+</ul>
+<ol start="3" type="1">
+<li>If <span class="math inline">\(G\)</span> is also a <strong>manifold</strong> 流形 (locally looks like an open region of <span class="math inline">\(\mathbb R^n\)</span>) and <span class="math inline">\(m, I\)</span> are real analytic in local coordinates, then <span class="math inline">\(G\)</span> is a <strong>Lie group</strong> 李群.</li>
+<li>Abbreviate <span class="math inline">\((G, m, I, e)\)</span> to <span class="math inline">\(G\)</span> when the operation is clear. One set may carry several group structures: <span class="math inline">\(\mathbb Z\)</span> is a group under <span class="math inline">\(+\)</span> but not under <span class="math inline">\(\cdot\)</span>.</li>
+</ol>
+<p><strong>Quiz 2.1.</strong> Is <span class="math inline">\(e\)</span> unique? Is <span class="math inline">\(g^{-1}\)</span> unique?</p>
+</section>
+<section id="example-2.3-numbers-under-addition-and-multiplication" class="level3">
+<h3 class="anchored" data-anchor-id="example-2.3-numbers-under-addition-and-multiplication">Example 2.3 (Numbers under addition and multiplication)</h3>
+<ul>
+<li><span class="math inline">\(m(a,b) = a+b\)</span>: <span class="math inline">\(G = \mathbb Z, \mathbb R, \mathbb C\)</span> are groups, with <span class="math inline">\(e = 0\)</span> and <span class="math inline">\(I(a) = -a\)</span>.</li>
+<li><span class="math inline">\(m(a,b) = ab\)</span>: <span class="math inline">\(\mathbb R^* := \mathbb R\setminus\{0\}\)</span> and <span class="math inline">\(\mathbb C^* := \mathbb C\setminus\{0\}\)</span> are groups, but <span class="math inline">\(\mathbb Z^* := \mathbb Z\setminus\{0\}\)</span> is <strong>not</strong> (only <span class="math inline">\(\pm 1\)</span> have integer inverses).</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="subgroups-order-and-cyclic-groups" class="level2">
+<h2 class="anchored" data-anchor-id="subgroups-order-and-cyclic-groups">2.2 Subgroups, order, and cyclic groups</h2>
+<section id="definition-2.4-subgroup-子群" class="level3">
+<h3 class="anchored" data-anchor-id="definition-2.4-subgroup-子群">Definition 2.4 (Subgroup 子群)</h3>
+<p>Let <span class="math inline">\((G, m, I, e)\)</span> be a group and <span class="math inline">\(H \subset G\)</span> nonempty such that <span class="math inline">\(m\)</span> and <span class="math inline">\(I\)</span> are closed on <span class="math inline">\(H\)</span>: <span class="math inline">\(m : H\times H \to H\)</span>, <span class="math inline">\(I : H \to H\)</span>. Then <span class="math inline">\((H, m, I, e)\)</span> is a <strong>subgroup</strong> of <span class="math inline">\(G\)</span>. If <span class="math inline">\(H \neq G\)</span> it is <strong>proper</strong>.</p>
+</section>
+<section id="lemma-2.5-subgroup-criterion" class="level3">
+<h3 class="anchored" data-anchor-id="lemma-2.5-subgroup-criterion">Lemma 2.5 (Subgroup criterion)</h3>
+<p>A nonempty subset <span class="math inline">\(H \subset G\)</span> is a subgroup <span class="math inline">\(\iff h_1 h_2^{-1} \in H\)</span> for all <span class="math inline">\(h_1, h_2 \in H\)</span>.</p>
+<p><em>Proof.</em> (<span class="math inline">\(\Rightarrow\)</span>) clear. (<span class="math inline">\(\Leftarrow\)</span>) <span class="math inline">\(H\)</span> nonempty, pick <span class="math inline">\(h \in H\)</span>: then <span class="math inline">\(e = hh^{-1} \in H\)</span>; then <span class="math inline">\(h^{-1} = e\,h^{-1} \in H\)</span> for every <span class="math inline">\(h \in H\)</span>; finally <span class="math inline">\(h_1 h_2 = h_1 (h_2^{-1})^{-1} \in H\)</span>. <span class="math inline">\(\blacksquare\)</span></p>
+</section>
+<section id="example-2.6-subgroups" class="level3">
+<h3 class="anchored" data-anchor-id="example-2.6-subgroups">Example 2.6 (Subgroups)</h3>
+<ol type="1">
+<li>Under <span class="math inline">\(+\)</span>: <span class="math inline">\(\mathbb Z \subset \mathbb R \subset \mathbb C\)</span> is a chain of subgroups.</li>
+<li>Under <span class="math inline">\(\cdot\)</span>: <span class="math inline">\(\mathbb R^* \subset \mathbb C^*\)</span>; <span class="math inline">\(\mathbb Z^* \subset \mathbb R^*\)</span> only as a <strong>set</strong>, not as a subgroup (elements other than <span class="math inline">\(\pm1\)</span> have no inverses).</li>
+<li><span class="math inline">\(\mathbb R_{&gt;0} \subset \mathbb R^*\)</span> is a subgroup.</li>
+</ol>
+<p><strong>Quiz 2.2.</strong> Let <span class="math inline">\(H_1, H_2\)</span> be subgroups of <span class="math inline">\(G\)</span>. Is <span class="math inline">\(H_1 \cap H_2\)</span> a subgroup? Is <span class="math inline">\(H_1 \cup H_2\)</span>?</p>
+</section>
+<section id="definition-2.7-order-阶" class="level3">
+<h3 class="anchored" data-anchor-id="definition-2.7-order-阶">Definition 2.7 (Order 阶)</h3>
+<ul>
+<li>The <strong>order</strong> <span class="math inline">\(|G|\)</span> of a group is the cardinality of the set <span class="math inline">\(G\)</span>. If <span class="math inline">\(|G| &lt; \infty\)</span> the group is <strong>finite</strong> 有限群; otherwise <strong>infinite</strong> 无限群.</li>
+<li>The <strong>order of an element</strong> <span class="math inline">\(g \in G\)</span> is the least positive integer <span class="math inline">\(n\)</span> with <span class="math inline">\(g^n = 1_G\)</span>; infinite if no such <span class="math inline">\(n\)</span> exists.</li>
+</ul>
+</section>
+<section id="example-2.8-the-group-of-n-th-roots-of-unity-单位根群" class="level3">
+<h3 class="anchored" data-anchor-id="example-2.8-the-group-of-n-th-roots-of-unity-单位根群">Example 2.8 (The group of <span class="math inline">\(N\)</span>-th roots of unity 单位根群)</h3>
+<p><span class="math inline">\(\mu_N = \{ z \in \mathbb C \mid z^N = 1 \}\)</span>, with <span class="math inline">\(\omega = \exp(2\pi i / N)\)</span>, so <span class="math inline">\(\mu_N = \{1, \omega, \dots, \omega^{N-1}\}\)</span>. Multiplication reads</p>
+<p><span class="math display">\[\omega^i \omega^j = e^{\frac{2\pi i}{N}(i+j \bmod N)} = \omega^k, \qquad k = i+j \bmod N,\]</span></p>
+<p>i.e.&nbsp;the group law on the exponents is <strong>addition modulo <span class="math inline">\(N\)</span></strong>. A group generated by a single element in this way is called <strong>cyclic</strong> 循环群. For <span class="math inline">\(N = 4\)</span>: <span class="math inline">\(\omega^1\)</span> has order 4, <span class="math inline">\(\omega^2\)</span> has order 2.</p>
+<hr>
+</section>
+</section>
+<section id="equivalence-relations-and-residue-classes" class="level2">
+<h2 class="anchored" data-anchor-id="equivalence-relations-and-residue-classes">2.3 Equivalence relations and residue classes</h2>
+<blockquote class="blockquote">
+<p>Reading: Moore, §2, pp.&nbsp;6–10.</p>
+</blockquote>
+<section id="definition-2.9-equivalence-relation-等价关系" class="level3">
+<h3 class="anchored" data-anchor-id="definition-2.9-equivalence-relation-等价关系">Definition 2.9 (Equivalence relation 等价关系)</h3>
+<p>A binary relation <span class="math inline">\(\sim\)</span> on a set <span class="math inline">\(X\)</span> is an equivalence relation if for all <span class="math inline">\(a,b,c \in X\)</span>:</p>
+<ul>
+<li><ol type="i">
+<li><span class="math inline">\(a \sim a\)</span> — <strong>reflexive</strong>;</li>
+</ol></li>
+<li><ol start="2" type="i">
+<li><span class="math inline">\(a \sim b \Leftrightarrow b \sim a\)</span> — <strong>symmetric</strong>;</li>
+</ol></li>
+<li><ol start="3" type="i">
+<li><span class="math inline">\(a \sim b\)</span> and <span class="math inline">\(b \sim c \Rightarrow a \sim c\)</span> — <strong>transitive</strong>.</li>
+</ol></li>
+</ul>
+<p>The <strong>equivalence class</strong> of <span class="math inline">\(a\)</span> is <span class="math inline">\([a] := \{ x \in X \mid x \sim a \} \subset X\)</span>, also written <span class="math inline">\(\bar a\)</span>.</p>
+</section>
+<section id="example-2.10-residue-classes-modulo-n-剩余类" class="level3">
+<h3 class="anchored" data-anchor-id="example-2.10-residue-classes-modulo-n-剩余类">Example 2.10 (Residue classes modulo <span class="math inline">\(N\)</span> 剩余类)</h3>
+<p>Write <span class="math inline">\(N\mathbb Z := \{ kN \mid k \in \mathbb Z \}\)</span>. On <span class="math inline">\(\mathbb Z\)</span> declare</p>
+<p><span class="math display">\[a \sim b \iff a - b \in N\mathbb Z,\]</span></p>
+<p>i.e.&nbsp;<span class="math inline">\(a, b\)</span> leave the same remainder on division by <span class="math inline">\(N\)</span>. Then <span class="math inline">\(\sim\)</span> is an equivalence relation, with classes <span class="math inline">\([j] = \bar j = \{ j + kN \mid k \in \mathbb Z \}\)</span>; there are <span class="math inline">\(N\)</span> of them: <span class="math inline">\(\bar 0, \bar 1, \dots, \overline{N-1}\)</span>. Setting <span class="math inline">\(m(\bar r_1, \bar r_2) := \overline{r_1 + r_2}\)</span> makes them a group, written <span class="math inline">\(\mathbb Z_N\)</span> or <span class="math inline">\(\mathbb Z/N\mathbb Z\)</span> (“<span class="math inline">\(\mathbb Z\)</span> divided by the subgroup <span class="math inline">\(N\mathbb Z\)</span>” — the quotient construction of Ch. 7).</p>
+<p>For <span class="math inline">\(N = 2\)</span>: <span class="math inline">\(\bar 0\)</span> = evens, <span class="math inline">\(\bar 1\)</span> = odds, with <span class="math inline">\(\bar 0+\bar 0 = \bar 0\)</span>, <span class="math inline">\(\bar 0+\bar 1 = \bar 1\)</span>, <span class="math inline">\(\bar 1+\bar 1 = \bar 0\)</span>. Dropping bars gives <span class="math inline">\(\{0,1\}\)</span> under addition mod 2; relabelling <span class="math inline">\(\bar 0 \mapsto 1\)</span>, <span class="math inline">\(\bar 1 \mapsto -1\)</span> gives <span class="math inline">\(\{1,-1\}\)</span> under multiplication. <strong>All three are the same group.</strong></p>
+<hr>
+</section>
+</section>
+<section id="direct-products-and-abelian-groups" class="level2">
+<h2 class="anchored" data-anchor-id="direct-products-and-abelian-groups">2.4 Direct products and Abelian groups</h2>
+<section id="definition-2.11-direct-product-直积" class="level3">
+<h3 class="anchored" data-anchor-id="definition-2.11-direct-product-直积">Definition 2.11 (Direct product 直积)</h3>
+<p>Given groups <span class="math inline">\(G_1, G_2\)</span>, the <strong>direct product</strong> <span class="math inline">\(G_1 \times G_2\)</span> has elements <span class="math inline">\((g_1, g_2)\)</span> and multiplication</p>
+<p><span class="math display">\[m_{G_1\times G_2}((g_1,g_2),(g_1',g_2')) := (m_{G_1}(g_1,g_1'),\, m_{G_2}(g_2,g_2')),\]</span></p>
+<p>with order <span class="math inline">\(|G_1 \times G_2| = |G_1| \cdot |G_2|\)</span>.</p>
+</section>
+<section id="example-2.12-the-klein-four-group-克莱因四元群" class="level3">
+<h3 class="anchored" data-anchor-id="example-2.12-the-klein-four-group-克莱因四元群">Example 2.12 (The Klein four-group 克莱因四元群)</h3>
+<p>Take <span class="math inline">\(G_1 = G_2 = \mathbb Z_2 = \{1,-1\}\)</span>. Then <span class="math inline">\(\mathbb Z_2 \times \mathbb Z_2\)</span> has four elements</p>
+<p><span class="math display">\[\mathbb 1 = (1,1), \quad A = (-1,1), \quad B = (1,-1), \quad C = (-1,-1),\]</span></p>
+<p>known as the <strong>Klein four-group</strong> <span class="math inline">\(V_4\)</span> (Vierergruppe). Note <span class="math inline">\(A^2 = B^2 = \mathbb 1\)</span> and <span class="math inline">\(C = AB\)</span>.</p>
+</section>
+<section id="definition-2.13-abelian-group-阿贝尔群" class="level3">
+<h3 class="anchored" data-anchor-id="definition-2.13-abelian-group-阿贝尔群">Definition 2.13 (Abelian group 阿贝尔群)</h3>
+<p><span class="math inline">\(G\)</span> is <strong>Abelian</strong> if <span class="math inline">\(ab = ba\)</span> for all <span class="math inline">\(a,b \in G\)</span>; <strong>non-Abelian</strong> if some <span class="math inline">\(a,b\)</span> have <span class="math inline">\(ab \neq ba\)</span>. For Abelian groups one usually writes <span class="math inline">\(m(a,b)\)</span> additively as <span class="math inline">\(a+b\)</span>, with identity <span class="math inline">\(e = 0\)</span>.</p>
+<hr>
+</section>
+</section>
+<section id="matrix-groups" class="level2">
+<h2 class="anchored" data-anchor-id="matrix-groups">2.5 Matrix groups</h2>
+<blockquote class="blockquote">
+<p>Reading: Moore, §3, pp.&nbsp;10–27.</p>
+</blockquote>
+<section id="example-2.14-general-linear-group-一般线性群" class="level3">
+<h3 class="anchored" data-anchor-id="example-2.14-general-linear-group-一般线性群">Example 2.14 (General linear group 一般线性群)</h3>
+<p>Let <span class="math inline">\(M_n(\kappa)\)</span> be the <span class="math inline">\(n\times n\)</span> matrices over a field <span class="math inline">\(\kappa\)</span> (for us <span class="math inline">\(\kappa = \mathbb R\)</span> or <span class="math inline">\(\mathbb C\)</span>). Then</p>
+<p><span class="math display">\[GL(n,\kappa) := \{ A \in M_n(\kappa) \mid \det A \neq 0 \}\]</span></p>
+<p>is a group under matrix multiplication. For <span class="math inline">\(n \geq 2\)</span> it is <strong>non-Abelian</strong>.</p>
+</section>
+<section id="definition-2.15-centre-of-a-group-中心" class="level3">
+<h3 class="anchored" data-anchor-id="definition-2.15-centre-of-a-group-中心">Definition 2.15 (Centre of a group 中心)</h3>
+<p><span class="math display">\[Z(G) := \{ z \in G \mid zg = gz \ \forall g \in G \} \subset G.\]</span></p>
+</section>
+<section id="proposition-2.16-the-centre-is-an-abelian-subgroup" class="level3">
+<h3 class="anchored" data-anchor-id="proposition-2.16-the-centre-is-an-abelian-subgroup">Proposition 2.16 (The centre is an Abelian subgroup)</h3>
+<p><span class="math inline">\(Z(G)\)</span> is a subgroup of <span class="math inline">\(G\)</span>, and it is Abelian.</p>
+<p><em>Proof.</em> Check Def 2.4: - <strong>Identity:</strong> <span class="math inline">\(eg = g = ge\)</span> for all <span class="math inline">\(g\)</span>, so <span class="math inline">\(e \in Z(G)\)</span> (nonempty). - <strong>Closure under m:</strong> for <span class="math inline">\(z_1, z_2 \in Z(G)\)</span>, <span class="math inline">\(g \in G\)</span>: <span class="math inline">\((z_1 z_2)g = z_1(z_2 g) = z_1(g z_2) = (z_1 g)z_2 = (g z_1)z_2 = g(z_1 z_2)\)</span>, so <span class="math inline">\(z_1 z_2 \in Z(G)\)</span>. - <strong>Closure under I:</strong> from <span class="math inline">\(zg = gz\)</span>, multiply both sides by <span class="math inline">\(z^{-1}\)</span>: <span class="math inline">\(z^{-1}(zg)z^{-1} = z^{-1}(gz)z^{-1} \Rightarrow gz^{-1} = z^{-1}g\)</span>, so <span class="math inline">\(z^{-1} \in Z(G)\)</span>. - <strong>Abelian:</strong> <span class="math inline">\(z_1\)</span> commutes with every element of <span class="math inline">\(G\)</span>, in particular with <span class="math inline">\(z_2 \in G\)</span>. <span class="math inline">\(\blacksquare\)</span></p>
+</section>
+<section id="proposition-2.17-centre-of-the-general-linear-group" class="level3">
+<h3 class="anchored" data-anchor-id="proposition-2.17-centre-of-the-general-linear-group">Proposition 2.17 (Centre of the general linear group)</h3>
+<p><span class="math display">\[Z(GL(n,\kappa)) = \{ \lambda \mathbb 1_n \mid \lambda \in \kappa^* \}.\]</span></p>
+<p><em>Proof.</em> Scalar matrices commute with everything: <span class="math inline">\(\supset\)</span>. For <span class="math inline">\(\subset\)</span>, let <span class="math inline">\(A\)</span> commute with all of <span class="math inline">\(GL(n,\kappa)\)</span> and let <span class="math inline">\(E_{ij}\)</span> have 1 in position <span class="math inline">\((i,j)\)</span> and 0 elsewhere. For <span class="math inline">\(i \neq j\)</span> the matrix <span class="math inline">\(\mathbb 1 + E_{ij}\)</span> is invertible, and <span class="math inline">\(A\)</span> commutes with it iff <span class="math inline">\(A\)</span> commutes with <span class="math inline">\(E_{ij}\)</span>. Comparing entries, <span class="math inline">\((AE_{ij})_{kl} = A_{ki}\delta_{jl}\)</span> and <span class="math inline">\((E_{ij}A)_{kl} = \delta_{ki}A_{jl}\)</span>, so <span class="math inline">\(A_{ki}\delta_{jl} = \delta_{ki}A_{jl}\)</span>. <span class="math inline">\(k=i, l=j \Rightarrow A_{ii} = A_{jj}\)</span> (all diagonal entries equal); <span class="math inline">\(l = j, k \neq i \Rightarrow A_{ki} = 0\)</span> (all off-diagonal entries vanish). Hence <span class="math inline">\(A = \lambda\mathbb 1\)</span>, with <span class="math inline">\(\lambda \neq 0\)</span> since <span class="math inline">\(A\)</span> invertible. <span class="math inline">\(\blacksquare\)</span></p>
+</section>
+<section id="the-classical-matrix-groups-subgroups-of-glnkappa-preserving-some-structure" class="level3">
+<h3 class="anchored" data-anchor-id="the-classical-matrix-groups-subgroups-of-glnkappa-preserving-some-structure">The classical matrix groups (subgroups of <span class="math inline">\(GL(n,\kappa)\)</span> preserving some structure)</h3>
+<ol type="1">
+<li><p><strong>Special linear group 特殊线性群:</strong> <span class="math inline">\(SL(n,\kappa) = \{ A \in GL(n,\kappa) \mid \det A = 1 \}\)</span>.</p></li>
+<li><p><strong>Orthogonal / special orthogonal 正交群:</strong> <span class="math inline">\(O(n,\kappa) = \{ A \in GL(n,\kappa) \mid AA^T = \mathbb 1 \}\)</span>, <span class="math inline">\(SO(n,\kappa) = \{ A \in O(n,\kappa) \mid \det A = 1 \}\)</span>.</p>
+<ul>
+<li>From <span class="math inline">\(AA^T = \mathbb 1\)</span>: <span class="math inline">\((\det A)^2 = 1\)</span>, so <span class="math inline">\(\det A = \pm 1\)</span>; <span class="math inline">\(A\)</span> is invertible and <span class="math inline">\(A^T = A^{-1}\)</span>, hence <span class="math inline">\(A^T A = \mathbb 1\)</span> too (one-sided inverse of a square matrix is two-sided).</li>
+<li><span class="math inline">\(O(n,\kappa)\)</span> preserves the bilinear form <span class="math inline">\(\vec{x}^T \vec{y}\)</span>: <span class="math inline">\((A\vec{x})^T(A\vec{y}) = \vec{x}^T A^T A\,\vec{y} = \vec{x}^T \vec{y}\)</span>.</li>
+<li>Over <span class="math inline">\(\mathbb R\)</span> this form is the inner product, so <span class="math inline">\(O(n)\)</span> preserves lengths and angles. <span class="math inline">\(\det A = +1\)</span>: <strong>proper rotations</strong> 真转动 (<span class="math inline">\(SO(n)\)</span>); <span class="math inline">\(\det A = -1\)</span>: <strong>improper</strong> 非真转动 (= proper rotation followed by the reflection <span class="math inline">\(\mathrm{diag}(-1,1,\dots,1)\)</span>, which reverses orientation).</li>
+</ul></li>
+<li><p><strong>Unitary / special unitary 酉群:</strong> <span class="math inline">\(U(n) := \{ A \in GL(n,\mathbb C) \mid AA^\dagger = \mathbb 1 \}\)</span>, <span class="math inline">\(SU(n) = \{ A \in U(n) \mid \det A = 1 \}\)</span>. Here <span class="math inline">\((\det A)(\det A)^* = 1\)</span>, so <span class="math inline">\(|\det A| = 1\)</span>, i.e.&nbsp;<span class="math inline">\(\det A = e^{i\theta}\)</span>; again <span class="math inline">\(A^\dagger = A^{-1}\)</span>.</p></li>
+<li><p><strong>Indefinite orthogonal group 不定正交群:</strong> <span class="math inline">\(O(p,q) := \{ A \in GL(p+q,\mathbb R) \mid A^T J_{p,q} A = J_{p,q} \}\)</span> with <span class="math inline">\(J_{p,q} = \mathrm{diag}(-\mathbb 1_p, \mathbb 1_q)\)</span>. The Minkowski case <span class="math inline">\(J_{1,3} = \mathrm{diag}(-1,1,1,1)\)</span> gives <span class="math inline">\(O(1,3)\)</span>, the <strong>Lorentz group</strong>. Writing a spacetime point as <span class="math inline">\(x = (t, \vec r)\)</span> with <span class="math inline">\(c = 1\)</span>, it preserves the spacetime interval <span class="math inline">\(x^T J_{1,3} x = -t^2 + \vec r \cdot \vec r\)</span>. For timelike separation, the <strong>proper time</strong> 固有时 is <span class="math inline">\(\tau^2 = t^2 - \vec r \cdot \vec r\)</span>.</p></li>
+<li><p><strong>Symplectic group 辛群:</strong> <span class="math inline">\(Sp(2n,\kappa) = \{ A \in GL(2n,\kappa) \mid A^T J A = J \}\)</span> with <span class="math display">\[J = \begin{pmatrix} 0 &amp; \mathbb 1_n \\ -\mathbb 1_n &amp; 0 \end{pmatrix}\]</span></p>
+<p>— the structure preserved by canonical transformations in classical mechanics.</p></li>
+</ol>
+</section>
+<section id="proposition-2.18-determinant-of-a-symplectic-matrix" class="level3">
+<h3 class="anchored" data-anchor-id="proposition-2.18-determinant-of-a-symplectic-matrix">Proposition 2.18 (Determinant of a symplectic matrix)</h3>
+<p>Every <span class="math inline">\(A \in Sp(2n,\kappa)\)</span> has <span class="math inline">\(\det A = 1\)</span>.</p>
+<p><em>Proof.</em> From <span class="math inline">\(A^T J A = J\)</span>: <span class="math inline">\((\det A)^2 = 1\)</span>, so <span class="math inline">\(\det A = \pm 1\)</span>. To rule out <span class="math inline">\(-1\)</span> use the <strong>Pfaffian</strong> 普法夫值 Pf of an antisymmetric <span class="math inline">\(2n\times 2n\)</span> matrix <span class="math inline">\(M\)</span>: <span class="math inline">\(\mathrm{Pf}(M)^2 = \det M\)</span> and <span class="math inline">\(\mathrm{Pf}(B^T M B) = \det(B)\,\mathrm{Pf}(M)\)</span>. Here <span class="math inline">\(J\)</span> is antisymmetric with <span class="math inline">\(\det J = 1\)</span>, so <span class="math inline">\(\mathrm{Pf}(J)^2 = 1 \neq 0\)</span>. Then <span class="math inline">\(\mathrm{Pf}(J) = \mathrm{Pf}(A^T J A) = \det(A)\,\mathrm{Pf}(J)\)</span>, hence <span class="math inline">\(\det A = 1\)</span>. <span class="math inline">\(\blacksquare\)</span></p>
+</section>
+<section id="example-2.19-so2mathbb-r-and-u1" class="level3">
+<h3 class="anchored" data-anchor-id="example-2.19-so2mathbb-r-and-u1">Example 2.19 (<span class="math inline">\(SO(2,\mathbb R)\)</span> and <span class="math inline">\(U(1)\)</span>)</h3>
+<p>A matrix <span class="math inline">\(\bigl(\begin{smallmatrix} a &amp; b \\ c &amp; d \end{smallmatrix}\bigr)\)</span> with <span class="math inline">\(AA^T = \mathbb 1\)</span>, <span class="math inline">\(\det A = 1\)</span> has the form <span class="math inline">\(\bigl(\begin{smallmatrix} a &amp; b \\ -b &amp; a \end{smallmatrix}\bigr)\)</span> with <span class="math inline">\(a^2 + b^2 = 1\)</span>, so</p>
+<p><span class="math display">\[R(\phi) = \begin{pmatrix} \cos\phi &amp; -\sin\phi \\ \sin\phi &amp; \cos\phi \end{pmatrix} = e^{-\phi J}, \qquad J = \begin{pmatrix} 0 &amp; 1 \\ -1 &amp; 0 \end{pmatrix},\]</span></p>
+<p>with <span class="math inline">\(R(\phi_1)R(\phi_2) = R(\phi_1+\phi_2)\)</span>. Meanwhile <span class="math inline">\(U(1)\)</span> consists of <span class="math inline">\(z(\phi) = e^{i\phi}\)</span> with <span class="math inline">\(z(\phi_1)z(\phi_2) = z(\phi_1+\phi_2)\)</span> — identical group laws:</p>
+<p><span class="math display">\[SO(2) \cong U(1) \sim S^1\]</span></p>
+<p>(<span class="math inline">\(\cong\)</span> = same group; <span class="math inline">\(\sim\)</span> = same space; <span class="math inline">\(S^n\)</span> = unit sphere in <span class="math inline">\(\mathbb R^{n+1}\)</span>, so <span class="math inline">\(S^1\)</span> is the circle). Correspondence: <span class="math inline">\(R(\phi) = e^{-\phi J} \leftrightarrow e^{i\phi}\)</span>. Throughout, <span class="math inline">\(SO(n)\)</span> means <span class="math inline">\(SO(n,\mathbb R)\)</span>.</p>
+</section>
+<section id="example-2.20-su2-and-the-three-sphere" class="level3">
+<h3 class="anchored" data-anchor-id="example-2.20-su2-and-the-three-sphere">Example 2.20 (<span class="math inline">\(SU(2)\)</span> and the three-sphere)</h3>
+<p>A general element of <span class="math inline">\(SU(2)\)</span> is</p>
+<p><span class="math display">\[g = \begin{pmatrix} z &amp; -w^* \\ w &amp; z^* \end{pmatrix}, \qquad |z|^2 + |w|^2 = 1.\]</span></p>
+<p>Writing <span class="math inline">\(z = x_0 + i x_1\)</span>, <span class="math inline">\(w = x_2 + i x_3\)</span>, the constraint is <span class="math inline">\(\sum_{i=0}^3 x_i^2 = 1\)</span>, the unit sphere in <span class="math inline">\(\mathbb R^4\)</span>:</p>
+<p><span class="math display">\[SU(2) \sim S^3.\]</span></p>
+</section>
+<section id="key-points-2.5" class="level3">
+<h3 class="anchored" data-anchor-id="key-points-2.5">Key points (§2.5)</h3>
+<ul>
+<li><span class="math inline">\(GL(n,\kappa)\)</span> is the <strong>ambient group</strong>; every other matrix group here is the subgroup preserving some structure — a determinant, a metric, or a symplectic form.</li>
+<li><span class="math inline">\(SO(2) \cong U(1) \sim S^1\)</span> and <span class="math inline">\(SU(2) \sim S^3\)</span>: matrix groups carry a geometry — that is what makes them Lie groups.</li>
+<li><span class="math inline">\(O(1,3)\)</span> is the Lorentz group; <span class="math inline">\(Sp(2n,\mathbb R)\)</span> is the group of linear canonical transformations. The abstract definitions are not abstract in practice.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="generators-and-presentations" class="level2">
+<h2 class="anchored" data-anchor-id="generators-and-presentations">2.6 Generators and presentations</h2>
+<blockquote class="blockquote">
+<p>Reading: Moore, §10, pp.&nbsp;191–199.</p>
+</blockquote>
+<section id="definition-2.21-generated-subgroup" class="level3">
+<h3 class="anchored" data-anchor-id="definition-2.21-generated-subgroup">Definition 2.21 (Generated subgroup)</h3>
+<p>For <span class="math inline">\(X \subset G\)</span>, the smallest subgroup of <span class="math inline">\(G\)</span> containing <span class="math inline">\(X\)</span> is denoted <span class="math inline">\(\langle X \rangle\)</span> — the <strong>subgroup generated by</strong> <span class="math inline">\(X\)</span>; equivalently, <span class="math inline">\(X\)</span> generates <span class="math inline">\(\langle X \rangle\)</span>. If <span class="math inline">\(G = \langle X \rangle\)</span> with <span class="math inline">\(|X| &lt; \infty\)</span>, <span class="math inline">\(G\)</span> is <strong>finitely generated</strong> (a condition on the generating <em>set</em>, not on the group). <span class="math inline">\(\mathbb Z = \langle 1 \rangle\)</span> is finitely generated although infinite.</p>
+</section>
+<section id="definition-2.22-group-presentation-群展示" class="level3">
+<h3 class="anchored" data-anchor-id="definition-2.22-group-presentation-群展示">Definition 2.22 (Group presentation 群展示)</h3>
+<p>A <strong>presentation</strong> of <span class="math inline">\(G\)</span> is</p>
+<p><span class="math display">\[G = \langle\, g_1, \dots, g_n \mid R_1, \dots, R_r \,\rangle,\]</span></p>
+<p>where <span class="math inline">\(g_1, \dots, g_n\)</span> generate <span class="math inline">\(G\)</span> and the <strong>defining relations</strong> <span class="math inline">\(R_1, \dots, R_r\)</span> are equations from which <strong>every other relation follows</strong>. Equations that merely happen to hold are not enough: a generator of <span class="math inline">\(\mathbb Z_2\)</span> satisfies <span class="math inline">\(a^4 = 1\)</span>, but <span class="math inline">\(\langle a \mid a^4 = 1 \rangle\)</span> is <span class="math inline">\(\mathbb Z_4\)</span>. Example: <span class="math inline">\(\mu_N = \langle \omega = e^{2\pi i/N} \rangle = \langle \omega \mid \omega^N = 1 \rangle\)</span>. By convention the identity is not listed among the generators.</p>
+<p><em>Why presentations?</em> Efficiency: <strong>every finite group has a generating set of at most <span class="math inline">\(\log_2 |G|\)</span> elements.</strong> (Proof: build <span class="math inline">\(H_0 = \{e\} \subset H_1 \subset \dots\)</span> adding one generator at a time; <span class="math inline">\(H_j\)</span> and <span class="math inline">\(H_j g\)</span> are disjoint, so each step at least doubles the size; hence <span class="math inline">\(2^\ell \leq |G|\)</span>.)</p>
+</section>
+<section id="example-2.23-the-klein-four-group-presented" class="level3">
+<h3 class="anchored" data-anchor-id="example-2.23-the-klein-four-group-presented">Example 2.23 (The Klein four-group, presented)</h3>
+<p>With <span class="math inline">\(A = (-1,1), B = (1,-1), C = (-1,-1)\)</span> in <span class="math inline">\(\mathbb Z_2 \times \mathbb Z_2\)</span>: <span class="math inline">\(A^2 = B^2 = \mathbb 1\)</span>, <span class="math inline">\(C = AB\)</span>, so</p>
+<p><span class="math display">\[\mathbb Z_2 \times \mathbb Z_2 = \langle\, A, B \mid A^2 = B^2 = (AB)^2 = 1 \,\rangle.\]</span></p>
+<p><strong>Quiz 2.3.</strong> None of the three relations can be spared: dropping any one leaves an infinite group.</p>
+</section>
+<section id="example-2.24-dihedral-group-二面体群" class="level3">
+<h3 class="anchored" data-anchor-id="example-2.24-dihedral-group-二面体群">Example 2.24 (Dihedral group 二面体群)</h3>
+<p><span class="math display">\[D_n := \langle\, A, B \mid A^n = B^2 = (AB)^2 = 1 \,\rangle,\]</span></p>
+<p>the symmetry group of the regular <span class="math inline">\(n\)</span>-gon (<span class="math inline">\(A\)</span> = rotation, <span class="math inline">\(B\)</span> = reflection). Note <span class="math inline">\(D_2 \cong \mathbb Z_2 \times \mathbb Z_2\)</span>.</p>
+</section>
+<section id="example-2.25-quaternion-group-四元数群" class="level3">
+<h3 class="anchored" data-anchor-id="example-2.25-quaternion-group-四元数群">Example 2.25 (Quaternion group 四元数群)</h3>
+<p>Quaternion units: <span class="math inline">\(i^2 = j^2 = k^2 = -1\)</span>, <span class="math inline">\(ij = -ji = k\)</span>, <span class="math inline">\(jk = -kj = i\)</span>, <span class="math inline">\(ki = -ik = j\)</span>. This gives the eight-element group <span class="math inline">\(Q = \{\pm 1, \pm i, \pm j, \pm k\}\)</span> with presentation</p>
+<p><span class="math display">\[Q = \langle\, a, b \mid a^4 = 1,\ a^2 = b^2,\ b^{-1}ab = a^{-1} \,\rangle = \langle i, j \rangle.\]</span></p>
+<p><strong>Pauli matrices 泡利矩阵:</strong></p>
+<p><span class="math display">\[\sigma_1 = \begin{pmatrix} 0 &amp; 1 \\ 1 &amp; 0 \end{pmatrix}, \qquad \sigma_2 = \begin{pmatrix} 0 &amp; -i \\ i &amp; 0 \end{pmatrix}, \qquad \sigma_3 = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; -1 \end{pmatrix}\]</span></p>
+<p>— Hermitian, traceless, <span class="math inline">\(\sigma_i^2 = \mathbb 1\)</span>, and <span class="math inline">\(\sigma_i \sigma_j = \delta_{ij}\mathbb 1 + i\epsilon_{ijk}\sigma_k\)</span>. With commutator 对易子 <span class="math inline">\([A,B] := AB - BA\)</span> and anticommutator 反对易子 <span class="math inline">\(\{A,B\} := AB + BA\)</span>:</p>
+<p><span class="math display">\[[\sigma_i, \sigma_j] = 2i\epsilon_{ijk}\sigma_k, \qquad \{\sigma_i, \sigma_j\} = 2\delta_{ij}\mathbb 1,\]</span></p>
+<p>so two distinct Pauli matrices always anticommute. Spin-<span class="math inline">\(\tfrac12\)</span> operators in QM: <span class="math inline">\(S_i = \frac{\hbar}{2}\sigma_i\)</span>. Setting <span class="math inline">\(i = -i\sigma_1\)</span>, <span class="math inline">\(j = -i\sigma_2\)</span>, <span class="math inline">\(k = -i\sigma_3\)</span> reproduces the quaternion relations, so <span class="math inline">\(Q = \langle -i\sigma_1, -i\sigma_2 \rangle \subset SU(2)\)</span>.</p>
+<p><strong>Quiz 2.4.</strong> What is <span class="math inline">\(Z(Q)\)</span>?</p>
+</section>
+<section id="remark-2.26-two-senses-of-generator" class="level3">
+<h3 class="anchored" data-anchor-id="remark-2.26-two-senses-of-generator">Remark 2.26 (Two senses of “generator”)</h3>
+<ul>
+<li><strong>Discrete sense</strong> (this section): <span class="math inline">\(-i\sigma_1, -i\sigma_2\)</span> generate <span class="math inline">\(Q\)</span> — every element is a finite product of them and their inverses.</li>
+<li><strong>Lie sense</strong> (quantum mechanics): the Pauli matrices are called the generators of <span class="math inline">\(SU(2)\)</span>, but they are <strong>not elements of <span class="math inline">\(SU(2)\)</span></strong> (det <span class="math inline">\(\sigma_k = -1\)</span>). They stand in the exponent, <span class="math inline">\(U = \exp(-\frac{i}{2}\theta_k\sigma_k) \in SU(2)\)</span>; strictly it is <span class="math inline">\(i\sigma_k\)</span> (traceless anti-Hermitian) that lies in the <strong>Lie algebra</strong> of <span class="math inline">\(SU(2)\)</span>.</li>
+<li>A finite generating set yields only countably many finite products, while <span class="math inline">\(SU(2)\)</span> is uncountable: <strong><span class="math inline">\(SU(2)\)</span> is not finitely generated</strong> in the discrete sense.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="application-the-pauli-group-and-stabilizer-codes" class="level2">
+<h2 class="anchored" data-anchor-id="application-the-pauli-group-and-stabilizer-codes">2.7 Application: the Pauli group and stabilizer codes</h2>
+<blockquote class="blockquote">
+<p>Reading: NC §10.5; toric code: Kitaev; Simon, chs.&nbsp;24–25.</p>
+</blockquote>
+<p>A <strong>qubit</strong> 量子比特 is a 2-dimensional complex vector space with basis <span class="math inline">\(|0\rangle = \binom{1}{0}\)</span>, <span class="math inline">\(|1\rangle = \binom{0}{1}\)</span>. Pauli matrices acting on it: <span class="math inline">\(X = \sigma_1\)</span>, <span class="math inline">\(Y = \sigma_2\)</span>, <span class="math inline">\(Z = \sigma_3\)</span>:</p>
+<ul>
+<li><span class="math inline">\(X|0\rangle = |1\rangle\)</span>, <span class="math inline">\(X|1\rangle = |0\rangle\)</span> — <strong>bit flip</strong> (not);</li>
+<li><span class="math inline">\(Z|0\rangle = |0\rangle\)</span>, <span class="math inline">\(Z|1\rangle = -|1\rangle\)</span> — <strong>phase flip</strong>.</li>
+</ul>
+<p><strong>Pauli group 泡利群</strong> (single qubit):</p>
+<p><span class="math display">\[P_1 = \{ \pm 1, \pm i, \pm X, \pm Y, \pm Z, \pm iX, \pm iY, \pm iZ \} = \langle X, Y, Z \rangle,\]</span></p>
+<p>16 elements (closure via <span class="math inline">\(\sigma_i\sigma_j = \delta_{ij}\mathbb 1 + i\epsilon_{ijk}\sigma_k\)</span>; the phase enters through <span class="math inline">\(XYZ = i\mathbb 1\)</span>). For <span class="math inline">\(n\)</span> qubits,</p>
+<p><span class="math display">\[P_n = \{\, i^k A_1 \otimes \cdots \otimes A_n : k \in \{0,1,2,3\},\ A_j \in \{\mathbb 1, X, Y, Z\} \,\},\]</span></p>
+<p>with <span class="math inline">\((A_1\otimes\cdots\otimes A_n)|b_1\cdots b_n\rangle = (A_1|b_1\rangle)\otimes\cdots\otimes(A_n|b_n\rangle)\)</span>. There are <span class="math inline">\(4^{n+1}\)</span> elements (four phases × <span class="math inline">\(4^n\)</span> strings — the factors’ phases collapse into one overall phase).</p>
+<section id="definition-2.27-stabilizer-code-稳定子码" class="level3">
+<h3 class="anchored" data-anchor-id="definition-2.27-stabilizer-code-稳定子码">Definition 2.27 (Stabilizer code 稳定子码)</h3>
+<p>Let <span class="math inline">\(S \subset P_n\)</span> be an Abelian subgroup <strong>not containing</strong> <span class="math inline">\(-\mathbb 1\)</span>. The associated code space is</p>
+<p><span class="math display">\[\mathcal C = \{ |\psi\rangle : g|\psi\rangle = |\psi\rangle \ \forall g \in S \},\]</span></p>
+<p>the simultaneous <span class="math inline">\(+1\)</span> eigenspace of every element of <span class="math inline">\(S\)</span>.</p>
+<p><em>Why the two conditions?</em> Commuting operators can be diagonalised simultaneously (constraints imposed together); and <span class="math inline">\(-\mathbb 1|\psi\rangle = |\psi\rangle\)</span> has no nonzero solution, so containing <span class="math inline">\(-\mathbb 1\)</span> would force <span class="math inline">\(\mathcal C = 0\)</span>.</p>
+<p><strong>Quantum error correction 量子纠错:</strong> a qubit’s disturbances are built from Pauli operators (bit flip <span class="math inline">\(X_i\)</span>, phase flip <span class="math inline">\(Z_i\)</span> on qubit <span class="math inline">\(i\)</span>). One qubit of information is stored in several physical qubits, spread so that likely disturbances can be spotted and undone. <strong>The group does the spotting:</strong> every element of <span class="math inline">\(S\)</span> is Hermitian and squares to <span class="math inline">\(\mathbb 1\)</span>, so it is an observable with eigenvalues <span class="math inline">\(\pm 1\)</span> reading <span class="math inline">\(+1\)</span> on <span class="math inline">\(\mathcal C\)</span>. For an error <span class="math inline">\(E \in P_n\)</span> and generator <span class="math inline">\(g\)</span> of <span class="math inline">\(S\)</span>: <span class="math inline">\(g(E|\psi\rangle) = \pm E\,g|\psi\rangle = \pm E|\psi\rangle\)</span> (<span class="math inline">\(+\)</span> if <span class="math inline">\(g,E\)</span> commute, <span class="math inline">\(-\)</span> if they anticommute). Measuring the generators returns a list of signs — the <strong>error syndrome</strong> 伴随式 — depending on <span class="math inline">\(E\)</span> but not on <span class="math inline">\(|\psi\rangle\)</span>: the measurement gives information about the error <strong>without revealing what was stored</strong>.</p>
+</section>
+<section id="example-2.28-the-three-qubit-code" class="level3">
+<h3 class="anchored" data-anchor-id="example-2.28-the-three-qubit-code">Example 2.28 (The three-qubit code)</h3>
+<p><span class="math inline">\(S = \langle Z_1 Z_2,\ Z_2 Z_3 \rangle \subset P_3\)</span> (with <span class="math inline">\(Z_1Z_2 := Z\otimes Z\otimes\mathbb 1\)</span>, etc.). Both generators square to <span class="math inline">\(\mathbb 1\)</span>, they commute, and their product is <span class="math inline">\(Z_1Z_3\)</span>, so</p>
+<p><span class="math display">\[S = \{ \mathbb 1\otimes\mathbb 1\otimes\mathbb 1,\ Z\otimes Z\otimes\mathbb 1,\ \mathbb 1\otimes Z\otimes Z,\ Z\otimes\mathbb 1\otimes Z \} \cong \mathbb Z_2 \times \mathbb Z_2\]</span></p>
+<p>— the Klein four-group of Example 2.23. On a basis state <span class="math inline">\(|b_1b_2b_3\rangle\)</span>, <span class="math inline">\(Z_iZ_j\)</span> has eigenvalue <span class="math inline">\(+1\)</span> iff <span class="math inline">\(b_i = b_j\)</span>, so the stabilizer conditions force <span class="math inline">\(b_1 = b_2 = b_3\)</span>: <span class="math inline">\(\mathcal C = \mathrm{span}\{|000\rangle, |111\rangle\}\)</span> (one logical qubit in three physical ones).</p>
+<p><strong>Syndromes</strong> for single bit flips (<span class="math inline">\(X\)</span> anticommutes with <span class="math inline">\(Z\)</span>, commutes with <span class="math inline">\(\mathbb 1\)</span>):</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Error</th>
+<th><span class="math inline">\(Z_1Z_2\)</span></th>
+<th><span class="math inline">\(Z_2Z_3\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>none</td>
+<td>+1</td>
+<td>+1</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(X_1\)</span></td>
+<td>−1</td>
+<td>+1</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(X_2\)</span></td>
+<td>−1</td>
+<td>−1</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(X_3\)</span></td>
+<td>+1</td>
+<td>−1</td>
+</tr>
+</tbody>
+</table>
+<p>All four different → the measurement identifies which qubit flipped; applying <span class="math inline">\(X\)</span> to that qubit restores <span class="math inline">\(|\psi\rangle\)</span>. <span class="math inline">\(Z_iZ_j\)</span> measures <strong>whether qubits <span class="math inline">\(i,j\)</span> agree</strong> — a comparison, not a reading. Since <span class="math inline">\(\alpha|000\rangle + \beta|111\rangle\)</span> is an eigenstate of both generators for any <span class="math inline">\(\alpha,\beta\)</span>, the measurement is certain and leaves the state alone; it separates the four error sectors but cannot see inside any of them — that is why <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> survive it.</p>
+</section>
+<section id="remark-2.29-what-the-code-does-not-correct" class="level3">
+<h3 class="anchored" data-anchor-id="remark-2.29-what-the-code-does-not-correct">Remark 2.29 (What the code does not correct)</h3>
+<p>A <strong>phase flip produces no syndrome</strong>: <span class="math inline">\(Z_1\)</span> commutes with both generators, giving <span class="math inline">\((+1,+1)\)</span> as for an undisturbed state, yet <span class="math inline">\(Z_1(\alpha|000\rangle + \beta|111\rangle) = \alpha|000\rangle - \beta|111\rangle\)</span>. If each physical qubit picks up a phase flip with probability <span class="math inline">\(p\)</span>, the stored qubit picks one up whenever an <strong>odd</strong> number of them do: <span class="math inline">\(3p(1-p)^2 + p^3 \approx 3p\)</span>. So bit flips are suppressed <span class="math inline">\(p \to \sim 3p^2\)</span>, while phase flips become ~3× more likely — the benefit depends on the relative rates. Correcting an arbitrary one-qubit error takes more qubits: <strong>Shor’s nine-qubit code</strong> (three-qubit bit-flip code nested inside the phase-flip one); <strong>five is the smallest number of qubits</strong> for which such a code exists.</p>
+</section>
+<section id="example-2.30-toric-code" class="level3">
+<h3 class="anchored" data-anchor-id="example-2.30-toric-code">Example 2.30 (Toric code)</h3>
+<p>Square lattice on a <strong>torus</strong> (left↔︎right and top↔︎bottom edges identified), one qubit per edge. For each vertex <span class="math inline">\(v\)</span> and face <span class="math inline">\(p\)</span>:</p>
+<p><span class="math display">\[A_v = \prod_{e \ni v} X_e, \qquad B_p = \prod_{e \in \partial p} Z_e\]</span></p>
+<p>(products over the four edges meeting <span class="math inline">\(v\)</span> / bounding <span class="math inline">\(p\)</span>). All commute: stars are products of <span class="math inline">\(X\)</span>, faces of <span class="math inline">\(Z\)</span>; a star and a face share 0 or exactly 2 edges, and the two <span class="math inline">\(X\)</span>–<span class="math inline">\(Z\)</span> anticommutations cancel. So <span class="math inline">\(S = \langle A_v, B_p \rangle\)</span> is an Abelian subgroup of <span class="math inline">\(P_n\)</span> (<span class="math inline">\(n\)</span> = number of edges): the toric code is a stabilizer code. The Hamiltonian</p>
+<p><span class="math display">\[H = -\sum_v A_v - \sum_p B_p\]</span></p>
+<p>is lowest where every <span class="math inline">\(A_v, B_p\)</span> reads <span class="math inline">\(+1\)</span>: the ground space of <span class="math inline">\(H\)</span> is exactly the code space <span class="math inline">\(\mathcal C\)</span>.</p>
+<p><em>Dimension count:</em> an <span class="math inline">\(L\times L\)</span> lattice (<span class="math inline">\(L \geq 2\)</span>) has <span class="math inline">\(N = L^2\)</span> vertices, <span class="math inline">\(N\)</span> faces, <span class="math inline">\(E = 2N\)</span> edges, so the full space has dimension <span class="math inline">\(2^{2N}\)</span>. The identities <span class="math inline">\(\prod_v A_v = \prod_p B_p = \mathbb 1\)</span> (Quiz 2.5) are the only redundancies among the <span class="math inline">\(2N\)</span> conditions, so the dimension is <span class="math inline">\(2^{2N}/2^{2N-2} = 4\)</span>, whatever <span class="math inline">\(L\)</span> is. On a connected closed surface tiled by discs the exponent is <span class="math inline">\(E - (V+F-2) = 2 - \chi\)</span>, where <span class="math inline">\(\chi = V - E + F\)</span> is the <strong>Euler characteristic</strong> — it belongs to the surface, not to the lattice: sphere (<span class="math inline">\(\chi = 2\)</span>) gives 1 state; genus-<span class="math inline">\(g\)</span> surface (<span class="math inline">\(\chi = 2-2g\)</span>) gives <span class="math inline">\(4^g\)</span>. A basis of the ground space is labelled by the <span class="math inline">\(\pm 1\)</span> eigenvalues of two <span class="math inline">\(Z\)</span>-loops, one around each direction of the torus: the four sign pairs give <span class="math inline">\(\mathbb Z_2 \times \mathbb Z_2\)</span>. Meeting point of quantum information, topology, and strongly correlated physics.</p>
+<p><strong>Quiz 2.5.</strong> Show <span class="math inline">\(\prod_v A_v = \mathbb 1\)</span> and <span class="math inline">\(\prod_p B_p = \mathbb 1\)</span>. The generators are therefore not independent.</p>
+</section>
+<section id="key-points-2.7" class="level3">
+<h3 class="anchored" data-anchor-id="key-points-2.7">Key points (§2.7)</h3>
+<ul>
+<li><span class="math inline">\(\langle X \rangle\)</span> is the smallest subgroup containing <span class="math inline">\(X\)</span>; a presentation names generators and defining relations.</li>
+<li>Every finite group has a generating set of at most <span class="math inline">\(\log_2|G|\)</span> elements.</li>
+<li><span class="math inline">\(D_n\)</span>, <span class="math inline">\(V_4\)</span>, <span class="math inline">\(Q\)</span>, <span class="math inline">\(P_1\)</span> are the small finite groups this course keeps returning to.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="key-terms-with-chinese-glosses" class="level2">
+<h2 class="anchored" data-anchor-id="key-terms-with-chinese-glosses">Key terms (with Chinese glosses)</h2>
+<p>group 群 · semi-group 半群 · monoid 幺半群 · subgroup 子群 · order 阶 · finite group 有限群 · infinite group 无限群 · cyclic group 循环群 · roots of unity 单位根群 · equivalence relation 等价关系 · residue classes modulo n 剩余类 · direct product 直积 · Klein four-group 克莱因四元群 · Abelian group 阿贝尔群 · general linear group 一般线性群 · special linear group 特殊线性群 · orthogonal group 正交群 · unitary group 酉群 · symplectic group 辛群 · indefinite orthogonal group 不定正交群 · centre 中心 · Pfaffian 普法夫值 · proper/improper rotations 真转动/非真转动 · proper time 固有时 · generator 生成元 · group presentation 群展示 · dihedral group 二面体群 · quaternion group 四元数群 · Pauli group 泡利群 · stabilizer code 稳定子码 · error syndrome 伴随式 · commutator 对易子 · anticommutator 反对易子 · qubit 量子比特 · quantum error correction 量子纠错 · octonions 八元数 · manifold 流形 · Lie group 李群</p>
+</section>
+<section id="quizzes-to-work-through-for-our-one-by-one-discussion" class="level2">
+<h2 class="anchored" data-anchor-id="quizzes-to-work-through-for-our-one-by-one-discussion">Quizzes to work through (for our one-by-one discussion)</h2>
+<ul>
+<li><strong>Quiz 2.1</strong> — uniqueness of <span class="math inline">\(e\)</span> and of <span class="math inline">\(g^{-1}\)</span></li>
+<li><strong>Quiz 2.2</strong> — is <span class="math inline">\(H_1 \cap H_2\)</span> a subgroup? is <span class="math inline">\(H_1 \cup H_2\)</span>?</li>
+<li><strong>Quiz 2.3</strong> — dropping any one relation of <span class="math inline">\(V_4 = \langle A,B \mid A^2 = B^2 = (AB)^2 = 1\rangle\)</span> leaves an infinite group</li>
+<li><strong>Quiz 2.4</strong> — find <span class="math inline">\(Z(Q)\)</span></li>
+<li><strong>Quiz 2.5</strong> — <span class="math inline">\(\prod_v A_v = \prod_p B_p = \mathbb 1\)</span> for the toric code</li>
+</ul>
+</section>
+<section id="main-propositions-of-the-chapter-proofs-above" class="level2">
+<h2 class="anchored" data-anchor-id="main-propositions-of-the-chapter-proofs-above">Main propositions of the chapter (proofs above)</h2>
+<ol type="1">
+<li><strong>Lemma 2.5</strong> — subgroup criterion: <span class="math inline">\(H\)</span> subgroup <span class="math inline">\(\iff h_1 h_2^{-1} \in H\)</span> for all <span class="math inline">\(h_1, h_2 \in H\)</span>.</li>
+<li><strong>Prop 2.16</strong> — <span class="math inline">\(Z(G)\)</span> is an Abelian subgroup.</li>
+<li><strong>Prop 2.17</strong> — <span class="math inline">\(Z(GL(n,\kappa)) = \{\lambda\mathbb 1_n\}\)</span>.</li>
+<li><strong>Prop 2.18</strong> — <span class="math inline">\(A \in Sp(2n,\kappa) \Rightarrow \det A = 1\)</span> (Pfaffian).</li>
+</ol>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "已复制");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "已复制");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/wenjium88-png\.github\.io\/my-blog\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026 Wenjium</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Built with Quarto</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

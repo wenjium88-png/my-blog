@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-Hans" xml:lang="zh-Hans"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>第一章 · 热力学的基本规律 – Wenjium</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-55617497126496852ff9f5a59253c640.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "没有结果",
+    "search-matching-documents-text": "匹配的文档",
+    "search-copy-link-title": "复制搜索链接",
+    "search-hide-matches-text": "隐藏其它匹配结果",
+    "search-more-match-text": "更多匹配结果",
+    "search-more-matches-text": "更多匹配结果",
+    "search-clear-button-title": "清除",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "提交",
+    "search-label": "搜索"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Wenjium</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="搜索"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="展开或折叠导航栏" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../projects/index.html"> 
+<span class="menu-text">Projects</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../physics-notes/index.html"> 
+<span class="menu-text">Notes</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/wenjium88-png"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">该页面内容</h2>
+   
+  <ul>
+  <li><a href="#热力学所研究的对象" id="toc-热力学所研究的对象" class="nav-link active" data-scroll-target="#热力学所研究的对象">热力学所研究的对象</a>
+  <ul class="collapse">
+  <li><a href="#对热力学系统研究对象的约束性描述" id="toc-对热力学系统研究对象的约束性描述" class="nav-link" data-scroll-target="#对热力学系统研究对象的约束性描述">对热力学系统研究对象的约束性描述</a></li>
+  <li><a href="#热平衡定律和温度" id="toc-热平衡定律和温度" class="nav-link" data-scroll-target="#热平衡定律和温度">热平衡定律和温度</a></li>
+  </ul></li>
+  <li><a href="#物态方程" id="toc-物态方程" class="nav-link" data-scroll-target="#物态方程">物态方程</a>
+  <ul class="collapse">
+  <li><a href="#一气体" id="toc-一气体" class="nav-link" data-scroll-target="#一气体">（一）气体</a></li>
+  <li><a href="#二简单的固体和液体" id="toc-二简单的固体和液体" class="nav-link" data-scroll-target="#二简单的固体和液体">（二）简单的固体和液体</a></li>
+  <li><a href="#三顺磁性固体" id="toc-三顺磁性固体" class="nav-link" data-scroll-target="#三顺磁性固体">（三）顺磁性固体</a></li>
+  </ul></li>
+  <li><a href="#功" id="toc-功" class="nav-link" data-scroll-target="#功">功</a>
+  <ul class="collapse">
+  <li><a href="#准静态过程的判据" id="toc-准静态过程的判据" class="nav-link" data-scroll-target="#准静态过程的判据">准静态过程的判据</a></li>
+  <li><a href="#几种情形的功" id="toc-几种情形的功" class="nav-link" data-scroll-target="#几种情形的功">几种情形的功</a></li>
+  <li><a href="#功的一般表达式" id="toc-功的一般表达式" class="nav-link" data-scroll-target="#功的一般表达式">功的一般表达式</a></li>
+  </ul></li>
+  <li><a href="#热力学第一定律" id="toc-热力学第一定律" class="nav-link" data-scroll-target="#热力学第一定律">热力学第一定律</a></li>
+  <li><a href="#热容和焓" id="toc-热容和焓" class="nav-link" data-scroll-target="#热容和焓">热容和焓</a></li>
+  <li><a href="#理想气体的内能" id="toc-理想气体的内能" class="nav-link" data-scroll-target="#理想气体的内能">理想气体的内能</a></li>
+  <li><a href="#理想气体的绝热过程" id="toc-理想气体的绝热过程" class="nav-link" data-scroll-target="#理想气体的绝热过程">理想气体的绝热过程</a>
+  <ul class="collapse">
+  <li><a href="#补充材料" id="toc-补充材料" class="nav-link" data-scroll-target="#补充材料">补充材料</a></li>
+  </ul></li>
+  <li><a href="#理想气体的卡诺循环" id="toc-理想气体的卡诺循环" class="nav-link" data-scroll-target="#理想气体的卡诺循环">理想气体的卡诺循环</a></li>
+  <li><a href="#热力学第二定律" id="toc-热力学第二定律" class="nav-link" data-scroll-target="#热力学第二定律">热力学第二定律</a></li>
+  <li><a href="#卡诺定理" id="toc-卡诺定理" class="nav-link" data-scroll-target="#卡诺定理">卡诺定理</a></li>
+  <li><a href="#热力学温标" id="toc-热力学温标" class="nav-link" data-scroll-target="#热力学温标">热力学温标</a></li>
+  <li><a href="#克劳修斯等式和不等式" id="toc-克劳修斯等式和不等式" class="nav-link" data-scroll-target="#克劳修斯等式和不等式">克劳修斯等式和不等式</a></li>
+  <li><a href="#熵和热力学基本方程" id="toc-熵和热力学基本方程" class="nav-link" data-scroll-target="#熵和热力学基本方程">熵和热力学基本方程</a></li>
+  <li><a href="#理想气体的熵" id="toc-理想气体的熵" class="nav-link" data-scroll-target="#理想气体的熵">理想气体的熵</a></li>
+  <li><a href="#热力学第二定律的数学表述" id="toc-热力学第二定律的数学表述" class="nav-link" data-scroll-target="#热力学第二定律的数学表述">热力学第二定律的数学表述</a></li>
+  <li><a href="#熵增加原理的简单应用" id="toc-熵增加原理的简单应用" class="nav-link" data-scroll-target="#熵增加原理的简单应用">熵增加原理的简单应用</a></li>
+  <li><a href="#自由能和吉布斯函数" id="toc-自由能和吉布斯函数" class="nav-link" data-scroll-target="#自由能和吉布斯函数">自由能和吉布斯函数</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">第一章 · 热力学的基本规律</h1>
+<p class="subtitle lead">热力学与统计物理 · 课程笔记</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="热力学所研究的对象" class="level1">
+<h1>热力学所研究的对象</h1>
+<p>大量微观粒子所组成集合体作为研究对象，对这个宏观物质系统的约束一般为：平衡或者准静态 。基于这个约束条件，我们通过适当选取和构造宏观物理学量，研究这些物理学量的关系（状态方程） 、如何决定宏观系统的整体性质来对这个集合体进行描述。从而达到最终目的：限定在给定约束的集合 体具有怎么的共同规律，以及如果把约束放宽，集合体的整体性质和规律是怎么样发生变化的，亦或者、 是如何从一个约束条件下的集合体转变为另一个约束条件下的集合体的。</p>
+<section id="对热力学系统研究对象的约束性描述" class="level2">
+<h2 class="anchored" data-anchor-id="对热力学系统研究对象的约束性描述">对热力学系统研究对象的约束性描述</h2>
+<div id="def-thermodynamic-system" class="definition theorem">
+<p><span class="theorem-title"><strong>定义 1</strong></span> 由大量微观粒子组成的集合体称为热力学系统。</p>
+</div>
+<div id="def-equilibrium-state" class="definition theorem">
+<p><span class="theorem-title"><strong>定义 2</strong></span> 系统在不受外界影响的情况下，其宏观性质不随时间变化的状态称为平衡态。</p>
+</div>
+<div id="def-quasi-static-process" class="definition theorem">
+<p><span class="theorem-title"><strong>定义 3</strong></span> 系统在外界作用下，经过一系列平衡态的连续变化过程称为准静态过程。</p>
+</div>
+<div id="def-relaxation-time" class="definition theorem">
+<p><span class="theorem-title"><strong>定义 4</strong></span> 系统从非平衡态恢复到平衡态所需的时间称为弛豫时间。</p>
+</div>
+<div id="def-state-variable" class="definition theorem">
+<p><span class="theorem-title"><strong>定义 5</strong></span> 在平衡态条件下，热力学系统的宏观物理学量具有内在联系，表现为数学上具有一定的函数关系， 我们选取宏观物理学量的某些独立的作为自变量，整个的宏观量也被这一组自变量确定了下来，这 一组量被称为状态参量。其它宏观量被状态参量表征的表达式成为状态函数。</p>
+<p>状态参量按照物理属性和研究域分为：几何参量（V），力学参量（p）化学参量（n、m），电磁参量 （E、P、H、M）。热力学所研究的全部宏观物理量都可以表达为这四类参量的函数。</p>
+<p>注意：对热力学系统的平衡态描述意味着系统状态完全由状态参量当时的数值确定，书中提到不考虑 例如某些铁磁系统这样与此前历史有关的系统。或许这些系统往往意味着某个微分方程。</p>
+</div>
+<div id="def-single-phase-multi-phase-systems" class="definition theorem">
+<p><span class="theorem-title"><strong>定义 6</strong></span> 一个均匀的部分就称为一个相，比如水和水蒸气分别构成一个相只包含一个相的系统称为单相系； 包含两个或多个相的系统称为复相系。复相系中各个相达到平衡需要满足特定的约束条件，因此 相之间不完全独立</p>
+</div>
+</section>
+<section id="热平衡定律和温度" class="level2">
+<h2 class="anchored" data-anchor-id="热平衡定律和温度">热平衡定律和温度</h2>
+<p>温度的引入，包括定义和定量测量都是以热平衡定律为基础</p>
+<div id="thm-zeroth_law" class="theorem">
+<p><span class="theorem-title"><strong>定理 1</strong></span> 如果两个系统分别与第三个系统处于热平衡状态，那么这两个系统也处于热平衡状态。</p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>证明</em>. </span><em>温度的存在性证明.</em> 设系统A的状态由状态参量 <span class="math inline">\((p_A, V_A)\)</span> 描述，系统B由 <span class="math inline">\((p_B, V_B)\)</span> 描述，系统C由 <span class="math inline">\((p_C, V_C)\)</span> 描述（这里固定 <span class="math inline">\(V_C\)</span> 作为参考）。</p>
+<p>若A与C达到热平衡，则它们的状态参量必须满足一个函数关系： <span id="eq-fac"><span class="math display">\[
+f_{AC}(p_A, V_A; V_C) = 0 \quad \Longrightarrow \quad p_A = f_{AC}(p_A, V_A; V_C)
+\tag{1}\]</span></span></p>
+<p>同理，若B与C达到热平衡： <span id="eq-fbc"><span class="math display">\[
+f_{BC}(p_B, V_B; V_C) = 0 \quad \Longrightarrow \quad p_B = f_{BC}(p_B, V_B; V_C)
+\tag{2}\]</span></span></p>
+<p>根据<a href="#thm-zeroth_law">定理</a>，A与B也必须达到热平衡，因此存在函数关系： <span id="eq-fab"><span class="math display">\[
+f_{AB}(p_A, V_A; p_B, V_B) = 0
+\tag{3}\]</span></span></p>
+<p>由于式<a href="#eq-fab" class="quarto-xref">3</a>是从式<a href="#eq-fac" class="quarto-xref">1</a>和<a href="#eq-fbc" class="quarto-xref">2</a>导出的，且不包含 <span class="math inline">\(V_C\)</span>，所以式<a href="#eq-fac" class="quarto-xref">1</a>和<a href="#eq-fbc" class="quarto-xref">2</a>中的 <span class="math inline">\(V_C\)</span> 必须能够消去，从而得到： <span id="eq-g"><span class="math display">\[
+g_A(p_A, V_A) = g_B(p_B, V_B)
+\tag{4}\]</span></span></p>
+<p>即存在状态函数 <span class="math inline">\(g(p, V)\)</span>，对于互为热平衡的系统A和B，其函数值相等。实验表明，这个函数值对应物体的冷热程度——温度。因此，温度作为状态函数的存在性由热平衡定律保证。&nbsp;◻</p>
+</div>
+<div id="def-temperature" class="definition theorem">
+<p><span class="theorem-title"><strong>定义 7</strong></span> 温度是表征物体冷热程度的状态函数，互为热平衡的物体具有相同的温度。我们先采用理想气体温标来规定温度 <span class="math inline">\(T = 273.16\,\mathrm{K} \cdot \lim_{p_t \to 0} \frac{p}{p_t}\)</span></p>
+</div>
+</section>
+</section>
+<section id="物态方程" class="level1">
+<h1>物态方程</h1>
+<p>简单系统的物态方程总可以写为:<span class="math inline">\(f(p,V,T) = 0\)</span>。原则上来说，热力学无法推导得出这一关系，只能通过实验测定。运用统计物理的知识， 则可以原则上推导出来物态方程。</p>
+<section id="一气体" class="level2">
+<h2 class="anchored" data-anchor-id="一气体">（一）气体</h2>
+<div id="coeff-eos" class="definition">
+<p>体胀系数 <span class="math inline">\(\alpha\)</span> : <span class="math inline">\(\alpha = \frac{1}{V} \left( \frac{\partial V}{\partial T} \right)_{p}\)</span></p>
+<p>压强系数 <span class="math inline">\(\beta\)</span> : <span class="math inline">\(\beta = \frac{1}{p} \left( \frac{\partial p}{\partial T} \right)_{V}\)</span></p>
+<p>等温压缩系数 <span class="math inline">\(\kappa_T\)</span> : <span class="math inline">\(\kappa_T = -\frac{1}{V} \left( \frac{\partial V}{\partial p} \right)_{T}\)</span></p>
+</div>
+<p>由于 <span class="math inline">\(p, V, T\)</span> 三个变量之间存在函数关系（物态方程），它们的偏导数之间满足循环关系： <span class="math display">\[
+\left( \frac{\partial V}{\partial p} \right)_{T} \left( \frac{\partial p}{\partial T} \right)_{V} \left( \frac{\partial T}{\partial V} \right)_{p} = -1
+\]</span> 因此，三个系数满足： <span class="math display">\[
+\alpha = \kappa_T \beta p
+\]</span> 下面证明理想气体物态方程。</p>
+<div id="thm-boyle" class="theorem">
+<p><span class="theorem-title"><strong>定理 2</strong></span> 在温度不变的条件下，固定质量的气体，其压强 <span class="math inline">\(p\)</span> 与体积 <span class="math inline">\(V\)</span> 的乘积为常量： <span id="eq-boyle"><span class="math display">\[
+pV = \text{常量} \quad (\text{当 } T \text{ 固定时})
+\tag{5}\]</span></span></p>
+</div>
+<div id="thm-avogadro" class="theorem">
+<p><span class="theorem-title"><strong>定理 3</strong></span> 在相同的温度和压强下，相等体积的任何气体含有相同数目的分子（即相同的物质的量）： <span id="eq-avogadro"><span class="math display">\[
+V \propto n \quad (\text{当 } p, T \text{ 固定时})
+\tag{6}\]</span></span></p>
+</div>
+<div id="thm-ideal_gas_eos" class="theorem">
+<p><span class="theorem-title"><strong>定理 4</strong></span> 对于物质的量为 <span class="math inline">\(n\)</span> 的理想气体，其压强 <span class="math inline">\(p\)</span>、体积 <span class="math inline">\(V\)</span> 和温度 <span class="math inline">\(T\)</span> 满足： <span id="eq-ideal-gas-eos"><span class="math display">\[
+pV = nRT
+\tag{7}\]</span></span> 其中 <span class="math inline">\(R = 8.314\,\mathrm{J \cdot mol^{-1} \cdot K^{-1}}\)</span> 是摩尔气体常量。</p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>证明</em>. </span><em><a href="#thm-ideal_gas_eos">定理</a>的证明.</em> <strong>第一步：</strong> 对于固定质量的理想气体，若其经历一个从状态 <span class="math inline">\((p_1, V_1, T_1)\)</span> 到 <span class="math inline">\((p_2, V_2, T_2)\)</span> 的任意过程，我们可以分两步来建立状态参量之间的关系。</p>
+<p>首先，保持温度不变（<span class="math inline">\(T = T_1\)</span>），将气体从 <span class="math inline">\((p_1, V_1)\)</span> 变为 <span class="math inline">\((p_x, V_x)\)</span>，由玻意耳定律（<a href="#thm-boyle">定理</a>）： <span id="eq-step1"><span class="math display">\[
+p_1 V_1 = p_x V_x
+\tag{8}\]</span></span></p>
+<p>其次，保持体积不变（<span class="math inline">\(V = V_x\)</span>），将气体从温度 <span class="math inline">\(T_1\)</span> 升温至 <span class="math inline">\(T_2\)</span>，由理想气体温标定义（<a href="#def-temperature">定义</a>）中的正比关系 <span class="math inline">\(p \propto T\)</span>： <span id="eq-step2"><span class="math display">\[
+\frac{p_x}{T_1} = \frac{p_2}{T_2} \quad \Longrightarrow \quad p_x = p_2 \frac{T_1}{T_2}
+\tag{9}\]</span></span></p>
+<p>将式<a href="#eq-step2" class="quarto-xref">9</a>代入式<a href="#eq-step1" class="quarto-xref">8</a>，消去中间量 <span class="math inline">\(p_x\)</span> 和 <span class="math inline">\(V_x\)</span>，得到： <span id="eq-step3"><span class="math display">\[
+\frac{p_1 V_1}{T_1} = \frac{p_2 V_2}{T_2}
+\tag{10}\]</span></span></p>
+<p>式<a href="#eq-step3" class="quarto-xref">10</a>说明，对于固定质量的理想气体，<span class="math inline">\(\frac{pV}{T}\)</span> 是一个与状态无关的常量，只取决于气体的质量和种类： <span id="eq-step4"><span class="math display">\[
+\frac{pV}{T} = C \quad (\text{固定质量、固定种类})
+\tag{11}\]</span></span></p>
+<p><strong>第二步：</strong> 现在确定常量 <span class="math inline">\(C\)</span> 的具体形式。根据阿伏伽德罗定律（<a href="#thm-avogadro">定理</a>），在相同的 <span class="math inline">\(p, T\)</span> 下，气体的体积 <span class="math inline">\(V\)</span> 与物质的量 <span class="math inline">\(n\)</span> 成正比： <span id="eq-step5"><span class="math display">\[
+V \propto n \quad \Longrightarrow \quad \frac{pV}{T} \propto n
+\tag{12}\]</span></span></p>
+<p>因此，对于物质的量为 <span class="math inline">\(n\)</span> 的气体，式<a href="#eq-step4" class="quarto-xref">11</a>中的常量可写为： <span id="eq-step6"><span class="math display">\[
+\frac{pV}{T} = nR
+\tag{13}\]</span></span> 其中 <span class="math inline">\(R\)</span> 是一个与气体种类无关的普适常量，称为摩尔气体常量。</p>
+<p><strong>第三步：</strong> 确定 <span class="math inline">\(R\)</span> 的数值。取 1 mol 理想气体在标准状态（<span class="math inline">\(T_0 = 273.15\,\mathrm{K}\)</span>，<span class="math inline">\(p_0 = 1\,\mathrm{atm} = 1.01325\times 10^{5}\,\mathrm{Pa}\)</span>）下，实验测得摩尔体积 <span class="math inline">\(V_0 = 22.414\times 10^{-3}\,\mathrm{m^3 \cdot mol^{-1}}\)</span>。代入式<a href="#eq-step6" class="quarto-xref">13</a>： <span id="eq-step7"><span class="math display">\[
+R = \frac{p_0 V_0}{T_0} = \frac{(1.01325\times 10^{5}\,\mathrm{Pa})(22.414\times 10^{-3}\,\mathrm{m^3 \cdot mol^{-1}})}{273.15\,\mathrm{K}} = 8.314\,\mathrm{J \cdot mol^{-1} \cdot K^{-1}}
+\tag{14}\]</span></span></p>
+<p>将式<a href="#eq-step6" class="quarto-xref">13</a>改写为标准形式： <span class="math display">\[
+pV = nRT
+\]</span> 这就是理想气体的物态方程。证毕。&nbsp;◻</p>
+</div>
+<div id="prop-eos_forms" class="property">
+<p>由式<a href="#eq-ideal-gas-eos" class="quarto-xref">7</a>可以导出以下常用形式：</p>
+<ul>
+<li><p>若 <span class="math inline">\(n = 1\)</span> mol，则 <span class="math inline">\(pV_m = RT\)</span>，其中 <span class="math inline">\(V_m\)</span> 是摩尔体积。</p></li>
+<li><p>若用分子数 <span class="math inline">\(N\)</span> 表示，则 <span class="math inline">\(pV = Nk_B T\)</span>，其中 <span class="math inline">\(k_B = R/N_A = 1.381\times 10^{-23}\,\mathrm{J \cdot K^{-1}}\)</span> 是玻尔兹曼常量。</p></li>
+</ul>
+</div>
+<div id="def-vdw" class="definition theorem">
+<p><span class="theorem-title"><strong>定义 8</strong></span> 实际气体的物态方程与理想气体存在偏离。范德瓦尔斯方程在理想气体物态方程的基础上作了两项修正： 一是考虑分子自身占有体积，将摩尔体积修正为 <span class="math inline">\(V_m - b\)</span>；二是考虑分子间的相互吸引，将压强修正为 <span class="math inline">\(p + \dfrac{a}{V_m^2}\)</span>： <span id="eq-vdw"><span class="math display">\[
+\left( p + \frac{a}{V_m^2} \right) (V_m - b) = RT
+\tag{15}\]</span></span> 其中 <span class="math inline">\(V_m\)</span> 是摩尔体积，<span class="math inline">\(a\)</span>、<span class="math inline">\(b\)</span> 是仅由气体种类决定的范德瓦尔斯常量。</p>
+</div>
+<div id="def-onnes" class="definition theorem">
+<p><span class="theorem-title"><strong>定义 9</strong></span> 昂内斯方程把实际气体的 <span class="math inline">\(pV_m\)</span> 展开为 <span class="math inline">\(1/V_m\)</span> 的幂级数： <span id="eq-onnes"><span class="math display">\[
+pV_m = RT \left( 1 + \frac{B(T)}{V_m} + \frac{C(T)}{V_m^2} + \cdots \right)
+\tag{16}\]</span></span> 其中 <span class="math inline">\(B(T)\)</span>、<span class="math inline">\(C(T)\)</span> 分别称为第二、第三位力系数，都是温度的函数。</p>
+</div>
+</section>
+<section id="二简单的固体和液体" class="level2">
+<h2 class="anchored" data-anchor-id="二简单的固体和液体">（二）简单的固体和液体</h2>
+<div class="property">
+<p>简单固体和液体的物态方程通常写成 <span class="math inline">\(V = V(T, p)\)</span> 的形式。当温度和压强的变化范围不大时，体积的变化很小，可以近似写为： <span id="eq-solid-liquid"><span class="math display">\[
+V(T, p) = V_0 \left[ 1 + \alpha (T - T_0) - \kappa_T (p - p_0) \right]
+\tag{17}\]</span></span> 其中 <span class="math inline">\(V_0 = V(T_0, p_0)\)</span>，体胀系数 <span class="math inline">\(\alpha\)</span> 与等温压缩系数 <span class="math inline">\(\kappa_T\)</span>（见<a href="#coeff-eos">定义</a>）在通常条件下近似为常量，由实验测定。</p>
+</div>
+</section>
+<section id="三顺磁性固体" class="level2">
+<h2 class="anchored" data-anchor-id="三顺磁性固体">（三）顺磁性固体</h2>
+<div id="thm-curie" class="theorem">
+<p><span class="theorem-title"><strong>定理 5</strong></span> 顺磁性固体的物态方程给出磁化强度 <span class="math inline">\(M\)</span> 与磁场强度 <span class="math inline">\(H\)</span> 和温度 <span class="math inline">\(T\)</span> 的关系：<span class="math inline">\(M = M(H, T)\)</span>。在磁场强度不太大、温度不太低时，实验近似满足居里定律： <span id="eq-curie"><span class="math display">\[
+M = \frac{C H}{T}
+\tag{18}\]</span></span> 其中 <span class="math inline">\(C\)</span> 是居里常量，由磁性材料本身的性质决定。考虑铁磁相互作用的修正，有居里-外斯定律 <span id="eq-curie-weiss"><span class="math display">\[
+M = \frac{C H}{T - T_C}
+\tag{19}\]</span></span> 其中 <span class="math inline">\(T_C\)</span> 是居里温度，<span class="math inline">\(C\)</span> 是居里-外斯常量。</p>
+</div>
+</section>
+</section>
+<section id="功" class="level1">
+<h1>功</h1>
+<section id="准静态过程的判据" class="level2">
+<h2 class="anchored" data-anchor-id="准静态过程的判据">准静态过程的判据</h2>
+<p>状态变化即过程，做功是系统与外界交换能量的一种方式。实际过程会破坏平衡，系统需经弛豫时间 <span class="math inline">\(\tau\)</span> 才能恢复平衡；若过程进行的时间远大于弛豫时间（<span class="math inline">\(t \gg \tau\)</span>），每一中间态都可近似看作平衡态，该过程即准静态过程。无摩擦时，外界在准静态过程中对系统的作用力可用状态参量表达（如外界压强等于系统压强 <span class="math inline">\(p\)</span>）。</p>
+</section>
+<section id="几种情形的功" class="level2">
+<h2 class="anchored" data-anchor-id="几种情形的功">几种情形的功</h2>
+<div id="work_class" class="property">
+<ol type="1">
+<li><p>体积功（流体）： <span id="eq-work-volume"><span class="math display">\[
+\delta W = -p\,\mathrm{d} V
+\tag{20}\]</span></span> 有限过程 <span class="math inline">\(W = -\int_{V_1}^{V_2} p\,\mathrm{d} V\)</span>，等于 <span class="math inline">\(p\)</span>-<span class="math inline">\(V\)</span> 图上曲线下方面积的负值。</p></li>
+<li><p>液体表面薄膜：<span class="math inline">\(\delta W = \sigma\,\mathrm{d} A\)</span>，<span class="math inline">\(\sigma\)</span> 为表面张力系数。</p></li>
+<li><p>电介质：<span class="math inline">\(\delta W = V E\,\mathrm{d} D = V\varepsilon_0 E\,\mathrm{d} E + V E\,\mathrm{d} P\)</span>，即激发电场功与极化功之和。</p></li>
+<li><p>磁介质：<span class="math inline">\(\delta W = V H\,\mathrm{d} B = \mu_0 V H\,\mathrm{d} H + \mu_0 V H\,\mathrm{d} M\)</span>，即激发磁场功与磁化功之和。</p></li>
+</ol>
+</div>
+<p>功与路径有关，不是状态函数，故用 <span class="math inline">\(\delta W\)</span> 表示；只有在准静态过程中功才能用状态参量表达。</p>
+</section>
+<section id="功的一般表达式" class="level2">
+<h2 class="anchored" data-anchor-id="功的一般表达式">功的一般表达式</h2>
+<p>准静态过程中外界所做的功可统一写成广义力与广义位移之积： <span id="eq-work-general"><span class="math display">\[
+\delta W = \sum_i Y_i\,\mathrm{d} y_i
+\tag{21}\]</span></span> 其中 <span class="math inline">\(y_i\)</span> 称为外参量（如 <span class="math inline">\(V\)</span>、<span class="math inline">\(A\)</span>、<span class="math inline">\(P\)</span>、<span class="math inline">\(M\)</span>），<span class="math inline">\(Y_i\)</span> 是与 <span class="math inline">\(y_i\)</span> 相应的广义力（如 <span class="math inline">\(-p\)</span>、<span class="math inline">\(\sigma\)</span>、<span class="math inline">\(VE\)</span>、<span class="math inline">\(\mu_0 VH\)</span>）。</p>
+</section>
+</section>
+<section id="热力学第一定律" class="level1">
+<h1>热力学第一定律</h1>
+<div id="def-internal-energy" class="definition theorem">
+<p><span class="theorem-title"><strong>定义 10</strong></span> 焦耳实验表明，绝热过程中外界做功仅取决于初终态、与过程无关，据此定义态函数——内能 <span class="math inline">\(U\)</span>：<span class="math inline">\(U_B - U_A = W_a\)</span>（<span class="math inline">\(W_a\)</span> 为绝热过程中外界对系统做的功）。</p>
+</div>
+<div id="def-heat" class="definition theorem">
+<p><span class="theorem-title"><strong>定义 11</strong></span> 一般过程中定义系统从外界吸收的热量 <span id="eq-heat-def"><span class="math display">\[
+Q \equiv \Delta U - W
+\tag{22}\]</span></span> 内能是状态函数，功与热量都与过程有关。</p>
+</div>
+<div id="thm-first-law" class="theorem">
+<p><span class="theorem-title"><strong>定理 6</strong></span> <span id="eq-first-law"><span class="math display">\[
+\Delta U = W + Q
+\tag{23}\]</span></span> 对无穷小过程，微分形式为 <span id="eq-first-law-diff"><span class="math display">\[
+\mathrm{d} U = \delta W + \delta Q
+\tag{24}\]</span></span></p>
+</div>
+<p>第一类永动机：不消耗能量而不断对外做功的机器，违反热力学第一定律，不可能造成。</p>
+</section>
+<section id="热容和焓" class="level1">
+<h1>热容和焓</h1>
+<div id="def-heat-capacity" class="definition theorem">
+<p><span class="theorem-title"><strong>定义 12</strong></span> 系统在某过程中温度升高 <span class="math inline">\(1\,\mathrm{K}\)</span> 所吸收的热量称为该过程的热容： <span id="eq-heat-capacity"><span class="math display">\[
+C = \frac{\delta Q}{\mathrm{d} T}
+\tag{25}\]</span></span> 热容与过程有关。</p>
+</div>
+<div id="prop-cv" class="property">
+<p>定容过程 <span class="math inline">\(\delta Q = \mathrm{d} U\)</span>，得 <span id="eq-cv"><span class="math display">\[
+C_V = \left( \left( \frac{\partial U}{\partial T} \right)_{V} \right)
+\tag{26}\]</span></span></p>
+</div>
+<div id="def-enthalpy" class="definition theorem">
+<p><span class="theorem-title"><strong>定义 13</strong></span> 定压过程 <span class="math inline">\(\delta Q = \mathrm{d} U + p\,\mathrm{d} V = \mathrm{d}(U + pV)\)</span>，由此引入焓 <span id="eq-enthalpy"><span class="math display">\[
+H \equiv U + pV
+\tag{27}\]</span></span> 它是状态函数；等压过程中系统吸收的热量等于焓的增量。</p>
+</div>
+<div id="prop-cp" class="property">
+<p>由焓的定义（式<a href="#eq-enthalpy" class="quarto-xref">27</a>）得 <span id="eq-cp"><span class="math display">\[
+C_p = \left( \left( \frac{\partial H}{\partial T} \right)_{p} \right)
+\tag{28}\]</span></span></p>
+</div>
+</section>
+<section id="理想气体的内能" class="level1">
+<h1>理想气体的内能</h1>
+<div id="thm-joule-law" class="theorem">
+<p><span class="theorem-title"><strong>定理 7</strong></span> 焦耳自由膨胀实验：气体向真空膨胀，<span class="math inline">\(W = 0\)</span>，水温不变故 <span class="math inline">\(Q = 0\)</span>，由第一定律 <span class="math inline">\(\Delta U = 0\)</span>，内能不变。因此理想气体的内能只是温度的函数，与体积无关（即 <span class="math inline">\(\left( \frac{\partial U}{\partial V} \right)_{T} = 0\)</span>）： <span id="eq-joule-law"><span class="math display">\[
+U = U(T)
+\tag{29}\]</span></span> 微观上分子动能与内部运动能量均与体积无关，理想气体足够稀薄、分子间相互作用能可忽略，故内能与体积无关。</p>
+</div>
+<p>由 <span class="math inline">\(C_V = \mathrm{d} U / \mathrm{d} T\)</span> 积分得 <span id="eq-ideal-gas-u"><span class="math display">\[
+U = \int C_V \mathrm{d} T + U_0
+\tag{30}\]</span></span> 焓 <span class="math inline">\(H = U + pV = U(T) + nRT\)</span> 也只是温度的函数，同理 <span id="eq-ideal-gas-h"><span class="math display">\[
+H = \int C_p \mathrm{d} T + H_0
+\tag{31}\]</span></span> 由 <span class="math inline">\(H = U + nRT\)</span> 对温度求导，得理想气体的热容关系： <span id="eq-cp-cv-ideal"><span class="math display">\[
+C_p - C_V = nR
+\tag{32}\]</span></span></p>
+</section>
+<section id="理想气体的绝热过程" class="level1">
+<h1>理想气体的绝热过程</h1>
+<div id="def-gamma" class="definition theorem">
+<p><span class="theorem-title"><strong>定义 14</strong></span> <span id="eq-gamma"><span class="math display">\[
+\gamma \equiv \frac{C_p}{C_V}
+\tag{33}\]</span></span></p>
+</div>
+<div id="thm-adiabatic" class="theorem">
+<p><span class="theorem-title"><strong>定理 8</strong></span> 由 <span class="math inline">\(C_p - C_V = nR\)</span>（式<a href="#eq-cp-cv-ideal" class="quarto-xref">32</a>）与 <span class="math inline">\(\gamma\)</span> 的定义（<a href="#def-gamma">定义</a>）得 <span id="eq-cv-cp-gamma"><span class="math display">\[
+C_V = \frac{nR}{\gamma - 1}, \qquad C_p = \frac{\gamma nR}{\gamma - 1}
+\tag{34}\]</span></span> 准静态绝热过程（<span class="math inline">\(\delta Q = 0\)</span>）：第一定律 <span class="math inline">\(\mathrm{d} U = \delta W\)</span>，代入 <span class="math inline">\(\mathrm{d} U = C_V \mathrm{d} T\)</span>、<span class="math inline">\(\delta W = -p\,\mathrm{d} V\)</span>，得微分方程 <span id="eq-adiabatic-diff"><span class="math display">\[
+C_V \mathrm{d} T + p\,\mathrm{d} V = 0
+\tag{35}\]</span></span> 对物态方程 <span class="math inline">\(pV = nRT\)</span> 微分得 <span class="math inline">\(p\,\mathrm{d} V + V\,\mathrm{d} p = nR\,\mathrm{d} T\)</span>；以式<a href="#eq-cv-cp-gamma" class="quarto-xref">34</a> 的 <span class="math inline">\(C_V\)</span> 代入式<a href="#eq-adiabatic-diff" class="quarto-xref">35</a> 并与物态方程联立，消去 <span class="math inline">\(\mathrm{d} T\)</span>，得仅含 <span class="math inline">\(p\)</span>、<span class="math inline">\(V\)</span> 的微分方程 <span id="eq-adiabatic-diff-pv"><span class="math display">\[
+\frac{\mathrm{d} p}{p} + \gamma \frac{\mathrm{d} V}{V} = 0
+\tag{36}\]</span></span> 积分得绝热方程（泊松方程） <span id="eq-adiabatic"><span class="math display">\[
+pV^{\gamma} = \text{常量}
+\tag{37}\]</span></span></p>
+</div>
+<div id="prop-adiabatic-tv-pt" class="property">
+<p>由 <span class="math inline">\(pV^{\gamma} = \text{常量}\)</span>（式<a href="#eq-adiabatic" class="quarto-xref">37</a>）与物态方程 <span class="math inline">\(pV = nRT\)</span> 分别消去 <span class="math inline">\(p\)</span>、<span class="math inline">\(V\)</span>，得 <span id="eq-adiabatic-tv-pt"><span class="math display">\[
+TV^{\gamma - 1} = \text{常量}, \qquad T^{\gamma} p^{1 - \gamma} = \text{常量}
+\tag{38}\]</span></span></p>
+</div>
+<section id="补充材料" class="level2">
+<h2 class="anchored" data-anchor-id="补充材料">补充材料</h2>
+<p><strong><span class="math inline">\(\gamma\)</span> 的测量</strong>：测声速法，由拉普拉斯声速公式 <span class="math inline">\(a = \sqrt{\gamma RT/M}\)</span> 反解 <span class="math inline">\(\gamma = Ma^2/(RT)\)</span>。 <strong>流体中的声速</strong>：由流体力学波动方程得声速满足 <span class="math inline">\(a^2 = \mathrm{d} p / \mathrm{d} \rho\)</span>。牛顿视为等温过程，<span class="math inline">\(a = \sqrt{p/\rho}\)</span>，与实验不符；拉普拉斯指出声波的疏密变化可看作准静态绝热过程，由 <span class="math inline">\(p = C\rho^{\gamma}\)</span> 得 <span class="math inline">\(\mathrm{d} p/\mathrm{d} \rho = \gamma p/\rho\)</span>，故 <span id="eq-sound-speed"><span class="math display">\[
+a = \sqrt{\frac{\gamma p}{\rho}} = \sqrt{\frac{\gamma RT}{M}}
+\tag{39}\]</span></span></p>
+</section>
+</section>
+<section id="理想气体的卡诺循环" class="level1">
+<h1>理想气体的卡诺循环</h1>
+<div id="def-carnot-cycle" class="definition theorem">
+<p><span class="theorem-title"><strong>定义 15</strong></span> 工作于高温热源 <span class="math inline">\(T_1\)</span> 与低温热源 <span class="math inline">\(T_2\)</span> 之间、由两个等温过程与两个绝热过程组成的循环。设工质为 1 mol 理想气体，四个过程为：</p>
+<ol type="1">
+<li><p>等温膨胀 I<span class="math inline">\(\to\)</span>II（<span class="math inline">\(T_1\)</span>）：由焦耳定律（式<a href="#eq-joule-law" class="quarto-xref">29</a>）<span class="math inline">\(\Delta U = 0\)</span>，吸热全部转化为对外做功： <span id="eq-carnot-q1"><span class="math display">\[
+Q_1 = RT_1 \ln \frac{V_2}{V_1}
+\tag{40}\]</span></span></p></li>
+<li><p>绝热膨胀 II<span class="math inline">\(\to\)</span>III（<span class="math inline">\(T_1 \to T_2\)</span>）：<span class="math inline">\(Q = 0\)</span>，对外做功等于内能减少，用式<a href="#eq-cv-cp-gamma" class="quarto-xref">34</a>： <span id="eq-carnot-w2"><span class="math display">\[
+W_2 = C_V (T_1 - T_2) = \frac{nR}{\gamma - 1} (T_1 - T_2)
+\tag{41}\]</span></span></p></li>
+<li><p>等温压缩 III<span class="math inline">\(\to\)</span>IV（<span class="math inline">\(T_2\)</span>）：向低温热源放热： <span id="eq-carnot-q2"><span class="math display">\[
+Q_2 = RT_2 \ln \frac{V_3}{V_4}
+\tag{42}\]</span></span></p></li>
+<li><p>绝热压缩 IV<span class="math inline">\(\to\)</span>I：<span class="math inline">\(Q = 0\)</span>，外界做功 <span class="math inline">\(C_V (T_1 - T_2)\)</span>。</p></li>
+</ol>
+<p>由绝热方程（式<a href="#eq-adiabatic-tv-pt" class="quarto-xref">38</a>）：<span class="math inline">\(T_1 V_2^{\gamma - 1} = T_2 V_3^{\gamma - 1}\)</span>，<span class="math inline">\(T_1 V_1^{\gamma - 1} = T_2 V_4^{\gamma - 1}\)</span>，两式相除得 <span id="eq-carnot-vratio"><span class="math display">\[
+\frac{V_2}{V_1} = \frac{V_3}{V_4}
+\tag{43}\]</span></span></p>
+</div>
+<div id="thm-carnot-efficiency" class="theorem">
+<p><span class="theorem-title"><strong>定理 9</strong></span> 循环的净功（系统对外做功）为 <span id="eq-carnot-work"><span class="math display">\[
+W = Q_1 - Q_2 = R (T_1 - T_2) \ln \frac{V_2}{V_1}
+\tag{44}\]</span></span> 热功转化效率为 <span id="eq-carnot-eta"><span class="math display">\[
+\eta = \frac{W}{Q_1} = 1 - \frac{T_2}{T_1}
+\tag{45}\]</span></span> 只取决于两热源的温度，与工质无关。</p>
+</div>
+<div id="def-carnot-reverse" class="definition theorem">
+<p><span class="theorem-title"><strong>定义 16</strong></span> 循环反向进行（I<span class="math inline">\(\to\)</span>IV<span class="math inline">\(\to\)</span>III<span class="math inline">\(\to\)</span>II<span class="math inline">\(\to\)</span>I）即逆卡诺循环：外界做功 <span class="math inline">\(W\)</span>，从低温热源吸热 <span class="math inline">\(Q_2\)</span>，向高温热源放热 <span class="math inline">\(Q_1\)</span>，是理想制冷机的工作循环。其工作系数（制冷系数）为 <span id="eq-carnot-cop"><span class="math display">\[
+\varepsilon = \frac{Q_2}{W} = \frac{T_2}{T_1 - T_2}
+\tag{46}\]</span></span></p>
+</div>
+</section>
+<section id="热力学第二定律" class="level1">
+<h1>热力学第二定律</h1>
+<div id="thm-second-law" class="theorem">
+<p><span class="theorem-title"><strong>定理 10</strong></span> <strong>开尔文表述</strong>：不可能从单一热源吸热使之完全变为有用功，而不产生其他影响。 <strong>克劳修斯表述</strong>：不可能把热量从低温物体传到高温物体，而不产生其他影响。</p>
+</div>
+<p>第二类永动机：能从单一热源吸热并使之完全变为有用功而不产生其他影响的机器，违反开尔文表述，不可能造成。</p>
+<div class="proof">
+<p><span class="proof-title"><em>证明</em>. </span><em>两种表述等价.</em> 若开尔文表述不成立，单热源热机把吸收的热量 <span class="math inline">\(Q\)</span> 全部变为功 <span class="math inline">\(W\)</span>；用 <span class="math inline">\(W\)</span> 驱动逆卡诺循环（式<a href="#eq-carnot-cop" class="quarto-xref">46</a>），把热量 <span class="math inline">\(Q_2\)</span> 从低温热源送到高温热源，净效果违反克劳修斯表述。 若克劳修斯表述不成立，热量 <span class="math inline">\(Q_2\)</span> 自发从低温传到高温；其间加装卡诺热机，从高温吸热 <span class="math inline">\(Q_1\)</span>、向低温放热 <span class="math inline">\(Q_2\)</span>、对外做功 <span class="math inline">\(W = Q_1 - Q_2\)</span>，净效果是从单一高温热源吸热 <span class="math inline">\(Q_1 - Q_2\)</span> 并全部变为功，违反开尔文表述。故两表述等价。&nbsp;◻</p>
+</div>
+</section>
+<section id="卡诺定理" class="level1">
+<h1>卡诺定理</h1>
+<div id="thm-carnot-theorem" class="theorem">
+<p><span class="theorem-title"><strong>定理 11</strong></span> 所有工作于两个一定温度之间的热机，以可逆机（卡诺机）的效率为最大；一切可逆机的效率相等，与工作物质无关： <span id="eq-carnot-theorem"><span class="math display">\[
+\eta \le 1 - \frac{T_2}{T_1}
+\tag{47}\]</span></span> 等号对可逆机成立。</p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>证明</em>. </span><em>Proof.</em> 设不可逆机 <span class="math inline">\(E\)</span> 的效率 <span class="math inline">\(\eta_E &gt; \eta_R\)</span>（<span class="math inline">\(R\)</span> 为可逆卡诺机）。令 <span class="math inline">\(E\)</span> 正向运行并驱动逆卡诺机 <span class="math inline">\(R\)</span>，且使 <span class="math inline">\(R\)</span> 从低温热源吸收的热量恰等于 <span class="math inline">\(E\)</span> 向低温热源放出的热量，则复合系统的净效果是从单一高温热源吸热并全部转化为功，违反开尔文表述，矛盾。故 <span class="math inline">\(\eta_E \le \eta_R\)</span>。 若 <span class="math inline">\(R_1\)</span>、<span class="math inline">\(R_2\)</span> 均为可逆机，同理可得 <span class="math inline">\(\eta_{R_1} \le \eta_{R_2}\)</span> 与 <span class="math inline">\(\eta_{R_2} \le \eta_{R_1}\)</span>，故可逆机效率相等，与工作物质无关。&nbsp;◻</p>
+</div>
+</section>
+<section id="热力学温标" class="level1">
+<h1>热力学温标</h1>
+<div id="thm-thermo-temp" class="theorem">
+<p><span class="theorem-title"><strong>定理 12</strong></span> 由卡诺定理，可逆机效率只取决于两热源温度、与工作物质无关，故 <span id="eq-temp-f"><span class="math display">\[
+\frac{Q_2}{Q_1} = F(\theta_1, \theta_2)
+\tag{48}\]</span></span> 引入第三个热源 <span class="math inline">\(\theta_3\)</span>：设卡诺机 <span class="math inline">\(A\)</span>、<span class="math inline">\(B\)</span>、<span class="math inline">\(C\)</span> 分别工作于 <span class="math inline">\((\theta_1, \theta_2)\)</span>、<span class="math inline">\((\theta_2, \theta_3)\)</span>、<span class="math inline">\((\theta_1, \theta_3)\)</span> 之间，且 <span class="math inline">\(B\)</span> 吸收的热量恰为 <span class="math inline">\(A\)</span> 放出的热量 <span class="math inline">\(Q_2\)</span>。由 <span class="math inline">\(Q_3/Q_1 = (Q_3/Q_2)(Q_2/Q_1)\)</span> 得复合关系 <span id="eq-temp-compose"><span class="math display">\[
+F(\theta_1, \theta_3) = F(\theta_2, \theta_3)\, F(\theta_1, \theta_2)
+\tag{49}\]</span></span> 左边与 <span class="math inline">\(\theta_2\)</span> 无关，故 <span class="math inline">\(F\)</span> 必可分离为 <span id="eq-temp-f-form"><span class="math display">\[
+F(\theta_1, \theta_2) = \frac{f(\theta_1)}{f(\theta_2)}
+\tag{50}\]</span></span> 适当选取温标，令 <span class="math inline">\(T \equiv f(\theta)\)</span>（开尔文取 <span class="math inline">\(f(\theta)\)</span> 与 <span class="math inline">\(\theta\)</span> 成正比），并以水的三相点定标 <span class="math inline">\(T_{tr} = 273.16\,\mathrm{K}\)</span>，得 <span id="eq-temp-scale"><span class="math display">\[
+\frac{T_1}{T_2} = \frac{Q_1}{Q_2}, \qquad T = 273.16\,\mathrm{K} \cdot \frac{Q}{Q_{tr}}
+\tag{51}\]</span></span> 该温标不依赖任何具体物质的特性，称为热力学温标。卡诺机效率随之改写为 <span id="eq-temp-eta"><span class="math display">\[
+\eta = 1 - \frac{Q_2}{Q_1} = 1 - \frac{T_2}{T_1}
+\tag{52}\]</span></span></p>
+</div>
+<div class="proof">
+<p><span class="proof-title"><em>证明</em>. </span><em>与理想气体温标一致.</em> 以理想气体为工质的卡诺机，其效率由式<a href="#eq-carnot-eta" class="quarto-xref">45</a> 给出 <span class="math inline">\(\eta = 1 - T_2/T_1\)</span>（<span class="math inline">\(T\)</span> 为理想气体温标）；同一可逆机在热力学温标下的效率为式<a href="#eq-temp-eta" class="quarto-xref">52</a>。两式相等，故两温标给出的温度之比相同；又两者均以水的三相点 <span class="math inline">\(T_{tr} = 273.16\,\mathrm{K}\)</span> 定标，比例常数相同，因此在理想气体温标适用的范围内，热力学温标与理想气体温标一致。&nbsp;◻</p>
+</div>
+</section>
+<section id="克劳修斯等式和不等式" class="level1">
+<h1>克劳修斯等式和不等式</h1>
+<div id="thm-clausius" class="theorem">
+<p><span class="theorem-title"><strong>定理 13</strong></span> 任意可逆循环可用一系列可逆绝热线分割为许多小段，每一小段与相邻段构成一个可逆卡诺循环。对第 <span class="math inline">\(i\)</span> 个小循环，由可逆机性质 <span class="math inline">\(Q_{1i}/T_{1i} = Q_{2i}/T_{2i}\)</span>，带符号地写为 <span id="eq-clausius-step"><span class="math display">\[
+\frac{Q_{1i}}{T_{1i}} - \frac{Q_{2i}}{T_{2i}} = 0
+\tag{53}\]</span></span> 对所有小循环求和，并将分割无限细化，把求和推广为沿循环的积分，得 <span id="eq-clausius-equality"><span class="math display">\[
+\oint \frac{\delta Q}{T} = 0
+\tag{54}\]</span></span> 称为克劳修斯等式。 对包含不可逆过程的循环，由卡诺定理 <span class="math inline">\(\eta \le 1 - T_{2i}/T_{1i}\)</span>，每个小循环满足 <span class="math inline">\(\frac{Q_{1i}}{T_{1i}} - \frac{Q_{2i}}{T_{2i}} \le 0\)</span>，同样求和取极限得 <span id="eq-clausius-inequality"><span class="math display">\[
+\oint \frac{\delta Q}{T} \le 0
+\tag{55}\]</span></span> 称为克劳修斯不等式，等号对可逆循环成立。</p>
+</div>
+</section>
+<section id="熵和热力学基本方程" class="level1">
+<h1>熵和热力学基本方程</h1>
+<div id="def-entropy" class="definition theorem">
+<p><span class="theorem-title"><strong>定义 17</strong></span> 由克劳修斯等式（式<a href="#eq-clausius-equality" class="quarto-xref">54</a>），可逆过程中 <span class="math inline">\(\delta Q/T\)</span> 沿任意闭合路径的积分为零，故其路径积分与路径无关，<span class="math inline">\(\delta Q/T\)</span> 是可逆过程中的全微分，由此定义态函数——熵 <span class="math inline">\(S\)</span>： <span id="eq-entropy"><span class="math display">\[
+\mathrm{d} S = \frac{\delta Q}{T} \;(\text{可逆过程}), \qquad S_B - S_A = \int_A^B \frac{\delta Q}{T} \;(\text{沿可逆路径})
+\tag{56}\]</span></span> 熵是广延量。数学上 <span class="math inline">\(\delta Q\)</span> 不是全微分，乘以 <span class="math inline">\(1/T\)</span> 后成为全微分，故 <span class="math inline">\(1/T\)</span> 称为 <span class="math inline">\(\delta Q\)</span> 的积分因子。</p>
+</div>
+<div id="thm-fundamental" class="theorem">
+<p><span class="theorem-title"><strong>定理 14</strong></span> 可逆过程中 <span class="math inline">\(\delta Q = T\,\mathrm{d} S\)</span>，<span class="math inline">\(\delta W = -p\,\mathrm{d} V\)</span>（式<a href="#eq-work-volume" class="quarto-xref">20</a>），代入第一定律得简单系统的热力学基本方程 <span id="eq-fundamental"><span class="math display">\[
+\mathrm{d} U = T\,\mathrm{d} S - p\,\mathrm{d} V
+\tag{57}\]</span></span> 推广到一般功（式<a href="#eq-work-general" class="quarto-xref">21</a>）： <span id="eq-fundamental-general"><span class="math display">\[
+\mathrm{d} U = T\,\mathrm{d} S + \sum_i Y_i\,\mathrm{d} y_i
+\tag{58}\]</span></span> 方程只含状态参量，故对任意两个相邻平衡态都成立，与过程可逆与否无关。但必须注意：对不可逆过程，系统状态的变化虽仍由上式描述，与外界交换的功和热却不同——由克劳修斯不等式 <span class="math inline">\(\delta Q &lt; T\,\mathrm{d} S\)</span>，外界实际做功也不再等于 <span class="math inline">\(-p\,\mathrm{d} V\)</span>。</p>
+</div>
+</section>
+<section id="理想气体的熵" class="level1">
+<h1>理想气体的熵</h1>
+<div id="thm-ideal-gas-entropy" class="theorem">
+<p><span class="theorem-title"><strong>定理 15</strong></span> 对 1 mol 理想气体，<span class="math inline">\(\mathrm{d} U_m = C_{Vm}\mathrm{d} T\)</span>，<span class="math inline">\(pV_m = RT\)</span>，代入热力学基本方程（式<a href="#eq-fundamental" class="quarto-xref">57</a>）<span class="math inline">\(\mathrm{d} S = \dfrac{\mathrm{d} U}{T} + \dfrac{p\,\mathrm{d} V}{T}\)</span>，得 <span id="eq-ideal-gas-entropy-diff"><span class="math display">\[
+\mathrm{d} S_m = C_{Vm}\frac{\mathrm{d} T}{T} + R\frac{\mathrm{d} V_m}{V_m}
+\tag{59}\]</span></span> 积分得 <span id="eq-ideal-gas-entropy-mol"><span class="math display">\[
+S_m = C_{Vm}\ln T + R\ln V_m + S_{m0}
+\tag{60}\]</span></span> 由熵的广延性，物质的量为 <span class="math inline">\(n\)</span> 的理想气体（<span class="math inline">\(V = nV_m\)</span>）： <span id="eq-ideal-gas-entropy"><span class="math display">\[
+S = nC_{Vm}\ln T + nR\ln V + S_0, \qquad S_0 = n(S_{m0} - R\ln n)
+\tag{61}\]</span></span> 将物态方程 <span class="math inline">\(pV = nRT\)</span> 取对数微分（<span class="math inline">\(\mathrm{d} V/V = \mathrm{d} T/T - \mathrm{d} p/p\)</span>）代入消去变量，得等价形式 <span id="eq-ideal-gas-entropy-forms"><span class="math display">\[
+S = nC_{pm}\ln T - nR\ln p + S_0', \qquad S = nC_{Vm}\ln p + nC_{pm}\ln V + S_0''
+\tag{62}\]</span></span> 三种表达式的积分常量 <span class="math inline">\(S_0\)</span> 互不相等，其中包含使对数内量纲正确的项。</p>
+</div>
+</section>
+<section id="热力学第二定律的数学表述" class="level1">
+<h1>热力学第二定律的数学表述</h1>
+<div id="thm-second-law-math" class="theorem">
+<p><span class="theorem-title"><strong>定理 16</strong></span> 设系统经任意过程由初态 <span class="math inline">\(A\)</span> 变到终态 <span class="math inline">\(B\)</span>，再设想一个可逆过程使系统由 <span class="math inline">\(B\)</span> 回到 <span class="math inline">\(A\)</span>，两者合起来构成一个循环。由克劳修斯不等式（式<a href="#eq-clausius-inequality" class="quarto-xref">55</a>）： <span id="eq-second-law-math-step"><span class="math display">\[
+\int_A^B \frac{\delta Q}{T} + \int_B^A \frac{\delta Q_{\text{rev}}}{T} \le 0
+\tag{63}\]</span></span> 其中 <span class="math inline">\(\delta Q_{\text{rev}}\)</span> 是设想可逆过程中的热量。由熵的定义（式<a href="#eq-entropy" class="quarto-xref">56</a>）知 <span class="math inline">\(\int_B^A \delta Q_{\text{rev}}/T = S_A - S_B\)</span>，故 <span id="eq-second-law-math"><span class="math display">\[
+S_B - S_A \ge \int_A^B \frac{\delta Q}{T}
+\tag{64}\]</span></span> 对无穷小过程： <span id="eq-second-law-math-diff"><span class="math display">\[
+\mathrm{d} S \ge \frac{\delta Q}{T}
+\tag{65}\]</span></span> 式中 <span class="math inline">\(T\)</span> 是热源的温度，积分沿系统原来的过程进行；等号对可逆过程成立，大于号对不可逆过程成立。将第一定律 <span class="math inline">\(\mathrm{d} U = \delta Q + \delta W\)</span> 代入得 <span id="eq-second-law-math-udiff"><span class="math display">\[
+\mathrm{d} U \le T\,\mathrm{d} S + \delta W
+\tag{66}\]</span></span> 不可逆过程中 <span class="math inline">\(\delta Q &lt; T\,\mathrm{d} S\)</span>，<span class="math inline">\(\delta W\)</span> 一般也不能写成 <span class="math inline">\(-p\,\mathrm{d} V\)</span>。式<a href="#eq-second-law-math" class="quarto-xref">64</a> 与式<a href="#eq-second-law-math-diff" class="quarto-xref">65</a> 给出第二定律对一切过程的限制，违反它们的过程不可能实现，这就是热力学第二定律的数学表述。</p>
+</div>
+<div id="thm-entropy-increase" class="theorem">
+<p><span class="theorem-title"><strong>定理 17</strong></span> 绝热系统中 <span class="math inline">\(\delta Q = 0\)</span>，由式<a href="#eq-second-law-math" class="quarto-xref">64</a> 得 <span id="eq-entropy-increase"><span class="math display">\[
+S_B - S_A \ge 0
+\tag{67}\]</span></span> 即系统经绝热过程后熵永不减少：可逆绝热过程熵不变，不可逆绝热过程熵增加，绝热条件下熵减少的过程不可能实现。孤立系统发生的一切过程都是绝热的，故孤立系统中发生的过程总是朝着熵增加的方向进行，其统计意义是孤立系统的不可逆过程总是朝着混乱度增加的方向进行。 <strong>使用条件</strong>：初态与终态为平衡态。若初终态并非平衡态，只要能将系统划分为若干小部分，使每一小部分仍是含大量微观粒子的宏观系统、且其初终态均可看作局域平衡态，则系统熵定义为各部分熵之和，此时熵增加原理在局域平衡假设下依然成立。</p>
+</div>
+<div class="proof remark">
+<p><span class="proof-title"><em>注记</em>. </span>统一判据是比较 <span class="math inline">\(\Delta S\)</span> 与 <span class="math inline">\(\int \delta Q/T\)</span>（式<a href="#eq-second-law-math" class="quarto-xref">64</a>）：等号可逆、严格大于号不可逆。绝热过程中 <span class="math inline">\(\delta Q = 0\)</span>，路径积分恒为零，判据退化为 <span class="math inline">\(\Delta S \ge 0\)</span>，故"绝热熵增即不可逆"成立；非绝热过程必须作完整比较——系统可借吸热增加熵，如可逆等温过程 <span class="math inline">\(\Delta S = Q/T &gt; 0\)</span> 仍可逆，不能仅凭熵增判断。</p>
+</div>
+</section>
+<section id="熵增加原理的简单应用" class="level1">
+<h1>熵增加原理的简单应用</h1>
+<div id="ex-heat-conduction" class="example">
+<p><strong>问题：</strong>热量 <span class="math inline">\(Q\)</span> 从高温热源 <span class="math inline">\(T_1\)</span> 直接传到低温热源 <span class="math inline">\(T_2\)</span>（<span class="math inline">\(T_1 &gt; T_2\)</span>），求两热源的总熵变。 <strong>解：</strong>直接传热是不可逆过程，设想可逆过程造成相同的变化——让高温热源在温度 <span class="math inline">\(T_1\)</span> 下放出热量 <span class="math inline">\(Q\)</span>、低温热源在温度 <span class="math inline">\(T_2\)</span> 下吸收热量 <span class="math inline">\(Q\)</span>（同温物体间传热可逆）。由熵的定义： <span id="eq-entropy-heat-conduction"><span class="math display">\[
+\Delta S = -\frac{Q}{T_1} + \frac{Q}{T_2} = Q\left(\frac{1}{T_2} - \frac{1}{T_1}\right)
+\tag{68}\]</span></span> <strong>讨论：</strong>因 <span class="math inline">\(T_1 &gt; T_2\)</span>，<span class="math inline">\(\Delta S &gt; 0\)</span>：两热源构成孤立系统，热传导是不可逆过程，符合熵增加原理。</p>
+</div>
+<div id="ex-mixing-water" class="example">
+<p><strong>问题：</strong>等量、等压的两杯水，温度分别为 <span class="math inline">\(T_1\)</span>、<span class="math inline">\(T_2\)</span>，绝热混合，求熵变（<span class="math inline">\(C\)</span> 为每杯水的热容，视为常量）。 <strong>解：</strong>混合后共同温度 <span class="math inline">\(\bar{T} = (T_1 + T_2)/2\)</span>。设想每杯水与一系列温差无穷小的热源依次接触，可逆地从初温变到 <span class="math inline">\(\bar{T}\)</span>： <span id="eq-entropy-mixing"><span class="math display">\[
+\Delta S = \int_{T_1}^{\bar{T}} \frac{C\,\mathrm{d} T}{T} + \int_{T_2}^{\bar{T}} \frac{C\,\mathrm{d} T}{T} = C \ln\frac{(T_1 + T_2)^2}{4 T_1 T_2}
+\tag{69}\]</span></span> <strong>讨论：</strong>由 <span class="math inline">\((T_1 - T_2)^2 &gt; 0\)</span> 知 <span class="math inline">\((T_1 + T_2)^2 &gt; 4T_1T_2\)</span>，故 <span class="math inline">\(\Delta S &gt; 0\)</span>：等压绝热混合是不可逆过程；若 <span class="math inline">\(T_1 = T_2\)</span> 则 <span class="math inline">\(\Delta S = 0\)</span>。</p>
+</div>
+<div id="ex-free-expansion" class="example">
+<p><strong>问题：</strong>理想气体从状态 <span class="math inline">\((T, V)\)</span> 绝热自由膨胀到体积 <span class="math inline">\(V'\)</span>，求熵变。 <strong>解：</strong>自由膨胀 <span class="math inline">\(W = 0\)</span>，绝热 <span class="math inline">\(Q = 0\)</span>，由焦耳定律（式<a href="#eq-joule-law" class="quarto-xref">29</a>）<span class="math inline">\(\Delta U = 0\)</span>，温度不变。由理想气体熵函数（式<a href="#eq-ideal-gas-entropy" class="quarto-xref">61</a>）： <span id="eq-entropy-free-expansion"><span class="math display">\[
+\Delta S = nR \ln\frac{V'}{V}
+\tag{70}\]</span></span> <strong>讨论：</strong>因 <span class="math inline">\(V' &gt; V\)</span>，<span class="math inline">\(\Delta S &gt; 0\)</span>：绝热自由膨胀是不可逆过程。注意此式与等温可逆过程的熵变 <span class="math inline">\(nR\ln(V_B/V_A)\)</span> 形式相同，但含义不同——等温过程中 <span class="math inline">\(V_B\)</span> 可大于或小于 <span class="math inline">\(V_A\)</span>，熵变可正可负；而自由膨胀中 <span class="math inline">\(V'\)</span> 必大于 <span class="math inline">\(V\)</span>，熵变恒为正。</p>
+</div>
+</section>
+<section id="自由能和吉布斯函数" class="level1">
+<h1>自由能和吉布斯函数</h1>
+<div id="thm-isothermal-work" class="theorem">
+<p><span class="theorem-title"><strong>定理 18</strong></span> 等温过程中系统与恒定温度 <span class="math inline">\(T\)</span> 的热源接触，初终态温度均为 <span class="math inline">\(T\)</span>。由式<a href="#eq-second-law-math" class="quarto-xref">64</a>，系统从外界吸取的热量满足 <span class="math inline">\(Q \le T(S_B - S_A)\)</span>（等号对可逆过程）。由第一定律 <span class="math inline">\(\Delta U = W + Q\)</span>（<span class="math inline">\(W\)</span> 为外界对系统做的功），系统对外做功 <span class="math inline">\(W' = -W\)</span> 满足 <span id="eq-free-energy-step"><span class="math display">\[
+W' \le (U_A - T S_A) - (U_B - T S_B)
+\tag{71}\]</span></span> 对比绝热过程：对外做功恒等于内能的减小（式<a href="#eq-first-law" class="quarto-xref">23</a>），而等温过程伴有热量交换，只能给出做功上限。</p>
+</div>
+<div id="def-free-energy" class="definition theorem">
+<p><span class="theorem-title"><strong>定义 18</strong></span> 由式<a href="#eq-free-energy-step" class="quarto-xref">71</a> 引入亥姆霍兹自由能（简称自由能） <span id="eq-free-energy"><span class="math display">\[
+F = U - TS
+\tag{72}\]</span></span> 它是状态函数。于是 <span class="math inline">\(W' \le F_A - F_B\)</span>：<strong>自由能的减小是等温过程所能获得的最大功</strong>，可逆等温过程取等号。</p>
+</div>
+<div id="thm-free-energy-criterion" class="theorem">
+<p><span class="theorem-title"><strong>定理 19</strong></span> 只有体积功且体积不变时 <span class="math inline">\(W' = 0\)</span>，由 <span class="math inline">\(W' \le F_A - F_B\)</span> 得 <span id="eq-free-energy-criterion"><span class="math display">\[
+F_B \le F_A
+\tag{73}\]</span></span> 等温等容条件下自由能永不增加，发生的不可逆过程总是朝着自由能减少的方向进行，平衡时自由能最小。</p>
+</div>
+<div id="def-gibbs" class="definition theorem">
+<p><span class="theorem-title"><strong>定义 19</strong></span> 等温等压过程中系统与恒定温度 <span class="math inline">\(T\)</span> 的热源接触，外界压强恒为 <span class="math inline">\(p\)</span>。只有体积功时 <span class="math inline">\(W' = p(V_B - V_A)\)</span>，代入 <span class="math inline">\(W' \le F_A - F_B\)</span> 移项得 <span class="math inline">\(F_B + p V_B \le F_A + p V_A\)</span>，由此引入吉布斯函数 <span id="eq-gibbs"><span class="math display">\[
+G = F + pV = U - TS + pV
+\tag{74}\]</span></span> 它是状态函数。</p>
+</div>
+<div id="thm-gibbs-criterion" class="theorem">
+<p><span class="theorem-title"><strong>定理 20</strong></span> 由吉布斯函数的定义（式<a href="#eq-gibbs" class="quarto-xref">74</a>）得 <span id="eq-gibbs-criterion"><span class="math display">\[
+G_B \le G_A
+\tag{75}\]</span></span> 等温等压条件下吉布斯函数永不增加，不可逆过程总是朝着吉布斯函数减少的方向进行，平衡时吉布斯函数最小。</p>
+</div>
+<div class="proof remark">
+<p><span class="proof-title"><em>注记</em>. </span>对只有 <span class="math inline">\(T, V\)</span>（或 <span class="math inline">\(T, p\)</span>）两个状态参量的简单系统，平衡态确定后不再发生热力学变化，上述判据没有意义；它们适用于 <span class="math inline">\(T, V\)</span>（或 <span class="math inline">\(T, p\)</span>）确定后状态仍可变化的系统，如复相系、多元系（第三章、第四章将应用）。</p>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "已复制");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "已复制");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/wenjium88-png\.github\.io\/my-blog\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026 Wenjium</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Built with Quarto</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
