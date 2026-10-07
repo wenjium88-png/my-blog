@@ -2,3 +2,16 @@
 _site/
 /.quarto/
 **/*.quarto_ipynb
+
+# 原始素材暂存区：含大文件（模拟轨迹 .bin 等）与草稿，不提交、不发布
+_inbox/
+
+# 常见编译/缓存产物（若将来在仓库内直接跑代码）
+__pycache__/
+*.pyc
+*.exe
+*.bin
+*.err
+*.log
+*.prof
+

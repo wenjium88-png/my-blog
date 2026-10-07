@@ -1,0 +1,43 @@
+---
+title: "群论"
+subtitle: "Group Theory and its Applications"
+format:
+  html:
+    toc: false
+---
+
+<p class="page-lead">
+跟课学习群论的笔记。<br>
+按书上的顺序走：定义、例子，每节末尾附术语对照和几道能自己验算的题。
+</p>
+
+## 课程信息
+
+<div class="topic-grid">
+<div class="topic-card">
+<h3>参考课程</h3>
+<p>卢毅老师 2026 年秋季「Group Theory and its Applications」（<a href="https://yilu.me/">yilu.me</a>）</p>
+</div>
+<div class="topic-card">
+<h3>参考书</h3>
+<p>主要依据 Moore 的教材，具体章节见每讲开头的 Reading 行；量子纠错部分参考 Nielsen &amp; Chuang §10.5。</p>
+</div>
+<div class="topic-card">
+<h3>笔记方式</h3>
+<p>定义与命题按书上的编号走，便于对照；每节末尾附术语表与自测题。</p>
+</div>
+</div>
+
+## Lectures
+
+<div class="entry-list">
+
+<a class="entry-item" href="ch02-groups-basic-definitions.html">
+<div class="entry-meta">Lecture 1 · Chapter 2</div>
+<h3 class="entry-title">Groups: Basic Definitions and Examples</h3>
+<p class="entry-desc">群的四条公理，为什么结合律是实质限制；子群、阶与循环群；等价关系与剩余类；直积与阿贝尔群；经典矩阵群；生成元与呈现；最后是 Pauli 群与稳定子码。</p>
+</a>
+
+<p class="empty-note">后续讲次正在整理。</p>
+
+</div>

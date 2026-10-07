@@ -12,23 +12,46 @@ My-Blog/
 ├── index.qmd                 首页（Hero 标题 + Research Interests + 三个板块入口）
 ├── about.qmd                 About 页
 ├── styles.css                全站样式（所有颜色、间距、版式都在这里）
-├── _quarto.yml               网站配置（导航栏、主题、页脚）
+├── _quarto.yml               网站配置（导航栏、主题、页脚、lang）
 ├── _ADD-CONTENT.md           本文件，不发布
 │
+├── _tools/                   本地小工具，不发布
+│   └── tex2qmd.py            LaTeX → Quarto 转换器（热统笔记用）
+│
 ├── physics-notes/
-│   ├── index.qmd             Physics Notes 落地页（主题卡片 + 笔记列表）
-│   └── <新笔记>.qmd           以后新建的笔记放这里
+│   ├── index.qmd             Physics Notes 落地页（课程 / 单篇笔记列表）
+│   │
+│   ├── group-theory/         群论（一门课 = 一个文件夹）
+│   │   ├── index.qmd         课程落地页（课程信息 + 讲次列表）
+│   │   └── ch02-groups-basic-definitions.qmd
+│   │
+│   └── thermodynamics/       热力学与统计物理
+│       ├── index.qmd         课程落地页
+│       └── ch01-basic-laws.qmd
 │
 ├── projects/
 │   ├── index.qmd             Projects 落地页（方向卡片 + 项目列表）
-│   └── <新项目>.qmd           以后新建的项目放这里
+│   │
+│   ├── vicsek-model/         Vicsek 模型复现（一个项目 = 一个文件夹）
+│   │   ├── index.qmd         项目正文
+│   │   ├── README.md         项目说明（给看代码的人）
+│   │   ├── images/           配图
+│   │   └── code/             核心源码
+│   │
+│   └── quantum-ai/
+│       └── index.qmd
 │
 └── thoughts/
     ├── index.qmd             Thoughts 落地页（随笔列表）
-    └── <新随笔>.qmd           以后新建的随笔放这里
+    └── <新随笔>.qmd           以后新建的单篇随笔放这里
 ```
 
-加一篇内容永远是**两步**：新建一个 `.qmd` 文件 → 回到该板块的 `index.qmd` 在列表里加一条链接。
+加内容分两种规模：
+
+- **单篇**（一篇随笔、一篇独立笔记）：在板块文件夹里新建一个 `.qmd` 文件 → 回到该板块的 `index.qmd`，在列表里加一条链接。
+- **整门课 / 整个项目**：新建一个**文件夹**，里面放 `index.qmd`（课程落地页或项目正文）、必要时加 `README.md`、`images/`、`code/`。这样一个单元自成一体，想下线时删掉整个文件夹即可，不会牵连别的页面。
+
+文件夹落地后，记得在上一层的 `index.qmd` 列表里加一条指向 `文件夹名/index.html` 的链接。
 
 ---
 
@@ -141,6 +164,25 @@ Metropolis 单自旋翻转算法，用 Python + NumPy 实现，格子尺寸 $L =
 
 项目页建议固定用「问题 / 方法 / 结果 / 代码」四段，比笔记更强调"做完了什么"。
 
+### 项目是文件夹，不是单个文件
+
+一个项目建一个文件夹，例如 `projects/ising-simulation/`：
+
+```
+projects/ising-simulation/
+├── index.qmd       项目正文（上面这个模板），渲染成 index.html
+├── README.md       给看代码的人看的说明，不渲染成网页
+├── images/         配图，正文里用 ![](images/xxx.png) 引用
+└── code/           核心源码
+```
+
+外层 `projects/index.qmd` 的链接写 `href="ising-simulation/index.html"`。
+
+两点经验：
+
+- **`code/` 里只放核心源码**，不要放编译产物（`.exe`）、模拟轨迹（`.bin`）、日志（`.log` / `.err`）。这些动辄几百 MB，进 git 就再也删不干净。
+- **外部论文的 PDF / 全文 / 截图不要进仓库**（arXiv 和 APS 都有版权）。引用写成文献条目即可。
+
 ---
 
 ## 五、新随笔模板（Thoughts）
@@ -207,3 +249,35 @@ git push
 | `empty-note` | 空状态提示块 | 列表里没内容时 |
 
 全局配色变量在 `styles.css` 顶部的 `:root` 里，改主题色只要改 `--accent-color`。
+
+---
+
+## 九、把 LaTeX 笔记搬上网页
+
+热力学笔记原本是 LaTeX，用 `_tools/tex2qmd.py` 转换：
+
+```
+python _tools\tex2qmd.py <输入.tex> <输出.qmd> --title "标题" --subtitle "副标题"
+```
+
+它做六件事：调 pandoc（自动展开导言区自定义宏）、拆掉公式外层壳并接上 `{#eq-x}` 编号、把 `definition`/`theorem` 等环境转成 Quarto 的 `::: {.theorem #thm-x}`、把 `\eqref`/`\ref` 转成可点击交叉引用、替换 MathJax 不认识的宏（`\dd`、`\SI`）、加 YAML 头。转换后会在终端提醒哪些定理引用需要人工看一眼。
+
+### 交叉引用的三条规矩
+
+这几条都是踩过坑才定下来的，写新笔记时照做即可：
+
+1. **引用公式必须用方括号形式**：写 `由式[@eq-fab]导出`，**不要**写 `由式@eq-fab导出`。
+   中文直接跟在 `@eq-fab` 后面时，pandoc 会把汉字一起当成引用 ID，报
+   `Unable to resolve crossref @eq-fab导`。
+2. **定理 / 定义用围栏 div**：`::: {.theorem #thm-boyle}` … `:::`。
+   正文里不要自己写「定理 定理」这种重复——链接文字本身已经带了类型词。
+3. **`_quarto.yml` 里的 `lang: zh` 不要删**。它让 Quarto 自动输出中文标签
+   （定义 / 定理 / 证明 / 引理 / 例 / 注记 / 命题 / 推论），同时本地化目录、搜索框等界面文字。
+   公式编号前缀已在 `_quarto.yml` 里统一设成 `crossref: eq-prefix: ""`（全局生效），
+   引用只会显示纯数字，正文自己写「式」字（`由式[@eq-vicsek]导出`）。新页面不用再单独配。
+
+### 一个反复踩到的坑
+
+**HTML 块里任何一行都不要缩进到 4 个空格以上。** Pandoc 会把这种行当成「缩进代码块」，
+于是 `<h3>`、`<p>` 这些标签会以等宽字体原样显示在页面上，而不是渲染成标题和段落。
+这个 bug 在首页 Research Interests 区块真的发生过一次。

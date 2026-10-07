@@ -6,35 +6,31 @@ format:
 ---
 
 <p class="page-lead">
-这里记录我在学习物理时重新推导、整理和思考的一些问题。<br>
-比起记下结论，我更在意一个结论是怎样被想清楚的。
+物理课的笔记。一般是自己先推一遍，再和教材对答案；推不动的地方会标出来。
 </p>
 
-## Topics
+## Courses
 
-<div class="topic-grid">
-<div class="topic-card">
-<h3>Statistical Physics</h3>
-<p>系综理论、配分函数、涨落与输运。</p>
-</div>
-<div class="topic-card">
-<h3>Quantum Mechanics</h3>
-<p>波函数、算符、对称性与微扰方法。</p>
-</div>
-<div class="topic-card">
-<h3>Phase Transitions</h3>
-<p>临界现象、序参量与重整化。</p>
-</div>
-<div class="topic-card">
-<h3>Mathematical Physics</h3>
-<p>复分析、微分方程与线性代数在物理中的用法。</p>
-</div>
+<div class="entry-list">
+
+<a class="entry-item" href="group-theory/index.html">
+<div class="entry-meta">群论 · Group Theory</div>
+<h3 class="entry-title">Group Theory and its Applications</h3>
+<p class="entry-desc">群、子群与矩阵群，生成元与呈现，以及 Pauli 群与稳定子码。跟着卢毅老师的课整理。</p>
+</a>
+
+<a class="entry-item" href="thermodynamics/index.html">
+<div class="entry-meta">热力学与统计物理</div>
+<h3 class="entry-title">热力学与统计物理</h3>
+<p class="entry-desc">从热平衡定律证明温度的存在性开始，把物态方程、功、熵与自由能从头推一遍。</p>
+</a>
+
 </div>
 
 ## Notes
 
 <!-- ==========================================================
-  加一篇笔记的方法（详细版见根目录 _ADD-CONTENT.md）：
+  加一篇单篇笔记的方法（详细版见根目录 _ADD-CONTENT.md）：
 
   1. 在这个文件夹里新建一个文件，比如 fluctuation-response.qmd
      内容从 _ADD-CONTENT.md 里的「新笔记模板」复制。
@@ -48,11 +44,12 @@ format:
   </a>
 
   · href 写 .html（qmd 渲染后的名字），文件在本文件夹里就直接写文件名。
-  · entry-meta 写「年份 · 主题」，主题从上面四张卡片里挑一个。
+  · entry-meta 写「年份 · 主题」。
+  · HTML 块里每行不要缩进到 4 个空格以上，否则 pandoc 会当成代码块。
   ========================================================== -->
 
 <div class="entry-list">
 
-<p class="empty-note">笔记正在整理中。</p>
+<p class="empty-note">单篇笔记正在整理中。</p>
 
 </div>

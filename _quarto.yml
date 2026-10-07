@@ -1,12 +1,18 @@
 project:
   type: website
 
+lang: zh
+
 website:
   title: "Wenjium"
   navbar:
     left:
       - href: index.qmd
         text: Home
+      - href: projects/index.qmd
+        text: Projects
+      - href: physics-notes/index.qmd
+        text: Notes
       - href: about.qmd
         text: About
     right:
@@ -26,5 +32,8 @@ format:
     toc: true
     smooth-scroll: true
 
+# 公式引用只显示纯数字（正文自己写「式」字），不要「式 1」这种带前缀的写法
+crossref:
+  eq-prefix: ""
 
 

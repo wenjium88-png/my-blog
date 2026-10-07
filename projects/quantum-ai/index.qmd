@@ -1,0 +1,36 @@
+---
+title: "Quantum AI"
+subtitle: "研究项目 · 筹备中"
+format:
+  html:
+    toc: false
+---
+
+<p class="page-lead">
+项目还没开始。这里先写下打算关注的方向，等有具体题目再动手。
+</p>
+
+## 计划关注的方向
+
+<div class="topic-grid">
+<div class="topic-card">
+<h3>量子机器学习</h3>
+<p>变分量子线路作为函数逼近器，以及它与经典模型在表达能力上的差别。</p>
+</div>
+<div class="topic-card">
+<h3>量子纠错与学习</h3>
+<p>稳定子码、解码问题，以及能否用学习的方法处理解码与噪声刻画。</p>
+</div>
+<div class="topic-card">
+<h3>物理启发的算法</h3>
+<p>从多体物理里借结构：张量网络、Monte Carlo 采样与生成模型的关系。</p>
+</div>
+</div>
+
+## 进展
+
+<div class="entry-list">
+
+<p class="empty-note">项目尚未开始，暂无内容。</p>
+
+</div>

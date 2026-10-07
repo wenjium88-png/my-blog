@@ -6,8 +6,8 @@ format:
 ---
 
 <p class="page-lead">
-这里记录一些我实际完成的计算、模拟与建模项目。<br>
-每一个都尽量写清楚问题是什么、怎么做的，以及结果说明了什么。
+做过的计算和模拟。<br>
+每个项目写清楚问题、做法和结果，没做到的部分也写。
 </p>
 
 ## Directions
@@ -32,23 +32,37 @@ format:
 <!-- ==========================================================
   加一个项目的方法（详细版见根目录 _ADD-CONTENT.md）：
 
-  1. 在这个文件夹里新建一个文件，比如 ising-simulation.qmd，
-     内容从 _ADD-CONTENT.md 里的「新项目模板」复制。
-  2. 回到本文件，把下面这段复制到 <div class="entry-list"> 里面，
-     改 4 个地方，然后把 empty-note 那一行删掉。
+  一个项目 = 一个文件夹，比如 projects/ising-simulation/，
+  里面放 index.qmd（项目正文）、README.md、images/、code/。
+  每个项目自成一体，删掉整个文件夹就能下线，不影响别的项目。
 
-  <a class="entry-item" href="ising-simulation.html">
+  1. 新建文件夹，把 index.qmd 从 _ADD-CONTENT.md 的「新项目模板」复制。
+  2. 回到本文件，把下面这段复制到 <div class="entry-list"> 里面，
+     改 4 个地方，然后把已有的条目排在上面（时间倒序）。
+
+  <a class="entry-item" href="ising-simulation/index.html">
   <div class="entry-meta">2026 · Numerical Simulation · Python</div>
   <h3 class="entry-title">二维 Ising 模型的蒙特卡洛模拟</h3>
   <p class="entry-desc">一句话说明这个项目做了什么、结果是什么。</p>
   </a>
 
-  · href 写 .html（qmd 渲染后的名字），文件在本文件夹里就直接写文件名。
+  · href 指向项目的文件夹 + index.html。
   · entry-meta 写「年份 · 方向 · 工具」，方向和上面三张卡片对应。
+  · HTML 块里每行不要缩进到 4 个空格以上，否则 pandoc 会当成代码块。
   ========================================================== -->
 
 <div class="entry-list">
 
-<p class="empty-note">项目正在整理中。</p>
+<a class="entry-item" href="vicsek-model/index.html">
+<div class="entry-meta">2026 · Numerical Simulation · Python / C++</div>
+<h3 class="entry-title">Vicsek 模型的相分离复现</h3>
+<p class="entry-desc">复现 Solon、Chaté 与 Tailleur (PRL 114, 068101) 的相图与共存区测量：定性完全成功，定量部分达标，边界写清楚。</p>
+</a>
+
+<a class="entry-item" href="quantum-ai/index.html">
+<div class="entry-meta">筹备中 · AI · 量子计算</div>
+<h3 class="entry-title">Quantum AI</h3>
+<p class="entry-desc">量子机器学习、量子纠错与物理启发的算法。项目还没开始，等有具体题目再动手。</p>
+</a>
 
 </div>

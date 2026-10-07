@@ -1,0 +1,465 @@
+---
+title: "第一章 · 热力学的基本规律"
+subtitle: "热力学与统计物理 · 课程笔记"
+format:
+  html:
+    number-equations: true
+    toc: true
+crossref:
+  eq-prefix: ""
+---
+
+# 热力学所研究的对象
+
+大量微观粒子所组成集合体作为研究对象，对这个宏观物质系统的约束一般为：平衡或者准静态 。基于这个约束条件，我们通过适当选取和构造宏观物理学量，研究这些物理学量的关系（状态方程） 、如何决定宏观系统的整体性质来对这个集合体进行描述。从而达到最终目的：限定在给定约束的集合 体具有怎么的共同规律，以及如果把约束放宽，集合体的整体性质和规律是怎么样发生变化的，亦或者、 是如何从一个约束条件下的集合体转变为另一个约束条件下的集合体的。
+
+## 对热力学系统研究对象的约束性描述
+
+::: {.definition #def-thermodynamic-system}
+ 由大量微观粒子组成的集合体称为热力学系统。
+:::
+::: {.definition #def-equilibrium-state}
+ 系统在不受外界影响的情况下，其宏观性质不随时间变化的状态称为平衡态。
+:::
+::: {.definition #def-quasi-static-process}
+ 系统在外界作用下，经过一系列平衡态的连续变化过程称为准静态过程。
+:::
+::: {.definition #def-relaxation-time}
+ 系统从非平衡态恢复到平衡态所需的时间称为弛豫时间。
+:::
+::: {.definition #def-state-variable}
+ 在平衡态条件下，热力学系统的宏观物理学量具有内在联系，表现为数学上具有一定的函数关系， 我们选取宏观物理学量的某些独立的作为自变量，整个的宏观量也被这一组自变量确定了下来，这 一组量被称为状态参量。其它宏观量被状态参量表征的表达式成为状态函数。
+
+状态参量按照物理属性和研究域分为：几何参量（V），力学参量（p）化学参量（n、m），电磁参量 （E、P、H、M）。热力学所研究的全部宏观物理量都可以表达为这四类参量的函数。
+
+注意：对热力学系统的平衡态描述意味着系统状态完全由状态参量当时的数值确定，书中提到不考虑 例如某些铁磁系统这样与此前历史有关的系统。或许这些系统往往意味着某个微分方程。
+:::
+::: {.definition #def-single-phase-multi-phase-systems}
+ 一个均匀的部分就称为一个相，比如水和水蒸气分别构成一个相只包含一个相的系统称为单相系； 包含两个或多个相的系统称为复相系。复相系中各个相达到平衡需要满足特定的约束条件，因此 相之间不完全独立
+:::
+## 热平衡定律和温度
+
+温度的引入，包括定义和定量测量都是以热平衡定律为基础
+
+::: {.theorem #thm-zeroth_law}
+ 如果两个系统分别与第三个系统处于热平衡状态，那么这两个系统也处于热平衡状态。
+:::
+::: {.proof}
+*温度的存在性证明.* 设系统A的状态由状态参量 $(p_A, V_A)$ 描述，系统B由 $(p_B, V_B)$ 描述，系统C由 $(p_C, V_C)$ 描述（这里固定 $V_C$ 作为参考）。
+
+若A与C达到热平衡，则它们的状态参量必须满足一个函数关系： $$
+f_{AC}(p_A, V_A; V_C) = 0 \quad \Longrightarrow \quad p_A = f_{AC}(p_A, V_A; V_C)
+$$ {#eq-fac}
+
+同理，若B与C达到热平衡： $$
+f_{BC}(p_B, V_B; V_C) = 0 \quad \Longrightarrow \quad p_B = f_{BC}(p_B, V_B; V_C)
+$$ {#eq-fbc}
+
+根据[定理](#thm-zeroth_law)，A与B也必须达到热平衡，因此存在函数关系： $$
+f_{AB}(p_A, V_A; p_B, V_B) = 0
+$$ {#eq-fab}
+
+由于式[@eq-fab]是从式[@eq-fac]和[@eq-fbc]导出的，且不包含 $V_C$，所以式[@eq-fac]和[@eq-fbc]中的 $V_C$ 必须能够消去，从而得到： $$
+g_A(p_A, V_A) = g_B(p_B, V_B)
+$$ {#eq-g}
+
+即存在状态函数 $g(p, V)$，对于互为热平衡的系统A和B，其函数值相等。实验表明，这个函数值对应物体的冷热程度------温度。因此，温度作为状态函数的存在性由热平衡定律保证。 ◻
+:::
+::: {.definition #def-temperature}
+ 温度是表征物体冷热程度的状态函数，互为热平衡的物体具有相同的温度。我们先采用理想气体温标来规定温度 $T = 273.16\,\mathrm{K} \cdot \lim_{p_t \to 0} \frac{p}{p_t}$
+:::
+# 物态方程
+
+简单系统的物态方程总可以写为:$f(p,V,T) = 0$。原则上来说，热力学无法推导得出这一关系，只能通过实验测定。运用统计物理的知识， 则可以原则上推导出来物态方程。
+
+## （一）气体
+
+::: {.definition #coeff-eos}
+ 体胀系数 $\alpha$ : $\alpha = \frac{1}{V} \left( \frac{\partial V}{\partial T} \right)_{p}$
+
+压强系数 $\beta$ : $\beta = \frac{1}{p} \left( \frac{\partial p}{\partial T} \right)_{V}$
+
+等温压缩系数 $\kappa_T$ : $\kappa_T = -\frac{1}{V} \left( \frac{\partial V}{\partial p} \right)_{T}$
+:::
+由于 $p, V, T$ 三个变量之间存在函数关系（物态方程），它们的偏导数之间满足循环关系： $$
+\left( \frac{\partial V}{\partial p} \right)_{T} \left( \frac{\partial p}{\partial T} \right)_{V} \left( \frac{\partial T}{\partial V} \right)_{p} = -1
+$$ 因此，三个系数满足： $$
+\alpha = \kappa_T \beta p
+$$ 下面证明理想气体物态方程。
+
+::: {.theorem #thm-boyle}
+ 在温度不变的条件下，固定质量的气体，其压强 $p$ 与体积 $V$ 的乘积为常量： $$
+pV = \text{常量} \quad (\text{当 } T \text{ 固定时})
+$$ {#eq-boyle}
+:::
+::: {.theorem #thm-avogadro}
+ 在相同的温度和压强下，相等体积的任何气体含有相同数目的分子（即相同的物质的量）： $$
+V \propto n \quad (\text{当 } p, T \text{ 固定时})
+$$ {#eq-avogadro}
+:::
+::: {.theorem #thm-ideal_gas_eos}
+ 对于物质的量为 $n$ 的理想气体，其压强 $p$、体积 $V$ 和温度 $T$ 满足： $$
+pV = nRT
+$$ {#eq-ideal-gas-eos} 其中 $R = 8.314\,\mathrm{J \cdot mol^{-1} \cdot K^{-1}}$ 是摩尔气体常量。
+:::
+::: {.proof}
+*[定理](#thm-ideal_gas_eos)的证明.* **第一步：** 对于固定质量的理想气体，若其经历一个从状态 $(p_1, V_1, T_1)$ 到 $(p_2, V_2, T_2)$ 的任意过程，我们可以分两步来建立状态参量之间的关系。
+
+首先，保持温度不变（$T = T_1$），将气体从 $(p_1, V_1)$ 变为 $(p_x, V_x)$，由玻意耳定律（[定理](#thm-boyle)）： $$
+p_1 V_1 = p_x V_x
+$$ {#eq-step1}
+
+其次，保持体积不变（$V = V_x$），将气体从温度 $T_1$ 升温至 $T_2$，由理想气体温标定义（[定义](#def-temperature)）中的正比关系 $p \propto T$： $$
+\frac{p_x}{T_1} = \frac{p_2}{T_2} \quad \Longrightarrow \quad p_x = p_2 \frac{T_1}{T_2}
+$$ {#eq-step2}
+
+将式[@eq-step2]代入式[@eq-step1]，消去中间量 $p_x$ 和 $V_x$，得到： $$
+\frac{p_1 V_1}{T_1} = \frac{p_2 V_2}{T_2}
+$$ {#eq-step3}
+
+式[@eq-step3]说明，对于固定质量的理想气体，$\frac{pV}{T}$ 是一个与状态无关的常量，只取决于气体的质量和种类： $$
+\frac{pV}{T} = C \quad (\text{固定质量、固定种类})
+$$ {#eq-step4}
+
+**第二步：** 现在确定常量 $C$ 的具体形式。根据阿伏伽德罗定律（[定理](#thm-avogadro)），在相同的 $p, T$ 下，气体的体积 $V$ 与物质的量 $n$ 成正比： $$
+V \propto n \quad \Longrightarrow \quad \frac{pV}{T} \propto n
+$$ {#eq-step5}
+
+因此，对于物质的量为 $n$ 的气体，式[@eq-step4]中的常量可写为： $$
+\frac{pV}{T} = nR
+$$ {#eq-step6} 其中 $R$ 是一个与气体种类无关的普适常量，称为摩尔气体常量。
+
+**第三步：** 确定 $R$ 的数值。取 1 mol 理想气体在标准状态（$T_0 = 273.15\,\mathrm{K}$，$p_0 = 1\,\mathrm{atm} = 1.01325\times 10^{5}\,\mathrm{Pa}$）下，实验测得摩尔体积 $V_0 = 22.414\times 10^{-3}\,\mathrm{m^3 \cdot mol^{-1}}$。代入式[@eq-step6]： $$
+R = \frac{p_0 V_0}{T_0} = \frac{(1.01325\times 10^{5}\,\mathrm{Pa})(22.414\times 10^{-3}\,\mathrm{m^3 \cdot mol^{-1}})}{273.15\,\mathrm{K}} = 8.314\,\mathrm{J \cdot mol^{-1} \cdot K^{-1}}
+$$ {#eq-step7}
+
+将式[@eq-step6]改写为标准形式： $$
+pV = nRT
+$$ 这就是理想气体的物态方程。证毕。 ◻
+:::
+::: {.property #prop-eos_forms}
+ 由式[@eq-ideal-gas-eos]可以导出以下常用形式：
+
+- 若 $n = 1$ mol，则 $pV_m = RT$，其中 $V_m$ 是摩尔体积。
+
+- 若用分子数 $N$ 表示，则 $pV = Nk_B T$，其中 $k_B = R/N_A = 1.381\times 10^{-23}\,\mathrm{J \cdot K^{-1}}$ 是玻尔兹曼常量。
+:::
+::: {.definition #def-vdw}
+ 实际气体的物态方程与理想气体存在偏离。范德瓦尔斯方程在理想气体物态方程的基础上作了两项修正： 一是考虑分子自身占有体积，将摩尔体积修正为 $V_m - b$；二是考虑分子间的相互吸引，将压强修正为 $p + \dfrac{a}{V_m^2}$： $$
+\left( p + \frac{a}{V_m^2} \right) (V_m - b) = RT
+$$ {#eq-vdw} 其中 $V_m$ 是摩尔体积，$a$、$b$ 是仅由气体种类决定的范德瓦尔斯常量。
+:::
+::: {.definition #def-onnes}
+ 昂内斯方程把实际气体的 $pV_m$ 展开为 $1/V_m$ 的幂级数： $$
+pV_m = RT \left( 1 + \frac{B(T)}{V_m} + \frac{C(T)}{V_m^2} + \cdots \right)
+$$ {#eq-onnes} 其中 $B(T)$、$C(T)$ 分别称为第二、第三位力系数，都是温度的函数。
+:::
+## （二）简单的固体和液体
+
+::: {.property}
+简单固体和液体的物态方程通常写成 $V = V(T, p)$ 的形式。当温度和压强的变化范围不大时，体积的变化很小，可以近似写为： $$
+V(T, p) = V_0 \left[ 1 + \alpha (T - T_0) - \kappa_T (p - p_0) \right]
+$$ {#eq-solid-liquid} 其中 $V_0 = V(T_0, p_0)$，体胀系数 $\alpha$ 与等温压缩系数 $\kappa_T$（见[定义](#coeff-eos)）在通常条件下近似为常量，由实验测定。
+:::
+## （三）顺磁性固体
+
+::: {.theorem #thm-curie}
+ 顺磁性固体的物态方程给出磁化强度 $M$ 与磁场强度 $H$ 和温度 $T$ 的关系：$M = M(H, T)$。在磁场强度不太大、温度不太低时，实验近似满足居里定律： $$
+M = \frac{C H}{T}
+$$ {#eq-curie} 其中 $C$ 是居里常量，由磁性材料本身的性质决定。考虑铁磁相互作用的修正，有居里-外斯定律 $$
+M = \frac{C H}{T - T_C}
+$$ {#eq-curie-weiss} 其中 $T_C$ 是居里温度，$C$ 是居里-外斯常量。
+:::
+# 功
+
+## 准静态过程的判据
+
+状态变化即过程，做功是系统与外界交换能量的一种方式。实际过程会破坏平衡，系统需经弛豫时间 $\tau$ 才能恢复平衡；若过程进行的时间远大于弛豫时间（$t \gg \tau$），每一中间态都可近似看作平衡态，该过程即准静态过程。无摩擦时，外界在准静态过程中对系统的作用力可用状态参量表达（如外界压强等于系统压强 $p$）。
+
+## 几种情形的功
+
+::: {.property #work_class}
+
+
+1.  体积功（流体）： $$
+\delta W = -p\,\mathrm{d} V
+$$ {#eq-work-volume} 有限过程 $W = -\int_{V_1}^{V_2} p\,\mathrm{d} V$，等于 $p$-$V$ 图上曲线下方面积的负值。
+
+2.  液体表面薄膜：$\delta W = \sigma\,\mathrm{d} A$，$\sigma$ 为表面张力系数。
+
+3.  电介质：$\delta W = V E\,\mathrm{d} D = V\varepsilon_0 E\,\mathrm{d} E + V E\,\mathrm{d} P$，即激发电场功与极化功之和。
+
+4.  磁介质：$\delta W = V H\,\mathrm{d} B = \mu_0 V H\,\mathrm{d} H + \mu_0 V H\,\mathrm{d} M$，即激发磁场功与磁化功之和。
+:::
+功与路径有关，不是状态函数，故用 $\delta W$ 表示；只有在准静态过程中功才能用状态参量表达。
+
+## 功的一般表达式
+
+准静态过程中外界所做的功可统一写成广义力与广义位移之积： $$
+\delta W = \sum_i Y_i\,\mathrm{d} y_i
+$$ {#eq-work-general} 其中 $y_i$ 称为外参量（如 $V$、$A$、$P$、$M$），$Y_i$ 是与 $y_i$ 相应的广义力（如 $-p$、$\sigma$、$VE$、$\mu_0 VH$）。
+
+# 热力学第一定律
+
+::: {.definition #def-internal-energy}
+ 焦耳实验表明，绝热过程中外界做功仅取决于初终态、与过程无关，据此定义态函数------内能 $U$：$U_B - U_A = W_a$（$W_a$ 为绝热过程中外界对系统做的功）。
+:::
+::: {.definition #def-heat}
+ 一般过程中定义系统从外界吸收的热量 $$
+Q \equiv \Delta U - W
+$$ {#eq-heat-def} 内能是状态函数，功与热量都与过程有关。
+:::
+::: {.theorem #thm-first-law}
+ $$
+\Delta U = W + Q
+$$ {#eq-first-law} 对无穷小过程，微分形式为 $$
+\mathrm{d} U = \delta W + \delta Q
+$$ {#eq-first-law-diff}
+:::
+第一类永动机：不消耗能量而不断对外做功的机器，违反热力学第一定律，不可能造成。
+
+# 热容和焓
+
+::: {.definition #def-heat-capacity}
+ 系统在某过程中温度升高 $1\,\mathrm{K}$ 所吸收的热量称为该过程的热容： $$
+C = \frac{\delta Q}{\mathrm{d} T}
+$$ {#eq-heat-capacity} 热容与过程有关。
+:::
+::: {.property #prop-cv}
+ 定容过程 $\delta Q = \mathrm{d} U$，得 $$
+C_V = \left( \left( \frac{\partial U}{\partial T} \right)_{V} \right)
+$$ {#eq-cv}
+:::
+::: {.definition #def-enthalpy}
+ 定压过程 $\delta Q = \mathrm{d} U + p\,\mathrm{d} V = \mathrm{d}(U + pV)$，由此引入焓 $$
+H \equiv U + pV
+$$ {#eq-enthalpy} 它是状态函数；等压过程中系统吸收的热量等于焓的增量。
+:::
+::: {.property #prop-cp}
+ 由焓的定义（式[@eq-enthalpy]）得 $$
+C_p = \left( \left( \frac{\partial H}{\partial T} \right)_{p} \right)
+$$ {#eq-cp}
+:::
+# 理想气体的内能
+
+::: {.theorem #thm-joule-law}
+ 焦耳自由膨胀实验：气体向真空膨胀，$W = 0$，水温不变故 $Q = 0$，由第一定律 $\Delta U = 0$，内能不变。因此理想气体的内能只是温度的函数，与体积无关（即 $\left( \frac{\partial U}{\partial V} \right)_{T} = 0$）： $$
+U = U(T)
+$$ {#eq-joule-law} 微观上分子动能与内部运动能量均与体积无关，理想气体足够稀薄、分子间相互作用能可忽略，故内能与体积无关。
+:::
+由 $C_V = \mathrm{d} U / \mathrm{d} T$ 积分得 $$
+U = \int C_V \mathrm{d} T + U_0
+$$ {#eq-ideal-gas-u} 焓 $H = U + pV = U(T) + nRT$ 也只是温度的函数，同理 $$
+H = \int C_p \mathrm{d} T + H_0
+$$ {#eq-ideal-gas-h} 由 $H = U + nRT$ 对温度求导，得理想气体的热容关系： $$
+C_p - C_V = nR
+$$ {#eq-cp-cv-ideal}
+
+# 理想气体的绝热过程
+
+::: {.definition #def-gamma}
+ $$
+\gamma \equiv \frac{C_p}{C_V}
+$$ {#eq-gamma}
+:::
+::: {.theorem #thm-adiabatic}
+ 由 $C_p - C_V = nR$（式[@eq-cp-cv-ideal]）与 $\gamma$ 的定义（[定义](#def-gamma)）得 $$
+C_V = \frac{nR}{\gamma - 1}, \qquad C_p = \frac{\gamma nR}{\gamma - 1}
+$$ {#eq-cv-cp-gamma} 准静态绝热过程（$\delta Q = 0$）：第一定律 $\mathrm{d} U = \delta W$，代入 $\mathrm{d} U = C_V \mathrm{d} T$、$\delta W = -p\,\mathrm{d} V$，得微分方程 $$
+C_V \mathrm{d} T + p\,\mathrm{d} V = 0
+$$ {#eq-adiabatic-diff} 对物态方程 $pV = nRT$ 微分得 $p\,\mathrm{d} V + V\,\mathrm{d} p = nR\,\mathrm{d} T$；以式[@eq-cv-cp-gamma] 的 $C_V$ 代入式[@eq-adiabatic-diff] 并与物态方程联立，消去 $\mathrm{d} T$，得仅含 $p$、$V$ 的微分方程 $$
+\frac{\mathrm{d} p}{p} + \gamma \frac{\mathrm{d} V}{V} = 0
+$$ {#eq-adiabatic-diff-pv} 积分得绝热方程（泊松方程） $$
+pV^{\gamma} = \text{常量}
+$$ {#eq-adiabatic}
+:::
+::: {.property #prop-adiabatic-tv-pt}
+ 由 $pV^{\gamma} = \text{常量}$（式[@eq-adiabatic]）与物态方程 $pV = nRT$ 分别消去 $p$、$V$，得 $$
+TV^{\gamma - 1} = \text{常量}, \qquad T^{\gamma} p^{1 - \gamma} = \text{常量}
+$$ {#eq-adiabatic-tv-pt}
+:::
+## 补充材料
+
+**$\gamma$ 的测量**：测声速法，由拉普拉斯声速公式 $a = \sqrt{\gamma RT/M}$ 反解 $\gamma = Ma^2/(RT)$。 **流体中的声速**：由流体力学波动方程得声速满足 $a^2 = \mathrm{d} p / \mathrm{d} \rho$。牛顿视为等温过程，$a = \sqrt{p/\rho}$，与实验不符；拉普拉斯指出声波的疏密变化可看作准静态绝热过程，由 $p = C\rho^{\gamma}$ 得 $\mathrm{d} p/\mathrm{d} \rho = \gamma p/\rho$，故 $$
+a = \sqrt{\frac{\gamma p}{\rho}} = \sqrt{\frac{\gamma RT}{M}}
+$$ {#eq-sound-speed}
+
+# 理想气体的卡诺循环
+
+::: {.definition #def-carnot-cycle}
+ 工作于高温热源 $T_1$ 与低温热源 $T_2$ 之间、由两个等温过程与两个绝热过程组成的循环。设工质为 1 mol 理想气体，四个过程为：
+
+1.  等温膨胀 I$\to$II（$T_1$）：由焦耳定律（式[@eq-joule-law]）$\Delta U = 0$，吸热全部转化为对外做功： $$
+Q_1 = RT_1 \ln \frac{V_2}{V_1}
+$$ {#eq-carnot-q1}
+
+2.  绝热膨胀 II$\to$III（$T_1 \to T_2$）：$Q = 0$，对外做功等于内能减少，用式[@eq-cv-cp-gamma]： $$
+W_2 = C_V (T_1 - T_2) = \frac{nR}{\gamma - 1} (T_1 - T_2)
+$$ {#eq-carnot-w2}
+
+3.  等温压缩 III$\to$IV（$T_2$）：向低温热源放热： $$
+Q_2 = RT_2 \ln \frac{V_3}{V_4}
+$$ {#eq-carnot-q2}
+
+4.  绝热压缩 IV$\to$I：$Q = 0$，外界做功 $C_V (T_1 - T_2)$。
+
+由绝热方程（式[@eq-adiabatic-tv-pt]）：$T_1 V_2^{\gamma - 1} = T_2 V_3^{\gamma - 1}$，$T_1 V_1^{\gamma - 1} = T_2 V_4^{\gamma - 1}$，两式相除得 $$
+\frac{V_2}{V_1} = \frac{V_3}{V_4}
+$$ {#eq-carnot-vratio}
+:::
+::: {.theorem #thm-carnot-efficiency}
+ 循环的净功（系统对外做功）为 $$
+W = Q_1 - Q_2 = R (T_1 - T_2) \ln \frac{V_2}{V_1}
+$$ {#eq-carnot-work} 热功转化效率为 $$
+\eta = \frac{W}{Q_1} = 1 - \frac{T_2}{T_1}
+$$ {#eq-carnot-eta} 只取决于两热源的温度，与工质无关。
+:::
+::: {.definition #def-carnot-reverse}
+ 循环反向进行（I$\to$IV$\to$III$\to$II$\to$I）即逆卡诺循环：外界做功 $W$，从低温热源吸热 $Q_2$，向高温热源放热 $Q_1$，是理想制冷机的工作循环。其工作系数（制冷系数）为 $$
+\varepsilon = \frac{Q_2}{W} = \frac{T_2}{T_1 - T_2}
+$$ {#eq-carnot-cop}
+:::
+# 热力学第二定律
+
+::: {.theorem #thm-second-law}
+ **开尔文表述**：不可能从单一热源吸热使之完全变为有用功，而不产生其他影响。 **克劳修斯表述**：不可能把热量从低温物体传到高温物体，而不产生其他影响。
+:::
+第二类永动机：能从单一热源吸热并使之完全变为有用功而不产生其他影响的机器，违反开尔文表述，不可能造成。
+
+::: {.proof}
+*两种表述等价.* 若开尔文表述不成立，单热源热机把吸收的热量 $Q$ 全部变为功 $W$；用 $W$ 驱动逆卡诺循环（式[@eq-carnot-cop]），把热量 $Q_2$ 从低温热源送到高温热源，净效果违反克劳修斯表述。 若克劳修斯表述不成立，热量 $Q_2$ 自发从低温传到高温；其间加装卡诺热机，从高温吸热 $Q_1$、向低温放热 $Q_2$、对外做功 $W = Q_1 - Q_2$，净效果是从单一高温热源吸热 $Q_1 - Q_2$ 并全部变为功，违反开尔文表述。故两表述等价。 ◻
+:::
+# 卡诺定理
+
+::: {.theorem #thm-carnot-theorem}
+ 所有工作于两个一定温度之间的热机，以可逆机（卡诺机）的效率为最大；一切可逆机的效率相等，与工作物质无关： $$
+\eta \le 1 - \frac{T_2}{T_1}
+$$ {#eq-carnot-theorem} 等号对可逆机成立。
+:::
+::: {.proof}
+*Proof.* 设不可逆机 $E$ 的效率 $\eta_E > \eta_R$（$R$ 为可逆卡诺机）。令 $E$ 正向运行并驱动逆卡诺机 $R$，且使 $R$ 从低温热源吸收的热量恰等于 $E$ 向低温热源放出的热量，则复合系统的净效果是从单一高温热源吸热并全部转化为功，违反开尔文表述，矛盾。故 $\eta_E \le \eta_R$。 若 $R_1$、$R_2$ 均为可逆机，同理可得 $\eta_{R_1} \le \eta_{R_2}$ 与 $\eta_{R_2} \le \eta_{R_1}$，故可逆机效率相等，与工作物质无关。 ◻
+:::
+# 热力学温标
+
+::: {.theorem #thm-thermo-temp}
+ 由卡诺定理，可逆机效率只取决于两热源温度、与工作物质无关，故 $$
+\frac{Q_2}{Q_1} = F(\theta_1, \theta_2)
+$$ {#eq-temp-f} 引入第三个热源 $\theta_3$：设卡诺机 $A$、$B$、$C$ 分别工作于 $(\theta_1, \theta_2)$、$(\theta_2, \theta_3)$、$(\theta_1, \theta_3)$ 之间，且 $B$ 吸收的热量恰为 $A$ 放出的热量 $Q_2$。由 $Q_3/Q_1 = (Q_3/Q_2)(Q_2/Q_1)$ 得复合关系 $$
+F(\theta_1, \theta_3) = F(\theta_2, \theta_3)\, F(\theta_1, \theta_2)
+$$ {#eq-temp-compose} 左边与 $\theta_2$ 无关，故 $F$ 必可分离为 $$
+F(\theta_1, \theta_2) = \frac{f(\theta_1)}{f(\theta_2)}
+$$ {#eq-temp-f-form} 适当选取温标，令 $T \equiv f(\theta)$（开尔文取 $f(\theta)$ 与 $\theta$ 成正比），并以水的三相点定标 $T_{tr} = 273.16\,\mathrm{K}$，得 $$
+\frac{T_1}{T_2} = \frac{Q_1}{Q_2}, \qquad T = 273.16\,\mathrm{K} \cdot \frac{Q}{Q_{tr}}
+$$ {#eq-temp-scale} 该温标不依赖任何具体物质的特性，称为热力学温标。卡诺机效率随之改写为 $$
+\eta = 1 - \frac{Q_2}{Q_1} = 1 - \frac{T_2}{T_1}
+$$ {#eq-temp-eta}
+:::
+::: {.proof}
+*与理想气体温标一致.* 以理想气体为工质的卡诺机，其效率由式[@eq-carnot-eta] 给出 $\eta = 1 - T_2/T_1$（$T$ 为理想气体温标）；同一可逆机在热力学温标下的效率为式[@eq-temp-eta]。两式相等，故两温标给出的温度之比相同；又两者均以水的三相点 $T_{tr} = 273.16\,\mathrm{K}$ 定标，比例常数相同，因此在理想气体温标适用的范围内，热力学温标与理想气体温标一致。 ◻
+:::
+# 克劳修斯等式和不等式
+
+::: {.theorem #thm-clausius}
+ 任意可逆循环可用一系列可逆绝热线分割为许多小段，每一小段与相邻段构成一个可逆卡诺循环。对第 $i$ 个小循环，由可逆机性质 $Q_{1i}/T_{1i} = Q_{2i}/T_{2i}$，带符号地写为 $$
+\frac{Q_{1i}}{T_{1i}} - \frac{Q_{2i}}{T_{2i}} = 0
+$$ {#eq-clausius-step} 对所有小循环求和，并将分割无限细化，把求和推广为沿循环的积分，得 $$
+\oint \frac{\delta Q}{T} = 0
+$$ {#eq-clausius-equality} 称为克劳修斯等式。 对包含不可逆过程的循环，由卡诺定理 $\eta \le 1 - T_{2i}/T_{1i}$，每个小循环满足 $\frac{Q_{1i}}{T_{1i}} - \frac{Q_{2i}}{T_{2i}} \le 0$，同样求和取极限得 $$
+\oint \frac{\delta Q}{T} \le 0
+$$ {#eq-clausius-inequality} 称为克劳修斯不等式，等号对可逆循环成立。
+:::
+# 熵和热力学基本方程
+
+::: {.definition #def-entropy}
+ 由克劳修斯等式（式[@eq-clausius-equality]），可逆过程中 $\delta Q/T$ 沿任意闭合路径的积分为零，故其路径积分与路径无关，$\delta Q/T$ 是可逆过程中的全微分，由此定义态函数------熵 $S$： $$
+\mathrm{d} S = \frac{\delta Q}{T} \;(\text{可逆过程}), \qquad S_B - S_A = \int_A^B \frac{\delta Q}{T} \;(\text{沿可逆路径})
+$$ {#eq-entropy} 熵是广延量。数学上 $\delta Q$ 不是全微分，乘以 $1/T$ 后成为全微分，故 $1/T$ 称为 $\delta Q$ 的积分因子。
+:::
+::: {.theorem #thm-fundamental}
+ 可逆过程中 $\delta Q = T\,\mathrm{d} S$，$\delta W = -p\,\mathrm{d} V$（式[@eq-work-volume]），代入第一定律得简单系统的热力学基本方程 $$
+\mathrm{d} U = T\,\mathrm{d} S - p\,\mathrm{d} V
+$$ {#eq-fundamental} 推广到一般功（式[@eq-work-general]）： $$
+\mathrm{d} U = T\,\mathrm{d} S + \sum_i Y_i\,\mathrm{d} y_i
+$$ {#eq-fundamental-general} 方程只含状态参量，故对任意两个相邻平衡态都成立，与过程可逆与否无关。但必须注意：对不可逆过程，系统状态的变化虽仍由上式描述，与外界交换的功和热却不同------由克劳修斯不等式 $\delta Q < T\,\mathrm{d} S$，外界实际做功也不再等于 $-p\,\mathrm{d} V$。
+:::
+# 理想气体的熵
+
+::: {.theorem #thm-ideal-gas-entropy}
+ 对 1 mol 理想气体，$\mathrm{d} U_m = C_{Vm}\mathrm{d} T$，$pV_m = RT$，代入热力学基本方程（式[@eq-fundamental]）$\mathrm{d} S = \dfrac{\mathrm{d} U}{T} + \dfrac{p\,\mathrm{d} V}{T}$，得 $$
+\mathrm{d} S_m = C_{Vm}\frac{\mathrm{d} T}{T} + R\frac{\mathrm{d} V_m}{V_m}
+$$ {#eq-ideal-gas-entropy-diff} 积分得 $$
+S_m = C_{Vm}\ln T + R\ln V_m + S_{m0}
+$$ {#eq-ideal-gas-entropy-mol} 由熵的广延性，物质的量为 $n$ 的理想气体（$V = nV_m$）： $$
+S = nC_{Vm}\ln T + nR\ln V + S_0, \qquad S_0 = n(S_{m0} - R\ln n)
+$$ {#eq-ideal-gas-entropy} 将物态方程 $pV = nRT$ 取对数微分（$\mathrm{d} V/V = \mathrm{d} T/T - \mathrm{d} p/p$）代入消去变量，得等价形式 $$
+S = nC_{pm}\ln T - nR\ln p + S_0', \qquad S = nC_{Vm}\ln p + nC_{pm}\ln V + S_0''
+$$ {#eq-ideal-gas-entropy-forms} 三种表达式的积分常量 $S_0$ 互不相等，其中包含使对数内量纲正确的项。
+:::
+# 热力学第二定律的数学表述
+
+::: {.theorem #thm-second-law-math}
+ 设系统经任意过程由初态 $A$ 变到终态 $B$，再设想一个可逆过程使系统由 $B$ 回到 $A$，两者合起来构成一个循环。由克劳修斯不等式（式[@eq-clausius-inequality]）： $$
+\int_A^B \frac{\delta Q}{T} + \int_B^A \frac{\delta Q_{\text{rev}}}{T} \le 0
+$$ {#eq-second-law-math-step} 其中 $\delta Q_{\text{rev}}$ 是设想可逆过程中的热量。由熵的定义（式[@eq-entropy]）知 $\int_B^A \delta Q_{\text{rev}}/T = S_A - S_B$，故 $$
+S_B - S_A \ge \int_A^B \frac{\delta Q}{T}
+$$ {#eq-second-law-math} 对无穷小过程： $$
+\mathrm{d} S \ge \frac{\delta Q}{T}
+$$ {#eq-second-law-math-diff} 式中 $T$ 是热源的温度，积分沿系统原来的过程进行；等号对可逆过程成立，大于号对不可逆过程成立。将第一定律 $\mathrm{d} U = \delta Q + \delta W$ 代入得 $$
+\mathrm{d} U \le T\,\mathrm{d} S + \delta W
+$$ {#eq-second-law-math-udiff} 不可逆过程中 $\delta Q < T\,\mathrm{d} S$，$\delta W$ 一般也不能写成 $-p\,\mathrm{d} V$。式[@eq-second-law-math] 与式[@eq-second-law-math-diff] 给出第二定律对一切过程的限制，违反它们的过程不可能实现，这就是热力学第二定律的数学表述。
+:::
+::: {.theorem #thm-entropy-increase}
+ 绝热系统中 $\delta Q = 0$，由式[@eq-second-law-math] 得 $$
+S_B - S_A \ge 0
+$$ {#eq-entropy-increase} 即系统经绝热过程后熵永不减少：可逆绝热过程熵不变，不可逆绝热过程熵增加，绝热条件下熵减少的过程不可能实现。孤立系统发生的一切过程都是绝热的，故孤立系统中发生的过程总是朝着熵增加的方向进行，其统计意义是孤立系统的不可逆过程总是朝着混乱度增加的方向进行。 **使用条件**：初态与终态为平衡态。若初终态并非平衡态，只要能将系统划分为若干小部分，使每一小部分仍是含大量微观粒子的宏观系统、且其初终态均可看作局域平衡态，则系统熵定义为各部分熵之和，此时熵增加原理在局域平衡假设下依然成立。
+:::
+::: {.remark}
+统一判据是比较 $\Delta S$ 与 $\int \delta Q/T$（式[@eq-second-law-math]）：等号可逆、严格大于号不可逆。绝热过程中 $\delta Q = 0$，路径积分恒为零，判据退化为 $\Delta S \ge 0$，故\"绝热熵增即不可逆\"成立；非绝热过程必须作完整比较------系统可借吸热增加熵，如可逆等温过程 $\Delta S = Q/T > 0$ 仍可逆，不能仅凭熵增判断。
+:::
+# 熵增加原理的简单应用
+
+::: {.example #ex-heat-conduction}
+ **问题：**热量 $Q$ 从高温热源 $T_1$ 直接传到低温热源 $T_2$（$T_1 > T_2$），求两热源的总熵变。 **解：**直接传热是不可逆过程，设想可逆过程造成相同的变化------让高温热源在温度 $T_1$ 下放出热量 $Q$、低温热源在温度 $T_2$ 下吸收热量 $Q$（同温物体间传热可逆）。由熵的定义： $$
+\Delta S = -\frac{Q}{T_1} + \frac{Q}{T_2} = Q\left(\frac{1}{T_2} - \frac{1}{T_1}\right)
+$$ {#eq-entropy-heat-conduction} **讨论：**因 $T_1 > T_2$，$\Delta S > 0$：两热源构成孤立系统，热传导是不可逆过程，符合熵增加原理。
+:::
+::: {.example #ex-mixing-water}
+ **问题：**等量、等压的两杯水，温度分别为 $T_1$、$T_2$，绝热混合，求熵变（$C$ 为每杯水的热容，视为常量）。 **解：**混合后共同温度 $\bar{T} = (T_1 + T_2)/2$。设想每杯水与一系列温差无穷小的热源依次接触，可逆地从初温变到 $\bar{T}$： $$
+\Delta S = \int_{T_1}^{\bar{T}} \frac{C\,\mathrm{d} T}{T} + \int_{T_2}^{\bar{T}} \frac{C\,\mathrm{d} T}{T} = C \ln\frac{(T_1 + T_2)^2}{4 T_1 T_2}
+$$ {#eq-entropy-mixing} **讨论：**由 $(T_1 - T_2)^2 > 0$ 知 $(T_1 + T_2)^2 > 4T_1T_2$，故 $\Delta S > 0$：等压绝热混合是不可逆过程；若 $T_1 = T_2$ 则 $\Delta S = 0$。
+:::
+::: {.example #ex-free-expansion}
+ **问题：**理想气体从状态 $(T, V)$ 绝热自由膨胀到体积 $V'$，求熵变。 **解：**自由膨胀 $W = 0$，绝热 $Q = 0$，由焦耳定律（式[@eq-joule-law]）$\Delta U = 0$，温度不变。由理想气体熵函数（式[@eq-ideal-gas-entropy]）： $$
+\Delta S = nR \ln\frac{V'}{V}
+$$ {#eq-entropy-free-expansion} **讨论：**因 $V' > V$，$\Delta S > 0$：绝热自由膨胀是不可逆过程。注意此式与等温可逆过程的熵变 $nR\ln(V_B/V_A)$ 形式相同，但含义不同------等温过程中 $V_B$ 可大于或小于 $V_A$，熵变可正可负；而自由膨胀中 $V'$ 必大于 $V$，熵变恒为正。
+:::
+# 自由能和吉布斯函数
+
+::: {.theorem #thm-isothermal-work}
+ 等温过程中系统与恒定温度 $T$ 的热源接触，初终态温度均为 $T$。由式[@eq-second-law-math]，系统从外界吸取的热量满足 $Q \le T(S_B - S_A)$（等号对可逆过程）。由第一定律 $\Delta U = W + Q$（$W$ 为外界对系统做的功），系统对外做功 $W' = -W$ 满足 $$
+W' \le (U_A - T S_A) - (U_B - T S_B)
+$$ {#eq-free-energy-step} 对比绝热过程：对外做功恒等于内能的减小（式[@eq-first-law]），而等温过程伴有热量交换，只能给出做功上限。
+:::
+::: {.definition #def-free-energy}
+ 由式[@eq-free-energy-step] 引入亥姆霍兹自由能（简称自由能） $$
+F = U - TS
+$$ {#eq-free-energy} 它是状态函数。于是 $W' \le F_A - F_B$：**自由能的减小是等温过程所能获得的最大功**，可逆等温过程取等号。
+:::
+::: {.theorem #thm-free-energy-criterion}
+ 只有体积功且体积不变时 $W' = 0$，由 $W' \le F_A - F_B$ 得 $$
+F_B \le F_A
+$$ {#eq-free-energy-criterion} 等温等容条件下自由能永不增加，发生的不可逆过程总是朝着自由能减少的方向进行，平衡时自由能最小。
+:::
+::: {.definition #def-gibbs}
+ 等温等压过程中系统与恒定温度 $T$ 的热源接触，外界压强恒为 $p$。只有体积功时 $W' = p(V_B - V_A)$，代入 $W' \le F_A - F_B$ 移项得 $F_B + p V_B \le F_A + p V_A$，由此引入吉布斯函数 $$
+G = F + pV = U - TS + pV
+$$ {#eq-gibbs} 它是状态函数。
+:::
+::: {.theorem #thm-gibbs-criterion}
+ 由吉布斯函数的定义（式[@eq-gibbs]）得 $$
+G_B \le G_A
+$$ {#eq-gibbs-criterion} 等温等压条件下吉布斯函数永不增加，不可逆过程总是朝着吉布斯函数减少的方向进行，平衡时吉布斯函数最小。
+:::
+::: {.remark}
+对只有 $T, V$（或 $T, p$）两个状态参量的简单系统，平衡态确定后不再发生热力学变化，上述判据没有意义；它们适用于 $T, V$（或 $T, p$）确定后状态仍可变化的系统，如复相系、多元系（第三章、第四章将应用）。
+:::

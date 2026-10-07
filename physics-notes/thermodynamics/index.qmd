@@ -1,0 +1,43 @@
+---
+title: "热力学与统计物理"
+subtitle: "课程笔记"
+format:
+  html:
+    toc: false
+---
+
+<p class="page-lead">
+跟着课程把热力学与统计物理重新推一遍。<br>
+公式自己推，每一步的适用条件写清楚。
+</p>
+
+## 课程信息
+
+<div class="topic-grid">
+<div class="topic-card">
+<h3>参考课程</h3>
+<p>2026 年秋季 · 王伯根、王锐</p>
+</div>
+<div class="topic-card">
+<h3>教材</h3>
+<p>汪志诚《热力学·统计物理（第六版）》</p>
+</div>
+<div class="topic-card">
+<h3>笔记方式</h3>
+<p>先自己推一遍，再与教材核对；遇到想不通的地方就地记下疑问。</p>
+</div>
+</div>
+
+## 章节
+
+<div class="entry-list">
+
+<a class="entry-item" href="ch01-basic-laws.html">
+<div class="entry-meta">第一章 · 热力学的基本规律</div>
+<h3 class="entry-title">温度、物态方程与热力学第一、第二定律</h3>
+<p class="entry-desc">从热平衡定律证明温度作为状态函数的存在性，导出一系列物态方程，再依次建立功、内能、热容、卡诺循环与熵，最后给出自由能和吉布斯函数。</p>
+</a>
+
+<p class="empty-note">第二章（均匀物质的热力学性质）及以后正在写。</p>
+
+</div>
