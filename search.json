@@ -242,41 +242,27 @@
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "Physics, Computation, and Ideas\n我是一名物理专业学生，主要关注理论物理。目前最感兴趣的是非平衡统计物理，也在探索量子多体问题与计算科学。\n我的兴趣并不严格局限于某一个方向，我更关心的是： 一个复杂的物理系统，其背后的结构究竟是什么？"
+    "text": "Physics, Computation, and Ideas\n我是一名物理专业学生，目前最感兴趣的是非平衡统计物理，也在探索量子多体问题与计算科学。"
   },
   {
-    "objectID": "about.html#research-interests",
-    "href": "about.html#research-interests",
+    "objectID": "about.html#notes",
+    "href": "about.html#notes",
     "title": "About",
-    "section": "Research Interests",
-    "text": "Research Interests\n\n\n\n\n01\n\n\n\nNon-equilibrium Statistical Physics\n\n\n我希望从统计物理的基本框架出发，理解远离平衡系统中的涨落、输运、动力学与涌现现象。\n\n\n\n\n\n02\n\n\n\nQuantum Many-Body Physics\n\n\n我对凝聚态中的量子多体问题感兴趣，尤其关注大量微观自由度如何产生复杂的集体现象与宏观性质。\n\n\n\n\n\n03\n\n\n\nComputational Physics & AI\n\n\n我希望探索人工智能与科学计算在物理研究中的应用，并尝试将数值方法和机器学习用于具体的物理问题。"
-  },
-  {
-    "objectID": "about.html#physics-notes",
-    "href": "about.html#physics-notes",
-    "title": "About",
-    "section": "Physics Notes",
-    "text": "Physics Notes\n这里记录我在学习物理时重新推导、整理和思考的一些问题。\n目前主要涉及：\nStatistical Physics · Quantum Mechanics · Phase Transitions · Mathematical Physics\nExplore my physics notes →"
+    "section": "Notes",
+    "text": "Notes\nExplore my notes →"
   },
   {
     "objectID": "about.html#projects",
     "href": "about.html#projects",
     "title": "About",
     "section": "Projects",
-    "text": "Projects\n这里记录一些我实际完成的计算、模拟与建模项目。\nNumerical Simulation\nPython 数值计算、有限体积法以及物理系统模拟。\nComputational Physics\n尝试使用计算方法研究物理问题，并比较解析结果与数值结果。\nAI\n探索机器学习与人工智能在科学研究中的可能应用。\nView projects →"
+    "text": "Projects\n这里是一些我完成的计算、模拟与建模项目。\nView projects →"
   },
   {
-    "objectID": "about.html#thoughts-and-reflections",
-    "href": "about.html#thoughts-and-reflections",
+    "objectID": "about.html#reflections",
+    "href": "about.html#reflections",
     "title": "About",
-    "section": "Thoughts and reflections",
-    "text": "Thoughts and reflections\n除了物理，也会记一些学习和科学方面的东西。\n有些问题未必有明确答案。\n但值得认真想一想。\nRead the reflections →"
-  },
-  {
-    "objectID": "about.html#about-this-site",
-    "href": "about.html#about-this-site",
-    "title": "About",
-    "section": "About this site",
-    "text": "About this site\n这里放我的学习笔记、项目和随笔。内容会一直改：写错的订正，想通了就重写。\n网站用 Quarto 搭，源文件在 GitHub 上。\n\nWenjium · Physics, Computation, and Ideas"
+    "section": "Reflections",
+    "text": "Reflections\n除了物理，也会记一些其他方面的东西。\n有些问题未必有明确答案。\n但值得认真想一想。\nRead the reflections →"
   }
 ]
