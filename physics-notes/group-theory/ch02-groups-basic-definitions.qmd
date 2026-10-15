@@ -8,8 +8,6 @@ format:
 ---
 
 
-> Reading: Moore, §2 (pp. 6–10), §3 (pp. 10–27), §10 (pp. 191–199); NC §10.5 (stabilizer codes).
-
 ---
 
 ## 2.1 Definition and first examples
@@ -109,7 +107,6 @@ element in this way is called **cyclic** 循环群. For $N = 4$: $\omega^1$ has 
 
 ## 2.3 Equivalence relations and residue classes
 
-> Reading: Moore, §2, pp. 6–10.
 
 ### Definition 2.9 (Equivalence relation 等价关系)
 
@@ -165,7 +162,6 @@ For Abelian groups one usually writes $m(a,b)$ additively as $a+b$, with identit
 
 ## 2.5 Matrix groups
 
-> Reading: Moore, §3, pp. 10–27.
 
 ### Example 2.14 (General linear group 一般线性群)
 
@@ -274,7 +270,6 @@ $$SU(2) \sim S^3.$$
 
 ## 2.6 Generators and presentations
 
-> Reading: Moore, §10, pp. 191–199.
 
 ### Definition 2.21 (Generated subgroup)
 
@@ -351,7 +346,6 @@ $Q = \langle -i\sigma_1, -i\sigma_2 \rangle \subset SU(2)$.
 
 ## 2.7 Application: the Pauli group and stabilizer codes
 
-> Reading: NC §10.5; toric code: Kitaev; Simon, chs. 24–25.
 
 A **qubit** 量子比特 is a 2-dimensional complex vector space with basis $|0\rangle = \binom{1}{0}$,
 $|1\rangle = \binom{0}{1}$. Pauli matrices acting on it: $X = \sigma_1$, $Y = \sigma_2$, $Z = \sigma_3$:
@@ -455,38 +449,6 @@ and strongly correlated physics.
 
 **Quiz 2.5.** Show $\prod_v A_v = \mathbb 1$ and $\prod_p B_p = \mathbb 1$. The generators are therefore not independent.
 
-### Key points (§2.7)
-
-- $\langle X \rangle$ is the smallest subgroup containing $X$; a presentation names generators and defining relations.
-- Every finite group has a generating set of at most $\log_2|G|$ elements.
-- $D_n$, $V_4$, $Q$, $P_1$ are the small finite groups this course keeps returning to.
 
 ---
 
-## Key terms (with Chinese glosses)
-
-group 群 · semi-group 半群 · monoid 幺半群 · subgroup 子群 · order 阶 · finite group 有限群 ·
-infinite group 无限群 · cyclic group 循环群 · roots of unity 单位根群 · equivalence relation 等价关系 ·
-residue classes modulo n 剩余类 · direct product 直积 · Klein four-group 克莱因四元群 ·
-Abelian group 阿贝尔群 · general linear group 一般线性群 · special linear group 特殊线性群 ·
-orthogonal group 正交群 · unitary group 酉群 · symplectic group 辛群 · indefinite orthogonal group 不定正交群 ·
-centre 中心 · Pfaffian 普法夫值 · proper/improper rotations 真转动/非真转动 · proper time 固有时 ·
-generator 生成元 · group presentation 群展示 · dihedral group 二面体群 · quaternion group 四元数群 ·
-Pauli group 泡利群 · stabilizer code 稳定子码 · error syndrome 伴随式 · commutator 对易子 ·
-anticommutator 反对易子 · qubit 量子比特 · quantum error correction 量子纠错 · octonions 八元数 ·
-manifold 流形 · Lie group 李群
-
-## Quizzes to work through (for our one-by-one discussion)
-
-- **Quiz 2.1** — uniqueness of $e$ and of $g^{-1}$
-- **Quiz 2.2** — is $H_1 \cap H_2$ a subgroup? is $H_1 \cup H_2$?
-- **Quiz 2.3** — dropping any one relation of $V_4 = \langle A,B \mid A^2 = B^2 = (AB)^2 = 1\rangle$ leaves an infinite group
-- **Quiz 2.4** — find $Z(Q)$
-- **Quiz 2.5** — $\prod_v A_v = \prod_p B_p = \mathbb 1$ for the toric code
-
-## Main propositions of the chapter (proofs above)
-
-1. **Lemma 2.5** — subgroup criterion: $H$ subgroup $\iff h_1 h_2^{-1} \in H$ for all $h_1, h_2 \in H$.
-2. **Prop 2.16** — $Z(G)$ is an Abelian subgroup.
-3. **Prop 2.17** — $Z(GL(n,\kappa)) = \{\lambda\mathbb 1_n\}$.
-4. **Prop 2.18** — $A \in Sp(2n,\kappa) \Rightarrow \det A = 1$ (Pfaffian).
