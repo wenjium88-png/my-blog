@@ -153,8 +153,12 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<!-- 撇号必须写成 &apos;。
+     Quarto 会强制启用 pandoc 的 smart 引号（frontmatter 里的 smart: false 挡不住），
+     源码里直接写 ' 或 ’ 都会被渲染成 U+2019 弯撇；该字符在中文环境下会回退到中文字体，
+     显示成全角标点，撇号后面会凭空多出半个字的空隙。只有 &apos; 能输出真正的 ASCII 撇号。 -->
 <p class="home-landing">
-Wenjium’s Blog
+Wenjium's Blog
 </p>
 
 
