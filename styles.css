@@ -360,3 +360,74 @@ table td {
   font-size: 0.95rem;
   font-weight: 550;
 }
+
+/* =========================================
+   Landing page (index.qmd)
+   首页只留一个名字，黑白灰，其余一律不出现。
+   ========================================= */
+
+.home-landing {
+  margin: 0;
+  padding: 0;
+  /* 纯黑，字号跟随视口；上限 5.5rem 是为了宽屏上不过分张扬 */
+  color: #000;
+  font-size: clamp(2.4rem, 7vw, 5.5rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+  text-align: center;
+  /* 动画期间的位移不改动周围任何元素的位置 */
+  animation: home-landing-in 1.8s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+@keyframes home-landing-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 首页不需要页脚；用 :has() 精确限定，其他页面照旧 */
+body:has(.home-landing) .nav-footer {
+  display: none;
+}
+
+/* 首页和 About 页不需要 Quarto 自动生成的标题块 ——
+   title: 留在 YAML 里只是为了让浏览器标签页有名字。
+   其他页面（Notes / Projects）的 H1 就来自标题块，不能动。 */
+body:has(.home-landing) #title-block-header,
+body:has(.about-hero) #title-block-header {
+  display: none;
+}
+
+/* 只在“含有 .home-landing 的那一页”把内容区改成整屏居中，
+   所以其他页面（笔记/项目）的排版完全不受影响。 */
+#quarto-content:has(.home-landing) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* 放开全局 900px 限宽，让名字真正落在视口正中 */
+  max-width: none;
+  /* --navbar-height 由 Bootstrap 提供；取不到时回落到 60px */
+  min-height: calc(100vh - var(--navbar-height, 60px));
+  min-height: calc(100svh - var(--navbar-height, 60px));
+  padding-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .home-landing {
+    font-size: clamp(2.1rem, 11vw, 3.2rem);
+  }
+}
+
+/* 尊重系统的“减少动态效果”设置 */
+@media (prefers-reduced-motion: reduce) {
+  .home-landing {
+    animation: none;
+  }
+}
