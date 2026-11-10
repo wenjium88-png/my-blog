@@ -1,0 +1,349 @@
+---
+title: "Homomorphism and Isomorphism"
+subtitle: "Chapter 3"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+---
+
+
+---
+
+Chapter 2 produced several groups that were visibly "the same": reflection and exchange of two particles both gave $\mathbb Z_2$; $SO(2)$ and $U(1)$ had identical group laws; $D_2$, $V_4$ and $\mathbb Z_2 \times \mathbb Z_2$ kept reappearing. This chapter makes "the same" precise.
+
+---
+
+## 3.1 Homomorphism and isomorphism
+
+### Definition 3.1 (Homomorphism 同态)
+
+Let $(G, m, I, e)$ and $(G', m', I', e')$ be groups. A map $\varphi : G \to G'$ is a **homomorphism** if
+
+$$\varphi(m(g_1, g_2)) = m'(\varphi(g_1), \varphi(g_2)), \qquad\text{i.e.}\qquad \varphi(g_1 g_2) = \varphi(g_1)\varphi(g_2)$$
+
+for all $g_1, g_2 \in G$. Equivalently, the square
+
+```
+   G × G ────m────▶ G
+     │              │
+ φ×φ │              │ φ
+     ▼              ▼
+  G'×G' ───m'───▶ G'
+```
+
+commutes.
+
+The definition asks only that $\varphi$ respect the multiplication. Nothing is required of the identity or of the inversion, and nothing need be, because both follow from it. From $\varphi(e) = \varphi(ee) = \varphi(e)\varphi(e)$, multiplying by $\varphi(e)^{-1}$ gives $\varphi(e) = e'$. Then
+
+$$e' = \varphi(e) = \varphi(gg^{-1}) = \varphi(g)\varphi(g^{-1}),$$
+
+so $\varphi(g^{-1}) = [\varphi(g)]^{-1}$.
+
+### Definition 3.2 (Injective 单射, surjective 满射, bijective 双射)
+
+A map $\varphi : G \to G'$ is **injective** if $\varphi(g_1) = \varphi(g_2)$ forces $g_1 = g_2$, **surjective** if every $g' \in G'$ equals $\varphi(g)$ for some $g \in G$, and **bijective** if it is both.
+
+For a homomorphism, injectivity has to be tested at one point only.
+
+### Proposition 3.3
+
+A homomorphism $\varphi : G \to G'$ is injective if and only if $\varphi(g) = e'$ forces $g = e$.
+
+*Proof.* If $\varphi$ is injective, then $\varphi(g) = e' = \varphi(e)$ gives $g = e$. Conversely, suppose the condition holds and $\varphi(g_1) = \varphi(g_2)$. Then
+
+$$\varphi(g_1 g_2^{-1}) = \varphi(g_1)\varphi(g_2)^{-1} = e',$$
+
+so $g_1 g_2^{-1} = e$ and $g_1 = g_2$. $\blacksquare$
+
+### Definition 3.4 (Isomorphism 同构, automorphism 自同构)
+
+A bijective homomorphism is an **isomorphism**. If there is an isomorphism $G \to G'$ the two groups are **isomorphic**, written $G \cong G'$. An isomorphism from a group to itself is an **automorphism**, and the automorphisms of $G$ are collected in $\mathrm{Aut}(G)$.
+
+The definition of $\cong$ runs one way, from $G$ to $G'$. For "the same" to be a reasonable thing to say, it should not matter which way round.
+
+### Proposition 3.5
+
+If $\varphi$ is an isomorphism then so is $\varphi^{-1}$, and $\cong$ is an equivalence relation.
+
+*Proof.* The inverse of a bijection is a bijection, so the only thing to check is that $\varphi^{-1}$ respects multiplication. Take any $g_1', g_2' \in G'$. Since $\varphi$ is surjective there are $g_1, g_2 \in G$ with $\varphi(g_i) = g_i'$, and then
+
+$$\varphi^{-1}(g_1' g_2') = \varphi^{-1}\bigl(\varphi(g_1)\varphi(g_2)\bigr) = \varphi^{-1}\bigl(\varphi(g_1 g_2)\bigr) = g_1 g_2 = \varphi^{-1}(g_1')\,\varphi^{-1}(g_2').$$
+
+For the second statement, the identity map on $G$ is an isomorphism, so $G \cong G$. If $\varphi$ gives $G \cong G'$, then $\varphi^{-1}$ gives $G' \cong G$ by what has just been shown. And if $\varphi$ gives $G \cong G'$ and $\psi$ gives $G' \cong G''$, then $\psi\varphi$ is a bijection and
+
+$$\psi\varphi(g_1 g_2) = \psi\bigl(\varphi(g_1)\varphi(g_2)\bigr) = \psi\varphi(g_1)\,\psi\varphi(g_2),$$
+
+so $G \cong G''$. $\blacksquare$
+
+Isomorphic groups are treated as the same group, which is what licenses $SO(2) \cong U(1)$ and $D_2 \cong V_4$ in Chapter 2.
+
+Proposition 3.5 makes $\mathrm{Aut}(G)$ a group under composition. The identity map belongs to it, a composite of two automorphisms is one, and the inverse of one is one.
+
+### Example 3.6 (Multiplication maps on $\mathbb Z_N$)
+
+Fix an integer $k$ and define $m_k : \mathbb Z_N \to \mathbb Z_N$ by
+
+$$m_k(\bar x) := \overline{kx}.$$
+
+It is well defined, since replacing $x$ by $x + N$ changes $kx$ by $kN$, and it is a homomorphism, since $k(x+y) = kx + ky$. Taking $k = 1$ gives the identity map, $k = 0$ the map sending everything to $\bar 0$, and $m_{k+N} = m_k$.
+
+For which $k$ is $m_k$ an automorphism? A map of a finite set to itself is bijective exactly when it is injective, so by Proposition 3.3 the question is whether $N \mid kx$ forces $N \mid x$.
+
+Suppose first that $d = \gcd(k, N) > 1$, and take $x = N/d$. Then $0 < x < N$, so $\bar x \neq \bar 0$, while $kx = (k/d)N$ is a multiple of $N$, so $m_k(\bar x) = \bar 0$. The map is not injective.
+
+Suppose instead that $\gcd(k, N) = 1$, so no prime dividing $N$ divides $k$. If $N \mid kx$, then every prime power in $N$ must divide $x$, none of it being available from $k$, and so $N \mid x$. Hence $m_k$ is an automorphism exactly when
+
+$$\gcd(k, N) = 1.$$
+
+For $N = 4$ the map $m_3$ sends $\bar 0, \bar 1, \bar 2, \bar 3$ to $\bar 0, \bar 3, \bar 2, \bar 1$, exchanging $\bar 1$ and $\bar 3$, whereas $m_2$ sends them to $\bar 0, \bar 2, \bar 0, \bar 2$ and collapses $\mathbb Z_4$ onto the subgroup $\{\bar 0, \bar 2\}$, which is a copy of $\mathbb Z_2$ since $\bar 2 + \bar 2 = \bar 0$.
+
+Nothing else occurs. An automorphism of $\mathbb Z_N$ is fixed by the image of $\bar 1$, since $\bar x = x\bar 1$ forces $\varphi(\bar x) = x\,\varphi(\bar 1)$, so every one of them is some $m_k$ and
+
+$$\mathrm{Aut}(\mathbb Z_N) = \{\, m_k : \gcd(k, N) = 1 \,\}.$$
+
+---
+
+## 3.2 Kernel and image
+
+A homomorphism can fail to be injective, and it can fail to be surjective. Two subgroups measure the two failures.
+
+### Definition 3.7 (Kernel 核 and image 像)
+
+Let $\varphi : G \to G'$ be a homomorphism. Its **kernel** and **image** are
+
+$$\ker\varphi := \{\, g \in G : \varphi(g) = e' \,\} \subset G, \qquad \mathrm{im}\,\varphi := \varphi(G) \subset G'.$$
+
+### Proposition 3.8
+
+$\ker\varphi$ is a subgroup of $G$, and $\mathrm{im}\,\varphi$ is a subgroup of $G'$.
+
+*Proof.* Both contain the identity, by $\varphi(e) = e'$, so both are nonempty. If $g_1, g_2 \in \ker\varphi$ then
+
+$$\varphi(g_1 g_2^{-1}) = \varphi(g_1)\varphi(g_2)^{-1} = e',$$
+
+so $g_1 g_2^{-1} \in \ker\varphi$. If $g_1' = \varphi(g_1)$ and $g_2' = \varphi(g_2)$ lie in $\mathrm{im}\,\varphi$ then $g_1'(g_2')^{-1} = \varphi(g_1 g_2^{-1}) \in \mathrm{im}\,\varphi$. Apply Lemma 2.5 to each. $\blacksquare$
+
+### Proposition 3.9
+
+$\varphi$ is injective if and only if $\ker\varphi = \{e\}$. Hence $\varphi$ is an isomorphism if and only if
+
+$$\ker\varphi = \{e\} \qquad\text{and}\qquad \mathrm{im}\,\varphi = G'.$$
+
+*Proof.* The first statement is Proposition 3.3 written in the present notation, and the second combines it with the definition of $\mathrm{im}\,\varphi$. $\blacksquare$
+
+**Quiz 3.1.** Show that $\ker\varphi$ absorbs conjugation, that is $gkg^{-1} \in \ker\varphi$ for every $k \in \ker\varphi$ and every $g \in G$. Subgroups with this property are the subject of Chapter 7.
+
+---
+
+## 3.3 Examples
+
+### Example 3.10 ($\mathbb Z_N \cong \mu_N$)
+
+Define $\varphi : \mathbb Z_N \to \mu_N$ by $\varphi(\bar r) = e^{2\pi \mathrm{i} r/N}$. Replacing $r$ by $r + N$ does not change the value, so $\varphi$ is well defined on residue classes, and
+
+$$\varphi(\bar r_1 + \bar r_2) = e^{2\pi \mathrm{i}(r_1 + r_2)/N} = \varphi(\bar r_1)\varphi(\bar r_2)$$
+
+makes it a homomorphism from addition to multiplication. Its kernel is $\{\bar 0\}$ and its image is all of $\mu_N$, so $\mathbb Z_N \cong \mu_N$ by Proposition 3.9. The residue classes of §2.3 and the roots of unity are the same group written twice.
+
+### Example 3.11 (The power map)
+
+For $k \in \mathbb Z$ let $P_k : \mu_N \to \mu_N$ be $z \mapsto z^k$. It is a homomorphism, since $(z_1 z_2)^k = z_1^k z_2^k$. Its kernel is
+
+$$\ker P_k = \{\, z \in \mu_N : z^k = 1 \,\} = \mu_d, \qquad d = \gcd(k, N),$$
+
+so $P_k$ is an isomorphism exactly when $\gcd(k, N) = 1$, which is Example 3.6 again in multiplicative notation. At the other extreme $P_N$ is the trivial map. For $N = 4$ and $k = 2$,
+
+$$\mu_4 = \{1, \mathrm{i}, -1, -\mathrm{i}\}, \qquad \ker P_2 = \{\pm 1\} \cong \mathbb Z_2, \qquad \mathrm{im}\,P_2 = \{\pm 1\} \cong \mu_2.$$
+
+### Example 3.12 ($U(1) \to SU(2)$)
+
+Fix an integer $N \geq 2$ and send $z \in U(1)$ to
+
+$$\varphi(z) = \begin{pmatrix} z^N & 0 \\ 0 & z^{-N} \end{pmatrix}.$$
+
+The matrix is unitary with determinant $1$, so $\varphi$ maps into $SU(2)$, and $\varphi(z_1 z_2) = \varphi(z_1)\varphi(z_2)$. Here
+
+$$\ker\varphi = \{\, z : z^N = 1 \,\} = \mu_N, \qquad \mathrm{im}\,\varphi = \left\{ \begin{pmatrix} w & 0 \\ 0 & w^{-1} \end{pmatrix} : |w| = 1 \right\} \cong U(1),$$
+
+so this $\varphi$ is neither injective nor surjective, and the two subgroups say by how much it misses.
+
+### Example 3.13 ($SO(2) \cong U(1)$)
+
+Example 2.19 recorded the correspondence $R(\phi) \leftrightarrow e^{\mathrm{i}\phi}$ and called the two groups the same. The map behind that statement is
+
+$$\varphi : SO(2) \to U(1), \qquad \varphi(R(\phi)) = e^{\mathrm{i}\phi}.$$
+
+It is well defined, since $R(\phi)$ fixes $\phi$ only up to a multiple of $2\pi$, which leaves $e^{\mathrm{i}\phi}$ unchanged, and it is a homomorphism, since $R(\phi_1)R(\phi_2) = R(\phi_1 + \phi_2)$. Its kernel is $\{\mathbb 1\}$, because $e^{\mathrm{i}\phi} = 1$ forces $\phi \in 2\pi\mathbb Z$ and $R(2\pi n) = \mathbb 1$, and its image is all of $U(1)$. So $SO(2) \cong U(1)$ by Proposition 3.9: a rotation of the plane and a phase are the same datum.
+
+**The maps so far.** Kernel and image say what each map does, and the quotient $\mathbb Z_N$ of §2.3 reappears wherever the kernel is nontrivial.
+
+| map | kernel | image |
+|---|---|---|
+| $\mathbb Z_N \to \mu_N$, $\bar r \mapsto e^{2\pi \mathrm{i} r/N}$ | $\{\bar 0\}$ | $\mu_N$ |
+| $P_k : \mu_N \to \mu_N$, $z \mapsto z^k$ | $\mu_d$, $d = \gcd(k,N)$ | $\mu_{N/d}$ |
+| $U(1) \to SU(2)$, $z \mapsto \mathrm{diag}(z^N, z^{-N})$ | $\mu_N$ | $\cong U(1)$ |
+| $SO(2) \to U(1)$, $R(\phi) \mapsto e^{\mathrm{i}\phi}$ | $\{\mathbb 1\}$ | $U(1)$ |
+| $m_k : \mathbb Z_N \to \mathbb Z_N$, $\bar x \mapsto \overline{kx}$ | $\{\bar x : N \mid kx\}$ | $\cong \mathbb Z_{N/d}$ |
+
+---
+
+## 3.4 $SU(2)$ and $SO(3)$
+
+Recall from §2.5 that $SO(3)$ is the group of proper rotations of $\mathbb R^3$. We now build a homomorphism $SU(2) \to SO(3)$ and find it two-to-one, with $u$ and $-u$ giving the same rotation of space.
+
+To make $SU(2)$ act on $\mathbb R^3$ we look for a three-dimensional real space of matrices preserved by conjugation, conjugation being what a group of matrices does naturally to matrices. A trace survives any conjugation, and conjugation by a unitary preserves Hermiticity, which makes traceless and Hermitian the condition to try. The $2 \times 2$ matrices meeting it are exactly the real combinations $x_i \sigma_i$ of the Pauli matrices of §2.6. There are three of those, so the space is three-dimensional over $\mathbb R$, and it is familiar ground: the spin operators $S_i = \frac{\hbar}{2}\sigma_i$ live there, and for a unit vector $\hat n$ the combination $\frac{\hbar}{2}\hat n \cdot \vec\sigma$ is the spin component along $\hat n$.
+
+Write $\mathcal H$ for that space and send a vector into it by
+
+$$h : \mathbb R^3 \to \mathcal H, \qquad h(\vec x) = \vec x \cdot \vec\sigma = x_i \sigma_i = \begin{pmatrix} x_3 & x_1 - \mathrm{i} x_2 \\ x_1 + \mathrm{i} x_2 & -x_3 \end{pmatrix}.$$
+
+This is a linear bijection, and it carries lengths along with it, stored in the determinant as
+
+$$\det h(\vec x) = -x_3^2 - (x_1^2 + x_2^2) = -|\vec x|^2,$$
+
+which is how the construction will see that rotations preserve them.
+
+For $u \in SU(2)$ let $C_u(m) = u\,m\,u^\dagger$. This is the conjugation promised above, and it does map $\mathcal H$ to itself, since $\mathrm{Tr}(umu^\dagger) = \mathrm{Tr}(m) = 0$ and $(umu^\dagger)^\dagger = umu^\dagger$.
+
+### Definition 3.14 (The rotation attached to $u$)
+
+$R(u) := h^{-1} \circ C_u \circ h$, that is, $R(u)$ is the map $\mathbb R^3 \to \mathbb R^3$ determined by
+
+$$u\,(\vec x \cdot \vec\sigma)\,u^\dagger = (R(u)\vec x) \cdot \vec\sigma \qquad\text{for all } \vec x \in \mathbb R^3,$$
+
+equivalently
+
+$$u\,\sigma_i\,u^\dagger = R(u)_{ji}\,\sigma_j.$$
+
+In a composite the rightmost map acts first, so $R(u)$ carries $\vec x$ into $\mathcal H$ as $\vec x \cdot \vec\sigma$, conjugates that matrix by $u$, and brings the result back by $h^{-1}$. It begins and ends in $\mathbb R^3$, and all three steps are linear bijections, so $R(u)$ is a linear bijection of $\mathbb R^3$.
+
+```
+      ℝ³ ───── R(u) ────▶ ℝ³
+       │                   │
+    h ∼                 ∼ h
+       ▼                   ▼
+       ℋ ────── C_u ────▶ ℋ
+```
+
+The displayed equation says this without naming $h$. Conjugation keeps $u(\vec x \cdot \vec\sigma)u^\dagger$ inside $\mathcal H$, so some vector of $\mathbb R^3$ has it as image, and $h$ is injective, so only one does. That vector is $R(u)\vec x$, and it is the uniqueness that makes the equation a definition rather than a condition. Putting $\vec x = \hat e_i$ gives the index form.
+
+### Theorem 3.15
+
+$R : SU(2) \to SO(3)$ is a surjective homomorphism with $\ker R = \{\pm\mathbb 1\} \cong \mathbb Z_2$.
+
+*Proof.* **Homomorphism.** Conjugating twice,
+
+$$(R(u_1 u_2)\vec x)\cdot\vec\sigma = (u_1 u_2)(\vec x \cdot \vec\sigma)(u_1 u_2)^\dagger = u_1\bigl[(R(u_2)\vec x)\cdot\vec\sigma\bigr]u_1^\dagger = (R(u_1)R(u_2)\vec x)\cdot\vec\sigma,$$
+
+and $h$ is injective, so $R(u_1 u_2) = R(u_1)R(u_2)$.
+
+**Orthogonal.** Conjugation does not change a determinant, so
+
+$$|R(u)\vec x|^2 = -\det\bigl((R(u)\vec x)\cdot\vec\sigma\bigr) = -\det\bigl(u(\vec x\cdot\vec\sigma)u^\dagger\bigr) = -\det(\vec x \cdot \vec\sigma) = |\vec x|^2,$$
+
+and $R(u) \in O(3)$.
+
+**Determinant.** Write the product rule with a summed index $\ell$, as $\sigma_i\sigma_j = \delta_{ij}\mathbb 1 + \mathrm{i}\epsilon_{ij\ell}\sigma_\ell$, multiply on the right by $\sigma_k$, and take the trace. With $\mathrm{Tr}\,\sigma_k = 0$ and $\mathrm{Tr}(\sigma_\ell\sigma_k) = 2\delta_{\ell k}$,
+
+$$\mathrm{Tr}(\sigma_i\sigma_j\sigma_k) = 2\mathrm{i}\,\epsilon_{ijk}.$$
+
+The factors $u^\dagger u$ inserted between the three matrices cancel under the trace, so $\mathrm{Tr}(\sigma_1\sigma_2\sigma_3) = \mathrm{Tr}((u\sigma_1u^\dagger)(u\sigma_2u^\dagger)(u\sigma_3u^\dagger))$. Substituting $u\sigma_au^\dagger = R(u)_{ia}\sigma_i$,
+
+$$2\mathrm{i} = \mathrm{Tr}(\sigma_1\sigma_2\sigma_3) = R(u)_{i1}R(u)_{j2}R(u)_{k3}\,\mathrm{Tr}(\sigma_i\sigma_j\sigma_k) = 2\mathrm{i}\,\epsilon_{ijk}R(u)_{i1}R(u)_{j2}R(u)_{k3} = 2\mathrm{i}\det R(u).$$
+
+So $\det R(u) = 1$ and $R(u) \in SO(3)$.
+
+**Kernel.** $R(u) = \mathbb 1$ says $u\sigma_i u^\dagger = \sigma_i$ for each $i$, so $u$ commutes with $\sigma_1, \sigma_2, \sigma_3$ and therefore with every $2\times 2$ matrix, those three together with $\mathbb 1$ being a basis. By Proposition 2.17, $u = \lambda\mathbb 1$, and $\det u = \lambda^2 = 1$ forces $\lambda = \pm 1$. Both signs do lie in the kernel, since $(\pm\mathbb 1)m(\pm\mathbb 1)^\dagger = m$ for every $m$, so
+
+$$\ker R = \{\mathbb 1, -\mathbb 1\} \cong \mathbb Z_2.$$
+
+**Surjective.** Take $u = \exp(-\frac{\mathrm{i}}{2}\theta\sigma_3) = \mathrm{diag}(e^{-\mathrm{i}\theta/2}, e^{\mathrm{i}\theta/2})$. Then
+
+$$u\sigma_1u^\dagger = \begin{pmatrix} 0 & e^{-\mathrm{i}\theta} \\ e^{\mathrm{i}\theta} & 0 \end{pmatrix} = \cos\theta\,\sigma_1 + \sin\theta\,\sigma_2, \qquad u\sigma_3u^\dagger = \sigma_3,$$
+
+so $R(u)$ is the rotation by $\theta$ about the third axis. Starting from $\sigma_2$ instead gives the rotation by $\theta$ about the second axis. Write $R_3(\theta)$ and $R_2(\theta)$ for these, both of them in the image of $R$.
+
+Every rotation is a product of three of them. Take $A \in SO(3)$ and let $\beta$ and $\alpha$ be the polar and azimuthal angles of $A\hat e_3$, so that $Q := R_3(\alpha)R_2(\beta)$ sends $\hat e_3$ to $A\hat e_3$. Then $Q^{-1}A$ leaves $\hat e_3$ fixed and, being orthogonal, maps the perpendicular plane to itself. On that plane it has determinant $1$, so it is a rotation of it, say $R_3(\gamma)$. Hence
+
+$$A = R_3(\alpha)\,R_2(\beta)\,R_3(\gamma),$$
+
+the Euler angles 欧拉角 of $A$.
+
+Since $R$ is a homomorphism, a matrix producing $A$ is the matching product,
+
+$$u(\alpha, \beta, \gamma) := e^{-\mathrm{i}\alpha\sigma_3/2}e^{-\mathrm{i}\beta\sigma_2/2}e^{-\mathrm{i}\gamma\sigma_3/2} = \begin{pmatrix} e^{-\mathrm{i}(\alpha+\gamma)/2}\cos\frac{\beta}{2} & e^{\mathrm{i}(\alpha-\gamma)/2}\sin\frac{\beta}{2} \\[2pt] -e^{-\mathrm{i}(\alpha-\gamma)/2}\sin\frac{\beta}{2} & e^{\mathrm{i}(\alpha+\gamma)/2}\cos\frac{\beta}{2} \end{pmatrix}, \tag{3.1}$$
+
+which has $R(u(\alpha,\beta,\gamma)) = A$. So $R$ is surjective, and letting $\alpha \in [0, 2\pi)$, $\beta \in [0, \pi]$ and $\gamma \in [0, 4\pi)$ reaches every element of $SU(2)$ this way. $\blacksquare$
+
+### Remark 3.16 (Double cover 双覆盖)
+
+Since $\ker R = \{\pm\mathbb 1\}$, each rotation has exactly two lifts, $u$ and $-u$. The two minus signs cancel in $u\,m\,u^\dagger$, which is why both give the same rotation.
+
+The exponential $\exp(-\frac{\mathrm{i}}{2}\theta\sigma_3)$ of the proof is the case $\hat n = \hat e_3$ of a formula good for any axis. Since $(\hat n \cdot \vec\sigma)^2 = \mathbb 1$ for a unit vector $\hat n$, expanding the exponential gives
+
+$$u(\hat n, \theta) = \exp\Bigl(-\frac{\mathrm{i}}{2}\theta\,\hat n\cdot\vec\sigma\Bigr) = \cos\frac{\theta}{2}\,\mathbb 1 - \mathrm{i}\sin\frac{\theta}{2}\,\hat n\cdot\vec\sigma,$$
+
+so $u(\hat n, 2\pi) = -\mathbb 1$ and $u(\hat n, 4\pi) = \mathbb 1$. A rotation by $2\pi$ returns every vector to where it started, and only at $4\pi$ does $u$ itself return.
+
+The half angle is what produces the sign, and it is present in both descriptions of $u$. The axis–angle form above carries it as $\theta/2$. The Euler form (3.1) has a half angle in each of its three factors, and the domain fixed in the proof lets $\gamma$ carry the sign: $A$ is unchanged when $\gamma$ advances by $2\pi$, while $u(\alpha,\beta,\gamma+2\pi) = -u(\alpha,\beta,\gamma)$, so for fixed $\alpha$ and $\beta$ the period in $\gamma$ is $4\pi$ for $u$ and $2\pi$ for $A$.
+
+### Remark 3.17 (The sign cannot be chosen away)
+
+Since $R$ is two-to-one, one might hope to pick one lift for each rotation and keep a homomorphism, that is, to find $s : SO(3) \to SU(2)$ with $R \circ s$ the identity. There is none. Let $A$ be the rotation by $\pi$ about the third axis, so that $A^2 = \mathbb 1$. Its two lifts are $\pm u$ with $u = u(\hat e_3, \pi) = -\mathrm{i}\sigma_3$, and both square to $(\pm u)^2 = -\mathbb 1$. A homomorphism would need $s(A)^2 = s(A^2) = \mathbb 1$ instead, so no such $s$ exists.
+
+### Remark 3.18 (The belt)
+
+The factor of two is visible in $SO(3)$ itself. Hold one end of a belt fixed and turn the other end through $2\pi$. The twist cannot be worked out while both ends are held. Turn it through $4\pi$ instead and it can. The $2\pi$ rotation cannot be deformed continuously into no rotation with the ends held fixed, while the $4\pi$ one can. In the jargon, the closed paths in $SO(3)$ that start and end at the identity fall into two classes under such deformation, that is, the fundamental group 基本群 of $SO(3)$ is
+
+$$\pi_1(SO(3)) \cong \mathbb Z_2,$$
+
+and an element of $SU(2)$ records a rotation together with the deformation class of a path reaching it from the identity.
+
+The same two-ness shows up in the shapes. $SU(2) \sim S^3$ by Example 2.20, and $R$ identifies the antipodal pair $\pm u$, so $SO(3)$ is the three-sphere with antipodes identified, the real projective space $\mathbb{RP}^3$.
+
+Group theory does not say which of the two a physical object uses. In quantum mechanics a spin-$\tfrac12$ wavefunction is a two-component complex column, and $u$ and $-u$ act on it with opposite signs although they induce the same rotation of space.
+
+---
+
+## 3.5 $GL(V)$ and $GL(n, \kappa)$
+
+### Example 3.19 (Coordinates as an isomorphism)
+
+Let $V$ be an $n$-dimensional vector space over $\kappa$ and let $GL(V)$ be the group of invertible linear maps $V \to V$. An ordered basis $b = \{\hat e_1, \dots, \hat e_n\}$ turns each $\tau \in GL(V)$ into a matrix $T_b(\tau)$ through
+
+$$\tau(\hat e_i) = \sum_j \hat e_j\, T_b(\tau)_{ji}.$$
+
+Applying $\tau_1$ after $\tau_2$ to $\vec v = \sum_i v_i \hat e_i$,
+
+$$\tau_1(\tau_2\vec v) = \sum_{i,j} v_i\, T_b(\tau_2)_{ji}\,\tau_1(\hat e_j) = \sum_{i,j,k} \hat e_k\, T_b(\tau_1)_{kj} T_b(\tau_2)_{ji} v_i.$$
+
+But applying $\tau_1$ after $\tau_2$ is applying $\tau_1\tau_2$, and the defining formula used on $\tau_1\tau_2$ itself reads
+
+$$(\tau_1\tau_2)(\vec v) = \sum_{i,k} \hat e_k\, T_b(\tau_1\tau_2)_{ki} v_i.$$
+
+The two right-hand sides agree for every $\vec v$, and the $\hat e_k$ are independent, so
+
+$$T_b(\tau_1\tau_2) = T_b(\tau_1)\,T_b(\tau_2)$$
+
+and $\varphi_b : \tau \mapsto T_b(\tau)$ is a homomorphism $GL(V) \to GL(n,\kappa)$. It is surjective, since every invertible matrix defines an invertible map through the same formula. It is injective, since $T_b(\tau) = \mathbb 1_n$ says $\tau(\hat e_i) = \hat e_i$ for every $i$ and hence $\tau = \mathrm{id}$. So
+
+$$GL(V) \cong GL(n, \kappa).$$
+
+The isomorphism depends on the basis. A second basis $\hat e_i = \sum_j S_{ji}\hat e_j'$ gives
+
+$$T_{b'}(\tau) = S\,T_b(\tau)\,S^{-1},$$
+
+so the two coordinate pictures differ by conjugation. This is why an abstract group can be studied through matrices at all, and it is where representation theory starts.
+
+---
+
+## Key points
+
+- A homomorphism is a map that respects multiplication; respecting the identity and inverses then comes for free.
+- A homomorphism is injective exactly when $\varphi(g) = e'$ forces $g = e$, that is, exactly when $\ker\varphi = \{e\}$.
+- An isomorphism is a bijective homomorphism, its inverse is again one, and isomorphic groups are treated as the same group. $\mathrm{Aut}(G)$ is a group under composition, and $\mathrm{Aut}(\mathbb Z_N)$ consists of the maps $\bar x \mapsto \overline{kx}$ with $\gcd(k,N) = 1$.
+- $\ker\varphi$ and $\mathrm{im}\,\varphi$ are subgroups, and they measure the failure of $\varphi$ to be injective and surjective. $\varphi$ is an isomorphism exactly when $\ker\varphi = \{e\}$ and $\mathrm{im}\,\varphi = G'$.
+- $R : SU(2) \to SO(3)$ is onto with kernel $\{\pm\mathbb 1\}$, so $SU(2)$ is a double cover of $SO(3)$ and $SO(3) \sim \mathbb{RP}^3$.
+- A rotation by $2\pi$ acts as the identity on vectors, while the corresponding $u$ is $-\mathbb 1$. The half angle is where the sign comes from, and no continuous choice of lift removes it.
+- Choosing a basis gives $GL(V) \cong GL(n,\kappa)$; changing the basis conjugates the matrices.

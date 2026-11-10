@@ -1,0 +1,475 @@
+---
+title: "The Symmetric Group"
+subtitle: "Chapter 5"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+---
+
+
+---
+
+The symmetric group $S_n$ is the group of all permutations of $X = \{1,\dots,n\}$ under composition, that is, $S_X$ of Definition 4.2. It makes the ideas of Chapter 4 concrete: its elements move labels, its cycle decomposition describes orbits, and conjugation changes the labelling. In physics the labels can mark particles, identical degrees of freedom, or the positions of indices in a tensor. We first develop the rules for manipulating permutations, then use them to organise motions and arrays of physical quantities.
+
+---
+
+## 5.1 Permutations, cycles, and cycle decomposition
+
+A permutation is written in two rows, each image below its argument,
+
+$$\varphi = \begin{pmatrix} 1 & 2 & \cdots & n \\ \varphi(1) & \varphi(2) & \cdots & \varphi(n) \end{pmatrix},$$
+
+and permutations are composed right to left, $(\varphi\psi)(i) = \varphi(\psi(i))$.
+
+### Definition 5.1 (Cycle 轮换)
+
+Let $i_1,\dots,i_r$ be distinct elements of $X$. The permutation carrying
+
+$$i_1 \mapsto i_2 \mapsto \cdots \mapsto i_r \mapsto i_1$$
+
+and fixing every other element is an $r$-**cycle**, written $(i_1\, i_2\, \cdots\, i_r)$. A 2-cycle is a **transposition** 对换. Two cycles are **disjoint** if no element appears in both.
+
+The notation is not unique. A cycle may be started anywhere,
+
+$$(2\,3\,4) = (3\,4\,2) = (4\,2\,3),$$
+
+and reversing it gives the inverse, $(2\,3\,4)^{-1} = (4\,3\,2)$. Disjoint cycles commute, since each fixes what the other moves,
+
+$$(2\,3\,4)(5\,6) = (5\,6)(2\,3\,4),$$
+
+while cycles sharing an element need not,
+
+$$(1\,2)(2\,3) = (1\,2\,3), \qquad (2\,3)(1\,2) = (1\,3\,2).$$
+
+### Theorem 5.2 (Cycle decomposition 轮换分解)
+
+Every $\varphi\in S_n$ has a complete factorization into disjoint cycles, one for each orbit on $X$ of $\langle\varphi\rangle = \{\varphi^k : k\in\mathbb Z\}$, including a 1-cycle for each fixed point. It is unique up to the order of the cycles and cyclic rotation of their entries.
+
+*Proof.* **One orbit.** For $x\in X$, let $r$ be the first step at which the sequence $x, \varphi(x), \varphi^2(x), \dots$ repeats an entry. Since $X$ has $n$ elements, $1 \le r \le n$, and the $r$ points $x, \varphi(x), \dots, \varphi^{r-1}(x)$ are distinct. Write $\varphi^r(x) = \varphi^i(x)$ with $0 \le i < r$. Applying $\varphi^{-i}$ gives
+
+$$\varphi^{r-i}(x) = x.$$
+
+If $i > 0$ this repeats $x$ at step $r - i < r$, against the choice of $r$. So $i = 0$ and the sequence closes into a cycle,
+
+$$x \mapsto \varphi(x) \mapsto \cdots \mapsto \varphi^{r-1}(x) \mapsto x.$$
+
+Both $\varphi$ and $\varphi^{-1}$ move along this chain, so its entries are exactly the orbit of $x$ under $\langle\varphi\rangle$.
+
+**All orbits.** The orbits partition $X$ by Proposition 4.9. Form the cycle above for each orbit, including $(x)$ when $x$ is fixed. These cycles are disjoint, and their product agrees with $\varphi$ at every point of $X$.
+
+**Uniqueness.** In any complete factorization into disjoint cycles, the cycle containing $x$ must follow $x, \varphi(x), \varphi^2(x), \dots$ until it returns to $x$, since every other factor fixes each entry of that cycle. It is therefore the cycle just constructed, and only its starting entry and the order of the disjoint cycles can vary. $\blacksquare$
+
+The orbits of size one are the fixed points, and a cycle notation usually leaves them out. Writing them in gives the complete factorization, one cycle for each orbit,
+
+$$\varphi = \begin{pmatrix} 1 & 2 & 3 & 4 & 5 & 6 \\ 1 & 3 & 2 & 6 & 5 & 4 \end{pmatrix} = (1)(2\,3)(4\,6)(5),$$
+
+which has four cycles where the usual notation $(2\,3)(4\,6)$ shows two.
+
+### Proposition 5.3
+
+The order of a permutation is the least common multiple of the lengths of the cycles in its complete factorization.
+
+*Proof.* Let $\varphi = \gamma_1\cdots\gamma_t$ be disjoint, of lengths $r_1,\dots,r_t$. Disjoint cycles commute, so $\varphi^m = \gamma_1^m\cdots\gamma_t^m$, and these factors move disjoint sets of points. So $\varphi^m$ is the identity exactly when every $\gamma_i^m$ is, that is, when $r_i$ divides $m$ for each $i$. $\blacksquare$
+
+### Example 5.4 (Reading off a decomposition)
+
+For
+
+$$\varphi = \begin{pmatrix} 1 & 2 & 3 & 4 \\ 2 & 4 & 1 & 3 \end{pmatrix},$$
+
+follow $1\mapsto 2\mapsto 4\mapsto 3\mapsto 1$, so $\varphi = (1\,2\,4\,3)$, of order 4. For $\psi = (1\,2\,3)(4\,5) \in S_6$ the complete factorization is $(1\,2\,3)(4\,5)(6)$ and the order is $\mathrm{lcm}(3,2,1) = 6$.
+
+**Quiz 5.1.** Write the permutation $1\mapsto 3$, $2\mapsto 5$, $3\mapsto 6$, $4\mapsto 2$, $5\mapsto 4$, $6\mapsto 1$ of $S_6$ in cycles, and give its order. How many elements of $S_4$ have order 4?
+
+It is $(1\,3\,6)(2\,5\,4)$, of order 3. In $S_4$ the elements of order 4 are the 4-cycles, and there are 6 of them.
+
+---
+
+## 5.2 Cayley's theorem
+
+### Theorem 5.5 (Cayley 凯莱定理)
+
+Every group $G$ is isomorphic to a subgroup of $S_G$. If $|G| = n$, then $G$ is isomorphic to a subgroup of $S_n$.
+
+*Proof.* Let $G$ act on itself by left multiplication, $h\cdot g = hg$, as in Example 4.4. The action is a homomorphism
+
+$$L : G \to S_G, \qquad L(h)(g) = hg,$$
+
+and $L(h) = \mathrm{id}$ forces $h = he = e$, so $L$ is injective by Proposition 3.3. Therefore $G \cong \mathrm{im}\,L$, a subgroup of $S_G$. Numbering the elements of $G$ as $1,\dots,n$ identifies $S_G$ with $S_n$.
+
+To make the numbering explicit, let $f : G \to \{1,\dots,n\}$ be a bijection. Left multiplication, written in these labels, is the permutation
+
+$$L_f(h) = f \circ L(h) \circ f^{-1} \in S_n.$$
+
+Suppose we choose another numbering $f'$. The permutation $\sigma = f'\circ f^{-1}$ converts an old label into its new label, so $f' = \sigma\circ f$. Therefore
+
+$$L_{f'}(h) = f'\circ L(h)\circ(f')^{-1} = \sigma\circ f\circ L(h)\circ f^{-1}\circ\sigma^{-1} = \sigma\, L_f(h)\,\sigma^{-1}.$$
+
+Reading the last expression right to left, we convert a new label back to the old label, apply the old permutation, and convert the result to its new label. Consequently the two subgroups of $S_n$ satisfy
+
+$$\mathrm{im}\,L_{f'} = \sigma\,(\mathrm{im}\,L_f)\,\sigma^{-1}.$$
+
+Left multiplication defines $\mathrm{im}\,L \subset S_G$ intrinsically. A numbering realizes this subgroup inside $S_n$; different numberings give conjugate subgroups, each isomorphic to the same group $G$. $\blacksquare$
+
+### Example 5.6 (Cyclic groups)
+
+For $G = \mathbb Z_n$, label the elements $0,1,\dots,n-1$ by $1,2,\dots,n$ respectively. The element $1$ acts by adding one to everything, which is the $n$-cycle $(1\,2\,\cdots\,n)$. So $\mathbb Z_n \cong \langle(1\,2\,\cdots\,n)\rangle$, and for $n = 3$,
+
+$$\mathbb Z_3 \cong \{e, (1\,2\,3), (1\,3\,2)\} \subset S_3.$$
+
+For a concrete change of numbering, take $G = \mathbb Z_4$ and choose
+
+| element of $\mathbb Z_4$ | 0 | 1 | 2 | 3 |
+|---|---|---|---|---|
+| old label $f$ | 1 | 2 | 3 | 4 |
+| new label $f'$ | 1 | 3 | 2 | 4 |
+
+The relabelling is $\sigma = (2\,3)$. Addition by 1 gives $L_f(1) = (1\,2\,3\,4)$ in the old labels and $L_{f'}(1) = (1\,3\,2\,4)$ in the new ones. They satisfy
+
+$$(2\,3)(1\,2\,3\,4)(2\,3)^{-1} = (1\,3\,2\,4).$$
+
+Thus the image changes from $\langle(1\,2\,3\,4)\rangle$ to $\langle(1\,3\,2\,4)\rangle$. These subgroups are distinct. Their unique elements of order two are respectively $(1\,3)(2\,4)$ and $(1\,2)(3\,4)$. Both still describe the same addition modulo four.
+
+### Example 5.7 (The Klein four-group)
+
+Write $V = \{e, a, b, c\}$ with $a^2 = b^2 = c^2 = e$ and $ab = c$. The numbering and the labels obtained by left multiplication are
+
+| $x$ | $e$ | $a$ | $b$ | $c$ |
+|---|---|---|---|---|
+| $f(x)$ | 1 | 2 | 3 | 4 |
+| $f(ax)$ | 2 | 1 | 4 | 3 |
+| $f(bx)$ | 3 | 4 | 1 | 2 |
+| $f(cx)$ | 4 | 3 | 2 | 1 |
+
+Reading each of the last three rows as a permutation of the labels gives
+
+$$L_f(a) = (1\,2)(3\,4), \qquad L_f(b) = (1\,3)(2\,4), \qquad L_f(c) = (1\,4)(2\,3).$$
+
+These three, with the identity, are a subgroup of $S_4$ isomorphic to $V$. Each row of the multiplication table of $G$ is a permutation of the elements, and Cayley's theorem is the observation that these permutations multiply as the group does.
+
+### Example 5.8 (A smaller home for $D_4$)
+
+Cayley's theorem puts $D_4$, of order 8, inside $S_8$. Its action on the four vertices of the square does better. With the vertices numbered around the square as in Example 4.7, the quarter turn and the reflection in the horizontal axis are
+
+$$A = (1\,2\,3\,4), \qquad B = (1\,4)(2\,3), \qquad AB = (2\,4),$$
+
+so $D_4$ is isomorphic to a subgroup of $S_4$. The embedding of Cayley's proof is the regular action, which is free, while the vertex action is not, and a faithful action on a smaller set gives a smaller symmetric group.
+
+**Quiz 5.2.** Write out the eight permutations of $\{1,2,3,4\}$ given by $D_4$ acting on the vertices, and check that they are closed under composition. Which elements of $S_4$ are missing, and what do they do to the square?
+
+The eight are $e$, $(1\,2\,3\,4)$, $(1\,3)(2\,4)$, $(1\,4\,3\,2)$, $(1\,4)(2\,3)$, $(2\,4)$, $(1\,2)(3\,4)$, $(1\,3)$. Missing are the four 4-cycles other than the two rotations and the four transpositions: a transposition such as $(1\,2)$ fixes two vertices and exchanges the other two, which no rigid motion of the square does.
+
+---
+
+## 5.3 Transpositions, parity, and the alternating group
+
+### Proposition 5.9
+
+Every $r$-cycle with $r\ge 2$ is a product of transpositions,
+
+$$(a_1\, a_2\, \cdots\, a_r) = (a_1\, a_r)(a_1\, a_{r-1})\cdots(a_1\, a_2),$$
+
+so the transpositions generate $S_n$ for $n\ge 2$. A 1-cycle is the identity, the empty product.
+
+*Proof.* Read the right-hand side from the right. It sends $a_1$ to $a_2$, and it sends $a_i$ for $i\ge 2$ first to $a_1$ and then to $a_{i+1}$, with $a_r$ going to $a_1$. Points outside the cycle are untouched. Every permutation is a product of cycles by Theorem 5.2. $\blacksquare$
+
+The adjacent transpositions $s_i = (i\;\; i+1)$ generate $S_n$. To build an arbitrary exchange $(a\,b)$, first suppose $a + 1 < b$ and conjugate it by $s_a$. Reading $s_a(a\,b)s_a$ from right to left gives
+
+$$a+1 \mapsto a \mapsto b \mapsto b, \qquad b \mapsto b \mapsto a \mapsto a+1.$$
+
+The label $a$ returns to itself, and every other label is fixed. Thus conjugation has changed the exchange of $a$ and $b$ into the exchange of $a+1$ and $b$. Since $s_a^2 = e$, we can also reverse this step,
+
+$$s_a(a\,b)s_a = (a+1\;\; b), \qquad (a\,b) = s_a(a+1\;\; b)s_a.$$
+
+Repeating this step moves the first entry towards $b$, until the exchange is between the adjacent labels $b-1$ and $b$. For example, in $S_5$,
+
+$$(1\,5) = s_1(2\,5)s_1 = s_1s_2(3\,5)s_2s_1 = s_1s_2s_3(4\,5)s_3s_2s_1 = s_1s_2s_3s_4s_3s_2s_1.$$
+
+The general expression is therefore, for $b \ge a+2$,
+
+$$(a\,b) = s_a s_{a+1}\cdots s_{b-2}\, s_{b-1}\, s_{b-2}\cdots s_{a+1}s_a.$$
+
+For $b = a+1$ the exchange is already $s_a$. Since every permutation is a product of transpositions, these adjacent exchanges generate $S_n$.
+
+For $n\ge 2$, let $c = (1\,2\,\cdots\,n)$. Conjugating by $c$ shifts both entries of an adjacent exchange forward by one. The exchange $(1\,2)$ becomes $(2\,3)$, then $(3\,4)$, and so on up to $(n-1\;\; n)$. Starting from $s_1$, after $i-1$ such shifts we obtain $s_i$, so
+
+$$c^{i-1}s_1c^{-(i-1)} = s_i \qquad (1\le i < n).$$
+
+Thus $s_1$ and $c$ produce every adjacent transposition, and $S_n = \langle s_1, c\rangle$.
+
+A presentation of $S_n$, stated here without proof, is
+
+$$S_n = \langle s_1,\dots,s_{n-1} \mid s_i^2 = 1,\ s_is_j = s_js_i\ (|i-j|\ge 2),\ s_is_{i+1}s_i = s_{i+1}s_is_{i+1}\rangle.$$
+
+Each $s_i$ squares to the identity, disjoint exchanges commute, and both sides of the last relation exchange $i$ with $i+2$.
+
+A transposition pair $\tau\tau = e$ can be inserted into any product, increasing the number of factors by two without changing the permutation. The distinction between an even and an odd number of factors is the parity 奇偶性 of a permutation.
+
+### Definition 5.10 (Even 偶置换 and odd 奇置换)
+
+A permutation is **even** if it can be written as a product of an even number of transpositions, and **odd** if it can be written as a product of an odd number of transpositions. The identity is even, as the empty product.
+
+The determinant of a permutation matrix shows that every decomposition of a given permutation has the same parity.
+
+### Definition 5.11 (Permutation matrix and sign 符号)
+
+For $\varphi\in S_n$ let $P(\varphi)$ be the matrix with $P(\varphi)\hat e_i = \hat e_{\varphi(i)}$, that is $P(\varphi)_{ji} = \delta_{j,\varphi(i)}$, and set
+
+$$\mathrm{sgn}(\varphi) := \det P(\varphi).$$
+
+### Proposition 5.12 (Parity and sign)
+
+$P : S_n \to GL(n,\kappa)$ is an injective homomorphism, and $\mathrm{sgn} : S_n \to \{\pm 1\}$ is a homomorphism with $\mathrm{sgn}(\tau) = -1$ for every transposition $\tau$. If $\varphi$ is a product of $k$ transpositions then $\mathrm{sgn}(\varphi) = (-1)^k$, so the parity of $k$ depends only on $\varphi$.
+
+*Proof.* $P(\varphi)P(\psi)\hat e_i = P(\varphi)\hat e_{\psi(i)} = \hat e_{\varphi\psi(i)}$, so $P$ is a homomorphism, and $P(\varphi) = \mathbb 1$ forces $\varphi = \mathrm{id}$. The determinant is multiplicative, so sgn is a homomorphism, and its values are $\pm 1$ because $P(\varphi)^{-1} = P(\varphi^{-1})$ has integer entries. The matrix of a transposition is $\mathbb 1$ with two columns exchanged, of determinant $-1$. If two decompositions of $\varphi$ contain $k$ and $\ell$ transpositions, respectively, their determinants give
+
+$$(-1)^k = \det P(\varphi) = (-1)^\ell.$$
+
+Hence $k$ and $\ell$ have the same parity. Every permutation is therefore either even or odd, and $\mathrm{sgn}(\varphi)$ is $+1$ for an even permutation and $-1$ for an odd one. $\blacksquare$
+
+### Proposition 5.13
+
+An $r$-cycle has sign $(-1)^{r-1}$. If the complete factorization of $\varphi\in S_n$ has $t$ cycles then $\mathrm{sgn}(\varphi) = (-1)^{n-t}$.
+
+*Proof.* An $r$-cycle is a product of $r-1$ transpositions by Proposition 5.9. If the complete factorization has cycles of lengths $r_1,\dots,r_t$ then $\sum_i r_i = n$, since every point lies in exactly one cycle, and $\mathrm{sgn}(\varphi) = \prod_i(-1)^{r_i-1} = (-1)^{n-t}$. $\blacksquare$
+
+### Example 5.14 (The sign in vector calculus)
+
+The Levi–Civita symbol 列维–奇维塔符号 packages the sign of a permutation into indices. For $\sigma\in S_n$, set
+
+$$\epsilon_{\sigma(1)\cdots\sigma(n)} = \mathrm{sgn}(\sigma),$$
+
+and set it to zero when an index is repeated. Thus $\epsilon_{123} = \epsilon_{231} = 1$ and $\epsilon_{132} = -1$. In three dimensions,
+
+$$(\vec a\times\vec b)_i = \sum_{j,k=1}^{3}\epsilon_{ijk}\,a_jb_k.$$
+
+Exchanging $j$ and $k$ changes the sign, giving $\vec b\times\vec a = -\vec a\times\vec b$. The same permutation sign appears in the determinant expansion,
+
+$$\det M = \sum_{\sigma\in S_n}\mathrm{sgn}(\sigma)\prod_{i=1}^{n} M_{i,\sigma(i)}.$$
+
+Parity therefore already occurs in familiar calculations with areas, volumes, and cross products.
+
+### Definition 5.15 (Alternating group 交错群)
+
+$A_n := \ker(\mathrm{sgn})$, the even permutations in $S_n$.
+
+It is a subgroup, being a kernel. For $n\ge 2$, the odd permutations form the coset $(1\,2)A_n$. Multiplication by $(1\,2)$ reverses parity. For any odd $\sigma$, $(1\,2)\sigma$ is even, so $\sigma = (1\,2)\bigl((1\,2)\sigma\bigr) \in (1\,2)A_n$. Thus every permutation belongs to one of the two cosets,
+
+$$S_n = A_n \sqcup (1\,2)A_n.$$
+
+There are two cosets, so $[S_n:A_n] = 2$ and
+
+$$|A_n| = \frac{n!}{2}.$$
+
+### Example 5.16 (Small alternating groups)
+
+$A_2 = \{e\}$ and $A_3 = \{e, (1\,2\,3), (1\,3\,2)\} \cong \mathbb Z_3$. Next,
+
+$$A_4 = \{e\} \cup \{\text{the eight 3-cycles}\} \cup \{(1\,2)(3\,4), (1\,3)(2\,4), (1\,4)(2\,3)\},$$
+
+of order 12. The three double transpositions with $e$ form the Klein four-group of Example 5.7. While $A_3$ is abelian, $A_4$ is not,
+
+$$(1\,2\,3)(1\,2\,4) = (1\,3)(2\,4), \qquad (1\,2\,4)(1\,2\,3) = (1\,4)(2\,3).$$
+
+### Proposition 5.17
+
+$A_4$ has no subgroup of order 6.
+
+*Proof.* Suppose $H\subset A_4$ is a subgroup with $|H| = 6$, so $[A_4:H] = 2$ and the two cosets $H$ and $gH$ partition $A_4$ for any $g\notin H$. Then $g^2 \in H$, since $g^2 \in gH$ would give $g \in H$. So every square in $A_4$ lies in $H$. A 3-cycle $\sigma$ satisfies $\sigma^3 = e$, hence $\sigma = \sigma^4 = (\sigma^2)^2$, and is a square. All eight 3-cycles would therefore lie in $H$, which has six elements. $\blacksquare$
+
+This is the counterexample promised in §4.5. A divisor of the order of a group need not be the order of a subgroup.
+
+### Remark 5.18 (Sylow's first theorem)
+
+If $|G| = p^am$ with $p$ prime and $p$ not dividing $m$, then $G$ has a subgroup of order $p^a$. We state this without proof. For $A_4$ it gives a subgroup of order 4, which is the Klein four-group of Example 5.7.
+
+The polyhedral groups of §4.6 can now be named.
+
+### Proposition 5.19
+
+The rotation group of the regular tetrahedron is isomorphic to $A_4$, and that of the cube to $S_4$.
+
+*Proof.* A rotation of the tetrahedron permutes its four vertices. Their position vectors measured from the centre span $\mathbb R^3$, so a rotation fixing all four is the identity and the resulting homomorphism into $S_4$ is injective. The identity, the eight rotations through $\pm 2\pi/3$ about the four vertex axes, and the three half-turns about the axes through midpoints of opposite edges account for all 12 rotations, by Theorem 4.35. They give the identity, 3-cycles and double transpositions, all even, so the image is a subgroup of $A_4$ with 12 elements and equals $A_4$.
+
+A rotation of the cube permutes its four body diagonals. The six half-turns about axes through midpoints of opposite edges give the six transpositions, which generate $S_4$, so the homomorphism is onto. The rotation group has 24 elements, as does $S_4$, so it is an isomorphism. $\blacksquare$
+
+We state without proof that the rotation group of the icosahedron is isomorphic to $A_5$. Five cubes can be inscribed in the dodecahedron, each using one diagonal of every face, and the rotations permute them.
+
+**Quiz 5.3.** Is the set of odd permutations a subgroup of $S_n$? Check that $\mathrm{sgn}\bigl((1\,2\,3)(4\,5)\bigr) = -1$ in two ways, by counting transpositions and by Proposition 5.13.
+
+It is not: it contains no identity, and the product of two odd permutations is even. Here $(1\,2\,3)(4\,5) = (1\,3)(1\,2)(4\,5)$ is a product of three transpositions, and $n - t = 5 - 2 = 3$.
+
+---
+
+## 5.4 Conjugacy classes of $S_n$ and Young diagrams
+
+### Proposition 5.20
+
+For $\sigma\in S_n$ and a cycle $(a_1\,\cdots\,a_r)$,
+
+$$\sigma\,(a_1\,a_2\,\cdots\,a_r)\,\sigma^{-1} = (\sigma(a_1)\;\sigma(a_2)\;\cdots\;\sigma(a_r)).$$
+
+*Proof.* Apply the left-hand side to $\sigma(a_i)$. First $\sigma^{-1}$ gives $a_i$, then the cycle gives $a_{i+1}$, then $\sigma$ gives $\sigma(a_{i+1})$, with $a_{r+1}$ read as $a_1$. A point outside $\{\sigma(a_1),\dots,\sigma(a_r)\}$ comes from a point outside the cycle and is left alone. The right-hand side does the same. $\blacksquare$
+
+Conjugation therefore relabels the entries of a cycle without changing its length, and applying it to a decomposition relabels every cycle at once.
+
+### Definition 5.21 (Cycle type 轮换型)
+
+The **cycle type** of $\varphi\in S_n$ is the tuple $\lambda = (\lambda_1,\dots,\lambda_t)$, where $\lambda_i$ is the length of the $i$-th cycle in its complete factorization, ordered so that $\lambda_1 \ge \cdots \ge \lambda_t \ge 1$. The lengths sum to $n$, so $\lambda$ is a **partition** 分拆 of $n$. Write $m_i(\lambda)$ for the number of cycles of length $i$.
+
+For example, $(1\,2)(3\,4)(5)\in S_5$ has $\lambda = (2,2,1)$, with $m_2(\lambda) = 2$ and $m_1(\lambda) = 1$.
+
+### Theorem 5.22 (Classes of $S_n$)
+
+Two permutations are conjugate in $S_n$ exactly when they have the same cycle type, so the conjugacy classes of $S_n$ are in bijection with the partitions of $n$. The class of type $\lambda$ has size
+
+$$\frac{n!}{\prod_i i^{m_i(\lambda)}\, m_i(\lambda)!}.$$
+
+*Proof.* Proposition 5.20 shows that conjugate permutations have the same cycle type. Conversely, let $\varphi$ and $\psi$ have the same type. Write their complete factorizations with cycles of equal length aligned, and let $\sigma$ send each entry of $\varphi$ to the entry standing below it in $\psi$. This $\sigma$ is a permutation, and $\sigma\varphi\sigma^{-1} = \psi$ by Proposition 5.20.
+
+For the class size, take the group $G = S_n$ acting on the set $X = S_n$ by conjugation, with the action $\sigma\cdot\varphi = \sigma\varphi\sigma^{-1}$. The orbit of $\varphi$ is its conjugacy class $\mathrm{Cl}(\varphi)$. Its stabilizer consists of the permutations whose conjugation leaves $\varphi$ unchanged. This is the centralizer
+
+$$G_\varphi = \{\sigma\in S_n : \sigma\varphi\sigma^{-1} = \varphi\} = C_{S_n}(\varphi).$$
+
+By Theorem 4.20, $|\mathrm{Cl}(\varphi)| = n!/|C_{S_n}(\varphi)|$. To count this stabilizer, note that a stabilizing $\sigma$ leaves every power of $\varphi$ unchanged under conjugation, so $\sigma(\varphi^k(x)) = \varphi^k(\sigma(x))$. Thus $\sigma$ maps each cycle onto a cycle of the same length, and the image of one point determines the images of all points in that cycle. For the $m_i = m_i(\lambda)$ cycles of length $i$, there are $m_i!$ ways to assign target cycles and $i$ choices for the image of a chosen point in each cycle, giving $i^{m_i}$ choices. Conversely, each such assignment defines a permutation leaving $\varphi$ unchanged under conjugation. The choices for different lengths are independent, giving
+
+$$|C_{S_n}(\varphi)| = \prod_i i^{m_i(\lambda)}\,m_i(\lambda)!.$$
+
+Substituting into the orbit–stabilizer formula gives the class size. $\blacksquare$
+
+### Example 5.23 (The classes of $S_4$)
+
+There are $p(4) = 5$ partitions of 4, hence five classes.
+
+| partition | representative | class size | order |
+|---|---|---|---|
+| $1+1+1+1$ | $e$ | 1 | 1 |
+| $2+1+1$ | $(1\,2)$ | 6 | 2 |
+| $2+2$ | $(1\,2)(3\,4)$ | 3 | 2 |
+| $3+1$ | $(1\,2\,3)$ | 8 | 3 |
+| $4$ | $(1\,2\,3\,4)$ | 6 | 4 |
+
+The sizes add to $1 + 6 + 3 + 8 + 6 = 24 = |S_4|$, as the classes partition the group, and each divides 24 as (4.1) requires.
+
+A partition is drawn as a **Young diagram** 杨图, a left-justified array of boxes with $\lambda_i$ boxes in the $i$-th row. The five partitions of $4$ are $1+1+1+1$, $2+1+1$, $2+2$, $3+1$, $4$, and they label the five classes of Example 5.23 in the same order. The number of classes of $S_n$ is the number of partitions of $n$, the **partition function** 分拆函数 $p(n)$, which runs $1,2,3,5,7,11,15,\dots$ for $n = 1,2,\dots$ and has no simple closed form.
+
+### Definition 5.24 (Young tableau 杨表)
+
+A **Young tableau** is a Young diagram with $n$ boxes filled with $1,\dots,n$, each used once. It is **standard** when entries increase from left to right in every row and from top to bottom in every column.
+
+For shape $(2,1)$ there are $3! = 6$ tableaux, of which exactly two are standard, namely
+
+```
+1 2    1 3
+3      2
+```
+
+### Remark 5.25 (One shape, two uses)
+
+Here a Young diagram records cycle lengths and labels a conjugacy class. In Part II the same shapes will also label irreducible representations through constructions that symmetrise tensor positions along rows and antisymmetrise them along columns.
+
+### Remark 5.26 (Conjugacy classes in $A_4$)
+
+The eight 3-cycles form a single class of $S_4$. In $A_4$ the centralizer of $(1\,2\,3)$ is $\langle(1\,2\,3)\rangle$, of order 3, so by (4.1) its $A_4$-class has $12/3 = 4$ elements. The eight 3-cycles split into two classes of four, and the conjugating element that merges them, a transposition, is missing from $A_4$.
+
+**Quiz 5.4.** List the partitions of 5 and the class sizes of $S_5$, and check that they sum to 120. Which classes of $S_5$ lie in $A_5$? Do any of them split into more than one $A_5$-class?
+
+The partitions are $5$, $4+1$, $3+2$, $3+1+1$, $2+2+1$, $2+1+1+1$, $1+1+1+1$, with class sizes $24, 30, 20, 20, 15, 10, 1$, summing to 120. Those in $A_5$ are the even types, of sizes $24, 20, 15, 1$, summing to 60. The 5-cycles split into two $A_5$-classes of 12.
+
+---
+
+## 5.5 Permutations in physical systems
+
+Permutation symmetry occurs in coupled oscillators, tensor indices, and identical-particle states.
+
+### 5.5.1 Identical coupled oscillators
+
+### Example 5.27 (A collective motion and relative motions)
+
+Consider $n\ge 2$ identical scalar coordinates $q_i$, with mass $m > 0$, the same restoring constant $k_0 > 0$, and the same coupling $k > 0$ between every pair. Their kinetic and potential energies are
+
+$$T = \frac{m}{2}\sum_{i=1}^{n}\dot q_i^2, \qquad U = \frac{k_0}{2}\sum_{i=1}^{n}q_i^2 + \frac{k}{2}\sum_{i<j}(q_i - q_j)^2.$$
+
+A permutation acts by $(\sigma\cdot q)_i = q_{\sigma^{-1}(i)}$, the matrix action of Definition 5.11. Both energies are unchanged. The first sums run over every coordinate, and the second over every unordered pair.
+
+Separate the mean displacement from the relative displacements,
+
+$$Q = \frac{1}{n}\sum_i q_i, \qquad r_i = q_i - Q, \qquad \sum_i r_i = 0.$$
+
+Relabelling leaves the collective pattern $(Q,\dots,Q)$ unchanged and preserves $\sum_i r_i = 0$. The collective displacement has one independent amplitude $Q$. The relative displacements have $n-1$ independent amplitudes, since their $n$ components obey one sum constraint. The equations of motion are
+
+$$m\ddot q_i = -k_0q_i - k\sum_{j\neq i}(q_i - q_j) = -k_0q_i - nk(q_i - Q).$$
+
+Taking the mean, then subtracting it from each equation, gives
+
+$$m\ddot Q = -k_0Q, \qquad m\ddot r_i = -(k_0 + nk)r_i.$$
+
+There is one collective mode with $\omega^2 = k_0/m$, and $n-1$ independent relative modes with the same $\omega^2 = (k_0 + nk)/m$.
+
+More generally, write $U = \frac12 q^T D q$, where $D$ is the symmetric stiffness matrix. Invariance under relabelling means
+
+$$P(\sigma)^T D\,P(\sigma) = D, \qquad D_{\sigma(i),\sigma(j)} = D_{ij}.$$
+
+Relabelling can send any coordinate to any other coordinate, and any pair of distinct coordinates to any other such pair. Thus all diagonal entries of $D$ are equal, and all off-diagonal entries are equal. Writing these entries as $a + b$ and $b$, respectively, gives
+
+$$D = a\,\mathbb 1 + b\, uu^T, \qquad u = (1,\dots,1)^T.$$
+
+For a collective displacement $q = Qu$, all coordinates move together. Since $u^Tu = n$,
+
+$$D(Qu) = (a + nb)Qu.$$
+
+Thus the uniform pattern $u$ is an eigenvector of $D$ with eigenvalue $a + nb$. For a relative displacement $r = (r_1,\dots,r_n)^T$, the condition $\sum_i r_i = 0$ gives $u^Tr = 0$, so
+
+$$Dr = ar.$$
+
+Every relative pattern is therefore multiplied by the same eigenvalue $a$. Since the equations of motion are $m\ddot q = -Dq$, the collective mode has $\omega^2 = (a+nb)/m$, and all $n-1$ relative modes have $\omega^2 = a/m$. In this example, $a = k_0 + nk$ and $b = -k$, recovering the two frequencies above.
+
+The symmetry does not solve the problem. It says in advance that the stiffness matrix has only two eigenvalues and which normal modes they belong to, which is all a permutation can see.
+
+### 5.5.2 Exchanging indices and rotating components
+
+We can exchange the two index positions of an array $A_{ij}$ or rotate both indices. For a real $3\times 3$ array these operations are
+
+$$\tau(A) = A^T, \qquad \mathcal R_R(A) = RAR^T, \qquad R \in SO(3).$$
+
+Here $\tau^2 = \mathrm{id}$, so $\tau$ defines an $S_2$ action on the two index positions in $A_{ij}$, with each index ranging over $1,2,3$. The rotations give a second action, and the two commute, since
+
+$$(RAR^T)^T = R A^T R^T.$$
+
+Every array has the unique decomposition
+
+$$A = S + K, \qquad S = \frac{A + A^T}{2}, \qquad K = \frac{A - A^T}{2}.$$
+
+Thus $\tau(S) = S$ and $\tau(K) = -K$. The two operations $\Pi_\pm = (\mathrm{id}\pm\tau)/2$ satisfy $\Pi_\pm^2 = \Pi_\pm$ and $\Pi_+\Pi_- = 0$. They project onto the symmetric and antisymmetric arrays. These are the simplest examples of the symmetrising and antisymmetrising operations later associated with a row of two boxes and a column of two boxes. Because rotations commute with $\tau$, they preserve both spaces.
+
+For a $3\times 3$ array, this $S_2$ action separates the nine components into six symmetric and three antisymmetric components. Rotations further separate the symmetric part into its trace and a traceless part,
+
+$$S = \frac{\mathrm{Tr}\,S}{3}\,\mathbb 1 + S_0, \qquad \mathrm{Tr}\,S_0 = 0.$$
+
+The trace supplies one independent number, while the traceless condition leaves five independent symmetric components. Since $R\mathbb 1 R^T = \mathbb 1$ and $\mathrm{Tr}(RSR^T) = \mathrm{Tr}\,S$, rotations preserve these parts separately. Thus
+
+$$9 = (1 + 5) + 3.$$
+
+The inertia tensor provides a symmetric array; a quadrupole moment is described by a symmetric traceless one. An antisymmetric array can be written as $K_{ij} = \sum_k \epsilon_{ijk}a_k$ and carries a vector under proper rotations. In Part II the $1$, $3$, and $5$ dimensional spaces will be identified with angular momenta $0$, $1$, and $2$.
+
+For an array with $n$ index positions, the index exchange generalises to an $S_n$ action, which commutes with applying the same matrix $g$ to every index. These commuting actions connect Young diagrams with representations of matrix groups, as developed in Part II.
+
+### 5.5.3 Particle exchange
+
+The exchange of two particles discussed in the earlier chapters extends to $n$ particles. Let $P_\sigma$ be the operator permuting their labels, with $P_\sigma P_\rho = P_{\sigma\rho}$. The usual bosonic and fermionic exchange rules are respectively
+
+$$P_\sigma\psi = \psi, \qquad P_\sigma\psi = \mathrm{sgn}(\sigma)\psi.$$
+
+Since sgn is a homomorphism, the fermionic rule gives the same sign for every sequence of pair exchanges producing $\sigma$. All one-particle variables, including spin, are exchanged together, so these rules apply to the full state.
+
+---
+
+## Key points
+
+- Disjoint cycles are the orbits of $\langle\varphi\rangle$; their lengths determine the order of $\varphi$ by taking the least common multiple.
+- Cayley's theorem embeds $G$ in $S_G$ through left multiplication, and a choice of numbering embeds it in $S_n$; a different numbering conjugates the image.
+- $\mathrm{sgn}(\varphi) = \det P(\varphi)$ makes parity well defined. Its kernel $A_n$ has order $n!/2$ for $n\ge 2$, and $A_4$ has no subgroup of order 6.
+- The classes of $S_n$ are its cycle types, labelled by partitions of $n$ and drawn as Young diagrams; $|\mathrm{Cl}(\varphi)| = n!/\prod_i i^{m_i}m_i!$.
+- The rotation groups of the tetrahedron, cube and icosahedron are $A_4$, $S_4$ and $A_5$.
+- Permutations organise physical coordinates and tensor positions: identical oscillators split into one collective and $n-1$ relative modes, and the $S_2$ action on a $3\times 3$ array splits $9 = (1+5)+3$.

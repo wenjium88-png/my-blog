@@ -1,0 +1,581 @@
+---
+title: "Group Actions"
+subtitle: "Chapter 4"
+format:
+  html:
+    toc: true
+    toc-depth: 2
+---
+
+
+---
+
+A group on its own is a set of motions. What makes a group useful is that it usually acts on something, and the action records which motions leave a structure alone. This chapter sets up that vocabulary. It then turns it into counting: orbits, cosets, Lagrange's theorem, orbit–stabilizer. The counts classify the conjugacy classes of a group, the finite rotation groups of space, and the possible positions of an atom in a crystal.
+
+---
+
+## 4.1 Actions, $G$-sets, and orbits
+
+### Definition 4.1 (Permutation 置换)
+
+Let $X$ be a set. A **permutation** of $X$ is a map $f : X \to X$ that is one-to-one and onto.
+
+The identity map is a permutation, a composite of two permutations is one, and so is an inverse.
+
+### Definition 4.2 (Symmetric group 对称群)
+
+For a set $X$, $S_X$, also written $\mathrm{Sym}(X)$, is the group of permutations of $X$ under composition, $(f_1, f_2) \mapsto f_1 \circ f_2$. For $X = \{1, \dots, n\}$ it is the **symmetric group** $S_n$, of order $n!$.
+
+### Definition 4.3 (Action 群作用)
+
+A **left action** of a group $G$ on a set $X$ is a homomorphism
+
+$$\Phi : G \to S_X, \qquad g \mapsto \Phi(g).$$
+
+Equivalently, it is a map $\varphi : G\times X \to X$, written $\varphi(g,x) = \Phi(g)(x)$, satisfying
+
+$$\varphi(g_1, \varphi(g_2, x)) = \varphi(g_1g_2, x), \qquad \varphi(e, x) = x$$
+
+for all $g_1, g_2 \in G$ and $x \in X$. A set with an action of $G$ is a $G$-**set** $G$-集合.
+
+The two descriptions agree. A homomorphism $\Phi$ has $\Phi(e) = \mathrm{id}$ and $\Phi(g_1)\Phi(g_2) = \Phi(g_1g_2)$, which are the two identities for $\varphi(g,x) := \Phi(g)(x)$. Conversely, given $\varphi$ with the two identities,
+
+$$\varphi(g, \varphi(g^{-1}, x)) = \varphi(gg^{-1}, x) = \varphi(e, x) = x$$
+
+for all $x$, so each $\varphi(g, \cdot)$ is a permutation of $X$, with inverse $\varphi(g^{-1}, \cdot)$, and $g \mapsto \varphi(g, \cdot)$ is a homomorphism into $S_X$. Write
+
+$$g \cdot x := \varphi(g, x), \qquad\text{so that}\qquad g_1 \cdot (g_2 \cdot x) = (g_1g_2)\cdot x, \quad e \cdot x = x.$$
+
+Sets acted on are taken nonempty.
+
+### Example 4.4 (A group acting on itself)
+
+Take $X = G$. Left multiplication $g \cdot x := gx$ is an action, since $g_1(g_2x) = (g_1g_2)x$ is associativity. Conjugation $g \cdot x := gxg^{-1}$ is an action, since
+
+$$g_1 \cdot (g_2 \cdot x) = g_1\bigl(g_2xg_2^{-1}\bigr)g_1^{-1} = (g_1g_2)\,x\,(g_1g_2)^{-1} = (g_1g_2)\cdot x.$$
+
+Right multiplication $x \cdot g := xg$ satisfies $(x\cdot g_1)\cdot g_2 = x \cdot (g_1g_2)$ and defines a right action 右作用. The corresponding left action is $g \cdot x := xg^{-1}$. For an abelian group conjugation is the trivial action, $gxg^{-1} = x$.
+
+### Example 4.5 (Matrix groups on vectors)
+
+$GL(n,\kappa)$ acts on $\kappa^n$ by $A \cdot \vec v := A\vec v$, and so does every subgroup of it, for instance $SO(3)$ on $\mathbb R^3$.
+
+### Example 4.6 (Rotations and translations)
+
+Pairs $\{R \mid \vec\tau\}$ with $R \in O(3)$ and $\vec\tau \in \mathbb R^3$ act on $\mathbb R^3$ by
+
+$$\{R \mid \vec\tau\}\cdot \vec r := R\vec r + \vec\tau.$$
+
+Applying two in succession,
+
+$$\{R_1 \mid \vec\tau_1\}\cdot\bigl(\{R_2 \mid \vec\tau_2\}\cdot \vec r\bigr) = R_1(R_2\vec r + \vec\tau_2) + \vec\tau_1 = R_1R_2\,\vec r + (R_1\vec\tau_2 + \vec\tau_1),$$
+
+so the pairs form a group under
+
+$$\{R_1 \mid \vec\tau_1\}\{R_2 \mid \vec\tau_2\} = \{R_1R_2 \mid R_1\vec\tau_2 + \vec\tau_1\},$$
+
+the Euclidean group 欧几里得群 $E(3)$, and the formula above is an action of it. Writing a point as the column $(1, \vec r)^T$, the pair $\{R\mid\vec\tau\}$ acts as a $4\times 4$ matrix,
+
+$$\begin{pmatrix} 1 & 0 \\ \vec\tau & R \end{pmatrix}\begin{pmatrix} 1 \\ \vec r \end{pmatrix} = \begin{pmatrix} 1 \\ R\vec r + \vec\tau \end{pmatrix},$$
+
+and the group law is matrix multiplication.
+
+The translation part does not simply add under composition. It is $R_1\vec\tau_2 + \vec\tau_1$, and the first term carries a rotation.
+
+### Example 4.7 (The square)
+
+Let $X = \{\vec v_1, \vec v_2, \vec v_3, \vec v_4\}$ be the vertices of a square centred at the origin,
+
+$$\vec v_1 = \begin{pmatrix} 1 \\ 1 \end{pmatrix}, \qquad \vec v_2 = \begin{pmatrix} -1 \\ 1 \end{pmatrix}, \qquad \vec v_3 = \begin{pmatrix} -1 \\ -1 \end{pmatrix}, \qquad \vec v_4 = \begin{pmatrix} 1 \\ -1 \end{pmatrix}.$$
+
+Realise $D_4 = \langle A, B \mid A^4 = B^2 = (AB)^2 = 1\rangle$ by matrices,
+
+$$\varphi(A) = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}, \qquad \varphi(B) = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix},$$
+
+the quarter turn about the origin and the reflection in the horizontal axis. Both carry each vertex to a vertex, so $g \cdot \vec v := \varphi(g)\vec v$ is an action of $D_4$ on $X$. For the quarter turn,
+
+$$(A\cdot \vec v_1,\, A \cdot \vec v_2,\, A\cdot \vec v_3,\, A\cdot \vec v_4) = (\vec v_2, \vec v_3, \vec v_4, \vec v_1),$$
+
+so $A$ carries $X$ onto itself while moving each vertex to the next. That is the sense in which the quarter turn is a symmetry of the square. The same matrices act on the four edges and on the two diagonals.
+
+### Definition 4.8 (Orbit 轨道 and stabilizer 稳定化子)
+
+For $x \in X$, the **orbit** of $x$ and the **stabilizer** of $x$ are
+
+$$G\cdot x := \{\, g\cdot x : g \in G \,\} \subset X, \qquad G_x := \{\, g \in G : g\cdot x = x \,\} \subset G.$$
+
+They are also written $\mathrm{Orb}_G(x)$ and $\mathrm{Stab}_G(x)$.
+
+### Proposition 4.9
+
+The orbits partition $X$, and $G_x$ is a subgroup of $G$.
+
+*Proof.* Every $x\in X$ lies in its own orbit, since $x = e\cdot x$, so the orbits cover $X$. Suppose two of them meet, $y \in (G\cdot x_1)\cap(G\cdot x_2)$, say $y = g_1\cdot x_1 = g_2\cdot x_2$. Then $x_1 = (g_1^{-1}g_2)\cdot x_2$, so every point of $G\cdot x_1$ is
+
+$$g\cdot x_1 = (g\,g_1^{-1}g_2)\cdot x_2 \in G\cdot x_2,$$
+
+giving $G\cdot x_1 \subset G\cdot x_2$, and exchanging the roles of $x_1$ and $x_2$ gives the reverse inclusion. Two orbits are therefore equal or disjoint, and $X$ is the disjoint union of its orbits.
+
+For the stabilizer, $e \in G_x$, and if $g,h \in G_x$ then $(gh^{-1})\cdot x = g\cdot(h^{-1}\cdot x) = g\cdot x = x$, so Lemma 2.5 applies. $\blacksquare$
+
+The relation $x \sim y$ when $y = g\cdot x$ for some $g\in G$ is an equivalence relation (Definition 2.9), the orbits are its classes, and the set of orbits is written $X/G$, the orbit space 轨道空间.
+
+### Definition 4.10 (Fixed-point set 不动点)
+
+For $g\in G$, the **fixed-point set** of $g$ is
+
+$$\mathrm{Fix}_X(g) := \{\, x \in X : g\cdot x = x \,\} \subset X.$$
+
+So $g \in G_x$ exactly when $x \in \mathrm{Fix}_X(g)$.
+
+### Definition 4.11 (Faithful 忠实, transitive 传递, free 自由)
+
+An action is **faithful**, also called effective, if $\Phi : G \to S_X$ is injective, that is, every $g \neq e$ moves some point, $\mathrm{Fix}_X(g) \neq X$; **transitive** if there is exactly one orbit, that is, any $x$ can be moved to any $y$; and **free** if every $g \neq e$ moves every point, $\mathrm{Fix}_X(g) = \emptyset$, that is, every stabilizer is trivial.
+
+Free implies faithful. The converse fails.
+
+### Example 4.12 (The square, continued)
+
+On the vertices $X$ of Example 4.7 the action of $D_4$ is transitive, since the powers of $A$ carry $\vec v_1$ to every vertex, and faithful, since a symmetry fixing all four vertices is the identity. It is not free, the stabilizer of $\vec v_1$ being $\{e, AB\}$, with $AB$ the reflection in the diagonal through $\vec v_1$ and $\vec v_3$.
+
+A labelling of the vertices by $1,2,3,4$ is an ordered list $(\vec w_1,\vec w_2,\vec w_3,\vec w_4)$ of the four vertices, $\vec w_j$ being the one labelled $j$, and there are $4! = 24$ of them. Carrying each label along with its vertex,
+
+$$g\cdot(\vec w_1,\vec w_2,\vec w_3,\vec w_4) := (g\cdot\vec w_1,\, g\cdot\vec w_2,\, g\cdot\vec w_3,\, g\cdot\vec w_4),$$
+
+is an action of $D_4$ on the 24 labellings, and it is free, since a symmetry fixing a labelling fixes all four vertices.
+
+### Example 4.13 (Orbits of $SO(2)$ on the plane)
+
+$SO(2)$ acting on $\mathbb R^2$ has the origin as one orbit and every circle $x^2 + y^2 = r^2$, $r > 0$, as another. The orbit space $\mathbb R^2/SO(2)$ is labelled by $r \in [0,\infty)$. The stabilizer of the origin is all of $SO(2)$; the stabilizer of any other point is trivial.
+
+### Example 4.14 (A fundamental domain 基本域)
+
+The subgroup $C_3 = \{R(0), R(2\pi/3), R(4\pi/3)\}$ of $SO(2)$ acts on the filled equilateral triangle $\Delta$ centred at the origin, and every orbit but the centre has three points. The lines from the centre to the vertices cut $\Delta$ into three closed thirds, each carried onto the next by $R(2\pi/3)$, so every orbit meets every third. A closed third is a **fundamental domain** for the action. An orbit missing the cuts has one representative in it, while a noncentral orbit on the cuts has two, one on each cut edge, related by $R(2\pi/3)$, and the centre has one. Identifying these boundary pairs gives a model of $\Delta/C_3$.
+
+**Quiz 4.1.** List the orbits and a stabilizer for $D_4$ acting on the four edges of the square, and on its two diagonals. Which of the actions in Example 4.7 are faithful?
+
+The edges form one orbit, with stabilizer $\{e, A^2B\}$ of the top edge and $\{e, B\}$ of the left one, so $8 = 4 \times 2$. The diagonals form one orbit of two, with stabilizer $\{e, A^2, AB, A^3B\}$ of one diagonal, and $A^2$ fixes both of them, so the diagonal action is not faithful. The vertex and edge actions are faithful.
+
+---
+
+## 4.2 Cosets, Lagrange's theorem, and orbit–stabilizer
+
+### Definition 4.15 (Cosets 陪集 and index 指数)
+
+Let $H$ be a subgroup of $G$. For $g \in G$, the **left coset** and the **right coset** of $H$ through $g$ are
+
+$$gH := \{\, gh : h \in H \,\}, \qquad Hg := \{\, hg : h \in H \,\}.$$
+
+The set of left cosets is written $G/H$ and the set of right cosets $H\backslash G$. The **index** $[G:H]$ is the cardinality of $G/H$.
+
+The index does not depend on the side, since $gH \mapsto Hg^{-1}$ is a bijection from $G/H$ to $H\backslash G$, with inverse $Hg \mapsto g^{-1}H$. Reversing every product turns each statement about left cosets into the corresponding statement about right cosets, so the choice between the two is a convention, and we take left cosets from here on.
+
+Cosets are orbits. Right multiplication by $H$ is a right action, so by Example 4.4 the left action of $H$ on $G$ carrying the same information is $h\cdot g := gh^{-1}$, and its orbits are the left cosets. The left action $h\cdot g := hg$ has the right cosets as its orbits, and the two partitions of $G$ differ in general.
+
+### Proposition 4.16
+
+The left cosets partition $G$, each of them is in bijection with $H$, and $g_1H = g_2H$ exactly when $g_2^{-1}g_1 \in H$.
+
+*Proof.* The left cosets are the orbits of the action $h\cdot g = gh^{-1}$, so they partition $G$ by Proposition 4.9.
+
+The map $h \mapsto gh$ sends $H$ onto $gH$ by the definition of $gH$, and it is injective by cancellation, $gh_1 = gh_2$ forcing $h_1 = h_2$. So $gH$ is in bijection with $H$.
+
+Suppose $g_1H = g_2H$. Since $e \in H$, the element $g_1 = g_1e$ lies in $g_1H$ and hence in $g_2H$, so $g_1 = g_2h$ for some $h\in H$, and $g_2^{-1}g_1 = h \in H$. Conversely, suppose $g_2^{-1}g_1 = h$ for some $h\in H$. Then $g_1 = g_2h$ lies in $g_2H$, and $g_1 = g_1e$ lies in $g_1H$, so the two cosets share the element $g_1$ and are therefore equal. $\blacksquare$
+
+### Example 4.17 (Cosets in $D_4$)
+
+In $D_4 = \{e, A, A^2, A^3, B, AB, A^2B, A^3B\}$ take $H = \{e, A, A^2, A^3\}$. Then $eH = H$ and $BH = \{B, BA, BA^2, BA^3\} = \{B, A^3B, A^2B, AB\}$, using $BA = A^{-1}B$. Two cosets, the rotations and the reflections, $[D_4:H] = 2$.
+
+For $H = \{e, B\}$ instead, the cosets are $\{e, B\}$, $\{A, AB\}$, $\{A^2, A^2B\}$, $\{A^3, A^3B\}$, and $[D_4:H] = 4$.
+
+$B$ generates a subgroup inside $D_4$ that is not a normal one, and the left and right cosets of $\{e, B\}$ do not agree: $AB$ is in $AH$ but not in $HA$, since $HA$ is the same list read the other way, $\{A, BA\} = \{A, A^3B\}$.
+
+### Theorem 4.18 (Lagrange 拉格朗日定理)
+
+If $G$ is finite and $H \le G$, then
+
+$$|G| = [G:H]\,|H|.$$
+
+In particular $|H|$ divides $|G|$.
+
+*Proof.* By Proposition 4.16 the cosets partition $G$ into $[G:H]$ pieces, each in bijection with $H$ and so of size $|H|$. $\blacksquare$
+
+### Proposition 4.19
+
+Let $G$ be finite. The order of every element divides $|G|$, and $g^{|G|} = e$ for every $g$. If $|G|$ is prime then $G$ is cyclic.
+
+*Proof.* Let $m = \mathrm{ord}\, g$. The cyclic subgroup $\langle g\rangle = \{e, g, \dots, g^{m-1}\}$ has $m$ elements, so Theorem 4.18 gives $|G| = km$ for an integer $k$, and $g^{|G|} = (g^m)^k = e$. If $|G| = p$ is prime and $g \neq e$, then $|\langle g\rangle|$ divides $p$ and is not 1, so $\langle g\rangle = G$. $\blacksquare$
+
+**Quiz 4.2.** Deduce Fermat's little theorem, $a^p \equiv a \pmod p$ for a prime $p$, from Proposition 4.19 applied to the multiplicative group $(\mathbb Z/p\mathbb Z)^\times$ of residue classes not divisible by $p$.
+
+The group has $p - 1$ elements, so $a^{p-1} \equiv 1$ for every such $a$, and multiplying by $a$ handles the multiples of $p$ as well.
+
+### Theorem 4.20 (Orbit–stabilizer 轨道–稳定化子定理)
+
+Let $G$ act on $X$ and let $x\in X$. The map from the orbit $G\cdot x$ to the left cosets of the stabilizer $G_x$,
+
+$$G\cdot x \to G/G_x, \qquad g\cdot x \mapsto gG_x,$$
+
+is well defined and bijective, so $G\cdot x \cong G/G_x$ and
+
+$$|G\cdot x| = [G:G_x].$$
+
+If $G$ is finite, $|G| = |G\cdot x|\,|G_x|$.
+
+*Proof.* **Well defined.** If $g\cdot x = g'\cdot x$ then $(g^{-1}g')\cdot x = x$, so $g^{-1}g' \in G_x$ and $gG_x = g'G_x$. **Onto.** Every coset $gG_x$ is the image of the point $g\cdot x$. **Injective.** If $gG_x = g'G_x$ then $g' = gh$ with $h \in G_x$, so $g'\cdot x = g\cdot(h\cdot x) = g\cdot x$. Since $[G:G_x]$ is the cardinality of $G/G_x$, the bijection gives $|G\cdot x| = [G:G_x]$, and for finite $G$ Theorem 4.18 turns this into $|G| = |G\cdot x|\,|G_x|$. $\blacksquare$
+
+### Example 4.21 (The square, once more)
+
+Let $D_4$ act on the vertices of Example 4.7 and fix $\vec v_1$, whose stabilizer is $H = \{e, AB\}$. The four vertices correspond to the four left cosets of $H$ under $g\cdot \vec v_1 \mapsto gH$,
+
+| vertex | symmetries carrying $\vec v_1$ to it |
+|---|---|
+| $\vec v_1$ | $H = \{e, AB\}$ |
+| $\vec v_2$ | $AH = \{A, A^2B\}$ |
+| $\vec v_3$ | $A^2H = \{A^2, A^3B\}$ |
+| $\vec v_4$ | $A^3H = \{A^3, B\}$ |
+
+Each vertex is reached from $\vec v_1$ by exactly two symmetries, the two elements of one coset, and
+
+$$|D_4| = |D_4\cdot\vec v_1|\,|H| = 4\times 2 = 8.$$
+
+### Example 4.22 ($SO(3)$ on the sphere)
+
+$SO(3)$ acts transitively on the unit sphere $S^2$, since the proof of Theorem 3.15 rotates $\hat e_3$ to any unit vector. The stabilizer of $\hat e_3$ is the group of rotations about the third axis, a copy of $SO(2)$. Theorem 4.20 therefore identifies
+
+$$S^2 \longleftrightarrow SO(3)/SO(2), \qquad g\hat e_3 \mapsto g\,SO(2),$$
+
+the sphere with the set of cosets.
+
+A space carrying a transitive action is called a homogeneous space 齐性空间, no point being distinguished from any other. Which point is fixed does not matter, since the stabilizers at different points are conjugate,
+
+$$G_{g\cdot x} = g\,G_x\,g^{-1},$$
+
+because $h\cdot(g\cdot x) = g\cdot x$ says exactly $g^{-1}hg \in G_x$. On the sphere these are the rotations about the different axes.
+
+### Example 4.23 (Wyckoff positions)
+
+The square lattice $\mathbb Z^2 \subset \mathbb R^2$ consists of the points with integer coordinates. Which rigid motions $\{R\mid\vec t\}$ of Example 4.6, taken in two dimensions, carry it onto itself? A rotation about the origin does so exactly when its angle is a multiple of $\pi/2$, which gives four, and the reflections in the two axes and in the two diagonals give four more, these eight elements of $O(2)$ being a copy of $D_4$. Translation by a lattice vector is a symmetry too, so the full symmetry group
+
+$$G = \{\, \{R\mid\vec t\} : R \in D_4,\ \vec t \in \mathbb Z^2 \,\}, \qquad \{R\mid\vec t\}\cdot\vec r = R\vec r + \vec t,$$
+
+the plane group $p4mm$, is infinite. As a set it is the direct product $\mathbb Z^2\times D_4$ of Definition 2.11 under $\{R\mid\vec t\}\mapsto(\vec t, R)$, in which translations would add as $\vec t_1 + \vec t_2$. Here instead
+
+$$\{R_1\mid\vec t_1\}\{R_2\mid\vec t_2\} = \{R_1R_2 \mid \vec t_1 + R_1\vec t_2\}.$$
+
+Each map $\vec t \mapsto R\vec t$ is an automorphism of the additive group $\mathbb Z^2$, and $(R_1R_2)\vec t = R_1(R_2\vec t)$, so $D_4$ acts on $\mathbb Z^2$ by automorphisms. A group built from two groups this way is a semidirect product 半直积, here $G = \mathbb Z^2 \rtimes D_4$, and Chapter 6 gives the general construction.
+
+The site-symmetry group 位置对称群 of a position $\vec r$ is its stabilizer in $G$,
+
+$$G_{\vec r} = \{\, \{R \mid \vec r - R\vec r\} : R\in D_4,\ \vec r - R\vec r \in \mathbb Z^2 \,\}.$$
+
+Its orbit $G\cdot\vec r$ is infinite, with $|G\cdot\vec r| = [G:G_{\vec r}]$. Write $[\vec r] = \vec r + \mathbb Z^2$ for a position modulo lattice translations, each class having one representative in the unit cell $[0,1)^2$. Since $R\mathbb Z^2 = \mathbb Z^2$, the rule $R\cdot[\vec r] = [R\vec r]$ is an action of the finite group $D_4$ on these classes, with stabilizer
+
+$$H_{\vec r} = \{\, R\in D_4 : R\vec r - \vec r \in \mathbb Z^2 \,\},$$
+
+and $\{R\mid \vec r - R\vec r\}\mapsto R$ is an isomorphism $G_{\vec r} \cong H_{\vec r}$, since $R$ determines the translation and $(\vec r - R_1\vec r) + R_1(\vec r - R_2\vec r) = \vec r - R_1R_2\vec r$. Modulo lattice translations the orbit $G\cdot\vec r$ becomes $D_4\cdot[\vec r]$, whose cardinality is the number of equivalent positions in $[0,1)^2$, the multiplicity 重数,
+
+$$|D_4\cdot[\vec r]| = [D_4:H_{\vec r}] = \frac{8}{|H_{\vec r}|} = \frac{8}{|G_{\vec r}|}.$$
+
+Take $\vec r = (x,0)$ with $0 < x < \tfrac12$. The identity and the reflection $B$ in the horizontal axis are the two elements satisfying $R\vec r - \vec r \in \mathbb Z^2$, so $G_{\vec r} = \{\{\mathbb 1\mid 0\}, \{B\mid 0\}\}$ has order 2, the multiplicity is 4, and the four positions of the unit cell are
+
+$$(x,0), \qquad (1-x,0), \qquad (0,x), \qquad (0,1-x).$$
+
+At $\vec r = (\tfrac12,\tfrac12)$ every $R \in D_4$ satisfies $R\vec r - \vec r \in \mathbb Z^2$, so $G_{\vec r} \cong D_4$ and the multiplicity is 1. The operation $\{A\mid(1,0)\}$ is the counterclockwise quarter turn about this position.
+
+The seven families below are the Wyckoff positions Wyckoff 位置 of $p4mm$. Take $0 < x < \tfrac12$ in the one-parameter rows and $0 < y < x < \tfrac12$ in the last row.
+
+| representative | $\lvert G_{\vec r}\rvert$ | multiplicity | label |
+|---|---|---|---|
+| $(0,0)$ | 8 | 1 | $1a$ |
+| $(\tfrac12,\tfrac12)$ | 8 | 1 | $1b$ |
+| $(\tfrac12,0)$ | 4 | 2 | $2c$ |
+| $(x,0)$ | 2 | 4 | $4d$ |
+| $(x,\tfrac12)$ | 2 | 4 | $4e$ |
+| $(x,x)$ | 2 | 4 | $4f$ |
+| $(x,y)$ | 1 | 8 | $8g$ |
+
+The number in each label is the multiplicity. Mirror lines, rotation centres and orbits are drawn in the International Tables with fixed symbols: solid lines mark mirrors, filled squares four-fold centres, filled lenses two-fold centres, and in the general orbit $8g$ a comma marks the four points obtained from the other four by an operation with $\det R = -1$.
+
+A position's multiplicity is the size of its orbit inside one cell, and it is decided by the stabilizer alone.
+
+---
+
+## 4.3 Equivariant maps
+
+### Definition 4.24 (Equivariant map 等变映射)
+
+Let $X$ and $Y$ be $G$-sets. A map $f : X \to Y$ is **equivariant** if
+
+$$f(g\cdot x) = g\cdot f(x) \qquad\text{for all } g\in G,\ x\in X,$$
+
+that is, the square
+
+```
+    X ────f────▶ Y
+    │            │
+ g· │            │ g·
+    ▼            ▼
+    X ────f────▶ Y
+```
+
+commutes for every $g$. A bijective equivariant map is an isomorphism of $G$-sets, and its inverse is then equivariant too.
+
+In topology a $G$-space $G$-空间 is a topological space $X$ with an action of a topological group $G$ for which $G\times X \to X$ is continuous, and a morphism of $G$-spaces is a continuous equivariant map. Some authors use the word for a $G$-set with no topology in sight.
+
+The bijection of Theorem 4.20 is an isomorphism of $G$-sets. Write $\psi$ for it, $\psi(g\cdot x) = gG_x$. The coset set $G/G_x$ carries the action $a\cdot(gG_x) := (ag)G_x$, well defined since $gG_x = g'G_x$ gives $(ag)G_x = (ag')G_x$, and
+
+$$\psi\bigl(a\cdot(g\cdot x)\bigr) = \psi\bigl((ag)\cdot x\bigr) = (ag)G_x = a\cdot(gG_x) = a\cdot\psi(g\cdot x),$$
+
+so the square commutes for every $a\in G$. Hence $G\cdot x \cong G/G_x$ as $G$-sets, and every transitive $G$-set is a coset space $G/H$, with $H$ the stabilizer of any of its points. Example 4.22 is the case $S^2 \cong SO(3)/SO(2)$.
+
+### Example 4.25 (Equivariant maps of the line)
+
+Let $\mathbb Z$ act on $\mathbb R$ by $n\cdot x := x + n$. The orbits are the classes $x + \mathbb Z$, one through each point of $[0,1)$, so $\mathbb R/\mathbb Z$ is a circle. Give a map $f : \mathbb R \to \mathbb R$ this action on its domain and on its codomain. It is equivariant when $f(x + n) = f(x) + n$ for all $n$, that is, when $P(x) := f(x) - x$ satisfies $P(x+1) = P(x)$. So the equivariant maps are exactly $f(x) = x + P(x)$ with $P$ unchanged by $x \mapsto x+1$, the simplest being $f(x) = x + c$. Equivariance under all real translations leaves only these, since setting $x = 0$ in $f(x+t) = f(x)+t$ gives $f(t) = f(0) + t$ for every $t\in\mathbb R$.
+
+> **A wrong sentence in Moore.** [Moore, p. 45] says the analytic equivariant maps here are the translations. That is true for the action of $\mathbb R$, and false for $\mathbb Z$: the map $x + \sin 2\pi x$ is analytic and equivariant.
+
+**Quiz 4.3.** $D_4$ acts on the four vertices of the square and on its four edges. Send each vertex to the edge joining it to the next vertex clockwise. Is this map equivariant? Is there an equivariant bijection from the vertices to the edges at all? Compare stabilizers.
+
+No, and none exists. A vertex stabilizer is a reflection in a diagonal, an edge stabilizer a reflection in an edge bisector, and the two kinds are not conjugate in $D_4$.
+
+---
+
+## 4.4 Conjugacy, centralizers, and normalizers
+
+For the conjugation action of Example 4.4, $g\cdot h = ghg^{-1}$, the orbits and stabilizers have their own names.
+
+### Definition 4.26 (Conjugacy class 共轭类 and centralizer 中心化子)
+
+Elements $h$ and $ghg^{-1}$ are conjugate 共轭. The orbit of $h$ under conjugation is its **conjugacy class**
+
+$$\mathrm{Cl}(h) := \{\, ghg^{-1} : g\in G \,\},$$
+
+and its stabilizer is the **centralizer**
+
+$$C_G(h) := \{\, g \in G : ghg^{-1} = h \,\} = \{\, g\in G : gh = hg \,\}.$$
+
+The classes partition $G$ and the centralizer is a subgroup, by Proposition 4.9, and by Theorem 4.20
+
+$$|\mathrm{Cl}(h)| = [G:C_G(h)], \tag{4.1}$$
+
+so for finite $G$ the size of every conjugacy class divides $|G|$.
+
+The centre $Z(G)$ of Definition 2.15 reappears here. An element $z$ has $\mathrm{Cl}(z) = \{z\}$ exactly when every $g$ commutes with it, that is, when $C_G(z) = G$, so
+
+$$Z(G) = \{\, h : |\mathrm{Cl}(h)| = 1 \,\} = \bigcap_{h\in G} C_G(h).$$
+
+For any $h$ the centralizer is the largest subgroup in which $h$ is central, $h \in Z(C_G(h))$, since $h \in Z(K)$ forces $K \subset C_G(h)$. For finite $G$, (4.1) reads $|\mathrm{Cl}(h)| = |G|/|C_G(h)|$, so the larger the centralizer the smaller the class.
+
+The same definition serves a subset $H\subset G$: its centralizer $C_G(H) := \{g : gh = hg \text{ for all } h\in H\}$ is the intersection of the $C_G(h)$, hence a subgroup, and $C_G(G) = Z(G)$.
+
+### Example 4.27 (Classes of $D_4$)
+
+With $D_4 = \langle A, B \mid A^4 = B^2 = 1,\ BAB = A^{-1}\rangle$, conjugating $A$ by $B$ gives $BAB^{-1} = A^{-1} = A^3$, and conjugating by a rotation changes nothing, so $\mathrm{Cl}(A) = \{A, A^3\}$. Conjugating $B$ by $A$ gives $ABA^{-1} = A(BA^{-1}) = A(AB) = A^2B$, so $\mathrm{Cl}(B) = \{B, A^2B\}$, and likewise $\mathrm{Cl}(AB) = \{AB, A^3B\}$. Since $A^2$ commutes with $A$ and with $B$, it is central. The five classes are
+
+$$\{e\}, \qquad \{A^2\}, \qquad \{A, A^3\}, \qquad \{B, A^2B\}, \qquad \{AB, A^3B\},$$
+
+of sizes $1,1,2,2,2$, each dividing 8, and $Z(D_4) = \{e, A^2\}$. The two reflection classes are the reflections in diagonals and the reflections in edge bisectors: conjugation cannot turn one kind into the other.
+
+### Example 4.28 (Classes in unitary groups)
+
+The spectral theorem writes a unitary $u$ as
+
+$$u = QDQ^\dagger, \qquad D = \mathrm{diag}(z_1,\dots,z_n),$$
+
+where the columns of $Q \in U(n)$ are an orthonormal basis of eigenvectors and $D$ holds the corresponding eigenvalues. These have $|z_i| = 1$, since $u$ leaves the length of every vector unchanged and an eigenvector $\vec v$ with $u\vec v = z_i\vec v$ has $\|\vec v\| = |z_i|\,\|\vec v\|$.
+
+Let $u, v\in U(n)$ have the same eigenvalues with multiplicity, and order the eigenbasis of $v$ to match, $v = PDP^\dagger$ with the same $D$. The unitary $PQ^\dagger$ carries the eigenbasis of $u$ to that of $v$, and
+
+$$v = PDP^\dagger = (PQ^\dagger)\,QDQ^\dagger\,(PQ^\dagger)^{-1} = (PQ^\dagger)\,u\,(PQ^\dagger)^{-1},$$
+
+and conversely conjugation preserves eigenvalues and multiplicities. So two unitary matrices are conjugate in $U(n)$, and equally in $GL(n,\mathbb C)$, exactly when their eigenvalues agree with multiplicity, and a class is labelled by $D$ up to permutation of its diagonal entries.
+
+Every $u \in SU(2)$ has the axis–angle form of Remark 3.16,
+
+$$u(\hat n,\theta) = \cos\frac{\theta}{2}\,\mathbb 1 - \mathrm{i}\sin\frac{\theta}{2}\,\hat n\cdot\vec\sigma, \qquad \hat n \in S^2, \quad 0 \le \theta \le 2\pi,$$
+
+this being the general element $\begin{pmatrix} z & w \\ -w^* & z^* \end{pmatrix}$ of Example 2.20 written in the Pauli basis, with $\cos\frac{\theta}{2} = \Re z$.
+
+Conjugation turns the axis and leaves the angle alone. Writing $R$ for the map of Definition 3.14, fixed by $g(\vec x\cdot\vec\sigma)g^\dagger = (R(g)\vec x)\cdot\vec\sigma$,
+
+$$g\,u(\hat n,\theta)\,g^{-1} = \cos\frac{\theta}{2}\,\mathbb 1 - \mathrm{i}\sin\frac{\theta}{2}\,(R(g)\hat n)\cdot\vec\sigma = u(R(g)\hat n, \theta).$$
+
+As $R$ is onto $SO(3)$, which carries $\hat n$ to every unit vector,
+
+$$\mathrm{Cl}\bigl(u(\hat n,\theta)\bigr) = \{\, u(\hat m,\theta) : \hat m \in S^2 \,\},$$
+
+so the class is fixed by $\theta$ alone, equivalently by $\mathrm{Tr}\,u = 2\cos\frac{\theta}{2}$. At $\theta = 0$ and $\theta = 2\pi$ it is $\{\mathbb 1\}$ and $\{-\mathbb 1\}$.
+
+### Definition 4.29 (Class function 类函数)
+
+A function $f : G\to\mathbb C$ with $f(ghg^{-1}) = f(h)$ for all $g,h$ is a **class function**: a function on the set of conjugacy classes.
+
+On $GL(n,\mathbb C)$ the trace, the determinant, and every coefficient of the characteristic polynomial $\det(x\mathbb 1 - A)$ are class functions, since $\det(x\mathbb 1 - PAP^{-1}) = \det\bigl(P(x\mathbb 1 - A)P^{-1}\bigr) = \det(x\mathbb 1 - A)$. On $SU(2)$ the trace alone labels the class.
+
+Subgroups can be conjugated as well as elements. If $H$ is a subgroup then $gHg^{-1} = \{ghg^{-1} : h\in H\}$ contains $e$ and satisfies
+
+$$(gh_1g^{-1})(gh_2g^{-1})^{-1} = g(h_1h_2^{-1})g^{-1} \in gHg^{-1},$$
+
+so it is a subgroup. The rule $g\cdot H := gHg^{-1}$ is an action, since $eHe^{-1} = H$ and $g_1(g_2Hg_2^{-1})g_1^{-1} = (g_1g_2)H(g_1g_2)^{-1}$.
+
+### Definition 4.30 (Normalizer 正规化子)
+
+The **normalizer** of a subgroup $H$ is its stabilizer under this action,
+
+$$N_G(H) := \{\, g \in G : gHg^{-1} = H \,\}.$$
+
+It is a subgroup by Proposition 4.9, and it contains $H$, since $hHh^{-1} = H$ for $h\in H$, as well as $C_G(H)$. Any subgroup $K\subset G$ with $kHk^{-1} = H$ for all $k\in K$ lies in $N_G(H)$, so $N_G(H)$ is the largest subgroup of $G$ in which conjugation carries $H$ onto itself, as $C_G(h)$ is the largest one in which $h$ is central. The number of subgroups conjugate to $H$ is $[G:N_G(H)]$, by Theorem 4.20 once more.
+
+**Quiz 4.4.** Find the conjugacy classes and the centre of the quaternion group $Q$ of Example 2.25, and check (4.1) for each class.
+
+The classes are $\{1\}$, $\{-1\}$, $\{\pm\mathrm i\}$, $\{\pm\mathrm j\}$, $\{\pm\mathrm k\}$, of sizes $1,1,2,2,2$. For instance $C_Q(\mathrm i) = \{\pm 1, \pm\mathrm i\}$ has order 4, and $|\mathrm{Cl}(\mathrm i)| = 8/4 = 2$. The centre is $\{\pm 1\}$.
+
+Conjugation by a fixed $a$ is more than a permutation of $G$: it respects the multiplication, $(axa^{-1})(aya^{-1}) = a(xy)a^{-1}$, so $I_a : x\mapsto axa^{-1}$ is an automorphism of $G$, an inner automorphism 内自同构. Since $I_aI_b = I_{ab}$, the map $I : G \to \mathrm{Aut}(G)$ is a homomorphism, and its kernel is $Z(G)$. Its image is written $\mathrm{Inn}(G)$.
+
+---
+
+## 4.5 The class equation
+
+### Theorem 4.31 (Class equation 类方程)
+
+Let $G$ be finite, and let $g_1,\dots,g_r$ be one element from each conjugacy class with more than one element. Then
+
+$$|G| = |Z(G)| + \sum_{i=1}^{r} [G:C_G(g_i)],$$
+
+where every term of the sum is greater than 1 and divides $|G|$.
+
+*Proof.* The classes partition $G$. The singleton classes are exactly the elements of $Z(G)$, contributing $|Z(G)|$. Each remaining class contributes its size, which is $[G:C_G(g_i)]$ by (4.1), greater than 1 by choice of $g_i$ and a divisor of $|G|$ by Theorem 4.18. $\blacksquare$
+
+For $D_4$ this reads $8 = 2 + 2 + 2 + 2$. The equation is most useful when $|G|$ has few divisors.
+
+A finite group whose order is a power of a prime $p$ is a $p$-group $p$-群.
+
+### Proposition 4.32 (Centre of a $p$-group)
+
+A $p$-group of order $p^n$ with $n \ge 1$ has a nontrivial centre.
+
+*Proof.* Each term $[G:C_G(g_i)]$ divides $p^n$ and exceeds 1, so it is a positive power of $p$. Then $|Z(G)| = |G| - \sum_i [G:C_G(g_i)]$ is a multiple of $p$, and it is at least 1 because $e\in Z(G)$. So $|Z(G)| \ge p$. $\blacksquare$
+
+Lagrange gives a necessary condition on the order of a subgroup and not a sufficient one. The twelve rotations of a regular tetrahedron have no subgroup of order 6, and no smaller group fails this way. For a prime divisor a subgroup of that order does always exist, by another orbit count.
+
+### Theorem 4.33 (Cauchy 柯西定理)
+
+Let $G$ be finite. If a prime $p$ divides $|G|$ then $G$ has an element of order $p$.
+
+*Proof.* Let $X = \{(g_1,\dots,g_p) \in G^p : g_1g_2\cdots g_p = e\}$. Choosing $g_1,\dots,g_{p-1}$ freely determines $g_p$, so $|X| = |G|^{p-1}$, a multiple of $p$.
+
+The cyclic group $\mathbb Z_p$ acts on $X$ by rotating the entries, $(g_1,\dots,g_p)\mapsto(g_p, g_1,\dots,g_{p-1})$; the product is still $e$, since $g_p(g_1\cdots g_{p-1}) = g_pg_p^{-1}$. By Theorem 4.20 every orbit has 1 or $p$ elements, as $|\mathbb Z_p| = p$ is prime. A one-element orbit is a tuple fixed by rotation, that is, $(g,g,\dots,g)$ with $g^p = e$. Writing $N_1$ for the number of these and $N_p$ for the number of $p$-element orbits,
+
+$$|G|^{p-1} = N_1 + pN_p,$$
+
+so $p$ divides $N_1$. Since $(e,\dots,e)$ is one fixed tuple, $N_1 \ge 1$, hence $N_1 \ge p$, and some $g\neq e$ has $g^p = e$. Its order divides $p$ and is not 1, so it is $p$. $\blacksquare$
+
+---
+
+## 4.6 Finite rotation groups
+
+A finite subgroup of $SO(3)$ acts on the set of unit vectors fixed by its nonidentity rotations. Counting that set with orbit–stabilizer leaves a few possibilities, and identifying which solids realise them gives the classification.
+
+### Lemma 4.34
+
+A rotation $A \in SO(3)$ with $A \neq \mathbb 1$ fixes exactly two unit vectors, $\pm\hat n$ for its axis $\hat n$. A finite subgroup of $SO(3)$ all of whose elements fix a given unit vector is cyclic.
+
+*Proof.* For an eigenvector $\vec v \in \mathbb C^3$ with $A\vec v = \lambda\vec v$, orthogonality gives $A^\dagger A = \mathbb 1$ and
+
+$$\|\vec v\|^2 = \|A\vec v\|^2 = |\lambda|^2\|\vec v\|^2,$$
+
+so $|\lambda| = 1$. The characteristic polynomial has real coefficients. If a non-real conjugate pair occurs, its product is 1 and the third eigenvalue is $\det A = 1$. Otherwise all three eigenvalues are $\pm 1$ with product 1, so at least one is $+1$.
+
+Choose a real unit eigenvector $\hat n$ with $A\hat n = \hat n$. Since $A^{-1}\hat n = \hat n$, we have $\hat n\cdot A\vec v = \hat n\cdot\vec v$, so the plane $\hat n^\perp$ is invariant, and $A$ restricted to it is orthogonal with determinant 1. For $A \neq \mathbb 1$ it is a nonidentity rotation of that plane, whose only fixed vector is $\vec 0$. So the fixed vectors of $A$ are the line $\mathbb R\hat n$ and its fixed unit vectors are $\pm\hat n$.
+
+Let $H$ be a finite subgroup fixing a unit vector $\hat n$. Restriction to $\hat n^\perp$ identifies $H$ with a finite subgroup $K$ of $SO(2)\cong U(1)$ (Example 3.13). Put $m = |K|$. Every $z\in K$ satisfies $z^m = 1$ by Proposition 4.19, so $K \subset \mu_m$ of Example 2.8. Both have $m$ elements, so $K = \mu_m$ and $H$ is cyclic. $\blacksquare$
+
+The two fixed unit vectors of a nonidentity rotation $A$, the set $\mathrm{Fix}_{S^2}(A)$, are its poles 极点.
+
+### Theorem 4.35 (Finite subgroups of $SO(3)$)
+
+Up to conjugacy in $SO(3)$, a finite subgroup of $SO(3)$ is one of: a cyclic group $C_n$ of rotations about one axis, $n \ge 1$; a dihedral group $D_n$ of order $2n$, $n \ge 2$; or one of three groups of orders 12, 24, 60, the rotation groups of the regular tetrahedron, of the octahedron (equally of the cube), and of the icosahedron (equally of the dodecahedron).
+
+*Proof.* The trivial group is $C_1$. Let $G\subset SO(3)$ be finite with $|G| = N > 1$, and let $P$ be the set of poles of its nonidentity elements.
+
+$G$ acts on $P$: if $A$ fixes $p$ then $BAB^{-1}$ fixes $Bp$. Count the pairs $(A,p)$ with $A \neq \mathbb 1$ and $p$ a pole of $A$ in two ways. Each of the $N-1$ nonidentity rotations has two poles, giving $2(N-1)$. On the other side, a pole $p$ with stabilizer of order $n_p$ is fixed by the $n_p - 1$ nonidentity elements of $G_p$, and by Theorem 4.20 its orbit has $N/n_p$ poles, all with stabilizer order $n_p$. Summing over the orbits $P_1,\dots,P_k$ with stabilizer orders $n_1,\dots,n_k$,
+
+$$2(N-1) = \sum_{i=1}^{k} \frac{N}{n_i}(n_i - 1), \qquad\text{that is}\qquad 2 - \frac{2}{N} = \sum_{i=1}^{k}\Bigl(1 - \frac{1}{n_i}\Bigr). \tag{4.2}$$
+
+Each $n_i \ge 2$, so each term on the right is at least $\tfrac12$, while the left side is less than 2: hence $k \le 3$. And $k = 1$ is impossible, since $1 - 1/n_1 < 1 \le 2 - 2/N$.
+
+**Two orbits.** $2/N = 1/n_1 + 1/n_2$ with $n_i \le N$ forces $n_1 = n_2 = N$: every element of $G$ fixes both poles of one axis, and $G$ is cyclic by Lemma 4.34.
+
+**Three orbits.** $1 + 2/N = 1/n_1 + 1/n_2 + 1/n_3$ with $n_1 \le n_2 \le n_3$. Not all can be 3 or more, so $n_1 = 2$, and then $1/n_2 + 1/n_3 = 1/2 + 2/N > 1/2$ leaves
+
+$$(2,2,n),\ N = 2n; \qquad (2,3,3),\ N = 12; \qquad (2,3,4),\ N = 24; \qquad (2,3,5),\ N = 60.$$
+
+**Dihedral.** In the case $(2,2,n)$ the orbit with stabilizer order $n$ has two poles $p, q$. A nonidentity element of $G_p$ fixes $q$ as well, so $q = -p$. Write $G_p = \langle a\rangle$, of order $n$. Any $b \in G$ carrying $p$ to $-p$ is a half-turn about an axis perpendicular to $p$, the two cosets of $G_p$ are $G_p$ and $bG_p$, and $bab^{-1} = a^{-1}$. So $G$ is the $D_n$ of Example 2.24, its planar reflections realised as spatial half-turns.
+
+**Polyhedral.** In the case $(2,3,3)$ take a four-point orbit $V$ with stabilizer order 3. The $C_3$ fixing $p \in V$ acts on the other three points with orbits of size 1 or 3. They cannot all be fixed, since a nonidentity rotation fixes only two unit vectors, so they form one three-point orbit, and $p$ has the same inner product with each. Transitivity of $G$ on $V$ then makes all six inner products equal, and $V$ is a regular tetrahedron.
+
+In the case $(2,3,4)$ the six-point orbit $V$ with stabilizer order 4 is the only pole orbit of its size, so it contains $-p$ along with $p$. The $C_4$ fixing $p$ cycles the four points other than $\pm p$, which therefore form a square in a plane perpendicular to $p$, and closure under $p\mapsto -p$ puts that plane through the origin: $V$ is a regular octahedron.
+
+In the case $(2,3,5)$, in sketch, the unique twelve-point pole orbit $V$ is likewise closed under $p\mapsto -p$, and the $C_5$ fixing $p$ splits the other ten points into two antipodal regular pentagons at heights $\pm a$, $0 \le a < 1$. By transitivity every vertex has inner products $-1$, $a$ five times, and $-a$ five times with the others. Two consecutive vertices of one pentagon have inner product $d = a^2 + (1-a^2)\cos(2\pi/5)$, and $0 < d < 1$ forces $d = a$, whose admissible root is $a = 1/\sqrt 5$: $V$ is a regular icosahedron.
+
+Finally $G$ is the full rotation group of the solid in each case. A rotation preserving the solid is determined by the images of one vertex and one neighbouring vertex, since their position vectors are independent and orientation then fixes the image of their cross product. So that group has at most $4\cdot 3$, $6\cdot 4$, or $12\cdot 5$ elements; these are $12, 24, 60$, which equal $N$. $\blacksquare$
+
+**Quiz 4.5.** Check the pole count for $D_n$: list the orbits of poles and their stabilizer orders, and verify
+
+$$2 - \frac{2}{2n} = \Bigl(1 - \frac12\Bigr) + \Bigl(1 - \frac12\Bigr) + \Bigl(1 - \frac{1}{n}\Bigr).$$
+
+The poles are the two ends of the $n$-fold axis, an orbit of two with stabilizer order $n$, and the $2n$ ends of the $n$ half-turn axes, which fall into two orbits of $n$ apiece each with stabilizer order $2$.
+
+Imposing in addition the preservation of a lattice leaves only $n \in \{1,2,3,4,6\}$, excludes the icosahedral group, and, with the improper operations adjoined, gives the 32 crystallographic point groups.
+
+---
+
+## 4.7 Induced action on function spaces
+
+An action on a set induces an action on the functions defined on that set.
+
+### Definition 4.36 (Induced action 诱导作用)
+
+Let $X$ be a $G$-set and $Y$ a nonempty set, and let $F[X\to Y]$ be the set of maps $f : X\to Y$. For $g\in G$ and $f \in F[X\to Y]$ define $g\cdot f \in F[X\to Y]$ by
+
+$$(g\cdot f)(x) := f(g^{-1}\cdot x).$$
+
+### Proposition 4.37
+
+This is an action of $G$ on $F[X\to Y]$. If $Y$ is a vector space, each $g$ acts linearly. If moreover $X$ is finite and $Y = \mathbb C$, then $F[X\to\mathbb C]$ is a vector space of dimension $|X|$ with basis the delta functions $\delta_x$, where $\delta_x(y) = 1$ if $y = x$ and $0$ otherwise, the action is a homomorphism $G \to GL(F[X\to\mathbb C])$, and
+
+$$g\cdot\delta_x = \delta_{g\cdot x}.$$
+
+*Proof.* $(e\cdot f)(x) = f(x)$, and for two elements
+
+$$\bigl(g_1\cdot(g_2\cdot f)\bigr)(x) = (g_2\cdot f)(g_1^{-1}\cdot x) = f\bigl(g_2^{-1}\cdot(g_1^{-1}\cdot x)\bigr) = f\bigl((g_1g_2)^{-1}\cdot x\bigr) = \bigl((g_1g_2)\cdot f\bigr)(x),$$
+
+using $g_2^{-1}g_1^{-1} = (g_1g_2)^{-1}$. When $Y$ is a vector space, $g\cdot(af_1 + bf_2) = a(g\cdot f_1) + b(g\cdot f_2)$ holds pointwise. For finite $X$ and $Y = \mathbb C$, every $f$ is $\sum_x f(x)\delta_x$ uniquely, so the $\delta_x$ are a basis; each $g$ is then an invertible linear map, with inverse $g^{-1}$, hence an element of $GL(F[X\to\mathbb C])$ as in §3.5; and $(g\cdot\delta_x)(y) = \delta_x(g^{-1}\cdot y)$ is 1 exactly when $y = g\cdot x$. $\blacksquare$
+
+The inverse in the definition is what makes the order come out right: with $f(g\cdot x)$ instead, the same computation produces $(g_2g_1)\cdot f$.
+
+For finite $X$ and $Y = \mathbb C$, the matrix of $g$ in the delta-function basis is the permutation matrix of its action on $X$. A function on the four vertices of the square is the ordered list $\bigl(f(\vec v_1), f(\vec v_2), f(\vec v_3), f(\vec v_4)\bigr)$, so the induced action of $D_4$ on $\mathbb C^4$ is by $4\times 4$ permutation matrices.
+
+### Example 4.38 (Translating a function)
+
+Take $X = \mathbb R$ with the translation action $a\cdot x = x + a$ and $Y = \mathbb C$. Then
+
+$$(T_a\psi)(x) = \psi(x - a).$$
+
+Translating by $a$ moves the graph of $\psi$ to the right by $a$: the new function at $x$ has the value the old one had at $x - a$.
+
+**Quiz 4.6.** In the ordered basis $(\delta_{\vec v_1}, \delta_{\vec v_2}, \delta_{\vec v_3}, \delta_{\vec v_4})$, write the $4\times 4$ matrices of $A$ and $B$ from Example 4.7 and verify $BAB = A^{-1}$.
+
+Both matrices are permutation matrices, with column $j$ holding the image of $\delta_{\vec v_j}$ under the vertex permutation. Determinants are the signs of those permutations, so the check can be read off from §5.3 as well.
+
+---
+
+## Key points
+
+- An action of $G$ on $X$ is a homomorphism $G\to S_X$; orbits partition $X$ and stabilizers are subgroups.
+- Cosets are the orbits of $H$ acting by $h\cdot g = gh^{-1}$, each in bijection with $H$. For finite $G$ their partition gives Lagrange's theorem, $|G| = [G:H]|H|$.
+- Orbit–stabilizer identifies $G\cdot x \cong G/G_x$, so $|G\cdot x| = [G:G_x]$; every transitive $G$-set is a coset space $G/H$.
+- Conjugacy classes are the orbits of $G$ on itself by conjugation, of size $[G:C_G(h)]$. The class equation gives a nontrivial centre to every nontrivial $p$-group; cyclic shifts of tuples prove Cauchy's theorem.
+- The finite subgroups of $SO(3)$ are $C_n$, $D_n$, and the three polyhedral groups, by counting poles and then identifying the solids.
+- An action on $X$ induces an action on functions on $X$ by $(g\cdot f)(x) = f(g^{-1}x)$, linear when the values lie in a vector space; the inverse makes it a left action.

@@ -1,6 +1,6 @@
 ---
 title: "Groups: Basic Definitions and Examples"
-subtitle: "Lecture 1 · Chapter 2"
+subtitle: "Chapter 2"
 format:
   html:
     toc: true

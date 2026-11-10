@@ -16,9 +16,25 @@ format:
 <a class="entry-item" href="ch02-groups-basic-definitions.html">
 <div class="entry-meta">Chapter 2</div>
 <h3 class="entry-title">Groups: Basic Definitions and Examples</h3>
-<p class="entry-desc">群的四条公理，为什么结合律是实质限制；子群、阶与循环群；等价关系与剩余类；直积与阿贝尔群；经典矩阵群；生成元与呈现；最后是 Pauli 群与稳定子码。</p>
+<p class="entry-desc">群的四条公理，结合律；子群、阶与循环群；等价关系与剩余类；直积与阿贝尔群；经典矩阵群；生成元与呈现；最后是 Pauli 群与稳定子码。</p>
 </a>
 
-<p class="empty-note">后续讲次正在整理。</p>
+<a class="entry-item" href="ch03-homomorphism-and-isomorphism.html">
+<div class="entry-meta">Chapter 3</div>
+<h3 class="entry-title">Homomorphism and Isomorphism</h3>
+<p class="entry-desc">同态的基本性质与单射判据，核与像；同构作为等价关系、自同构群；一批具体例子；最后是 SU(2) 到 SO(3) 的双重覆盖与 GL(V) 的坐标表示。</p>
+</a>
+
+<a class="entry-item" href="ch04-group-actions.html">
+<div class="entry-meta">Chapter 4</div>
+<h3 class="entry-title">Group Actions</h3>
+<p class="entry-desc">置换与对称群，G-集、轨道与稳定化子；陪集、拉格朗日定理与轨道–稳定化子定理；等变映射；共轭类、中心化子与正规化子；类方程与 Cauchy 定理；空间的有限旋转群；函数空间上的诱导作用。</p>
+</a>
+
+<a class="entry-item" href="ch05-the-symmetric-group.html">
+<div class="entry-meta">Chapter 5</div>
+<h3 class="entry-title">The Symmetric Group</h3>
+<p class="entry-desc">轮换与轮换分解，Cayley 定理；对换、奇偶性与交错群；S<sub>n</sub> 的共轭类与杨表；最后是置换在物理系统中的用处——耦合振子、指标交换与粒子交换。</p>
+</a>
 
 </div>
