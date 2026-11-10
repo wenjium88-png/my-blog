@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-Hans" xml:lang="zh-Hans"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.9">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Group Actions – Wenjium</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/scrollable-regions/scrollable-regions.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-8d3ad9c781c51ccd60b292c95058b2c2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "没有结果",
+    "search-matching-documents-text": "匹配的文档",
+    "search-copy-link-title": "复制搜索链接",
+    "search-hide-matches-text": "隐藏其它匹配结果",
+    "search-more-match-text": "更多匹配结果",
+    "search-more-matches-text": "更多匹配结果",
+    "search-clear-button-title": "清除",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "提交",
+    "search-label": "搜索"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-document-content">跳至主要内容</a>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark" aria-label="网站">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Wenjium</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="展开或折叠导航栏" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../projects/index.html"> 
+<span class="menu-text">Projects</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../physics-notes/index.html"> 
+<span class="menu-text">Notes</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/wenjium88-png"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+            <div id="quarto-search" class="" title="搜索"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" aria-labelledby="toc-title" class="toc-active">
+    <h2 id="toc-title">该页面内容</h2>
+   
+  <ul class="collapse">
+  <li><a href="#actions-g-sets-and-orbits" id="toc-actions-g-sets-and-orbits" class="nav-link active" data-scroll-target="#actions-g-sets-and-orbits">4.1 Actions, <span class="math inline">\(G\)</span>-sets, and orbits</a></li>
+  <li><a href="#cosets-lagranges-theorem-and-orbitstabilizer" id="toc-cosets-lagranges-theorem-and-orbitstabilizer" class="nav-link" data-scroll-target="#cosets-lagranges-theorem-and-orbitstabilizer">4.2 Cosets, Lagrange’s theorem, and orbit–stabilizer</a></li>
+  <li><a href="#equivariant-maps" id="toc-equivariant-maps" class="nav-link" data-scroll-target="#equivariant-maps">4.3 Equivariant maps</a></li>
+  <li><a href="#conjugacy-centralizers-and-normalizers" id="toc-conjugacy-centralizers-and-normalizers" class="nav-link" data-scroll-target="#conjugacy-centralizers-and-normalizers">4.4 Conjugacy, centralizers, and normalizers</a></li>
+  <li><a href="#the-class-equation" id="toc-the-class-equation" class="nav-link" data-scroll-target="#the-class-equation">4.5 The class equation</a></li>
+  <li><a href="#finite-rotation-groups" id="toc-finite-rotation-groups" class="nav-link" data-scroll-target="#finite-rotation-groups">4.6 Finite rotation groups</a></li>
+  <li><a href="#induced-action-on-function-spaces" id="toc-induced-action-on-function-spaces" class="nav-link" data-scroll-target="#induced-action-on-function-spaces">4.7 Induced action on function spaces</a></li>
+  <li><a href="#key-points" id="toc-key-points" class="nav-link" data-scroll-target="#key-points">Key points</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content" tabindex="-1">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Group Actions</h1>
+<p class="subtitle lead">Chapter 4</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<hr>
+<p>A group on its own is a set of motions. What makes a group useful is that it usually acts on something, and the action records which motions leave a structure alone. This chapter sets up that vocabulary. It then turns it into counting: orbits, cosets, Lagrange’s theorem, orbit–stabilizer. The counts classify the conjugacy classes of a group, the finite rotation groups of space, and the possible positions of an atom in a crystal.</p>
+<hr>
+<section id="actions-g-sets-and-orbits" class="level2">
+<h2 class="anchored" data-anchor-id="actions-g-sets-and-orbits">4.1 Actions, <span class="math inline">\(G\)</span>-sets, and orbits</h2>
+<section id="definition-4.1-permutation-置换" class="level3">
+<h3 class="anchored" data-anchor-id="definition-4.1-permutation-置换">Definition 4.1 (Permutation 置换)</h3>
+<p>Let <span class="math inline">\(X\)</span> be a set. A <strong>permutation</strong> of <span class="math inline">\(X\)</span> is a map <span class="math inline">\(f : X \to X\)</span> that is one-to-one and onto.</p>
+<p>The identity map is a permutation, a composite of two permutations is one, and so is an inverse.</p>
+</section>
+<section id="definition-4.2-symmetric-group-对称群" class="level3">
+<h3 class="anchored" data-anchor-id="definition-4.2-symmetric-group-对称群">Definition 4.2 (Symmetric group 对称群)</h3>
+<p>For a set <span class="math inline">\(X\)</span>, <span class="math inline">\(S_X\)</span>, also written <span class="math inline">\(\mathrm{Sym}(X)\)</span>, is the group of permutations of <span class="math inline">\(X\)</span> under composition, <span class="math inline">\((f_1, f_2) \mapsto f_1 \circ f_2\)</span>. For <span class="math inline">\(X = \{1, \dots, n\}\)</span> it is the <strong>symmetric group</strong> <span class="math inline">\(S_n\)</span>, of order <span class="math inline">\(n!\)</span>.</p>
+</section>
+<section id="definition-4.3-action-群作用" class="level3">
+<h3 class="anchored" data-anchor-id="definition-4.3-action-群作用">Definition 4.3 (Action 群作用)</h3>
+<p>A <strong>left action</strong> of a group <span class="math inline">\(G\)</span> on a set <span class="math inline">\(X\)</span> is a homomorphism</p>
+<p><span class="math display">\[\Phi : G \to S_X, \qquad g \mapsto \Phi(g).\]</span></p>
+<p>Equivalently, it is a map <span class="math inline">\(\varphi : G\times X \to X\)</span>, written <span class="math inline">\(\varphi(g,x) = \Phi(g)(x)\)</span>, satisfying</p>
+<p><span class="math display">\[\varphi(g_1, \varphi(g_2, x)) = \varphi(g_1g_2, x), \qquad \varphi(e, x) = x\]</span></p>
+<p>for all <span class="math inline">\(g_1, g_2 \in G\)</span> and <span class="math inline">\(x \in X\)</span>. A set with an action of <span class="math inline">\(G\)</span> is a <span class="math inline">\(G\)</span>-<strong>set</strong> <span class="math inline">\(G\)</span>-集合.</p>
+<p>The two descriptions agree. A homomorphism <span class="math inline">\(\Phi\)</span> has <span class="math inline">\(\Phi(e) = \mathrm{id}\)</span> and <span class="math inline">\(\Phi(g_1)\Phi(g_2) = \Phi(g_1g_2)\)</span>, which are the two identities for <span class="math inline">\(\varphi(g,x) := \Phi(g)(x)\)</span>. Conversely, given <span class="math inline">\(\varphi\)</span> with the two identities,</p>
+<p><span class="math display">\[\varphi(g, \varphi(g^{-1}, x)) = \varphi(gg^{-1}, x) = \varphi(e, x) = x\]</span></p>
+<p>for all <span class="math inline">\(x\)</span>, so each <span class="math inline">\(\varphi(g, \cdot)\)</span> is a permutation of <span class="math inline">\(X\)</span>, with inverse <span class="math inline">\(\varphi(g^{-1}, \cdot)\)</span>, and <span class="math inline">\(g \mapsto \varphi(g, \cdot)\)</span> is a homomorphism into <span class="math inline">\(S_X\)</span>. Write</p>
+<p><span class="math display">\[g \cdot x := \varphi(g, x), \qquad\text{so that}\qquad g_1 \cdot (g_2 \cdot x) = (g_1g_2)\cdot x, \quad e \cdot x = x.\]</span></p>
+<p>Sets acted on are taken nonempty.</p>
+</section>
+<section id="example-4.4-a-group-acting-on-itself" class="level3">
+<h3 class="anchored" data-anchor-id="example-4.4-a-group-acting-on-itself">Example 4.4 (A group acting on itself)</h3>
+<p>Take <span class="math inline">\(X = G\)</span>. Left multiplication <span class="math inline">\(g \cdot x := gx\)</span> is an action, since <span class="math inline">\(g_1(g_2x) = (g_1g_2)x\)</span> is associativity. Conjugation <span class="math inline">\(g \cdot x := gxg^{-1}\)</span> is an action, since</p>
+<p><span class="math display">\[g_1 \cdot (g_2 \cdot x) = g_1\bigl(g_2xg_2^{-1}\bigr)g_1^{-1} = (g_1g_2)\,x\,(g_1g_2)^{-1} = (g_1g_2)\cdot x.\]</span></p>
+<p>Right multiplication <span class="math inline">\(x \cdot g := xg\)</span> satisfies <span class="math inline">\((x\cdot g_1)\cdot g_2 = x \cdot (g_1g_2)\)</span> and defines a right action 右作用. The corresponding left action is <span class="math inline">\(g \cdot x := xg^{-1}\)</span>. For an abelian group conjugation is the trivial action, <span class="math inline">\(gxg^{-1} = x\)</span>.</p>
+</section>
+<section id="example-4.5-matrix-groups-on-vectors" class="level3">
+<h3 class="anchored" data-anchor-id="example-4.5-matrix-groups-on-vectors">Example 4.5 (Matrix groups on vectors)</h3>
+<p><span class="math inline">\(GL(n,\kappa)\)</span> acts on <span class="math inline">\(\kappa^n\)</span> by <span class="math inline">\(A \cdot \vec v := A\vec v\)</span>, and so does every subgroup of it, for instance <span class="math inline">\(SO(3)\)</span> on <span class="math inline">\(\mathbb R^3\)</span>.</p>
+</section>
+<section id="example-4.6-rotations-and-translations" class="level3">
+<h3 class="anchored" data-anchor-id="example-4.6-rotations-and-translations">Example 4.6 (Rotations and translations)</h3>
+<p>Pairs <span class="math inline">\(\{R \mid \vec\tau\}\)</span> with <span class="math inline">\(R \in O(3)\)</span> and <span class="math inline">\(\vec\tau \in \mathbb R^3\)</span> act on <span class="math inline">\(\mathbb R^3\)</span> by</p>
+<p><span class="math display">\[\{R \mid \vec\tau\}\cdot \vec r := R\vec r + \vec\tau.\]</span></p>
+<p>Applying two in succession,</p>
+<p><span class="math display">\[\{R_1 \mid \vec\tau_1\}\cdot\bigl(\{R_2 \mid \vec\tau_2\}\cdot \vec r\bigr) = R_1(R_2\vec r + \vec\tau_2) + \vec\tau_1 = R_1R_2\,\vec r + (R_1\vec\tau_2 + \vec\tau_1),\]</span></p>
+<p>so the pairs form a group under</p>
+<p><span class="math display">\[\{R_1 \mid \vec\tau_1\}\{R_2 \mid \vec\tau_2\} = \{R_1R_2 \mid R_1\vec\tau_2 + \vec\tau_1\},\]</span></p>
+<p>the Euclidean group 欧几里得群 <span class="math inline">\(E(3)\)</span>, and the formula above is an action of it. Writing a point as the column <span class="math inline">\((1, \vec r)^T\)</span>, the pair <span class="math inline">\(\{R\mid\vec\tau\}\)</span> acts as a <span class="math inline">\(4\times 4\)</span> matrix,</p>
+<p><span class="math display">\[\begin{pmatrix} 1 &amp; 0 \\ \vec\tau &amp; R \end{pmatrix}\begin{pmatrix} 1 \\ \vec r \end{pmatrix} = \begin{pmatrix} 1 \\ R\vec r + \vec\tau \end{pmatrix},\]</span></p>
+<p>and the group law is matrix multiplication.</p>
+<p>The translation part does not simply add under composition. It is <span class="math inline">\(R_1\vec\tau_2 + \vec\tau_1\)</span>, and the first term carries a rotation.</p>
+</section>
+<section id="example-4.7-the-square" class="level3">
+<h3 class="anchored" data-anchor-id="example-4.7-the-square">Example 4.7 (The square)</h3>
+<p>Let <span class="math inline">\(X = \{\vec v_1, \vec v_2, \vec v_3, \vec v_4\}\)</span> be the vertices of a square centred at the origin,</p>
+<p><span class="math display">\[\vec v_1 = \begin{pmatrix} 1 \\ 1 \end{pmatrix}, \qquad \vec v_2 = \begin{pmatrix} -1 \\ 1 \end{pmatrix}, \qquad \vec v_3 = \begin{pmatrix} -1 \\ -1 \end{pmatrix}, \qquad \vec v_4 = \begin{pmatrix} 1 \\ -1 \end{pmatrix}.\]</span></p>
+<p>Realise <span class="math inline">\(D_4 = \langle A, B \mid A^4 = B^2 = (AB)^2 = 1\rangle\)</span> by matrices,</p>
+<p><span class="math display">\[\varphi(A) = \begin{pmatrix} 0 &amp; -1 \\ 1 &amp; 0 \end{pmatrix}, \qquad \varphi(B) = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; -1 \end{pmatrix},\]</span></p>
+<p>the quarter turn about the origin and the reflection in the horizontal axis. Both carry each vertex to a vertex, so <span class="math inline">\(g \cdot \vec v := \varphi(g)\vec v\)</span> is an action of <span class="math inline">\(D_4\)</span> on <span class="math inline">\(X\)</span>. For the quarter turn,</p>
+<p><span class="math display">\[(A\cdot \vec v_1,\, A \cdot \vec v_2,\, A\cdot \vec v_3,\, A\cdot \vec v_4) = (\vec v_2, \vec v_3, \vec v_4, \vec v_1),\]</span></p>
+<p>so <span class="math inline">\(A\)</span> carries <span class="math inline">\(X\)</span> onto itself while moving each vertex to the next. That is the sense in which the quarter turn is a symmetry of the square. The same matrices act on the four edges and on the two diagonals.</p>
+</section>
+<section id="definition-4.8-orbit-轨道-and-stabilizer-稳定化子" class="level3">
+<h3 class="anchored" data-anchor-id="definition-4.8-orbit-轨道-and-stabilizer-稳定化子">Definition 4.8 (Orbit 轨道 and stabilizer 稳定化子)</h3>
+<p>For <span class="math inline">\(x \in X\)</span>, the <strong>orbit</strong> of <span class="math inline">\(x\)</span> and the <strong>stabilizer</strong> of <span class="math inline">\(x\)</span> are</p>
+<p><span class="math display">\[G\cdot x := \{\, g\cdot x : g \in G \,\} \subset X, \qquad G_x := \{\, g \in G : g\cdot x = x \,\} \subset G.\]</span></p>
+<p>They are also written <span class="math inline">\(\mathrm{Orb}_G(x)\)</span> and <span class="math inline">\(\mathrm{Stab}_G(x)\)</span>.</p>
+</section>
+<section id="proposition-4.9" class="level3">
+<h3 class="anchored" data-anchor-id="proposition-4.9">Proposition 4.9</h3>
+<p>The orbits partition <span class="math inline">\(X\)</span>, and <span class="math inline">\(G_x\)</span> is a subgroup of <span class="math inline">\(G\)</span>.</p>
+<p><em>Proof.</em> Every <span class="math inline">\(x\in X\)</span> lies in its own orbit, since <span class="math inline">\(x = e\cdot x\)</span>, so the orbits cover <span class="math inline">\(X\)</span>. Suppose two of them meet, <span class="math inline">\(y \in (G\cdot x_1)\cap(G\cdot x_2)\)</span>, say <span class="math inline">\(y = g_1\cdot x_1 = g_2\cdot x_2\)</span>. Then <span class="math inline">\(x_1 = (g_1^{-1}g_2)\cdot x_2\)</span>, so every point of <span class="math inline">\(G\cdot x_1\)</span> is</p>
+<p><span class="math display">\[g\cdot x_1 = (g\,g_1^{-1}g_2)\cdot x_2 \in G\cdot x_2,\]</span></p>
+<p>giving <span class="math inline">\(G\cdot x_1 \subset G\cdot x_2\)</span>, and exchanging the roles of <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> gives the reverse inclusion. Two orbits are therefore equal or disjoint, and <span class="math inline">\(X\)</span> is the disjoint union of its orbits.</p>
+<p>For the stabilizer, <span class="math inline">\(e \in G_x\)</span>, and if <span class="math inline">\(g,h \in G_x\)</span> then <span class="math inline">\((gh^{-1})\cdot x = g\cdot(h^{-1}\cdot x) = g\cdot x = x\)</span>, so Lemma 2.5 applies. <span class="math inline">\(\blacksquare\)</span></p>
+<p>The relation <span class="math inline">\(x \sim y\)</span> when <span class="math inline">\(y = g\cdot x\)</span> for some <span class="math inline">\(g\in G\)</span> is an equivalence relation (Definition 2.9), the orbits are its classes, and the set of orbits is written <span class="math inline">\(X/G\)</span>, the orbit space 轨道空间.</p>
+</section>
+<section id="definition-4.10-fixed-point-set-不动点" class="level3">
+<h3 class="anchored" data-anchor-id="definition-4.10-fixed-point-set-不动点">Definition 4.10 (Fixed-point set 不动点)</h3>
+<p>For <span class="math inline">\(g\in G\)</span>, the <strong>fixed-point set</strong> of <span class="math inline">\(g\)</span> is</p>
+<p><span class="math display">\[\mathrm{Fix}_X(g) := \{\, x \in X : g\cdot x = x \,\} \subset X.\]</span></p>
+<p>So <span class="math inline">\(g \in G_x\)</span> exactly when <span class="math inline">\(x \in \mathrm{Fix}_X(g)\)</span>.</p>
+</section>
+<section id="definition-4.11-faithful-忠实-transitive-传递-free-自由" class="level3">
+<h3 class="anchored" data-anchor-id="definition-4.11-faithful-忠实-transitive-传递-free-自由">Definition 4.11 (Faithful 忠实, transitive 传递, free 自由)</h3>
+<p>An action is <strong>faithful</strong>, also called effective, if <span class="math inline">\(\Phi : G \to S_X\)</span> is injective, that is, every <span class="math inline">\(g \neq e\)</span> moves some point, <span class="math inline">\(\mathrm{Fix}_X(g) \neq X\)</span>; <strong>transitive</strong> if there is exactly one orbit, that is, any <span class="math inline">\(x\)</span> can be moved to any <span class="math inline">\(y\)</span>; and <strong>free</strong> if every <span class="math inline">\(g \neq e\)</span> moves every point, <span class="math inline">\(\mathrm{Fix}_X(g) = \emptyset\)</span>, that is, every stabilizer is trivial.</p>
+<p>Free implies faithful. The converse fails.</p>
+</section>
+<section id="example-4.12-the-square-continued" class="level3">
+<h3 class="anchored" data-anchor-id="example-4.12-the-square-continued">Example 4.12 (The square, continued)</h3>
+<p>On the vertices <span class="math inline">\(X\)</span> of Example 4.7 the action of <span class="math inline">\(D_4\)</span> is transitive, since the powers of <span class="math inline">\(A\)</span> carry <span class="math inline">\(\vec v_1\)</span> to every vertex, and faithful, since a symmetry fixing all four vertices is the identity. It is not free, the stabilizer of <span class="math inline">\(\vec v_1\)</span> being <span class="math inline">\(\{e, AB\}\)</span>, with <span class="math inline">\(AB\)</span> the reflection in the diagonal through <span class="math inline">\(\vec v_1\)</span> and <span class="math inline">\(\vec v_3\)</span>.</p>
+<p>A labelling of the vertices by <span class="math inline">\(1,2,3,4\)</span> is an ordered list <span class="math inline">\((\vec w_1,\vec w_2,\vec w_3,\vec w_4)\)</span> of the four vertices, <span class="math inline">\(\vec w_j\)</span> being the one labelled <span class="math inline">\(j\)</span>, and there are <span class="math inline">\(4! = 24\)</span> of them. Carrying each label along with its vertex,</p>
+<p><span class="math display">\[g\cdot(\vec w_1,\vec w_2,\vec w_3,\vec w_4) := (g\cdot\vec w_1,\, g\cdot\vec w_2,\, g\cdot\vec w_3,\, g\cdot\vec w_4),\]</span></p>
+<p>is an action of <span class="math inline">\(D_4\)</span> on the 24 labellings, and it is free, since a symmetry fixing a labelling fixes all four vertices.</p>
+</section>
+<section id="example-4.13-orbits-of-so2-on-the-plane" class="level3">
+<h3 class="anchored" data-anchor-id="example-4.13-orbits-of-so2-on-the-plane">Example 4.13 (Orbits of <span class="math inline">\(SO(2)\)</span> on the plane)</h3>
+<p><span class="math inline">\(SO(2)\)</span> acting on <span class="math inline">\(\mathbb R^2\)</span> has the origin as one orbit and every circle <span class="math inline">\(x^2 + y^2 = r^2\)</span>, <span class="math inline">\(r &gt; 0\)</span>, as another. The orbit space <span class="math inline">\(\mathbb R^2/SO(2)\)</span> is labelled by <span class="math inline">\(r \in [0,\infty)\)</span>. The stabilizer of the origin is all of <span class="math inline">\(SO(2)\)</span>; the stabilizer of any other point is trivial.</p>
+</section>
+<section id="example-4.14-a-fundamental-domain-基本域" class="level3">
+<h3 class="anchored" data-anchor-id="example-4.14-a-fundamental-domain-基本域">Example 4.14 (A fundamental domain 基本域)</h3>
+<p>The subgroup <span class="math inline">\(C_3 = \{R(0), R(2\pi/3), R(4\pi/3)\}\)</span> of <span class="math inline">\(SO(2)\)</span> acts on the filled equilateral triangle <span class="math inline">\(\Delta\)</span> centred at the origin, and every orbit but the centre has three points. The lines from the centre to the vertices cut <span class="math inline">\(\Delta\)</span> into three closed thirds, each carried onto the next by <span class="math inline">\(R(2\pi/3)\)</span>, so every orbit meets every third. A closed third is a <strong>fundamental domain</strong> for the action. An orbit missing the cuts has one representative in it, while a noncentral orbit on the cuts has two, one on each cut edge, related by <span class="math inline">\(R(2\pi/3)\)</span>, and the centre has one. Identifying these boundary pairs gives a model of <span class="math inline">\(\Delta/C_3\)</span>.</p>
+<p><strong>Quiz 4.1.</strong> List the orbits and a stabilizer for <span class="math inline">\(D_4\)</span> acting on the four edges of the square, and on its two diagonals. Which of the actions in Example 4.7 are faithful?</p>
+<p>The edges form one orbit, with stabilizer <span class="math inline">\(\{e, A^2B\}\)</span> of the top edge and <span class="math inline">\(\{e, B\}\)</span> of the left one, so <span class="math inline">\(8 = 4 \times 2\)</span>. The diagonals form one orbit of two, with stabilizer <span class="math inline">\(\{e, A^2, AB, A^3B\}\)</span> of one diagonal, and <span class="math inline">\(A^2\)</span> fixes both of them, so the diagonal action is not faithful. The vertex and edge actions are faithful.</p>
+<hr>
+</section>
+</section>
+<section id="cosets-lagranges-theorem-and-orbitstabilizer" class="level2">
+<h2 class="anchored" data-anchor-id="cosets-lagranges-theorem-and-orbitstabilizer">4.2 Cosets, Lagrange’s theorem, and orbit–stabilizer</h2>
+<section id="definition-4.15-cosets-陪集-and-index-指数" class="level3">
+<h3 class="anchored" data-anchor-id="definition-4.15-cosets-陪集-and-index-指数">Definition 4.15 (Cosets 陪集 and index 指数)</h3>
+<p>Let <span class="math inline">\(H\)</span> be a subgroup of <span class="math inline">\(G\)</span>. For <span class="math inline">\(g \in G\)</span>, the <strong>left coset</strong> and the <strong>right coset</strong> of <span class="math inline">\(H\)</span> through <span class="math inline">\(g\)</span> are</p>
+<p><span class="math display">\[gH := \{\, gh : h \in H \,\}, \qquad Hg := \{\, hg : h \in H \,\}.\]</span></p>
+<p>The set of left cosets is written <span class="math inline">\(G/H\)</span> and the set of right cosets <span class="math inline">\(H\backslash G\)</span>. The <strong>index</strong> <span class="math inline">\([G:H]\)</span> is the cardinality of <span class="math inline">\(G/H\)</span>.</p>
+<p>The index does not depend on the side, since <span class="math inline">\(gH \mapsto Hg^{-1}\)</span> is a bijection from <span class="math inline">\(G/H\)</span> to <span class="math inline">\(H\backslash G\)</span>, with inverse <span class="math inline">\(Hg \mapsto g^{-1}H\)</span>. Reversing every product turns each statement about left cosets into the corresponding statement about right cosets, so the choice between the two is a convention, and we take left cosets from here on.</p>
+<p>Cosets are orbits. Right multiplication by <span class="math inline">\(H\)</span> is a right action, so by Example 4.4 the left action of <span class="math inline">\(H\)</span> on <span class="math inline">\(G\)</span> carrying the same information is <span class="math inline">\(h\cdot g := gh^{-1}\)</span>, and its orbits are the left cosets. The left action <span class="math inline">\(h\cdot g := hg\)</span> has the right cosets as its orbits, and the two partitions of <span class="math inline">\(G\)</span> differ in general.</p>
+</section>
+<section id="proposition-4.16" class="level3">
+<h3 class="anchored" data-anchor-id="proposition-4.16">Proposition 4.16</h3>
+<p>The left cosets partition <span class="math inline">\(G\)</span>, each of them is in bijection with <span class="math inline">\(H\)</span>, and <span class="math inline">\(g_1H = g_2H\)</span> exactly when <span class="math inline">\(g_2^{-1}g_1 \in H\)</span>.</p>
+<p><em>Proof.</em> The left cosets are the orbits of the action <span class="math inline">\(h\cdot g = gh^{-1}\)</span>, so they partition <span class="math inline">\(G\)</span> by Proposition 4.9.</p>
+<p>The map <span class="math inline">\(h \mapsto gh\)</span> sends <span class="math inline">\(H\)</span> onto <span class="math inline">\(gH\)</span> by the definition of <span class="math inline">\(gH\)</span>, and it is injective by cancellation, <span class="math inline">\(gh_1 = gh_2\)</span> forcing <span class="math inline">\(h_1 = h_2\)</span>. So <span class="math inline">\(gH\)</span> is in bijection with <span class="math inline">\(H\)</span>.</p>
+<p>Suppose <span class="math inline">\(g_1H = g_2H\)</span>. Since <span class="math inline">\(e \in H\)</span>, the element <span class="math inline">\(g_1 = g_1e\)</span> lies in <span class="math inline">\(g_1H\)</span> and hence in <span class="math inline">\(g_2H\)</span>, so <span class="math inline">\(g_1 = g_2h\)</span> for some <span class="math inline">\(h\in H\)</span>, and <span class="math inline">\(g_2^{-1}g_1 = h \in H\)</span>. Conversely, suppose <span class="math inline">\(g_2^{-1}g_1 = h\)</span> for some <span class="math inline">\(h\in H\)</span>. Then <span class="math inline">\(g_1 = g_2h\)</span> lies in <span class="math inline">\(g_2H\)</span>, and <span class="math inline">\(g_1 = g_1e\)</span> lies in <span class="math inline">\(g_1H\)</span>, so the two cosets share the element <span class="math inline">\(g_1\)</span> and are therefore equal. <span class="math inline">\(\blacksquare\)</span></p>
+</section>
+<section id="example-4.17-cosets-in-d_4" class="level3">
+<h3 class="anchored" data-anchor-id="example-4.17-cosets-in-d_4">Example 4.17 (Cosets in <span class="math inline">\(D_4\)</span>)</h3>
+<p>In <span class="math inline">\(D_4 = \{e, A, A^2, A^3, B, AB, A^2B, A^3B\}\)</span> take <span class="math inline">\(H = \{e, A, A^2, A^3\}\)</span>. Then <span class="math inline">\(eH = H\)</span> and <span class="math inline">\(BH = \{B, BA, BA^2, BA^3\} = \{B, A^3B, A^2B, AB\}\)</span>, using <span class="math inline">\(BA = A^{-1}B\)</span>. Two cosets, the rotations and the reflections, <span class="math inline">\([D_4:H] = 2\)</span>.</p>
+<p>For <span class="math inline">\(H = \{e, B\}\)</span> instead, the cosets are <span class="math inline">\(\{e, B\}\)</span>, <span class="math inline">\(\{A, AB\}\)</span>, <span class="math inline">\(\{A^2, A^2B\}\)</span>, <span class="math inline">\(\{A^3, A^3B\}\)</span>, and <span class="math inline">\([D_4:H] = 4\)</span>.</p>
+<p><span class="math inline">\(B\)</span> generates a subgroup inside <span class="math inline">\(D_4\)</span> that is not a normal one, and the left and right cosets of <span class="math inline">\(\{e, B\}\)</span> do not agree: <span class="math inline">\(AB\)</span> is in <span class="math inline">\(AH\)</span> but not in <span class="math inline">\(HA\)</span>, since <span class="math inline">\(HA\)</span> is the same list read the other way, <span class="math inline">\(\{A, BA\} = \{A, A^3B\}\)</span>.</p>
+</section>
+<section id="theorem-4.18-lagrange-拉格朗日定理" class="level3">
+<h3 class="anchored" data-anchor-id="theorem-4.18-lagrange-拉格朗日定理">Theorem 4.18 (Lagrange 拉格朗日定理)</h3>
+<p>If <span class="math inline">\(G\)</span> is finite and <span class="math inline">\(H \le G\)</span>, then</p>
+<p><span class="math display">\[|G| = [G:H]\,|H|.\]</span></p>
+<p>In particular <span class="math inline">\(|H|\)</span> divides <span class="math inline">\(|G|\)</span>.</p>
+<p><em>Proof.</em> By Proposition 4.16 the cosets partition <span class="math inline">\(G\)</span> into <span class="math inline">\([G:H]\)</span> pieces, each in bijection with <span class="math inline">\(H\)</span> and so of size <span class="math inline">\(|H|\)</span>. <span class="math inline">\(\blacksquare\)</span></p>
+</section>
+<section id="proposition-4.19" class="level3">
+<h3 class="anchored" data-anchor-id="proposition-4.19">Proposition 4.19</h3>
+<p>Let <span class="math inline">\(G\)</span> be finite. The order of every element divides <span class="math inline">\(|G|\)</span>, and <span class="math inline">\(g^{|G|} = e\)</span> for every <span class="math inline">\(g\)</span>. If <span class="math inline">\(|G|\)</span> is prime then <span class="math inline">\(G\)</span> is cyclic.</p>
+<p><em>Proof.</em> Let <span class="math inline">\(m = \mathrm{ord}\, g\)</span>. The cyclic subgroup <span class="math inline">\(\langle g\rangle = \{e, g, \dots, g^{m-1}\}\)</span> has <span class="math inline">\(m\)</span> elements, so Theorem 4.18 gives <span class="math inline">\(|G| = km\)</span> for an integer <span class="math inline">\(k\)</span>, and <span class="math inline">\(g^{|G|} = (g^m)^k = e\)</span>. If <span class="math inline">\(|G| = p\)</span> is prime and <span class="math inline">\(g \neq e\)</span>, then <span class="math inline">\(|\langle g\rangle|\)</span> divides <span class="math inline">\(p\)</span> and is not 1, so <span class="math inline">\(\langle g\rangle = G\)</span>. <span class="math inline">\(\blacksquare\)</span></p>
+<p><strong>Quiz 4.2.</strong> Deduce Fermat’s little theorem, <span class="math inline">\(a^p \equiv a \pmod p\)</span> for a prime <span class="math inline">\(p\)</span>, from Proposition 4.19 applied to the multiplicative group <span class="math inline">\((\mathbb Z/p\mathbb Z)^\times\)</span> of residue classes not divisible by <span class="math inline">\(p\)</span>.</p>
+<p>The group has <span class="math inline">\(p - 1\)</span> elements, so <span class="math inline">\(a^{p-1} \equiv 1\)</span> for every such <span class="math inline">\(a\)</span>, and multiplying by <span class="math inline">\(a\)</span> handles the multiples of <span class="math inline">\(p\)</span> as well.</p>
+</section>
+<section id="theorem-4.20-orbitstabilizer-轨道稳定化子定理" class="level3">
+<h3 class="anchored" data-anchor-id="theorem-4.20-orbitstabilizer-轨道稳定化子定理">Theorem 4.20 (Orbit–stabilizer 轨道–稳定化子定理)</h3>
+<p>Let <span class="math inline">\(G\)</span> act on <span class="math inline">\(X\)</span> and let <span class="math inline">\(x\in X\)</span>. The map from the orbit <span class="math inline">\(G\cdot x\)</span> to the left cosets of the stabilizer <span class="math inline">\(G_x\)</span>,</p>
+<p><span class="math display">\[G\cdot x \to G/G_x, \qquad g\cdot x \mapsto gG_x,\]</span></p>
+<p>is well defined and bijective, so <span class="math inline">\(G\cdot x \cong G/G_x\)</span> and</p>
+<p><span class="math display">\[|G\cdot x| = [G:G_x].\]</span></p>
+<p>If <span class="math inline">\(G\)</span> is finite, <span class="math inline">\(|G| = |G\cdot x|\,|G_x|\)</span>.</p>
+<p><em>Proof.</em> <strong>Well defined.</strong> If <span class="math inline">\(g\cdot x = g'\cdot x\)</span> then <span class="math inline">\((g^{-1}g')\cdot x = x\)</span>, so <span class="math inline">\(g^{-1}g' \in G_x\)</span> and <span class="math inline">\(gG_x = g'G_x\)</span>. <strong>Onto.</strong> Every coset <span class="math inline">\(gG_x\)</span> is the image of the point <span class="math inline">\(g\cdot x\)</span>. <strong>Injective.</strong> If <span class="math inline">\(gG_x = g'G_x\)</span> then <span class="math inline">\(g' = gh\)</span> with <span class="math inline">\(h \in G_x\)</span>, so <span class="math inline">\(g'\cdot x = g\cdot(h\cdot x) = g\cdot x\)</span>. Since <span class="math inline">\([G:G_x]\)</span> is the cardinality of <span class="math inline">\(G/G_x\)</span>, the bijection gives <span class="math inline">\(|G\cdot x| = [G:G_x]\)</span>, and for finite <span class="math inline">\(G\)</span> Theorem 4.18 turns this into <span class="math inline">\(|G| = |G\cdot x|\,|G_x|\)</span>. <span class="math inline">\(\blacksquare\)</span></p>
+</section>
+<section id="example-4.21-the-square-once-more" class="level3">
+<h3 class="anchored" data-anchor-id="example-4.21-the-square-once-more">Example 4.21 (The square, once more)</h3>
+<p>Let <span class="math inline">\(D_4\)</span> act on the vertices of Example 4.7 and fix <span class="math inline">\(\vec v_1\)</span>, whose stabilizer is <span class="math inline">\(H = \{e, AB\}\)</span>. The four vertices correspond to the four left cosets of <span class="math inline">\(H\)</span> under <span class="math inline">\(g\cdot \vec v_1 \mapsto gH\)</span>,</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>vertex</th>
+<th>symmetries carrying <span class="math inline">\(\vec v_1\)</span> to it</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\vec v_1\)</span></td>
+<td><span class="math inline">\(H = \{e, AB\}\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\vec v_2\)</span></td>
+<td><span class="math inline">\(AH = \{A, A^2B\}\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\vec v_3\)</span></td>
+<td><span class="math inline">\(A^2H = \{A^2, A^3B\}\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\vec v_4\)</span></td>
+<td><span class="math inline">\(A^3H = \{A^3, B\}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Each vertex is reached from <span class="math inline">\(\vec v_1\)</span> by exactly two symmetries, the two elements of one coset, and</p>
+<p><span class="math display">\[|D_4| = |D_4\cdot\vec v_1|\,|H| = 4\times 2 = 8.\]</span></p>
+</section>
+<section id="example-4.22-so3-on-the-sphere" class="level3">
+<h3 class="anchored" data-anchor-id="example-4.22-so3-on-the-sphere">Example 4.22 (<span class="math inline">\(SO(3)\)</span> on the sphere)</h3>
+<p><span class="math inline">\(SO(3)\)</span> acts transitively on the unit sphere <span class="math inline">\(S^2\)</span>, since the proof of Theorem 3.15 rotates <span class="math inline">\(\hat e_3\)</span> to any unit vector. The stabilizer of <span class="math inline">\(\hat e_3\)</span> is the group of rotations about the third axis, a copy of <span class="math inline">\(SO(2)\)</span>. Theorem 4.20 therefore identifies</p>
+<p><span class="math display">\[S^2 \longleftrightarrow SO(3)/SO(2), \qquad g\hat e_3 \mapsto g\,SO(2),\]</span></p>
+<p>the sphere with the set of cosets.</p>
+<p>A space carrying a transitive action is called a homogeneous space 齐性空间, no point being distinguished from any other. Which point is fixed does not matter, since the stabilizers at different points are conjugate,</p>
+<p><span class="math display">\[G_{g\cdot x} = g\,G_x\,g^{-1},\]</span></p>
+<p>because <span class="math inline">\(h\cdot(g\cdot x) = g\cdot x\)</span> says exactly <span class="math inline">\(g^{-1}hg \in G_x\)</span>. On the sphere these are the rotations about the different axes.</p>
+</section>
+<section id="example-4.23-wyckoff-positions" class="level3">
+<h3 class="anchored" data-anchor-id="example-4.23-wyckoff-positions">Example 4.23 (Wyckoff positions)</h3>
+<p>The square lattice <span class="math inline">\(\mathbb Z^2 \subset \mathbb R^2\)</span> consists of the points with integer coordinates. Which rigid motions <span class="math inline">\(\{R\mid\vec t\}\)</span> of Example 4.6, taken in two dimensions, carry it onto itself? A rotation about the origin does so exactly when its angle is a multiple of <span class="math inline">\(\pi/2\)</span>, which gives four, and the reflections in the two axes and in the two diagonals give four more, these eight elements of <span class="math inline">\(O(2)\)</span> being a copy of <span class="math inline">\(D_4\)</span>. Translation by a lattice vector is a symmetry too, so the full symmetry group</p>
+<p><span class="math display">\[G = \{\, \{R\mid\vec t\} : R \in D_4,\ \vec t \in \mathbb Z^2 \,\}, \qquad \{R\mid\vec t\}\cdot\vec r = R\vec r + \vec t,\]</span></p>
+<p>the plane group <span class="math inline">\(p4mm\)</span>, is infinite. As a set it is the direct product <span class="math inline">\(\mathbb Z^2\times D_4\)</span> of Definition 2.11 under <span class="math inline">\(\{R\mid\vec t\}\mapsto(\vec t, R)\)</span>, in which translations would add as <span class="math inline">\(\vec t_1 + \vec t_2\)</span>. Here instead</p>
+<p><span class="math display">\[\{R_1\mid\vec t_1\}\{R_2\mid\vec t_2\} = \{R_1R_2 \mid \vec t_1 + R_1\vec t_2\}.\]</span></p>
+<p>Each map <span class="math inline">\(\vec t \mapsto R\vec t\)</span> is an automorphism of the additive group <span class="math inline">\(\mathbb Z^2\)</span>, and <span class="math inline">\((R_1R_2)\vec t = R_1(R_2\vec t)\)</span>, so <span class="math inline">\(D_4\)</span> acts on <span class="math inline">\(\mathbb Z^2\)</span> by automorphisms. A group built from two groups this way is a semidirect product 半直积, here <span class="math inline">\(G = \mathbb Z^2 \rtimes D_4\)</span>, and Chapter 6 gives the general construction.</p>
+<p>The site-symmetry group 位置对称群 of a position <span class="math inline">\(\vec r\)</span> is its stabilizer in <span class="math inline">\(G\)</span>,</p>
+<p><span class="math display">\[G_{\vec r} = \{\, \{R \mid \vec r - R\vec r\} : R\in D_4,\ \vec r - R\vec r \in \mathbb Z^2 \,\}.\]</span></p>
+<p>Its orbit <span class="math inline">\(G\cdot\vec r\)</span> is infinite, with <span class="math inline">\(|G\cdot\vec r| = [G:G_{\vec r}]\)</span>. Write <span class="math inline">\([\vec r] = \vec r + \mathbb Z^2\)</span> for a position modulo lattice translations, each class having one representative in the unit cell <span class="math inline">\([0,1)^2\)</span>. Since <span class="math inline">\(R\mathbb Z^2 = \mathbb Z^2\)</span>, the rule <span class="math inline">\(R\cdot[\vec r] = [R\vec r]\)</span> is an action of the finite group <span class="math inline">\(D_4\)</span> on these classes, with stabilizer</p>
+<p><span class="math display">\[H_{\vec r} = \{\, R\in D_4 : R\vec r - \vec r \in \mathbb Z^2 \,\},\]</span></p>
+<p>and <span class="math inline">\(\{R\mid \vec r - R\vec r\}\mapsto R\)</span> is an isomorphism <span class="math inline">\(G_{\vec r} \cong H_{\vec r}\)</span>, since <span class="math inline">\(R\)</span> determines the translation and <span class="math inline">\((\vec r - R_1\vec r) + R_1(\vec r - R_2\vec r) = \vec r - R_1R_2\vec r\)</span>. Modulo lattice translations the orbit <span class="math inline">\(G\cdot\vec r\)</span> becomes <span class="math inline">\(D_4\cdot[\vec r]\)</span>, whose cardinality is the number of equivalent positions in <span class="math inline">\([0,1)^2\)</span>, the multiplicity 重数,</p>
+<p><span class="math display">\[|D_4\cdot[\vec r]| = [D_4:H_{\vec r}] = \frac{8}{|H_{\vec r}|} = \frac{8}{|G_{\vec r}|}.\]</span></p>
+<p>Take <span class="math inline">\(\vec r = (x,0)\)</span> with <span class="math inline">\(0 &lt; x &lt; \tfrac12\)</span>. The identity and the reflection <span class="math inline">\(B\)</span> in the horizontal axis are the two elements satisfying <span class="math inline">\(R\vec r - \vec r \in \mathbb Z^2\)</span>, so <span class="math inline">\(G_{\vec r} = \{\{\mathbb 1\mid 0\}, \{B\mid 0\}\}\)</span> has order 2, the multiplicity is 4, and the four positions of the unit cell are</p>
+<p><span class="math display">\[(x,0), \qquad (1-x,0), \qquad (0,x), \qquad (0,1-x).\]</span></p>
+<p>At <span class="math inline">\(\vec r = (\tfrac12,\tfrac12)\)</span> every <span class="math inline">\(R \in D_4\)</span> satisfies <span class="math inline">\(R\vec r - \vec r \in \mathbb Z^2\)</span>, so <span class="math inline">\(G_{\vec r} \cong D_4\)</span> and the multiplicity is 1. The operation <span class="math inline">\(\{A\mid(1,0)\}\)</span> is the counterclockwise quarter turn about this position.</p>
+<p>The seven families below are the Wyckoff positions Wyckoff 位置 of <span class="math inline">\(p4mm\)</span>. Take <span class="math inline">\(0 &lt; x &lt; \tfrac12\)</span> in the one-parameter rows and <span class="math inline">\(0 &lt; y &lt; x &lt; \tfrac12\)</span> in the last row.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>representative</th>
+<th><span class="math inline">\(\lvert G_{\vec r}\rvert\)</span></th>
+<th>multiplicity</th>
+<th>label</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\((0,0)\)</span></td>
+<td>8</td>
+<td>1</td>
+<td><span class="math inline">\(1a\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\((\tfrac12,\tfrac12)\)</span></td>
+<td>8</td>
+<td>1</td>
+<td><span class="math inline">\(1b\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\((\tfrac12,0)\)</span></td>
+<td>4</td>
+<td>2</td>
+<td><span class="math inline">\(2c\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\((x,0)\)</span></td>
+<td>2</td>
+<td>4</td>
+<td><span class="math inline">\(4d\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\((x,\tfrac12)\)</span></td>
+<td>2</td>
+<td>4</td>
+<td><span class="math inline">\(4e\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\((x,x)\)</span></td>
+<td>2</td>
+<td>4</td>
+<td><span class="math inline">\(4f\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\((x,y)\)</span></td>
+<td>1</td>
+<td>8</td>
+<td><span class="math inline">\(8g\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>The number in each label is the multiplicity. Mirror lines, rotation centres and orbits are drawn in the International Tables with fixed symbols: solid lines mark mirrors, filled squares four-fold centres, filled lenses two-fold centres, and in the general orbit <span class="math inline">\(8g\)</span> a comma marks the four points obtained from the other four by an operation with <span class="math inline">\(\det R = -1\)</span>.</p>
+<p>A position’s multiplicity is the size of its orbit inside one cell, and it is decided by the stabilizer alone.</p>
+<hr>
+</section>
+</section>
+<section id="equivariant-maps" class="level2">
+<h2 class="anchored" data-anchor-id="equivariant-maps">4.3 Equivariant maps</h2>
+<section id="definition-4.24-equivariant-map-等变映射" class="level3">
+<h3 class="anchored" data-anchor-id="definition-4.24-equivariant-map-等变映射">Definition 4.24 (Equivariant map 等变映射)</h3>
+<p>Let <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> be <span class="math inline">\(G\)</span>-sets. A map <span class="math inline">\(f : X \to Y\)</span> is <strong>equivariant</strong> if</p>
+<p><span class="math display">\[f(g\cdot x) = g\cdot f(x) \qquad\text{for all } g\in G,\ x\in X,\]</span></p>
+<p>that is, the square</p>
+<pre><code>    X ────f────▶ Y
+    │            │
+ g· │            │ g·
+    ▼            ▼
+    X ────f────▶ Y</code></pre>
+<p>commutes for every <span class="math inline">\(g\)</span>. A bijective equivariant map is an isomorphism of <span class="math inline">\(G\)</span>-sets, and its inverse is then equivariant too.</p>
+<p>In topology a <span class="math inline">\(G\)</span>-space <span class="math inline">\(G\)</span>-空间 is a topological space <span class="math inline">\(X\)</span> with an action of a topological group <span class="math inline">\(G\)</span> for which <span class="math inline">\(G\times X \to X\)</span> is continuous, and a morphism of <span class="math inline">\(G\)</span>-spaces is a continuous equivariant map. Some authors use the word for a <span class="math inline">\(G\)</span>-set with no topology in sight.</p>
+<p>The bijection of Theorem 4.20 is an isomorphism of <span class="math inline">\(G\)</span>-sets. Write <span class="math inline">\(\psi\)</span> for it, <span class="math inline">\(\psi(g\cdot x) = gG_x\)</span>. The coset set <span class="math inline">\(G/G_x\)</span> carries the action <span class="math inline">\(a\cdot(gG_x) := (ag)G_x\)</span>, well defined since <span class="math inline">\(gG_x = g'G_x\)</span> gives <span class="math inline">\((ag)G_x = (ag')G_x\)</span>, and</p>
+<p><span class="math display">\[\psi\bigl(a\cdot(g\cdot x)\bigr) = \psi\bigl((ag)\cdot x\bigr) = (ag)G_x = a\cdot(gG_x) = a\cdot\psi(g\cdot x),\]</span></p>
+<p>so the square commutes for every <span class="math inline">\(a\in G\)</span>. Hence <span class="math inline">\(G\cdot x \cong G/G_x\)</span> as <span class="math inline">\(G\)</span>-sets, and every transitive <span class="math inline">\(G\)</span>-set is a coset space <span class="math inline">\(G/H\)</span>, with <span class="math inline">\(H\)</span> the stabilizer of any of its points. Example 4.22 is the case <span class="math inline">\(S^2 \cong SO(3)/SO(2)\)</span>.</p>
+</section>
+<section id="example-4.25-equivariant-maps-of-the-line" class="level3">
+<h3 class="anchored" data-anchor-id="example-4.25-equivariant-maps-of-the-line">Example 4.25 (Equivariant maps of the line)</h3>
+<p>Let <span class="math inline">\(\mathbb Z\)</span> act on <span class="math inline">\(\mathbb R\)</span> by <span class="math inline">\(n\cdot x := x + n\)</span>. The orbits are the classes <span class="math inline">\(x + \mathbb Z\)</span>, one through each point of <span class="math inline">\([0,1)\)</span>, so <span class="math inline">\(\mathbb R/\mathbb Z\)</span> is a circle. Give a map <span class="math inline">\(f : \mathbb R \to \mathbb R\)</span> this action on its domain and on its codomain. It is equivariant when <span class="math inline">\(f(x + n) = f(x) + n\)</span> for all <span class="math inline">\(n\)</span>, that is, when <span class="math inline">\(P(x) := f(x) - x\)</span> satisfies <span class="math inline">\(P(x+1) = P(x)\)</span>. So the equivariant maps are exactly <span class="math inline">\(f(x) = x + P(x)\)</span> with <span class="math inline">\(P\)</span> unchanged by <span class="math inline">\(x \mapsto x+1\)</span>, the simplest being <span class="math inline">\(f(x) = x + c\)</span>. Equivariance under all real translations leaves only these, since setting <span class="math inline">\(x = 0\)</span> in <span class="math inline">\(f(x+t) = f(x)+t\)</span> gives <span class="math inline">\(f(t) = f(0) + t\)</span> for every <span class="math inline">\(t\in\mathbb R\)</span>.</p>
+<blockquote class="blockquote">
+<p><strong>A wrong sentence in Moore.</strong> [Moore, p.&nbsp;45] says the analytic equivariant maps here are the translations. That is true for the action of <span class="math inline">\(\mathbb R\)</span>, and false for <span class="math inline">\(\mathbb Z\)</span>: the map <span class="math inline">\(x + \sin 2\pi x\)</span> is analytic and equivariant.</p>
+</blockquote>
+<p><strong>Quiz 4.3.</strong> <span class="math inline">\(D_4\)</span> acts on the four vertices of the square and on its four edges. Send each vertex to the edge joining it to the next vertex clockwise. Is this map equivariant? Is there an equivariant bijection from the vertices to the edges at all? Compare stabilizers.</p>
+<p>No, and none exists. A vertex stabilizer is a reflection in a diagonal, an edge stabilizer a reflection in an edge bisector, and the two kinds are not conjugate in <span class="math inline">\(D_4\)</span>.</p>
+<hr>
+</section>
+</section>
+<section id="conjugacy-centralizers-and-normalizers" class="level2">
+<h2 class="anchored" data-anchor-id="conjugacy-centralizers-and-normalizers">4.4 Conjugacy, centralizers, and normalizers</h2>
+<p>For the conjugation action of Example 4.4, <span class="math inline">\(g\cdot h = ghg^{-1}\)</span>, the orbits and stabilizers have their own names.</p>
+<section id="definition-4.26-conjugacy-class-共轭类-and-centralizer-中心化子" class="level3">
+<h3 class="anchored" data-anchor-id="definition-4.26-conjugacy-class-共轭类-and-centralizer-中心化子">Definition 4.26 (Conjugacy class 共轭类 and centralizer 中心化子)</h3>
+<p>Elements <span class="math inline">\(h\)</span> and <span class="math inline">\(ghg^{-1}\)</span> are conjugate 共轭. The orbit of <span class="math inline">\(h\)</span> under conjugation is its <strong>conjugacy class</strong></p>
+<p><span class="math display">\[\mathrm{Cl}(h) := \{\, ghg^{-1} : g\in G \,\},\]</span></p>
+<p>and its stabilizer is the <strong>centralizer</strong></p>
+<p><span class="math display">\[C_G(h) := \{\, g \in G : ghg^{-1} = h \,\} = \{\, g\in G : gh = hg \,\}.\]</span></p>
+<p>The classes partition <span class="math inline">\(G\)</span> and the centralizer is a subgroup, by Proposition 4.9, and by Theorem 4.20</p>
+<p><span class="math display">\[|\mathrm{Cl}(h)| = [G:C_G(h)], \tag{4.1}\]</span></p>
+<p>so for finite <span class="math inline">\(G\)</span> the size of every conjugacy class divides <span class="math inline">\(|G|\)</span>.</p>
+<p>The centre <span class="math inline">\(Z(G)\)</span> of Definition 2.15 reappears here. An element <span class="math inline">\(z\)</span> has <span class="math inline">\(\mathrm{Cl}(z) = \{z\}\)</span> exactly when every <span class="math inline">\(g\)</span> commutes with it, that is, when <span class="math inline">\(C_G(z) = G\)</span>, so</p>
+<p><span class="math display">\[Z(G) = \{\, h : |\mathrm{Cl}(h)| = 1 \,\} = \bigcap_{h\in G} C_G(h).\]</span></p>
+<p>For any <span class="math inline">\(h\)</span> the centralizer is the largest subgroup in which <span class="math inline">\(h\)</span> is central, <span class="math inline">\(h \in Z(C_G(h))\)</span>, since <span class="math inline">\(h \in Z(K)\)</span> forces <span class="math inline">\(K \subset C_G(h)\)</span>. For finite <span class="math inline">\(G\)</span>, (4.1) reads <span class="math inline">\(|\mathrm{Cl}(h)| = |G|/|C_G(h)|\)</span>, so the larger the centralizer the smaller the class.</p>
+<p>The same definition serves a subset <span class="math inline">\(H\subset G\)</span>: its centralizer <span class="math inline">\(C_G(H) := \{g : gh = hg \text{ for all } h\in H\}\)</span> is the intersection of the <span class="math inline">\(C_G(h)\)</span>, hence a subgroup, and <span class="math inline">\(C_G(G) = Z(G)\)</span>.</p>
+</section>
+<section id="example-4.27-classes-of-d_4" class="level3">
+<h3 class="anchored" data-anchor-id="example-4.27-classes-of-d_4">Example 4.27 (Classes of <span class="math inline">\(D_4\)</span>)</h3>
+<p>With <span class="math inline">\(D_4 = \langle A, B \mid A^4 = B^2 = 1,\ BAB = A^{-1}\rangle\)</span>, conjugating <span class="math inline">\(A\)</span> by <span class="math inline">\(B\)</span> gives <span class="math inline">\(BAB^{-1} = A^{-1} = A^3\)</span>, and conjugating by a rotation changes nothing, so <span class="math inline">\(\mathrm{Cl}(A) = \{A, A^3\}\)</span>. Conjugating <span class="math inline">\(B\)</span> by <span class="math inline">\(A\)</span> gives <span class="math inline">\(ABA^{-1} = A(BA^{-1}) = A(AB) = A^2B\)</span>, so <span class="math inline">\(\mathrm{Cl}(B) = \{B, A^2B\}\)</span>, and likewise <span class="math inline">\(\mathrm{Cl}(AB) = \{AB, A^3B\}\)</span>. Since <span class="math inline">\(A^2\)</span> commutes with <span class="math inline">\(A\)</span> and with <span class="math inline">\(B\)</span>, it is central. The five classes are</p>
+<p><span class="math display">\[\{e\}, \qquad \{A^2\}, \qquad \{A, A^3\}, \qquad \{B, A^2B\}, \qquad \{AB, A^3B\},\]</span></p>
+<p>of sizes <span class="math inline">\(1,1,2,2,2\)</span>, each dividing 8, and <span class="math inline">\(Z(D_4) = \{e, A^2\}\)</span>. The two reflection classes are the reflections in diagonals and the reflections in edge bisectors: conjugation cannot turn one kind into the other.</p>
+</section>
+<section id="example-4.28-classes-in-unitary-groups" class="level3">
+<h3 class="anchored" data-anchor-id="example-4.28-classes-in-unitary-groups">Example 4.28 (Classes in unitary groups)</h3>
+<p>The spectral theorem writes a unitary <span class="math inline">\(u\)</span> as</p>
+<p><span class="math display">\[u = QDQ^\dagger, \qquad D = \mathrm{diag}(z_1,\dots,z_n),\]</span></p>
+<p>where the columns of <span class="math inline">\(Q \in U(n)\)</span> are an orthonormal basis of eigenvectors and <span class="math inline">\(D\)</span> holds the corresponding eigenvalues. These have <span class="math inline">\(|z_i| = 1\)</span>, since <span class="math inline">\(u\)</span> leaves the length of every vector unchanged and an eigenvector <span class="math inline">\(\vec v\)</span> with <span class="math inline">\(u\vec v = z_i\vec v\)</span> has <span class="math inline">\(\|\vec v\| = |z_i|\,\|\vec v\|\)</span>.</p>
+<p>Let <span class="math inline">\(u, v\in U(n)\)</span> have the same eigenvalues with multiplicity, and order the eigenbasis of <span class="math inline">\(v\)</span> to match, <span class="math inline">\(v = PDP^\dagger\)</span> with the same <span class="math inline">\(D\)</span>. The unitary <span class="math inline">\(PQ^\dagger\)</span> carries the eigenbasis of <span class="math inline">\(u\)</span> to that of <span class="math inline">\(v\)</span>, and</p>
+<p><span class="math display">\[v = PDP^\dagger = (PQ^\dagger)\,QDQ^\dagger\,(PQ^\dagger)^{-1} = (PQ^\dagger)\,u\,(PQ^\dagger)^{-1},\]</span></p>
+<p>and conversely conjugation preserves eigenvalues and multiplicities. So two unitary matrices are conjugate in <span class="math inline">\(U(n)\)</span>, and equally in <span class="math inline">\(GL(n,\mathbb C)\)</span>, exactly when their eigenvalues agree with multiplicity, and a class is labelled by <span class="math inline">\(D\)</span> up to permutation of its diagonal entries.</p>
+<p>Every <span class="math inline">\(u \in SU(2)\)</span> has the axis–angle form of Remark 3.16,</p>
+<p><span class="math display">\[u(\hat n,\theta) = \cos\frac{\theta}{2}\,\mathbb 1 - \mathrm{i}\sin\frac{\theta}{2}\,\hat n\cdot\vec\sigma, \qquad \hat n \in S^2, \quad 0 \le \theta \le 2\pi,\]</span></p>
+<p>this being the general element <span class="math inline">\(\begin{pmatrix} z &amp; w \\ -w^* &amp; z^* \end{pmatrix}\)</span> of Example 2.20 written in the Pauli basis, with <span class="math inline">\(\cos\frac{\theta}{2} = \Re z\)</span>.</p>
+<p>Conjugation turns the axis and leaves the angle alone. Writing <span class="math inline">\(R\)</span> for the map of Definition 3.14, fixed by <span class="math inline">\(g(\vec x\cdot\vec\sigma)g^\dagger = (R(g)\vec x)\cdot\vec\sigma\)</span>,</p>
+<p><span class="math display">\[g\,u(\hat n,\theta)\,g^{-1} = \cos\frac{\theta}{2}\,\mathbb 1 - \mathrm{i}\sin\frac{\theta}{2}\,(R(g)\hat n)\cdot\vec\sigma = u(R(g)\hat n, \theta).\]</span></p>
+<p>As <span class="math inline">\(R\)</span> is onto <span class="math inline">\(SO(3)\)</span>, which carries <span class="math inline">\(\hat n\)</span> to every unit vector,</p>
+<p><span class="math display">\[\mathrm{Cl}\bigl(u(\hat n,\theta)\bigr) = \{\, u(\hat m,\theta) : \hat m \in S^2 \,\},\]</span></p>
+<p>so the class is fixed by <span class="math inline">\(\theta\)</span> alone, equivalently by <span class="math inline">\(\mathrm{Tr}\,u = 2\cos\frac{\theta}{2}\)</span>. At <span class="math inline">\(\theta = 0\)</span> and <span class="math inline">\(\theta = 2\pi\)</span> it is <span class="math inline">\(\{\mathbb 1\}\)</span> and <span class="math inline">\(\{-\mathbb 1\}\)</span>.</p>
+</section>
+<section id="definition-4.29-class-function-类函数" class="level3">
+<h3 class="anchored" data-anchor-id="definition-4.29-class-function-类函数">Definition 4.29 (Class function 类函数)</h3>
+<p>A function <span class="math inline">\(f : G\to\mathbb C\)</span> with <span class="math inline">\(f(ghg^{-1}) = f(h)\)</span> for all <span class="math inline">\(g,h\)</span> is a <strong>class function</strong>: a function on the set of conjugacy classes.</p>
+<p>On <span class="math inline">\(GL(n,\mathbb C)\)</span> the trace, the determinant, and every coefficient of the characteristic polynomial <span class="math inline">\(\det(x\mathbb 1 - A)\)</span> are class functions, since <span class="math inline">\(\det(x\mathbb 1 - PAP^{-1}) = \det\bigl(P(x\mathbb 1 - A)P^{-1}\bigr) = \det(x\mathbb 1 - A)\)</span>. On <span class="math inline">\(SU(2)\)</span> the trace alone labels the class.</p>
+<p>Subgroups can be conjugated as well as elements. If <span class="math inline">\(H\)</span> is a subgroup then <span class="math inline">\(gHg^{-1} = \{ghg^{-1} : h\in H\}\)</span> contains <span class="math inline">\(e\)</span> and satisfies</p>
+<p><span class="math display">\[(gh_1g^{-1})(gh_2g^{-1})^{-1} = g(h_1h_2^{-1})g^{-1} \in gHg^{-1},\]</span></p>
+<p>so it is a subgroup. The rule <span class="math inline">\(g\cdot H := gHg^{-1}\)</span> is an action, since <span class="math inline">\(eHe^{-1} = H\)</span> and <span class="math inline">\(g_1(g_2Hg_2^{-1})g_1^{-1} = (g_1g_2)H(g_1g_2)^{-1}\)</span>.</p>
+</section>
+<section id="definition-4.30-normalizer-正规化子" class="level3">
+<h3 class="anchored" data-anchor-id="definition-4.30-normalizer-正规化子">Definition 4.30 (Normalizer 正规化子)</h3>
+<p>The <strong>normalizer</strong> of a subgroup <span class="math inline">\(H\)</span> is its stabilizer under this action,</p>
+<p><span class="math display">\[N_G(H) := \{\, g \in G : gHg^{-1} = H \,\}.\]</span></p>
+<p>It is a subgroup by Proposition 4.9, and it contains <span class="math inline">\(H\)</span>, since <span class="math inline">\(hHh^{-1} = H\)</span> for <span class="math inline">\(h\in H\)</span>, as well as <span class="math inline">\(C_G(H)\)</span>. Any subgroup <span class="math inline">\(K\subset G\)</span> with <span class="math inline">\(kHk^{-1} = H\)</span> for all <span class="math inline">\(k\in K\)</span> lies in <span class="math inline">\(N_G(H)\)</span>, so <span class="math inline">\(N_G(H)\)</span> is the largest subgroup of <span class="math inline">\(G\)</span> in which conjugation carries <span class="math inline">\(H\)</span> onto itself, as <span class="math inline">\(C_G(h)\)</span> is the largest one in which <span class="math inline">\(h\)</span> is central. The number of subgroups conjugate to <span class="math inline">\(H\)</span> is <span class="math inline">\([G:N_G(H)]\)</span>, by Theorem 4.20 once more.</p>
+<p><strong>Quiz 4.4.</strong> Find the conjugacy classes and the centre of the quaternion group <span class="math inline">\(Q\)</span> of Example 2.25, and check (4.1) for each class.</p>
+<p>The classes are <span class="math inline">\(\{1\}\)</span>, <span class="math inline">\(\{-1\}\)</span>, <span class="math inline">\(\{\pm\mathrm i\}\)</span>, <span class="math inline">\(\{\pm\mathrm j\}\)</span>, <span class="math inline">\(\{\pm\mathrm k\}\)</span>, of sizes <span class="math inline">\(1,1,2,2,2\)</span>. For instance <span class="math inline">\(C_Q(\mathrm i) = \{\pm 1, \pm\mathrm i\}\)</span> has order 4, and <span class="math inline">\(|\mathrm{Cl}(\mathrm i)| = 8/4 = 2\)</span>. The centre is <span class="math inline">\(\{\pm 1\}\)</span>.</p>
+<p>Conjugation by a fixed <span class="math inline">\(a\)</span> is more than a permutation of <span class="math inline">\(G\)</span>: it respects the multiplication, <span class="math inline">\((axa^{-1})(aya^{-1}) = a(xy)a^{-1}\)</span>, so <span class="math inline">\(I_a : x\mapsto axa^{-1}\)</span> is an automorphism of <span class="math inline">\(G\)</span>, an inner automorphism 内自同构. Since <span class="math inline">\(I_aI_b = I_{ab}\)</span>, the map <span class="math inline">\(I : G \to \mathrm{Aut}(G)\)</span> is a homomorphism, and its kernel is <span class="math inline">\(Z(G)\)</span>. Its image is written <span class="math inline">\(\mathrm{Inn}(G)\)</span>.</p>
+<hr>
+</section>
+</section>
+<section id="the-class-equation" class="level2">
+<h2 class="anchored" data-anchor-id="the-class-equation">4.5 The class equation</h2>
+<section id="theorem-4.31-class-equation-类方程" class="level3">
+<h3 class="anchored" data-anchor-id="theorem-4.31-class-equation-类方程">Theorem 4.31 (Class equation 类方程)</h3>
+<p>Let <span class="math inline">\(G\)</span> be finite, and let <span class="math inline">\(g_1,\dots,g_r\)</span> be one element from each conjugacy class with more than one element. Then</p>
+<p><span class="math display">\[|G| = |Z(G)| + \sum_{i=1}^{r} [G:C_G(g_i)],\]</span></p>
+<p>where every term of the sum is greater than 1 and divides <span class="math inline">\(|G|\)</span>.</p>
+<p><em>Proof.</em> The classes partition <span class="math inline">\(G\)</span>. The singleton classes are exactly the elements of <span class="math inline">\(Z(G)\)</span>, contributing <span class="math inline">\(|Z(G)|\)</span>. Each remaining class contributes its size, which is <span class="math inline">\([G:C_G(g_i)]\)</span> by (4.1), greater than 1 by choice of <span class="math inline">\(g_i\)</span> and a divisor of <span class="math inline">\(|G|\)</span> by Theorem 4.18. <span class="math inline">\(\blacksquare\)</span></p>
+<p>For <span class="math inline">\(D_4\)</span> this reads <span class="math inline">\(8 = 2 + 2 + 2 + 2\)</span>. The equation is most useful when <span class="math inline">\(|G|\)</span> has few divisors.</p>
+<p>A finite group whose order is a power of a prime <span class="math inline">\(p\)</span> is a <span class="math inline">\(p\)</span>-group <span class="math inline">\(p\)</span>-群.</p>
+</section>
+<section id="proposition-4.32-centre-of-a-p-group" class="level3">
+<h3 class="anchored" data-anchor-id="proposition-4.32-centre-of-a-p-group">Proposition 4.32 (Centre of a <span class="math inline">\(p\)</span>-group)</h3>
+<p>A <span class="math inline">\(p\)</span>-group of order <span class="math inline">\(p^n\)</span> with <span class="math inline">\(n \ge 1\)</span> has a nontrivial centre.</p>
+<p><em>Proof.</em> Each term <span class="math inline">\([G:C_G(g_i)]\)</span> divides <span class="math inline">\(p^n\)</span> and exceeds 1, so it is a positive power of <span class="math inline">\(p\)</span>. Then <span class="math inline">\(|Z(G)| = |G| - \sum_i [G:C_G(g_i)]\)</span> is a multiple of <span class="math inline">\(p\)</span>, and it is at least 1 because <span class="math inline">\(e\in Z(G)\)</span>. So <span class="math inline">\(|Z(G)| \ge p\)</span>. <span class="math inline">\(\blacksquare\)</span></p>
+<p>Lagrange gives a necessary condition on the order of a subgroup and not a sufficient one. The twelve rotations of a regular tetrahedron have no subgroup of order 6, and no smaller group fails this way. For a prime divisor a subgroup of that order does always exist, by another orbit count.</p>
+</section>
+<section id="theorem-4.33-cauchy-柯西定理" class="level3">
+<h3 class="anchored" data-anchor-id="theorem-4.33-cauchy-柯西定理">Theorem 4.33 (Cauchy 柯西定理)</h3>
+<p>Let <span class="math inline">\(G\)</span> be finite. If a prime <span class="math inline">\(p\)</span> divides <span class="math inline">\(|G|\)</span> then <span class="math inline">\(G\)</span> has an element of order <span class="math inline">\(p\)</span>.</p>
+<p><em>Proof.</em> Let <span class="math inline">\(X = \{(g_1,\dots,g_p) \in G^p : g_1g_2\cdots g_p = e\}\)</span>. Choosing <span class="math inline">\(g_1,\dots,g_{p-1}\)</span> freely determines <span class="math inline">\(g_p\)</span>, so <span class="math inline">\(|X| = |G|^{p-1}\)</span>, a multiple of <span class="math inline">\(p\)</span>.</p>
+<p>The cyclic group <span class="math inline">\(\mathbb Z_p\)</span> acts on <span class="math inline">\(X\)</span> by rotating the entries, <span class="math inline">\((g_1,\dots,g_p)\mapsto(g_p, g_1,\dots,g_{p-1})\)</span>; the product is still <span class="math inline">\(e\)</span>, since <span class="math inline">\(g_p(g_1\cdots g_{p-1}) = g_pg_p^{-1}\)</span>. By Theorem 4.20 every orbit has 1 or <span class="math inline">\(p\)</span> elements, as <span class="math inline">\(|\mathbb Z_p| = p\)</span> is prime. A one-element orbit is a tuple fixed by rotation, that is, <span class="math inline">\((g,g,\dots,g)\)</span> with <span class="math inline">\(g^p = e\)</span>. Writing <span class="math inline">\(N_1\)</span> for the number of these and <span class="math inline">\(N_p\)</span> for the number of <span class="math inline">\(p\)</span>-element orbits,</p>
+<p><span class="math display">\[|G|^{p-1} = N_1 + pN_p,\]</span></p>
+<p>so <span class="math inline">\(p\)</span> divides <span class="math inline">\(N_1\)</span>. Since <span class="math inline">\((e,\dots,e)\)</span> is one fixed tuple, <span class="math inline">\(N_1 \ge 1\)</span>, hence <span class="math inline">\(N_1 \ge p\)</span>, and some <span class="math inline">\(g\neq e\)</span> has <span class="math inline">\(g^p = e\)</span>. Its order divides <span class="math inline">\(p\)</span> and is not 1, so it is <span class="math inline">\(p\)</span>. <span class="math inline">\(\blacksquare\)</span></p>
+<hr>
+</section>
+</section>
+<section id="finite-rotation-groups" class="level2">
+<h2 class="anchored" data-anchor-id="finite-rotation-groups">4.6 Finite rotation groups</h2>
+<p>A finite subgroup of <span class="math inline">\(SO(3)\)</span> acts on the set of unit vectors fixed by its nonidentity rotations. Counting that set with orbit–stabilizer leaves a few possibilities, and identifying which solids realise them gives the classification.</p>
+<section id="lemma-4.34" class="level3">
+<h3 class="anchored" data-anchor-id="lemma-4.34">Lemma 4.34</h3>
+<p>A rotation <span class="math inline">\(A \in SO(3)\)</span> with <span class="math inline">\(A \neq \mathbb 1\)</span> fixes exactly two unit vectors, <span class="math inline">\(\pm\hat n\)</span> for its axis <span class="math inline">\(\hat n\)</span>. A finite subgroup of <span class="math inline">\(SO(3)\)</span> all of whose elements fix a given unit vector is cyclic.</p>
+<p><em>Proof.</em> For an eigenvector <span class="math inline">\(\vec v \in \mathbb C^3\)</span> with <span class="math inline">\(A\vec v = \lambda\vec v\)</span>, orthogonality gives <span class="math inline">\(A^\dagger A = \mathbb 1\)</span> and</p>
+<p><span class="math display">\[\|\vec v\|^2 = \|A\vec v\|^2 = |\lambda|^2\|\vec v\|^2,\]</span></p>
+<p>so <span class="math inline">\(|\lambda| = 1\)</span>. The characteristic polynomial has real coefficients. If a non-real conjugate pair occurs, its product is 1 and the third eigenvalue is <span class="math inline">\(\det A = 1\)</span>. Otherwise all three eigenvalues are <span class="math inline">\(\pm 1\)</span> with product 1, so at least one is <span class="math inline">\(+1\)</span>.</p>
+<p>Choose a real unit eigenvector <span class="math inline">\(\hat n\)</span> with <span class="math inline">\(A\hat n = \hat n\)</span>. Since <span class="math inline">\(A^{-1}\hat n = \hat n\)</span>, we have <span class="math inline">\(\hat n\cdot A\vec v = \hat n\cdot\vec v\)</span>, so the plane <span class="math inline">\(\hat n^\perp\)</span> is invariant, and <span class="math inline">\(A\)</span> restricted to it is orthogonal with determinant 1. For <span class="math inline">\(A \neq \mathbb 1\)</span> it is a nonidentity rotation of that plane, whose only fixed vector is <span class="math inline">\(\vec 0\)</span>. So the fixed vectors of <span class="math inline">\(A\)</span> are the line <span class="math inline">\(\mathbb R\hat n\)</span> and its fixed unit vectors are <span class="math inline">\(\pm\hat n\)</span>.</p>
+<p>Let <span class="math inline">\(H\)</span> be a finite subgroup fixing a unit vector <span class="math inline">\(\hat n\)</span>. Restriction to <span class="math inline">\(\hat n^\perp\)</span> identifies <span class="math inline">\(H\)</span> with a finite subgroup <span class="math inline">\(K\)</span> of <span class="math inline">\(SO(2)\cong U(1)\)</span> (Example 3.13). Put <span class="math inline">\(m = |K|\)</span>. Every <span class="math inline">\(z\in K\)</span> satisfies <span class="math inline">\(z^m = 1\)</span> by Proposition 4.19, so <span class="math inline">\(K \subset \mu_m\)</span> of Example 2.8. Both have <span class="math inline">\(m\)</span> elements, so <span class="math inline">\(K = \mu_m\)</span> and <span class="math inline">\(H\)</span> is cyclic. <span class="math inline">\(\blacksquare\)</span></p>
+<p>The two fixed unit vectors of a nonidentity rotation <span class="math inline">\(A\)</span>, the set <span class="math inline">\(\mathrm{Fix}_{S^2}(A)\)</span>, are its poles 极点.</p>
+</section>
+<section id="theorem-4.35-finite-subgroups-of-so3" class="level3">
+<h3 class="anchored" data-anchor-id="theorem-4.35-finite-subgroups-of-so3">Theorem 4.35 (Finite subgroups of <span class="math inline">\(SO(3)\)</span>)</h3>
+<p>Up to conjugacy in <span class="math inline">\(SO(3)\)</span>, a finite subgroup of <span class="math inline">\(SO(3)\)</span> is one of: a cyclic group <span class="math inline">\(C_n\)</span> of rotations about one axis, <span class="math inline">\(n \ge 1\)</span>; a dihedral group <span class="math inline">\(D_n\)</span> of order <span class="math inline">\(2n\)</span>, <span class="math inline">\(n \ge 2\)</span>; or one of three groups of orders 12, 24, 60, the rotation groups of the regular tetrahedron, of the octahedron (equally of the cube), and of the icosahedron (equally of the dodecahedron).</p>
+<p><em>Proof.</em> The trivial group is <span class="math inline">\(C_1\)</span>. Let <span class="math inline">\(G\subset SO(3)\)</span> be finite with <span class="math inline">\(|G| = N &gt; 1\)</span>, and let <span class="math inline">\(P\)</span> be the set of poles of its nonidentity elements.</p>
+<p><span class="math inline">\(G\)</span> acts on <span class="math inline">\(P\)</span>: if <span class="math inline">\(A\)</span> fixes <span class="math inline">\(p\)</span> then <span class="math inline">\(BAB^{-1}\)</span> fixes <span class="math inline">\(Bp\)</span>. Count the pairs <span class="math inline">\((A,p)\)</span> with <span class="math inline">\(A \neq \mathbb 1\)</span> and <span class="math inline">\(p\)</span> a pole of <span class="math inline">\(A\)</span> in two ways. Each of the <span class="math inline">\(N-1\)</span> nonidentity rotations has two poles, giving <span class="math inline">\(2(N-1)\)</span>. On the other side, a pole <span class="math inline">\(p\)</span> with stabilizer of order <span class="math inline">\(n_p\)</span> is fixed by the <span class="math inline">\(n_p - 1\)</span> nonidentity elements of <span class="math inline">\(G_p\)</span>, and by Theorem 4.20 its orbit has <span class="math inline">\(N/n_p\)</span> poles, all with stabilizer order <span class="math inline">\(n_p\)</span>. Summing over the orbits <span class="math inline">\(P_1,\dots,P_k\)</span> with stabilizer orders <span class="math inline">\(n_1,\dots,n_k\)</span>,</p>
+<p><span class="math display">\[2(N-1) = \sum_{i=1}^{k} \frac{N}{n_i}(n_i - 1), \qquad\text{that is}\qquad 2 - \frac{2}{N} = \sum_{i=1}^{k}\Bigl(1 - \frac{1}{n_i}\Bigr). \tag{4.2}\]</span></p>
+<p>Each <span class="math inline">\(n_i \ge 2\)</span>, so each term on the right is at least <span class="math inline">\(\tfrac12\)</span>, while the left side is less than 2: hence <span class="math inline">\(k \le 3\)</span>. And <span class="math inline">\(k = 1\)</span> is impossible, since <span class="math inline">\(1 - 1/n_1 &lt; 1 \le 2 - 2/N\)</span>.</p>
+<p><strong>Two orbits.</strong> <span class="math inline">\(2/N = 1/n_1 + 1/n_2\)</span> with <span class="math inline">\(n_i \le N\)</span> forces <span class="math inline">\(n_1 = n_2 = N\)</span>: every element of <span class="math inline">\(G\)</span> fixes both poles of one axis, and <span class="math inline">\(G\)</span> is cyclic by Lemma 4.34.</p>
+<p><strong>Three orbits.</strong> <span class="math inline">\(1 + 2/N = 1/n_1 + 1/n_2 + 1/n_3\)</span> with <span class="math inline">\(n_1 \le n_2 \le n_3\)</span>. Not all can be 3 or more, so <span class="math inline">\(n_1 = 2\)</span>, and then <span class="math inline">\(1/n_2 + 1/n_3 = 1/2 + 2/N &gt; 1/2\)</span> leaves</p>
+<p><span class="math display">\[(2,2,n),\ N = 2n; \qquad (2,3,3),\ N = 12; \qquad (2,3,4),\ N = 24; \qquad (2,3,5),\ N = 60.\]</span></p>
+<p><strong>Dihedral.</strong> In the case <span class="math inline">\((2,2,n)\)</span> the orbit with stabilizer order <span class="math inline">\(n\)</span> has two poles <span class="math inline">\(p, q\)</span>. A nonidentity element of <span class="math inline">\(G_p\)</span> fixes <span class="math inline">\(q\)</span> as well, so <span class="math inline">\(q = -p\)</span>. Write <span class="math inline">\(G_p = \langle a\rangle\)</span>, of order <span class="math inline">\(n\)</span>. Any <span class="math inline">\(b \in G\)</span> carrying <span class="math inline">\(p\)</span> to <span class="math inline">\(-p\)</span> is a half-turn about an axis perpendicular to <span class="math inline">\(p\)</span>, the two cosets of <span class="math inline">\(G_p\)</span> are <span class="math inline">\(G_p\)</span> and <span class="math inline">\(bG_p\)</span>, and <span class="math inline">\(bab^{-1} = a^{-1}\)</span>. So <span class="math inline">\(G\)</span> is the <span class="math inline">\(D_n\)</span> of Example 2.24, its planar reflections realised as spatial half-turns.</p>
+<p><strong>Polyhedral.</strong> In the case <span class="math inline">\((2,3,3)\)</span> take a four-point orbit <span class="math inline">\(V\)</span> with stabilizer order 3. The <span class="math inline">\(C_3\)</span> fixing <span class="math inline">\(p \in V\)</span> acts on the other three points with orbits of size 1 or 3. They cannot all be fixed, since a nonidentity rotation fixes only two unit vectors, so they form one three-point orbit, and <span class="math inline">\(p\)</span> has the same inner product with each. Transitivity of <span class="math inline">\(G\)</span> on <span class="math inline">\(V\)</span> then makes all six inner products equal, and <span class="math inline">\(V\)</span> is a regular tetrahedron.</p>
+<p>In the case <span class="math inline">\((2,3,4)\)</span> the six-point orbit <span class="math inline">\(V\)</span> with stabilizer order 4 is the only pole orbit of its size, so it contains <span class="math inline">\(-p\)</span> along with <span class="math inline">\(p\)</span>. The <span class="math inline">\(C_4\)</span> fixing <span class="math inline">\(p\)</span> cycles the four points other than <span class="math inline">\(\pm p\)</span>, which therefore form a square in a plane perpendicular to <span class="math inline">\(p\)</span>, and closure under <span class="math inline">\(p\mapsto -p\)</span> puts that plane through the origin: <span class="math inline">\(V\)</span> is a regular octahedron.</p>
+<p>In the case <span class="math inline">\((2,3,5)\)</span>, in sketch, the unique twelve-point pole orbit <span class="math inline">\(V\)</span> is likewise closed under <span class="math inline">\(p\mapsto -p\)</span>, and the <span class="math inline">\(C_5\)</span> fixing <span class="math inline">\(p\)</span> splits the other ten points into two antipodal regular pentagons at heights <span class="math inline">\(\pm a\)</span>, <span class="math inline">\(0 \le a &lt; 1\)</span>. By transitivity every vertex has inner products <span class="math inline">\(-1\)</span>, <span class="math inline">\(a\)</span> five times, and <span class="math inline">\(-a\)</span> five times with the others. Two consecutive vertices of one pentagon have inner product <span class="math inline">\(d = a^2 + (1-a^2)\cos(2\pi/5)\)</span>, and <span class="math inline">\(0 &lt; d &lt; 1\)</span> forces <span class="math inline">\(d = a\)</span>, whose admissible root is <span class="math inline">\(a = 1/\sqrt 5\)</span>: <span class="math inline">\(V\)</span> is a regular icosahedron.</p>
+<p>Finally <span class="math inline">\(G\)</span> is the full rotation group of the solid in each case. A rotation preserving the solid is determined by the images of one vertex and one neighbouring vertex, since their position vectors are independent and orientation then fixes the image of their cross product. So that group has at most <span class="math inline">\(4\cdot 3\)</span>, <span class="math inline">\(6\cdot 4\)</span>, or <span class="math inline">\(12\cdot 5\)</span> elements; these are <span class="math inline">\(12, 24, 60\)</span>, which equal <span class="math inline">\(N\)</span>. <span class="math inline">\(\blacksquare\)</span></p>
+<p><strong>Quiz 4.5.</strong> Check the pole count for <span class="math inline">\(D_n\)</span>: list the orbits of poles and their stabilizer orders, and verify</p>
+<p><span class="math display">\[2 - \frac{2}{2n} = \Bigl(1 - \frac12\Bigr) + \Bigl(1 - \frac12\Bigr) + \Bigl(1 - \frac{1}{n}\Bigr).\]</span></p>
+<p>The poles are the two ends of the <span class="math inline">\(n\)</span>-fold axis, an orbit of two with stabilizer order <span class="math inline">\(n\)</span>, and the <span class="math inline">\(2n\)</span> ends of the <span class="math inline">\(n\)</span> half-turn axes, which fall into two orbits of <span class="math inline">\(n\)</span> apiece each with stabilizer order <span class="math inline">\(2\)</span>.</p>
+<p>Imposing in addition the preservation of a lattice leaves only <span class="math inline">\(n \in \{1,2,3,4,6\}\)</span>, excludes the icosahedral group, and, with the improper operations adjoined, gives the 32 crystallographic point groups.</p>
+<hr>
+</section>
+</section>
+<section id="induced-action-on-function-spaces" class="level2">
+<h2 class="anchored" data-anchor-id="induced-action-on-function-spaces">4.7 Induced action on function spaces</h2>
+<p>An action on a set induces an action on the functions defined on that set.</p>
+<section id="definition-4.36-induced-action-诱导作用" class="level3">
+<h3 class="anchored" data-anchor-id="definition-4.36-induced-action-诱导作用">Definition 4.36 (Induced action 诱导作用)</h3>
+<p>Let <span class="math inline">\(X\)</span> be a <span class="math inline">\(G\)</span>-set and <span class="math inline">\(Y\)</span> a nonempty set, and let <span class="math inline">\(F[X\to Y]\)</span> be the set of maps <span class="math inline">\(f : X\to Y\)</span>. For <span class="math inline">\(g\in G\)</span> and <span class="math inline">\(f \in F[X\to Y]\)</span> define <span class="math inline">\(g\cdot f \in F[X\to Y]\)</span> by</p>
+<p><span class="math display">\[(g\cdot f)(x) := f(g^{-1}\cdot x).\]</span></p>
+</section>
+<section id="proposition-4.37" class="level3">
+<h3 class="anchored" data-anchor-id="proposition-4.37">Proposition 4.37</h3>
+<p>This is an action of <span class="math inline">\(G\)</span> on <span class="math inline">\(F[X\to Y]\)</span>. If <span class="math inline">\(Y\)</span> is a vector space, each <span class="math inline">\(g\)</span> acts linearly. If moreover <span class="math inline">\(X\)</span> is finite and <span class="math inline">\(Y = \mathbb C\)</span>, then <span class="math inline">\(F[X\to\mathbb C]\)</span> is a vector space of dimension <span class="math inline">\(|X|\)</span> with basis the delta functions <span class="math inline">\(\delta_x\)</span>, where <span class="math inline">\(\delta_x(y) = 1\)</span> if <span class="math inline">\(y = x\)</span> and <span class="math inline">\(0\)</span> otherwise, the action is a homomorphism <span class="math inline">\(G \to GL(F[X\to\mathbb C])\)</span>, and</p>
+<p><span class="math display">\[g\cdot\delta_x = \delta_{g\cdot x}.\]</span></p>
+<p><em>Proof.</em> <span class="math inline">\((e\cdot f)(x) = f(x)\)</span>, and for two elements</p>
+<p><span class="math display">\[\bigl(g_1\cdot(g_2\cdot f)\bigr)(x) = (g_2\cdot f)(g_1^{-1}\cdot x) = f\bigl(g_2^{-1}\cdot(g_1^{-1}\cdot x)\bigr) = f\bigl((g_1g_2)^{-1}\cdot x\bigr) = \bigl((g_1g_2)\cdot f\bigr)(x),\]</span></p>
+<p>using <span class="math inline">\(g_2^{-1}g_1^{-1} = (g_1g_2)^{-1}\)</span>. When <span class="math inline">\(Y\)</span> is a vector space, <span class="math inline">\(g\cdot(af_1 + bf_2) = a(g\cdot f_1) + b(g\cdot f_2)\)</span> holds pointwise. For finite <span class="math inline">\(X\)</span> and <span class="math inline">\(Y = \mathbb C\)</span>, every <span class="math inline">\(f\)</span> is <span class="math inline">\(\sum_x f(x)\delta_x\)</span> uniquely, so the <span class="math inline">\(\delta_x\)</span> are a basis; each <span class="math inline">\(g\)</span> is then an invertible linear map, with inverse <span class="math inline">\(g^{-1}\)</span>, hence an element of <span class="math inline">\(GL(F[X\to\mathbb C])\)</span> as in §3.5; and <span class="math inline">\((g\cdot\delta_x)(y) = \delta_x(g^{-1}\cdot y)\)</span> is 1 exactly when <span class="math inline">\(y = g\cdot x\)</span>. <span class="math inline">\(\blacksquare\)</span></p>
+<p>The inverse in the definition is what makes the order come out right: with <span class="math inline">\(f(g\cdot x)\)</span> instead, the same computation produces <span class="math inline">\((g_2g_1)\cdot f\)</span>.</p>
+<p>For finite <span class="math inline">\(X\)</span> and <span class="math inline">\(Y = \mathbb C\)</span>, the matrix of <span class="math inline">\(g\)</span> in the delta-function basis is the permutation matrix of its action on <span class="math inline">\(X\)</span>. A function on the four vertices of the square is the ordered list <span class="math inline">\(\bigl(f(\vec v_1), f(\vec v_2), f(\vec v_3), f(\vec v_4)\bigr)\)</span>, so the induced action of <span class="math inline">\(D_4\)</span> on <span class="math inline">\(\mathbb C^4\)</span> is by <span class="math inline">\(4\times 4\)</span> permutation matrices.</p>
+</section>
+<section id="example-4.38-translating-a-function" class="level3">
+<h3 class="anchored" data-anchor-id="example-4.38-translating-a-function">Example 4.38 (Translating a function)</h3>
+<p>Take <span class="math inline">\(X = \mathbb R\)</span> with the translation action <span class="math inline">\(a\cdot x = x + a\)</span> and <span class="math inline">\(Y = \mathbb C\)</span>. Then</p>
+<p><span class="math display">\[(T_a\psi)(x) = \psi(x - a).\]</span></p>
+<p>Translating by <span class="math inline">\(a\)</span> moves the graph of <span class="math inline">\(\psi\)</span> to the right by <span class="math inline">\(a\)</span>: the new function at <span class="math inline">\(x\)</span> has the value the old one had at <span class="math inline">\(x - a\)</span>.</p>
+<p><strong>Quiz 4.6.</strong> In the ordered basis <span class="math inline">\((\delta_{\vec v_1}, \delta_{\vec v_2}, \delta_{\vec v_3}, \delta_{\vec v_4})\)</span>, write the <span class="math inline">\(4\times 4\)</span> matrices of <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> from Example 4.7 and verify <span class="math inline">\(BAB = A^{-1}\)</span>.</p>
+<p>Both matrices are permutation matrices, with column <span class="math inline">\(j\)</span> holding the image of <span class="math inline">\(\delta_{\vec v_j}\)</span> under the vertex permutation. Determinants are the signs of those permutations, so the check can be read off from §5.3 as well.</p>
+<hr>
+</section>
+</section>
+<section id="key-points" class="level2">
+<h2 class="anchored" data-anchor-id="key-points">Key points</h2>
+<ul>
+<li>An action of <span class="math inline">\(G\)</span> on <span class="math inline">\(X\)</span> is a homomorphism <span class="math inline">\(G\to S_X\)</span>; orbits partition <span class="math inline">\(X\)</span> and stabilizers are subgroups.</li>
+<li>Cosets are the orbits of <span class="math inline">\(H\)</span> acting by <span class="math inline">\(h\cdot g = gh^{-1}\)</span>, each in bijection with <span class="math inline">\(H\)</span>. For finite <span class="math inline">\(G\)</span> their partition gives Lagrange’s theorem, <span class="math inline">\(|G| = [G:H]|H|\)</span>.</li>
+<li>Orbit–stabilizer identifies <span class="math inline">\(G\cdot x \cong G/G_x\)</span>, so <span class="math inline">\(|G\cdot x| = [G:G_x]\)</span>; every transitive <span class="math inline">\(G\)</span>-set is a coset space <span class="math inline">\(G/H\)</span>.</li>
+<li>Conjugacy classes are the orbits of <span class="math inline">\(G\)</span> on itself by conjugation, of size <span class="math inline">\([G:C_G(h)]\)</span>. The class equation gives a nontrivial centre to every nontrivial <span class="math inline">\(p\)</span>-group; cyclic shifts of tuples prove Cauchy’s theorem.</li>
+<li>The finite subgroups of <span class="math inline">\(SO(3)\)</span> are <span class="math inline">\(C_n\)</span>, <span class="math inline">\(D_n\)</span>, and the three polyhedral groups, by counting poles and then identifying the solids.</li>
+<li>An action on <span class="math inline">\(X\)</span> induces an action on functions on <span class="math inline">\(X\)</span> by <span class="math inline">\((g\cdot f)(x) = f(g^{-1}x)\)</span>, linear when the values lie in a vector space; the inverse makes it a left action.</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "已复制");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "已复制");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/wenjium88-png\.github\.io\/my-blog\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+      window.quartoDecorateExternalLinks = function (root) {
+     var links = (root || window.document).querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+          if (!link.classList.contains('no-external-icon')) {
+          }
+        }
+      }
+      };
+      window.quartoDecorateExternalLinks(window.document);
+    // Esc closes the popup (WCAG 1.4.13) and focus leaving both trigger and
+    // popup closes it (WCAG 2.4.11); tippy handles neither for interactive popups.
+    const hideOnEscAndFocusOut = {
+      name: 'hideOnEscAndFocusOut',
+      defaultValue: true,
+      fn(instance) {
+        const dismiss = () => {
+          // A show scheduled by the trigger delay would otherwise reopen it
+          instance.clearDelayTimeouts();
+          instance.hide();
+        };
+        const onKeyDown = (event) => {
+          if (event.key !== 'Escape') {
+            return;
+          }
+          // Keep Esc from also reaching page handlers (e.g. reveal.js overview),
+          // except an open reveal.js slide menu, which Esc should close too.
+          // The menu handles keys only when its keyboard option is on.
+          const menuHandlesEsc = window.Reveal?.getPlugin?.('menu')?.isOpen() &&
+            window.Reveal.getConfig().menu?.keyboard !== false;
+          if (!menuHandlesEsc) {
+            event.stopPropagation();
+          }
+          if (instance.popper.contains(window.document.activeElement)) {
+            // Disabled while refocusing so the focus trigger does not reopen it
+            instance.disable();
+            instance.reference.focus();
+            instance.enable();
+          }
+          dismiss();
+        };
+        const onFocusOut = (event) => {
+          const target = event.relatedTarget;
+          if (target && !instance.reference.contains(target) &&
+              !instance.popper.contains(target)) {
+            dismiss();
+          }
+        };
+        // On the trigger too: a click trigger (code-annotations: select) has no
+        // blur handling. Attached for the instance's lifetime so leaving the
+        // trigger also cancels a show still pending on the trigger delay.
+        instance.reference.addEventListener('focusout', onFocusOut);
+        return {
+          onShow() {
+            window.document.addEventListener('keydown', onKeyDown, true);
+            instance.popper.addEventListener('focusout', onFocusOut);
+          },
+          onHide() {
+            window.document.removeEventListener('keydown', onKeyDown, true);
+            instance.popper.removeEventListener('focusout', onFocusOut);
+          },
+          onDestroy() {
+            instance.reference.removeEventListener('focusout', onFocusOut);
+          },
+        };
+      },
+    };
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+        plugins: [hideOnEscAndFocusOut],
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          // Each band is positioned against its own containing block, which is
+          // not the offsetParent of the lines, so place it from client rects.
+          const placeBand = (band, firstEl, lastEl, codeBlock) => {
+            const container = band.offsetParent;
+            if (container === null) {
+              return;
+            }
+            const containerRect = container.getBoundingClientRect();
+            // Reveal.js scales slides with a transform, so convert client
+            // pixels back to the CSS pixels of the container.
+            const scale = containerRect.height / container.offsetHeight || 1;
+            const firstRect = firstEl.getBoundingClientRect();
+            const lastRect = lastEl.getBoundingClientRect();
+            const top = (firstRect.top - containerRect.top) / scale - container.clientTop + container.scrollTop;
+            const height = (lastRect.bottom - firstRect.top) / scale;
+            band.style.top = top - 2 + "px";
+            band.style.height = height + 4 + "px";
+            if (codeBlock) {
+              // Without the copy button wrapper, the containing block is wider
+              // than the code block, so span the code block explicitly.
+              const blockRect = codeBlock.getBoundingClientRect();
+              band.style.left = (blockRect.left - containerRect.left) / scale - container.clientLeft + container.scrollLeft + "px";
+              band.style.width = blockRect.width / scale + "px";
+            }
+          };
+          if (lineIds.length > 0) {
+            const el = window.document.getElementById(lineIds[0]);
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const parent = el.parentElement.parentElement;
+            // cook up a div (if necessary) and position it
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            placeBand(div, el, lastEl, parent.closest("div.sourceCode") || parent);
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            placeBand(gutterDiv, el, lastEl);
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+  <script type="application/javascript">
+  window.quartoScrollableRegionsLabels = {"code":"可滚动的代码","output":"可滚动的输出"};
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026 Wenjium</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Built with Quarto</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

@@ -1,47 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://wenjium88-png.github.io/my-blog/projects/vicsek-model/index.html</loc>
-    <lastmod>2026-10-15T16:13:00.277Z</lastmod>
-  </url>
-  <url>
-    <loc>https://wenjium88-png.github.io/my-blog/projects/index.html</loc>
-    <lastmod>2026-10-15T16:13:00.271Z</lastmod>
-  </url>
-  <url>
-    <loc>https://wenjium88-png.github.io/my-blog/physics-notes/group-theory/ch02-groups-basic-definitions.html</loc>
-    <lastmod>2026-10-15T16:13:00.271Z</lastmod>
-  </url>
-  <url>
-    <loc>https://wenjium88-png.github.io/my-blog/physics-notes/thermodynamics/index.html</loc>
-    <lastmod>2026-10-15T16:13:00.271Z</lastmod>
-  </url>
-  <url>
-    <loc>https://wenjium88-png.github.io/my-blog/physics-notes/index.html</loc>
-    <lastmod>2026-10-15T16:13:00.271Z</lastmod>
-  </url>
-  <url>
-    <loc>https://wenjium88-png.github.io/my-blog/index.html</loc>
-    <lastmod>2026-10-15T16:13:00.270Z</lastmod>
+    <loc>https://wenjium88-png.github.io/my-blog/about.html</loc>
+    <lastmod>2026-11-10T05:09:37.545Z</lastmod>
   </url>
   <url>
     <loc>https://wenjium88-png.github.io/my-blog/thoughts/index.html</loc>
-    <lastmod>2026-10-15T16:13:00.277Z</lastmod>
+    <lastmod>2026-11-10T05:09:37.552Z</lastmod>
   </url>
   <url>
     <loc>https://wenjium88-png.github.io/my-blog/physics-notes/thermodynamics/ch01-basic-laws.html</loc>
-    <lastmod>2026-10-15T16:13:00.271Z</lastmod>
+    <lastmod>2026-11-10T05:09:37.545Z</lastmod>
   </url>
   <url>
     <loc>https://wenjium88-png.github.io/my-blog/physics-notes/group-theory/index.html</loc>
-    <lastmod>2026-10-15T16:13:00.271Z</lastmod>
+    <lastmod>2026-11-10T05:09:37.545Z</lastmod>
   </url>
   <url>
-    <loc>https://wenjium88-png.github.io/my-blog/about.html</loc>
-    <lastmod>2026-10-15T16:13:00.270Z</lastmod>
+    <loc>https://wenjium88-png.github.io/my-blog/physics-notes/group-theory/ch04-group-actions.html</loc>
+    <lastmod>2026-11-10T05:09:37.545Z</lastmod>
+  </url>
+  <url>
+    <loc>https://wenjium88-png.github.io/my-blog/physics-notes/group-theory/ch05-the-symmetric-group.html</loc>
+    <lastmod>2026-11-10T05:09:37.545Z</lastmod>
+  </url>
+  <url>
+    <loc>https://wenjium88-png.github.io/my-blog/projects/index.html</loc>
+    <lastmod>2026-11-10T05:09:37.546Z</lastmod>
   </url>
   <url>
     <loc>https://wenjium88-png.github.io/my-blog/projects/quantum-ai/index.html</loc>
-    <lastmod>2026-10-15T16:13:00.271Z</lastmod>
+    <lastmod>2026-11-10T05:09:37.546Z</lastmod>
+  </url>
+  <url>
+    <loc>https://wenjium88-png.github.io/my-blog/projects/vicsek-model/index.html</loc>
+    <lastmod>2026-11-10T05:09:37.551Z</lastmod>
+  </url>
+  <url>
+    <loc>https://wenjium88-png.github.io/my-blog/physics-notes/group-theory/ch02-groups-basic-definitions.html</loc>
+    <lastmod>2026-11-10T05:09:37.545Z</lastmod>
+  </url>
+  <url>
+    <loc>https://wenjium88-png.github.io/my-blog/physics-notes/group-theory/ch03-homomorphism-and-isomorphism.html</loc>
+    <lastmod>2026-11-10T05:09:37.545Z</lastmod>
+  </url>
+  <url>
+    <loc>https://wenjium88-png.github.io/my-blog/physics-notes/index.html</loc>
+    <lastmod>2026-11-10T05:09:37.545Z</lastmod>
+  </url>
+  <url>
+    <loc>https://wenjium88-png.github.io/my-blog/physics-notes/thermodynamics/index.html</loc>
+    <lastmod>2026-11-10T05:09:37.546Z</lastmod>
+  </url>
+  <url>
+    <loc>https://wenjium88-png.github.io/my-blog/index.html</loc>
+    <lastmod>2026-11-10T05:09:37.545Z</lastmod>
   </url>
 </urlset>

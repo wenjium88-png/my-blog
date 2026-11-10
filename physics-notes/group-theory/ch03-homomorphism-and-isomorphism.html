@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-Hans" xml:lang="zh-Hans"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.9">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Homomorphism and Isomorphism – Wenjium</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/scrollable-regions/scrollable-regions.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-8d3ad9c781c51ccd60b292c95058b2c2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "没有结果",
+    "search-matching-documents-text": "匹配的文档",
+    "search-copy-link-title": "复制搜索链接",
+    "search-hide-matches-text": "隐藏其它匹配结果",
+    "search-more-match-text": "更多匹配结果",
+    "search-more-matches-text": "更多匹配结果",
+    "search-clear-button-title": "清除",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "提交",
+    "search-label": "搜索"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-document-content">跳至主要内容</a>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark" aria-label="网站">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Wenjium</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="展开或折叠导航栏" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../projects/index.html"> 
+<span class="menu-text">Projects</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../physics-notes/index.html"> 
+<span class="menu-text">Notes</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/wenjium88-png"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+            <div id="quarto-search" class="" title="搜索"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" aria-labelledby="toc-title" class="toc-active">
+    <h2 id="toc-title">该页面内容</h2>
+   
+  <ul class="collapse">
+  <li><a href="#homomorphism-and-isomorphism" id="toc-homomorphism-and-isomorphism" class="nav-link active" data-scroll-target="#homomorphism-and-isomorphism">3.1 Homomorphism and isomorphism</a></li>
+  <li><a href="#kernel-and-image" id="toc-kernel-and-image" class="nav-link" data-scroll-target="#kernel-and-image">3.2 Kernel and image</a></li>
+  <li><a href="#examples" id="toc-examples" class="nav-link" data-scroll-target="#examples">3.3 Examples</a></li>
+  <li><a href="#su2-and-so3" id="toc-su2-and-so3" class="nav-link" data-scroll-target="#su2-and-so3">3.4 <span class="math inline">\(SU(2)\)</span> and <span class="math inline">\(SO(3)\)</span></a></li>
+  <li><a href="#glv-and-gln-kappa" id="toc-glv-and-gln-kappa" class="nav-link" data-scroll-target="#glv-and-gln-kappa">3.5 <span class="math inline">\(GL(V)\)</span> and <span class="math inline">\(GL(n, \kappa)\)</span></a></li>
+  <li><a href="#key-points" id="toc-key-points" class="nav-link" data-scroll-target="#key-points">Key points</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content" tabindex="-1">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Homomorphism and Isomorphism</h1>
+<p class="subtitle lead">Chapter 3</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<hr>
+<p>Chapter 2 produced several groups that were visibly “the same”: reflection and exchange of two particles both gave <span class="math inline">\(\mathbb Z_2\)</span>; <span class="math inline">\(SO(2)\)</span> and <span class="math inline">\(U(1)\)</span> had identical group laws; <span class="math inline">\(D_2\)</span>, <span class="math inline">\(V_4\)</span> and <span class="math inline">\(\mathbb Z_2 \times \mathbb Z_2\)</span> kept reappearing. This chapter makes “the same” precise.</p>
+<hr>
+<section id="homomorphism-and-isomorphism" class="level2">
+<h2 class="anchored" data-anchor-id="homomorphism-and-isomorphism">3.1 Homomorphism and isomorphism</h2>
+<section id="definition-3.1-homomorphism-同态" class="level3">
+<h3 class="anchored" data-anchor-id="definition-3.1-homomorphism-同态">Definition 3.1 (Homomorphism 同态)</h3>
+<p>Let <span class="math inline">\((G, m, I, e)\)</span> and <span class="math inline">\((G', m', I', e')\)</span> be groups. A map <span class="math inline">\(\varphi : G \to G'\)</span> is a <strong>homomorphism</strong> if</p>
+<p><span class="math display">\[\varphi(m(g_1, g_2)) = m'(\varphi(g_1), \varphi(g_2)), \qquad\text{i.e.}\qquad \varphi(g_1 g_2) = \varphi(g_1)\varphi(g_2)\]</span></p>
+<p>for all <span class="math inline">\(g_1, g_2 \in G\)</span>. Equivalently, the square</p>
+<pre><code>   G × G ────m────▶ G
+     │              │
+ φ×φ │              │ φ
+     ▼              ▼
+  G'×G' ───m'───▶ G'</code></pre>
+<p>commutes.</p>
+<p>The definition asks only that <span class="math inline">\(\varphi\)</span> respect the multiplication. Nothing is required of the identity or of the inversion, and nothing need be, because both follow from it. From <span class="math inline">\(\varphi(e) = \varphi(ee) = \varphi(e)\varphi(e)\)</span>, multiplying by <span class="math inline">\(\varphi(e)^{-1}\)</span> gives <span class="math inline">\(\varphi(e) = e'\)</span>. Then</p>
+<p><span class="math display">\[e' = \varphi(e) = \varphi(gg^{-1}) = \varphi(g)\varphi(g^{-1}),\]</span></p>
+<p>so <span class="math inline">\(\varphi(g^{-1}) = [\varphi(g)]^{-1}\)</span>.</p>
+</section>
+<section id="definition-3.2-injective-单射-surjective-满射-bijective-双射" class="level3">
+<h3 class="anchored" data-anchor-id="definition-3.2-injective-单射-surjective-满射-bijective-双射">Definition 3.2 (Injective 单射, surjective 满射, bijective 双射)</h3>
+<p>A map <span class="math inline">\(\varphi : G \to G'\)</span> is <strong>injective</strong> if <span class="math inline">\(\varphi(g_1) = \varphi(g_2)\)</span> forces <span class="math inline">\(g_1 = g_2\)</span>, <strong>surjective</strong> if every <span class="math inline">\(g' \in G'\)</span> equals <span class="math inline">\(\varphi(g)\)</span> for some <span class="math inline">\(g \in G\)</span>, and <strong>bijective</strong> if it is both.</p>
+<p>For a homomorphism, injectivity has to be tested at one point only.</p>
+</section>
+<section id="proposition-3.3" class="level3">
+<h3 class="anchored" data-anchor-id="proposition-3.3">Proposition 3.3</h3>
+<p>A homomorphism <span class="math inline">\(\varphi : G \to G'\)</span> is injective if and only if <span class="math inline">\(\varphi(g) = e'\)</span> forces <span class="math inline">\(g = e\)</span>.</p>
+<p><em>Proof.</em> If <span class="math inline">\(\varphi\)</span> is injective, then <span class="math inline">\(\varphi(g) = e' = \varphi(e)\)</span> gives <span class="math inline">\(g = e\)</span>. Conversely, suppose the condition holds and <span class="math inline">\(\varphi(g_1) = \varphi(g_2)\)</span>. Then</p>
+<p><span class="math display">\[\varphi(g_1 g_2^{-1}) = \varphi(g_1)\varphi(g_2)^{-1} = e',\]</span></p>
+<p>so <span class="math inline">\(g_1 g_2^{-1} = e\)</span> and <span class="math inline">\(g_1 = g_2\)</span>. <span class="math inline">\(\blacksquare\)</span></p>
+</section>
+<section id="definition-3.4-isomorphism-同构-automorphism-自同构" class="level3">
+<h3 class="anchored" data-anchor-id="definition-3.4-isomorphism-同构-automorphism-自同构">Definition 3.4 (Isomorphism 同构, automorphism 自同构)</h3>
+<p>A bijective homomorphism is an <strong>isomorphism</strong>. If there is an isomorphism <span class="math inline">\(G \to G'\)</span> the two groups are <strong>isomorphic</strong>, written <span class="math inline">\(G \cong G'\)</span>. An isomorphism from a group to itself is an <strong>automorphism</strong>, and the automorphisms of <span class="math inline">\(G\)</span> are collected in <span class="math inline">\(\mathrm{Aut}(G)\)</span>.</p>
+<p>The definition of <span class="math inline">\(\cong\)</span> runs one way, from <span class="math inline">\(G\)</span> to <span class="math inline">\(G'\)</span>. For “the same” to be a reasonable thing to say, it should not matter which way round.</p>
+</section>
+<section id="proposition-3.5" class="level3">
+<h3 class="anchored" data-anchor-id="proposition-3.5">Proposition 3.5</h3>
+<p>If <span class="math inline">\(\varphi\)</span> is an isomorphism then so is <span class="math inline">\(\varphi^{-1}\)</span>, and <span class="math inline">\(\cong\)</span> is an equivalence relation.</p>
+<p><em>Proof.</em> The inverse of a bijection is a bijection, so the only thing to check is that <span class="math inline">\(\varphi^{-1}\)</span> respects multiplication. Take any <span class="math inline">\(g_1', g_2' \in G'\)</span>. Since <span class="math inline">\(\varphi\)</span> is surjective there are <span class="math inline">\(g_1, g_2 \in G\)</span> with <span class="math inline">\(\varphi(g_i) = g_i'\)</span>, and then</p>
+<p><span class="math display">\[\varphi^{-1}(g_1' g_2') = \varphi^{-1}\bigl(\varphi(g_1)\varphi(g_2)\bigr) = \varphi^{-1}\bigl(\varphi(g_1 g_2)\bigr) = g_1 g_2 = \varphi^{-1}(g_1')\,\varphi^{-1}(g_2').\]</span></p>
+<p>For the second statement, the identity map on <span class="math inline">\(G\)</span> is an isomorphism, so <span class="math inline">\(G \cong G\)</span>. If <span class="math inline">\(\varphi\)</span> gives <span class="math inline">\(G \cong G'\)</span>, then <span class="math inline">\(\varphi^{-1}\)</span> gives <span class="math inline">\(G' \cong G\)</span> by what has just been shown. And if <span class="math inline">\(\varphi\)</span> gives <span class="math inline">\(G \cong G'\)</span> and <span class="math inline">\(\psi\)</span> gives <span class="math inline">\(G' \cong G''\)</span>, then <span class="math inline">\(\psi\varphi\)</span> is a bijection and</p>
+<p><span class="math display">\[\psi\varphi(g_1 g_2) = \psi\bigl(\varphi(g_1)\varphi(g_2)\bigr) = \psi\varphi(g_1)\,\psi\varphi(g_2),\]</span></p>
+<p>so <span class="math inline">\(G \cong G''\)</span>. <span class="math inline">\(\blacksquare\)</span></p>
+<p>Isomorphic groups are treated as the same group, which is what licenses <span class="math inline">\(SO(2) \cong U(1)\)</span> and <span class="math inline">\(D_2 \cong V_4\)</span> in Chapter 2.</p>
+<p>Proposition 3.5 makes <span class="math inline">\(\mathrm{Aut}(G)\)</span> a group under composition. The identity map belongs to it, a composite of two automorphisms is one, and the inverse of one is one.</p>
+</section>
+<section id="example-3.6-multiplication-maps-on-mathbb-z_n" class="level3">
+<h3 class="anchored" data-anchor-id="example-3.6-multiplication-maps-on-mathbb-z_n">Example 3.6 (Multiplication maps on <span class="math inline">\(\mathbb Z_N\)</span>)</h3>
+<p>Fix an integer <span class="math inline">\(k\)</span> and define <span class="math inline">\(m_k : \mathbb Z_N \to \mathbb Z_N\)</span> by</p>
+<p><span class="math display">\[m_k(\bar x) := \overline{kx}.\]</span></p>
+<p>It is well defined, since replacing <span class="math inline">\(x\)</span> by <span class="math inline">\(x + N\)</span> changes <span class="math inline">\(kx\)</span> by <span class="math inline">\(kN\)</span>, and it is a homomorphism, since <span class="math inline">\(k(x+y) = kx + ky\)</span>. Taking <span class="math inline">\(k = 1\)</span> gives the identity map, <span class="math inline">\(k = 0\)</span> the map sending everything to <span class="math inline">\(\bar 0\)</span>, and <span class="math inline">\(m_{k+N} = m_k\)</span>.</p>
+<p>For which <span class="math inline">\(k\)</span> is <span class="math inline">\(m_k\)</span> an automorphism? A map of a finite set to itself is bijective exactly when it is injective, so by Proposition 3.3 the question is whether <span class="math inline">\(N \mid kx\)</span> forces <span class="math inline">\(N \mid x\)</span>.</p>
+<p>Suppose first that <span class="math inline">\(d = \gcd(k, N) &gt; 1\)</span>, and take <span class="math inline">\(x = N/d\)</span>. Then <span class="math inline">\(0 &lt; x &lt; N\)</span>, so <span class="math inline">\(\bar x \neq \bar 0\)</span>, while <span class="math inline">\(kx = (k/d)N\)</span> is a multiple of <span class="math inline">\(N\)</span>, so <span class="math inline">\(m_k(\bar x) = \bar 0\)</span>. The map is not injective.</p>
+<p>Suppose instead that <span class="math inline">\(\gcd(k, N) = 1\)</span>, so no prime dividing <span class="math inline">\(N\)</span> divides <span class="math inline">\(k\)</span>. If <span class="math inline">\(N \mid kx\)</span>, then every prime power in <span class="math inline">\(N\)</span> must divide <span class="math inline">\(x\)</span>, none of it being available from <span class="math inline">\(k\)</span>, and so <span class="math inline">\(N \mid x\)</span>. Hence <span class="math inline">\(m_k\)</span> is an automorphism exactly when</p>
+<p><span class="math display">\[\gcd(k, N) = 1.\]</span></p>
+<p>For <span class="math inline">\(N = 4\)</span> the map <span class="math inline">\(m_3\)</span> sends <span class="math inline">\(\bar 0, \bar 1, \bar 2, \bar 3\)</span> to <span class="math inline">\(\bar 0, \bar 3, \bar 2, \bar 1\)</span>, exchanging <span class="math inline">\(\bar 1\)</span> and <span class="math inline">\(\bar 3\)</span>, whereas <span class="math inline">\(m_2\)</span> sends them to <span class="math inline">\(\bar 0, \bar 2, \bar 0, \bar 2\)</span> and collapses <span class="math inline">\(\mathbb Z_4\)</span> onto the subgroup <span class="math inline">\(\{\bar 0, \bar 2\}\)</span>, which is a copy of <span class="math inline">\(\mathbb Z_2\)</span> since <span class="math inline">\(\bar 2 + \bar 2 = \bar 0\)</span>.</p>
+<p>Nothing else occurs. An automorphism of <span class="math inline">\(\mathbb Z_N\)</span> is fixed by the image of <span class="math inline">\(\bar 1\)</span>, since <span class="math inline">\(\bar x = x\bar 1\)</span> forces <span class="math inline">\(\varphi(\bar x) = x\,\varphi(\bar 1)\)</span>, so every one of them is some <span class="math inline">\(m_k\)</span> and</p>
+<p><span class="math display">\[\mathrm{Aut}(\mathbb Z_N) = \{\, m_k : \gcd(k, N) = 1 \,\}.\]</span></p>
+<hr>
+</section>
+</section>
+<section id="kernel-and-image" class="level2">
+<h2 class="anchored" data-anchor-id="kernel-and-image">3.2 Kernel and image</h2>
+<p>A homomorphism can fail to be injective, and it can fail to be surjective. Two subgroups measure the two failures.</p>
+<section id="definition-3.7-kernel-核-and-image-像" class="level3">
+<h3 class="anchored" data-anchor-id="definition-3.7-kernel-核-and-image-像">Definition 3.7 (Kernel 核 and image 像)</h3>
+<p>Let <span class="math inline">\(\varphi : G \to G'\)</span> be a homomorphism. Its <strong>kernel</strong> and <strong>image</strong> are</p>
+<p><span class="math display">\[\ker\varphi := \{\, g \in G : \varphi(g) = e' \,\} \subset G, \qquad \mathrm{im}\,\varphi := \varphi(G) \subset G'.\]</span></p>
+</section>
+<section id="proposition-3.8" class="level3">
+<h3 class="anchored" data-anchor-id="proposition-3.8">Proposition 3.8</h3>
+<p><span class="math inline">\(\ker\varphi\)</span> is a subgroup of <span class="math inline">\(G\)</span>, and <span class="math inline">\(\mathrm{im}\,\varphi\)</span> is a subgroup of <span class="math inline">\(G'\)</span>.</p>
+<p><em>Proof.</em> Both contain the identity, by <span class="math inline">\(\varphi(e) = e'\)</span>, so both are nonempty. If <span class="math inline">\(g_1, g_2 \in \ker\varphi\)</span> then</p>
+<p><span class="math display">\[\varphi(g_1 g_2^{-1}) = \varphi(g_1)\varphi(g_2)^{-1} = e',\]</span></p>
+<p>so <span class="math inline">\(g_1 g_2^{-1} \in \ker\varphi\)</span>. If <span class="math inline">\(g_1' = \varphi(g_1)\)</span> and <span class="math inline">\(g_2' = \varphi(g_2)\)</span> lie in <span class="math inline">\(\mathrm{im}\,\varphi\)</span> then <span class="math inline">\(g_1'(g_2')^{-1} = \varphi(g_1 g_2^{-1}) \in \mathrm{im}\,\varphi\)</span>. Apply Lemma 2.5 to each. <span class="math inline">\(\blacksquare\)</span></p>
+</section>
+<section id="proposition-3.9" class="level3">
+<h3 class="anchored" data-anchor-id="proposition-3.9">Proposition 3.9</h3>
+<p><span class="math inline">\(\varphi\)</span> is injective if and only if <span class="math inline">\(\ker\varphi = \{e\}\)</span>. Hence <span class="math inline">\(\varphi\)</span> is an isomorphism if and only if</p>
+<p><span class="math display">\[\ker\varphi = \{e\} \qquad\text{and}\qquad \mathrm{im}\,\varphi = G'.\]</span></p>
+<p><em>Proof.</em> The first statement is Proposition 3.3 written in the present notation, and the second combines it with the definition of <span class="math inline">\(\mathrm{im}\,\varphi\)</span>. <span class="math inline">\(\blacksquare\)</span></p>
+<p><strong>Quiz 3.1.</strong> Show that <span class="math inline">\(\ker\varphi\)</span> absorbs conjugation, that is <span class="math inline">\(gkg^{-1} \in \ker\varphi\)</span> for every <span class="math inline">\(k \in \ker\varphi\)</span> and every <span class="math inline">\(g \in G\)</span>. Subgroups with this property are the subject of Chapter 7.</p>
+<hr>
+</section>
+</section>
+<section id="examples" class="level2">
+<h2 class="anchored" data-anchor-id="examples">3.3 Examples</h2>
+<section id="example-3.10-mathbb-z_n-cong-mu_n" class="level3">
+<h3 class="anchored" data-anchor-id="example-3.10-mathbb-z_n-cong-mu_n">Example 3.10 (<span class="math inline">\(\mathbb Z_N \cong \mu_N\)</span>)</h3>
+<p>Define <span class="math inline">\(\varphi : \mathbb Z_N \to \mu_N\)</span> by <span class="math inline">\(\varphi(\bar r) = e^{2\pi \mathrm{i} r/N}\)</span>. Replacing <span class="math inline">\(r\)</span> by <span class="math inline">\(r + N\)</span> does not change the value, so <span class="math inline">\(\varphi\)</span> is well defined on residue classes, and</p>
+<p><span class="math display">\[\varphi(\bar r_1 + \bar r_2) = e^{2\pi \mathrm{i}(r_1 + r_2)/N} = \varphi(\bar r_1)\varphi(\bar r_2)\]</span></p>
+<p>makes it a homomorphism from addition to multiplication. Its kernel is <span class="math inline">\(\{\bar 0\}\)</span> and its image is all of <span class="math inline">\(\mu_N\)</span>, so <span class="math inline">\(\mathbb Z_N \cong \mu_N\)</span> by Proposition 3.9. The residue classes of §2.3 and the roots of unity are the same group written twice.</p>
+</section>
+<section id="example-3.11-the-power-map" class="level3">
+<h3 class="anchored" data-anchor-id="example-3.11-the-power-map">Example 3.11 (The power map)</h3>
+<p>For <span class="math inline">\(k \in \mathbb Z\)</span> let <span class="math inline">\(P_k : \mu_N \to \mu_N\)</span> be <span class="math inline">\(z \mapsto z^k\)</span>. It is a homomorphism, since <span class="math inline">\((z_1 z_2)^k = z_1^k z_2^k\)</span>. Its kernel is</p>
+<p><span class="math display">\[\ker P_k = \{\, z \in \mu_N : z^k = 1 \,\} = \mu_d, \qquad d = \gcd(k, N),\]</span></p>
+<p>so <span class="math inline">\(P_k\)</span> is an isomorphism exactly when <span class="math inline">\(\gcd(k, N) = 1\)</span>, which is Example 3.6 again in multiplicative notation. At the other extreme <span class="math inline">\(P_N\)</span> is the trivial map. For <span class="math inline">\(N = 4\)</span> and <span class="math inline">\(k = 2\)</span>,</p>
+<p><span class="math display">\[\mu_4 = \{1, \mathrm{i}, -1, -\mathrm{i}\}, \qquad \ker P_2 = \{\pm 1\} \cong \mathbb Z_2, \qquad \mathrm{im}\,P_2 = \{\pm 1\} \cong \mu_2.\]</span></p>
+</section>
+<section id="example-3.12-u1-to-su2" class="level3">
+<h3 class="anchored" data-anchor-id="example-3.12-u1-to-su2">Example 3.12 (<span class="math inline">\(U(1) \to SU(2)\)</span>)</h3>
+<p>Fix an integer <span class="math inline">\(N \geq 2\)</span> and send <span class="math inline">\(z \in U(1)\)</span> to</p>
+<p><span class="math display">\[\varphi(z) = \begin{pmatrix} z^N &amp; 0 \\ 0 &amp; z^{-N} \end{pmatrix}.\]</span></p>
+<p>The matrix is unitary with determinant <span class="math inline">\(1\)</span>, so <span class="math inline">\(\varphi\)</span> maps into <span class="math inline">\(SU(2)\)</span>, and <span class="math inline">\(\varphi(z_1 z_2) = \varphi(z_1)\varphi(z_2)\)</span>. Here</p>
+<p><span class="math display">\[\ker\varphi = \{\, z : z^N = 1 \,\} = \mu_N, \qquad \mathrm{im}\,\varphi = \left\{ \begin{pmatrix} w &amp; 0 \\ 0 &amp; w^{-1} \end{pmatrix} : |w| = 1 \right\} \cong U(1),\]</span></p>
+<p>so this <span class="math inline">\(\varphi\)</span> is neither injective nor surjective, and the two subgroups say by how much it misses.</p>
+</section>
+<section id="example-3.13-so2-cong-u1" class="level3">
+<h3 class="anchored" data-anchor-id="example-3.13-so2-cong-u1">Example 3.13 (<span class="math inline">\(SO(2) \cong U(1)\)</span>)</h3>
+<p>Example 2.19 recorded the correspondence <span class="math inline">\(R(\phi) \leftrightarrow e^{\mathrm{i}\phi}\)</span> and called the two groups the same. The map behind that statement is</p>
+<p><span class="math display">\[\varphi : SO(2) \to U(1), \qquad \varphi(R(\phi)) = e^{\mathrm{i}\phi}.\]</span></p>
+<p>It is well defined, since <span class="math inline">\(R(\phi)\)</span> fixes <span class="math inline">\(\phi\)</span> only up to a multiple of <span class="math inline">\(2\pi\)</span>, which leaves <span class="math inline">\(e^{\mathrm{i}\phi}\)</span> unchanged, and it is a homomorphism, since <span class="math inline">\(R(\phi_1)R(\phi_2) = R(\phi_1 + \phi_2)\)</span>. Its kernel is <span class="math inline">\(\{\mathbb 1\}\)</span>, because <span class="math inline">\(e^{\mathrm{i}\phi} = 1\)</span> forces <span class="math inline">\(\phi \in 2\pi\mathbb Z\)</span> and <span class="math inline">\(R(2\pi n) = \mathbb 1\)</span>, and its image is all of <span class="math inline">\(U(1)\)</span>. So <span class="math inline">\(SO(2) \cong U(1)\)</span> by Proposition 3.9: a rotation of the plane and a phase are the same datum.</p>
+<p><strong>The maps so far.</strong> Kernel and image say what each map does, and the quotient <span class="math inline">\(\mathbb Z_N\)</span> of §2.3 reappears wherever the kernel is nontrivial.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>map</th>
+<th>kernel</th>
+<th>image</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\mathbb Z_N \to \mu_N\)</span>, <span class="math inline">\(\bar r \mapsto e^{2\pi \mathrm{i} r/N}\)</span></td>
+<td><span class="math inline">\(\{\bar 0\}\)</span></td>
+<td><span class="math inline">\(\mu_N\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(P_k : \mu_N \to \mu_N\)</span>, <span class="math inline">\(z \mapsto z^k\)</span></td>
+<td><span class="math inline">\(\mu_d\)</span>, <span class="math inline">\(d = \gcd(k,N)\)</span></td>
+<td><span class="math inline">\(\mu_{N/d}\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(U(1) \to SU(2)\)</span>, <span class="math inline">\(z \mapsto \mathrm{diag}(z^N, z^{-N})\)</span></td>
+<td><span class="math inline">\(\mu_N\)</span></td>
+<td><span class="math inline">\(\cong U(1)\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(SO(2) \to U(1)\)</span>, <span class="math inline">\(R(\phi) \mapsto e^{\mathrm{i}\phi}\)</span></td>
+<td><span class="math inline">\(\{\mathbb 1\}\)</span></td>
+<td><span class="math inline">\(U(1)\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(m_k : \mathbb Z_N \to \mathbb Z_N\)</span>, <span class="math inline">\(\bar x \mapsto \overline{kx}\)</span></td>
+<td><span class="math inline">\(\{\bar x : N \mid kx\}\)</span></td>
+<td><span class="math inline">\(\cong \mathbb Z_{N/d}\)</span></td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="su2-and-so3" class="level2">
+<h2 class="anchored" data-anchor-id="su2-and-so3">3.4 <span class="math inline">\(SU(2)\)</span> and <span class="math inline">\(SO(3)\)</span></h2>
+<p>Recall from §2.5 that <span class="math inline">\(SO(3)\)</span> is the group of proper rotations of <span class="math inline">\(\mathbb R^3\)</span>. We now build a homomorphism <span class="math inline">\(SU(2) \to SO(3)\)</span> and find it two-to-one, with <span class="math inline">\(u\)</span> and <span class="math inline">\(-u\)</span> giving the same rotation of space.</p>
+<p>To make <span class="math inline">\(SU(2)\)</span> act on <span class="math inline">\(\mathbb R^3\)</span> we look for a three-dimensional real space of matrices preserved by conjugation, conjugation being what a group of matrices does naturally to matrices. A trace survives any conjugation, and conjugation by a unitary preserves Hermiticity, which makes traceless and Hermitian the condition to try. The <span class="math inline">\(2 \times 2\)</span> matrices meeting it are exactly the real combinations <span class="math inline">\(x_i \sigma_i\)</span> of the Pauli matrices of §2.6. There are three of those, so the space is three-dimensional over <span class="math inline">\(\mathbb R\)</span>, and it is familiar ground: the spin operators <span class="math inline">\(S_i = \frac{\hbar}{2}\sigma_i\)</span> live there, and for a unit vector <span class="math inline">\(\hat n\)</span> the combination <span class="math inline">\(\frac{\hbar}{2}\hat n \cdot \vec\sigma\)</span> is the spin component along <span class="math inline">\(\hat n\)</span>.</p>
+<p>Write <span class="math inline">\(\mathcal H\)</span> for that space and send a vector into it by</p>
+<p><span class="math display">\[h : \mathbb R^3 \to \mathcal H, \qquad h(\vec x) = \vec x \cdot \vec\sigma = x_i \sigma_i = \begin{pmatrix} x_3 &amp; x_1 - \mathrm{i} x_2 \\ x_1 + \mathrm{i} x_2 &amp; -x_3 \end{pmatrix}.\]</span></p>
+<p>This is a linear bijection, and it carries lengths along with it, stored in the determinant as</p>
+<p><span class="math display">\[\det h(\vec x) = -x_3^2 - (x_1^2 + x_2^2) = -|\vec x|^2,\]</span></p>
+<p>which is how the construction will see that rotations preserve them.</p>
+<p>For <span class="math inline">\(u \in SU(2)\)</span> let <span class="math inline">\(C_u(m) = u\,m\,u^\dagger\)</span>. This is the conjugation promised above, and it does map <span class="math inline">\(\mathcal H\)</span> to itself, since <span class="math inline">\(\mathrm{Tr}(umu^\dagger) = \mathrm{Tr}(m) = 0\)</span> and <span class="math inline">\((umu^\dagger)^\dagger = umu^\dagger\)</span>.</p>
+<section id="definition-3.14-the-rotation-attached-to-u" class="level3">
+<h3 class="anchored" data-anchor-id="definition-3.14-the-rotation-attached-to-u">Definition 3.14 (The rotation attached to <span class="math inline">\(u\)</span>)</h3>
+<p><span class="math inline">\(R(u) := h^{-1} \circ C_u \circ h\)</span>, that is, <span class="math inline">\(R(u)\)</span> is the map <span class="math inline">\(\mathbb R^3 \to \mathbb R^3\)</span> determined by</p>
+<p><span class="math display">\[u\,(\vec x \cdot \vec\sigma)\,u^\dagger = (R(u)\vec x) \cdot \vec\sigma \qquad\text{for all } \vec x \in \mathbb R^3,\]</span></p>
+<p>equivalently</p>
+<p><span class="math display">\[u\,\sigma_i\,u^\dagger = R(u)_{ji}\,\sigma_j.\]</span></p>
+<p>In a composite the rightmost map acts first, so <span class="math inline">\(R(u)\)</span> carries <span class="math inline">\(\vec x\)</span> into <span class="math inline">\(\mathcal H\)</span> as <span class="math inline">\(\vec x \cdot \vec\sigma\)</span>, conjugates that matrix by <span class="math inline">\(u\)</span>, and brings the result back by <span class="math inline">\(h^{-1}\)</span>. It begins and ends in <span class="math inline">\(\mathbb R^3\)</span>, and all three steps are linear bijections, so <span class="math inline">\(R(u)\)</span> is a linear bijection of <span class="math inline">\(\mathbb R^3\)</span>.</p>
+<pre><code>      ℝ³ ───── R(u) ────▶ ℝ³
+       │                   │
+    h ∼                 ∼ h
+       ▼                   ▼
+       ℋ ────── C_u ────▶ ℋ</code></pre>
+<p>The displayed equation says this without naming <span class="math inline">\(h\)</span>. Conjugation keeps <span class="math inline">\(u(\vec x \cdot \vec\sigma)u^\dagger\)</span> inside <span class="math inline">\(\mathcal H\)</span>, so some vector of <span class="math inline">\(\mathbb R^3\)</span> has it as image, and <span class="math inline">\(h\)</span> is injective, so only one does. That vector is <span class="math inline">\(R(u)\vec x\)</span>, and it is the uniqueness that makes the equation a definition rather than a condition. Putting <span class="math inline">\(\vec x = \hat e_i\)</span> gives the index form.</p>
+</section>
+<section id="theorem-3.15" class="level3">
+<h3 class="anchored" data-anchor-id="theorem-3.15">Theorem 3.15</h3>
+<p><span class="math inline">\(R : SU(2) \to SO(3)\)</span> is a surjective homomorphism with <span class="math inline">\(\ker R = \{\pm\mathbb 1\} \cong \mathbb Z_2\)</span>.</p>
+<p><em>Proof.</em> <strong>Homomorphism.</strong> Conjugating twice,</p>
+<p><span class="math display">\[(R(u_1 u_2)\vec x)\cdot\vec\sigma = (u_1 u_2)(\vec x \cdot \vec\sigma)(u_1 u_2)^\dagger = u_1\bigl[(R(u_2)\vec x)\cdot\vec\sigma\bigr]u_1^\dagger = (R(u_1)R(u_2)\vec x)\cdot\vec\sigma,\]</span></p>
+<p>and <span class="math inline">\(h\)</span> is injective, so <span class="math inline">\(R(u_1 u_2) = R(u_1)R(u_2)\)</span>.</p>
+<p><strong>Orthogonal.</strong> Conjugation does not change a determinant, so</p>
+<p><span class="math display">\[|R(u)\vec x|^2 = -\det\bigl((R(u)\vec x)\cdot\vec\sigma\bigr) = -\det\bigl(u(\vec x\cdot\vec\sigma)u^\dagger\bigr) = -\det(\vec x \cdot \vec\sigma) = |\vec x|^2,\]</span></p>
+<p>and <span class="math inline">\(R(u) \in O(3)\)</span>.</p>
+<p><strong>Determinant.</strong> Write the product rule with a summed index <span class="math inline">\(\ell\)</span>, as <span class="math inline">\(\sigma_i\sigma_j = \delta_{ij}\mathbb 1 + \mathrm{i}\epsilon_{ij\ell}\sigma_\ell\)</span>, multiply on the right by <span class="math inline">\(\sigma_k\)</span>, and take the trace. With <span class="math inline">\(\mathrm{Tr}\,\sigma_k = 0\)</span> and <span class="math inline">\(\mathrm{Tr}(\sigma_\ell\sigma_k) = 2\delta_{\ell k}\)</span>,</p>
+<p><span class="math display">\[\mathrm{Tr}(\sigma_i\sigma_j\sigma_k) = 2\mathrm{i}\,\epsilon_{ijk}.\]</span></p>
+<p>The factors <span class="math inline">\(u^\dagger u\)</span> inserted between the three matrices cancel under the trace, so <span class="math inline">\(\mathrm{Tr}(\sigma_1\sigma_2\sigma_3) = \mathrm{Tr}((u\sigma_1u^\dagger)(u\sigma_2u^\dagger)(u\sigma_3u^\dagger))\)</span>. Substituting <span class="math inline">\(u\sigma_au^\dagger = R(u)_{ia}\sigma_i\)</span>,</p>
+<p><span class="math display">\[2\mathrm{i} = \mathrm{Tr}(\sigma_1\sigma_2\sigma_3) = R(u)_{i1}R(u)_{j2}R(u)_{k3}\,\mathrm{Tr}(\sigma_i\sigma_j\sigma_k) = 2\mathrm{i}\,\epsilon_{ijk}R(u)_{i1}R(u)_{j2}R(u)_{k3} = 2\mathrm{i}\det R(u).\]</span></p>
+<p>So <span class="math inline">\(\det R(u) = 1\)</span> and <span class="math inline">\(R(u) \in SO(3)\)</span>.</p>
+<p><strong>Kernel.</strong> <span class="math inline">\(R(u) = \mathbb 1\)</span> says <span class="math inline">\(u\sigma_i u^\dagger = \sigma_i\)</span> for each <span class="math inline">\(i\)</span>, so <span class="math inline">\(u\)</span> commutes with <span class="math inline">\(\sigma_1, \sigma_2, \sigma_3\)</span> and therefore with every <span class="math inline">\(2\times 2\)</span> matrix, those three together with <span class="math inline">\(\mathbb 1\)</span> being a basis. By Proposition 2.17, <span class="math inline">\(u = \lambda\mathbb 1\)</span>, and <span class="math inline">\(\det u = \lambda^2 = 1\)</span> forces <span class="math inline">\(\lambda = \pm 1\)</span>. Both signs do lie in the kernel, since <span class="math inline">\((\pm\mathbb 1)m(\pm\mathbb 1)^\dagger = m\)</span> for every <span class="math inline">\(m\)</span>, so</p>
+<p><span class="math display">\[\ker R = \{\mathbb 1, -\mathbb 1\} \cong \mathbb Z_2.\]</span></p>
+<p><strong>Surjective.</strong> Take <span class="math inline">\(u = \exp(-\frac{\mathrm{i}}{2}\theta\sigma_3) = \mathrm{diag}(e^{-\mathrm{i}\theta/2}, e^{\mathrm{i}\theta/2})\)</span>. Then</p>
+<p><span class="math display">\[u\sigma_1u^\dagger = \begin{pmatrix} 0 &amp; e^{-\mathrm{i}\theta} \\ e^{\mathrm{i}\theta} &amp; 0 \end{pmatrix} = \cos\theta\,\sigma_1 + \sin\theta\,\sigma_2, \qquad u\sigma_3u^\dagger = \sigma_3,\]</span></p>
+<p>so <span class="math inline">\(R(u)\)</span> is the rotation by <span class="math inline">\(\theta\)</span> about the third axis. Starting from <span class="math inline">\(\sigma_2\)</span> instead gives the rotation by <span class="math inline">\(\theta\)</span> about the second axis. Write <span class="math inline">\(R_3(\theta)\)</span> and <span class="math inline">\(R_2(\theta)\)</span> for these, both of them in the image of <span class="math inline">\(R\)</span>.</p>
+<p>Every rotation is a product of three of them. Take <span class="math inline">\(A \in SO(3)\)</span> and let <span class="math inline">\(\beta\)</span> and <span class="math inline">\(\alpha\)</span> be the polar and azimuthal angles of <span class="math inline">\(A\hat e_3\)</span>, so that <span class="math inline">\(Q := R_3(\alpha)R_2(\beta)\)</span> sends <span class="math inline">\(\hat e_3\)</span> to <span class="math inline">\(A\hat e_3\)</span>. Then <span class="math inline">\(Q^{-1}A\)</span> leaves <span class="math inline">\(\hat e_3\)</span> fixed and, being orthogonal, maps the perpendicular plane to itself. On that plane it has determinant <span class="math inline">\(1\)</span>, so it is a rotation of it, say <span class="math inline">\(R_3(\gamma)\)</span>. Hence</p>
+<p><span class="math display">\[A = R_3(\alpha)\,R_2(\beta)\,R_3(\gamma),\]</span></p>
+<p>the Euler angles 欧拉角 of <span class="math inline">\(A\)</span>.</p>
+<p>Since <span class="math inline">\(R\)</span> is a homomorphism, a matrix producing <span class="math inline">\(A\)</span> is the matching product,</p>
+<p><span class="math display">\[u(\alpha, \beta, \gamma) := e^{-\mathrm{i}\alpha\sigma_3/2}e^{-\mathrm{i}\beta\sigma_2/2}e^{-\mathrm{i}\gamma\sigma_3/2} = \begin{pmatrix} e^{-\mathrm{i}(\alpha+\gamma)/2}\cos\frac{\beta}{2} &amp; e^{\mathrm{i}(\alpha-\gamma)/2}\sin\frac{\beta}{2} \\[2pt] -e^{-\mathrm{i}(\alpha-\gamma)/2}\sin\frac{\beta}{2} &amp; e^{\mathrm{i}(\alpha+\gamma)/2}\cos\frac{\beta}{2} \end{pmatrix}, \tag{3.1}\]</span></p>
+<p>which has <span class="math inline">\(R(u(\alpha,\beta,\gamma)) = A\)</span>. So <span class="math inline">\(R\)</span> is surjective, and letting <span class="math inline">\(\alpha \in [0, 2\pi)\)</span>, <span class="math inline">\(\beta \in [0, \pi]\)</span> and <span class="math inline">\(\gamma \in [0, 4\pi)\)</span> reaches every element of <span class="math inline">\(SU(2)\)</span> this way. <span class="math inline">\(\blacksquare\)</span></p>
+</section>
+<section id="remark-3.16-double-cover-双覆盖" class="level3">
+<h3 class="anchored" data-anchor-id="remark-3.16-double-cover-双覆盖">Remark 3.16 (Double cover 双覆盖)</h3>
+<p>Since <span class="math inline">\(\ker R = \{\pm\mathbb 1\}\)</span>, each rotation has exactly two lifts, <span class="math inline">\(u\)</span> and <span class="math inline">\(-u\)</span>. The two minus signs cancel in <span class="math inline">\(u\,m\,u^\dagger\)</span>, which is why both give the same rotation.</p>
+<p>The exponential <span class="math inline">\(\exp(-\frac{\mathrm{i}}{2}\theta\sigma_3)\)</span> of the proof is the case <span class="math inline">\(\hat n = \hat e_3\)</span> of a formula good for any axis. Since <span class="math inline">\((\hat n \cdot \vec\sigma)^2 = \mathbb 1\)</span> for a unit vector <span class="math inline">\(\hat n\)</span>, expanding the exponential gives</p>
+<p><span class="math display">\[u(\hat n, \theta) = \exp\Bigl(-\frac{\mathrm{i}}{2}\theta\,\hat n\cdot\vec\sigma\Bigr) = \cos\frac{\theta}{2}\,\mathbb 1 - \mathrm{i}\sin\frac{\theta}{2}\,\hat n\cdot\vec\sigma,\]</span></p>
+<p>so <span class="math inline">\(u(\hat n, 2\pi) = -\mathbb 1\)</span> and <span class="math inline">\(u(\hat n, 4\pi) = \mathbb 1\)</span>. A rotation by <span class="math inline">\(2\pi\)</span> returns every vector to where it started, and only at <span class="math inline">\(4\pi\)</span> does <span class="math inline">\(u\)</span> itself return.</p>
+<p>The half angle is what produces the sign, and it is present in both descriptions of <span class="math inline">\(u\)</span>. The axis–angle form above carries it as <span class="math inline">\(\theta/2\)</span>. The Euler form (3.1) has a half angle in each of its three factors, and the domain fixed in the proof lets <span class="math inline">\(\gamma\)</span> carry the sign: <span class="math inline">\(A\)</span> is unchanged when <span class="math inline">\(\gamma\)</span> advances by <span class="math inline">\(2\pi\)</span>, while <span class="math inline">\(u(\alpha,\beta,\gamma+2\pi) = -u(\alpha,\beta,\gamma)\)</span>, so for fixed <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span> the period in <span class="math inline">\(\gamma\)</span> is <span class="math inline">\(4\pi\)</span> for <span class="math inline">\(u\)</span> and <span class="math inline">\(2\pi\)</span> for <span class="math inline">\(A\)</span>.</p>
+</section>
+<section id="remark-3.17-the-sign-cannot-be-chosen-away" class="level3">
+<h3 class="anchored" data-anchor-id="remark-3.17-the-sign-cannot-be-chosen-away">Remark 3.17 (The sign cannot be chosen away)</h3>
+<p>Since <span class="math inline">\(R\)</span> is two-to-one, one might hope to pick one lift for each rotation and keep a homomorphism, that is, to find <span class="math inline">\(s : SO(3) \to SU(2)\)</span> with <span class="math inline">\(R \circ s\)</span> the identity. There is none. Let <span class="math inline">\(A\)</span> be the rotation by <span class="math inline">\(\pi\)</span> about the third axis, so that <span class="math inline">\(A^2 = \mathbb 1\)</span>. Its two lifts are <span class="math inline">\(\pm u\)</span> with <span class="math inline">\(u = u(\hat e_3, \pi) = -\mathrm{i}\sigma_3\)</span>, and both square to <span class="math inline">\((\pm u)^2 = -\mathbb 1\)</span>. A homomorphism would need <span class="math inline">\(s(A)^2 = s(A^2) = \mathbb 1\)</span> instead, so no such <span class="math inline">\(s\)</span> exists.</p>
+</section>
+<section id="remark-3.18-the-belt" class="level3">
+<h3 class="anchored" data-anchor-id="remark-3.18-the-belt">Remark 3.18 (The belt)</h3>
+<p>The factor of two is visible in <span class="math inline">\(SO(3)\)</span> itself. Hold one end of a belt fixed and turn the other end through <span class="math inline">\(2\pi\)</span>. The twist cannot be worked out while both ends are held. Turn it through <span class="math inline">\(4\pi\)</span> instead and it can. The <span class="math inline">\(2\pi\)</span> rotation cannot be deformed continuously into no rotation with the ends held fixed, while the <span class="math inline">\(4\pi\)</span> one can. In the jargon, the closed paths in <span class="math inline">\(SO(3)\)</span> that start and end at the identity fall into two classes under such deformation, that is, the fundamental group 基本群 of <span class="math inline">\(SO(3)\)</span> is</p>
+<p><span class="math display">\[\pi_1(SO(3)) \cong \mathbb Z_2,\]</span></p>
+<p>and an element of <span class="math inline">\(SU(2)\)</span> records a rotation together with the deformation class of a path reaching it from the identity.</p>
+<p>The same two-ness shows up in the shapes. <span class="math inline">\(SU(2) \sim S^3\)</span> by Example 2.20, and <span class="math inline">\(R\)</span> identifies the antipodal pair <span class="math inline">\(\pm u\)</span>, so <span class="math inline">\(SO(3)\)</span> is the three-sphere with antipodes identified, the real projective space <span class="math inline">\(\mathbb{RP}^3\)</span>.</p>
+<p>Group theory does not say which of the two a physical object uses. In quantum mechanics a spin-<span class="math inline">\(\tfrac12\)</span> wavefunction is a two-component complex column, and <span class="math inline">\(u\)</span> and <span class="math inline">\(-u\)</span> act on it with opposite signs although they induce the same rotation of space.</p>
+<hr>
+</section>
+</section>
+<section id="glv-and-gln-kappa" class="level2">
+<h2 class="anchored" data-anchor-id="glv-and-gln-kappa">3.5 <span class="math inline">\(GL(V)\)</span> and <span class="math inline">\(GL(n, \kappa)\)</span></h2>
+<section id="example-3.19-coordinates-as-an-isomorphism" class="level3">
+<h3 class="anchored" data-anchor-id="example-3.19-coordinates-as-an-isomorphism">Example 3.19 (Coordinates as an isomorphism)</h3>
+<p>Let <span class="math inline">\(V\)</span> be an <span class="math inline">\(n\)</span>-dimensional vector space over <span class="math inline">\(\kappa\)</span> and let <span class="math inline">\(GL(V)\)</span> be the group of invertible linear maps <span class="math inline">\(V \to V\)</span>. An ordered basis <span class="math inline">\(b = \{\hat e_1, \dots, \hat e_n\}\)</span> turns each <span class="math inline">\(\tau \in GL(V)\)</span> into a matrix <span class="math inline">\(T_b(\tau)\)</span> through</p>
+<p><span class="math display">\[\tau(\hat e_i) = \sum_j \hat e_j\, T_b(\tau)_{ji}.\]</span></p>
+<p>Applying <span class="math inline">\(\tau_1\)</span> after <span class="math inline">\(\tau_2\)</span> to <span class="math inline">\(\vec v = \sum_i v_i \hat e_i\)</span>,</p>
+<p><span class="math display">\[\tau_1(\tau_2\vec v) = \sum_{i,j} v_i\, T_b(\tau_2)_{ji}\,\tau_1(\hat e_j) = \sum_{i,j,k} \hat e_k\, T_b(\tau_1)_{kj} T_b(\tau_2)_{ji} v_i.\]</span></p>
+<p>But applying <span class="math inline">\(\tau_1\)</span> after <span class="math inline">\(\tau_2\)</span> is applying <span class="math inline">\(\tau_1\tau_2\)</span>, and the defining formula used on <span class="math inline">\(\tau_1\tau_2\)</span> itself reads</p>
+<p><span class="math display">\[(\tau_1\tau_2)(\vec v) = \sum_{i,k} \hat e_k\, T_b(\tau_1\tau_2)_{ki} v_i.\]</span></p>
+<p>The two right-hand sides agree for every <span class="math inline">\(\vec v\)</span>, and the <span class="math inline">\(\hat e_k\)</span> are independent, so</p>
+<p><span class="math display">\[T_b(\tau_1\tau_2) = T_b(\tau_1)\,T_b(\tau_2)\]</span></p>
+<p>and <span class="math inline">\(\varphi_b : \tau \mapsto T_b(\tau)\)</span> is a homomorphism <span class="math inline">\(GL(V) \to GL(n,\kappa)\)</span>. It is surjective, since every invertible matrix defines an invertible map through the same formula. It is injective, since <span class="math inline">\(T_b(\tau) = \mathbb 1_n\)</span> says <span class="math inline">\(\tau(\hat e_i) = \hat e_i\)</span> for every <span class="math inline">\(i\)</span> and hence <span class="math inline">\(\tau = \mathrm{id}\)</span>. So</p>
+<p><span class="math display">\[GL(V) \cong GL(n, \kappa).\]</span></p>
+<p>The isomorphism depends on the basis. A second basis <span class="math inline">\(\hat e_i = \sum_j S_{ji}\hat e_j'\)</span> gives</p>
+<p><span class="math display">\[T_{b'}(\tau) = S\,T_b(\tau)\,S^{-1},\]</span></p>
+<p>so the two coordinate pictures differ by conjugation. This is why an abstract group can be studied through matrices at all, and it is where representation theory starts.</p>
+<hr>
+</section>
+</section>
+<section id="key-points" class="level2">
+<h2 class="anchored" data-anchor-id="key-points">Key points</h2>
+<ul>
+<li>A homomorphism is a map that respects multiplication; respecting the identity and inverses then comes for free.</li>
+<li>A homomorphism is injective exactly when <span class="math inline">\(\varphi(g) = e'\)</span> forces <span class="math inline">\(g = e\)</span>, that is, exactly when <span class="math inline">\(\ker\varphi = \{e\}\)</span>.</li>
+<li>An isomorphism is a bijective homomorphism, its inverse is again one, and isomorphic groups are treated as the same group. <span class="math inline">\(\mathrm{Aut}(G)\)</span> is a group under composition, and <span class="math inline">\(\mathrm{Aut}(\mathbb Z_N)\)</span> consists of the maps <span class="math inline">\(\bar x \mapsto \overline{kx}\)</span> with <span class="math inline">\(\gcd(k,N) = 1\)</span>.</li>
+<li><span class="math inline">\(\ker\varphi\)</span> and <span class="math inline">\(\mathrm{im}\,\varphi\)</span> are subgroups, and they measure the failure of <span class="math inline">\(\varphi\)</span> to be injective and surjective. <span class="math inline">\(\varphi\)</span> is an isomorphism exactly when <span class="math inline">\(\ker\varphi = \{e\}\)</span> and <span class="math inline">\(\mathrm{im}\,\varphi = G'\)</span>.</li>
+<li><span class="math inline">\(R : SU(2) \to SO(3)\)</span> is onto with kernel <span class="math inline">\(\{\pm\mathbb 1\}\)</span>, so <span class="math inline">\(SU(2)\)</span> is a double cover of <span class="math inline">\(SO(3)\)</span> and <span class="math inline">\(SO(3) \sim \mathbb{RP}^3\)</span>.</li>
+<li>A rotation by <span class="math inline">\(2\pi\)</span> acts as the identity on vectors, while the corresponding <span class="math inline">\(u\)</span> is <span class="math inline">\(-\mathbb 1\)</span>. The half angle is where the sign comes from, and no continuous choice of lift removes it.</li>
+<li>Choosing a basis gives <span class="math inline">\(GL(V) \cong GL(n,\kappa)\)</span>; changing the basis conjugates the matrices.</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "已复制");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "已复制");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/wenjium88-png\.github\.io\/my-blog\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+      window.quartoDecorateExternalLinks = function (root) {
+     var links = (root || window.document).querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+          if (!link.classList.contains('no-external-icon')) {
+          }
+        }
+      }
+      };
+      window.quartoDecorateExternalLinks(window.document);
+    // Esc closes the popup (WCAG 1.4.13) and focus leaving both trigger and
+    // popup closes it (WCAG 2.4.11); tippy handles neither for interactive popups.
+    const hideOnEscAndFocusOut = {
+      name: 'hideOnEscAndFocusOut',
+      defaultValue: true,
+      fn(instance) {
+        const dismiss = () => {
+          // A show scheduled by the trigger delay would otherwise reopen it
+          instance.clearDelayTimeouts();
+          instance.hide();
+        };
+        const onKeyDown = (event) => {
+          if (event.key !== 'Escape') {
+            return;
+          }
+          // Keep Esc from also reaching page handlers (e.g. reveal.js overview),
+          // except an open reveal.js slide menu, which Esc should close too.
+          // The menu handles keys only when its keyboard option is on.
+          const menuHandlesEsc = window.Reveal?.getPlugin?.('menu')?.isOpen() &&
+            window.Reveal.getConfig().menu?.keyboard !== false;
+          if (!menuHandlesEsc) {
+            event.stopPropagation();
+          }
+          if (instance.popper.contains(window.document.activeElement)) {
+            // Disabled while refocusing so the focus trigger does not reopen it
+            instance.disable();
+            instance.reference.focus();
+            instance.enable();
+          }
+          dismiss();
+        };
+        const onFocusOut = (event) => {
+          const target = event.relatedTarget;
+          if (target && !instance.reference.contains(target) &&
+              !instance.popper.contains(target)) {
+            dismiss();
+          }
+        };
+        // On the trigger too: a click trigger (code-annotations: select) has no
+        // blur handling. Attached for the instance's lifetime so leaving the
+        // trigger also cancels a show still pending on the trigger delay.
+        instance.reference.addEventListener('focusout', onFocusOut);
+        return {
+          onShow() {
+            window.document.addEventListener('keydown', onKeyDown, true);
+            instance.popper.addEventListener('focusout', onFocusOut);
+          },
+          onHide() {
+            window.document.removeEventListener('keydown', onKeyDown, true);
+            instance.popper.removeEventListener('focusout', onFocusOut);
+          },
+          onDestroy() {
+            instance.reference.removeEventListener('focusout', onFocusOut);
+          },
+        };
+      },
+    };
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+        plugins: [hideOnEscAndFocusOut],
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          // Each band is positioned against its own containing block, which is
+          // not the offsetParent of the lines, so place it from client rects.
+          const placeBand = (band, firstEl, lastEl, codeBlock) => {
+            const container = band.offsetParent;
+            if (container === null) {
+              return;
+            }
+            const containerRect = container.getBoundingClientRect();
+            // Reveal.js scales slides with a transform, so convert client
+            // pixels back to the CSS pixels of the container.
+            const scale = containerRect.height / container.offsetHeight || 1;
+            const firstRect = firstEl.getBoundingClientRect();
+            const lastRect = lastEl.getBoundingClientRect();
+            const top = (firstRect.top - containerRect.top) / scale - container.clientTop + container.scrollTop;
+            const height = (lastRect.bottom - firstRect.top) / scale;
+            band.style.top = top - 2 + "px";
+            band.style.height = height + 4 + "px";
+            if (codeBlock) {
+              // Without the copy button wrapper, the containing block is wider
+              // than the code block, so span the code block explicitly.
+              const blockRect = codeBlock.getBoundingClientRect();
+              band.style.left = (blockRect.left - containerRect.left) / scale - container.clientLeft + container.scrollLeft + "px";
+              band.style.width = blockRect.width / scale + "px";
+            }
+          };
+          if (lineIds.length > 0) {
+            const el = window.document.getElementById(lineIds[0]);
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const parent = el.parentElement.parentElement;
+            // cook up a div (if necessary) and position it
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            placeBand(div, el, lastEl, parent.closest("div.sourceCode") || parent);
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            placeBand(gutterDiv, el, lastEl);
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+  <script type="application/javascript">
+  window.quartoScrollableRegionsLabels = {"code":"可滚动的代码","output":"可滚动的输出"};
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026 Wenjium</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Built with Quarto</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

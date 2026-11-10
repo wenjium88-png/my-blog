@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-Hans" xml:lang="zh-Hans"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.9">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>The Symmetric Group – Wenjium</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/scrollable-regions/scrollable-regions.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-8d3ad9c781c51ccd60b292c95058b2c2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "没有结果",
+    "search-matching-documents-text": "匹配的文档",
+    "search-copy-link-title": "复制搜索链接",
+    "search-hide-matches-text": "隐藏其它匹配结果",
+    "search-more-match-text": "更多匹配结果",
+    "search-more-matches-text": "更多匹配结果",
+    "search-clear-button-title": "清除",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "提交",
+    "search-label": "搜索"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-document-content">跳至主要内容</a>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark" aria-label="网站">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Wenjium</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="展开或折叠导航栏" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../projects/index.html"> 
+<span class="menu-text">Projects</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../physics-notes/index.html"> 
+<span class="menu-text">Notes</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/wenjium88-png"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+            <div id="quarto-search" class="" title="搜索"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" aria-labelledby="toc-title" class="toc-active">
+    <h2 id="toc-title">该页面内容</h2>
+   
+  <ul class="collapse">
+  <li><a href="#permutations-cycles-and-cycle-decomposition" id="toc-permutations-cycles-and-cycle-decomposition" class="nav-link active" data-scroll-target="#permutations-cycles-and-cycle-decomposition">5.1 Permutations, cycles, and cycle decomposition</a></li>
+  <li><a href="#cayleys-theorem" id="toc-cayleys-theorem" class="nav-link" data-scroll-target="#cayleys-theorem">5.2 Cayley’s theorem</a></li>
+  <li><a href="#transpositions-parity-and-the-alternating-group" id="toc-transpositions-parity-and-the-alternating-group" class="nav-link" data-scroll-target="#transpositions-parity-and-the-alternating-group">5.3 Transpositions, parity, and the alternating group</a></li>
+  <li><a href="#conjugacy-classes-of-s_n-and-young-diagrams" id="toc-conjugacy-classes-of-s_n-and-young-diagrams" class="nav-link" data-scroll-target="#conjugacy-classes-of-s_n-and-young-diagrams">5.4 Conjugacy classes of <span class="math inline">\(S_n\)</span> and Young diagrams</a></li>
+  <li><a href="#permutations-in-physical-systems" id="toc-permutations-in-physical-systems" class="nav-link" data-scroll-target="#permutations-in-physical-systems">5.5 Permutations in physical systems</a></li>
+  <li><a href="#key-points" id="toc-key-points" class="nav-link" data-scroll-target="#key-points">Key points</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content" tabindex="-1">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">The Symmetric Group</h1>
+<p class="subtitle lead">Chapter 5</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<hr>
+<p>The symmetric group <span class="math inline">\(S_n\)</span> is the group of all permutations of <span class="math inline">\(X = \{1,\dots,n\}\)</span> under composition, that is, <span class="math inline">\(S_X\)</span> of Definition 4.2. It makes the ideas of Chapter 4 concrete: its elements move labels, its cycle decomposition describes orbits, and conjugation changes the labelling. In physics the labels can mark particles, identical degrees of freedom, or the positions of indices in a tensor. We first develop the rules for manipulating permutations, then use them to organise motions and arrays of physical quantities.</p>
+<hr>
+<section id="permutations-cycles-and-cycle-decomposition" class="level2">
+<h2 class="anchored" data-anchor-id="permutations-cycles-and-cycle-decomposition">5.1 Permutations, cycles, and cycle decomposition</h2>
+<p>A permutation is written in two rows, each image below its argument,</p>
+<p><span class="math display">\[\varphi = \begin{pmatrix} 1 &amp; 2 &amp; \cdots &amp; n \\ \varphi(1) &amp; \varphi(2) &amp; \cdots &amp; \varphi(n) \end{pmatrix},\]</span></p>
+<p>and permutations are composed right to left, <span class="math inline">\((\varphi\psi)(i) = \varphi(\psi(i))\)</span>.</p>
+<section id="definition-5.1-cycle-轮换" class="level3">
+<h3 class="anchored" data-anchor-id="definition-5.1-cycle-轮换">Definition 5.1 (Cycle 轮换)</h3>
+<p>Let <span class="math inline">\(i_1,\dots,i_r\)</span> be distinct elements of <span class="math inline">\(X\)</span>. The permutation carrying</p>
+<p><span class="math display">\[i_1 \mapsto i_2 \mapsto \cdots \mapsto i_r \mapsto i_1\]</span></p>
+<p>and fixing every other element is an <span class="math inline">\(r\)</span>-<strong>cycle</strong>, written <span class="math inline">\((i_1\, i_2\, \cdots\, i_r)\)</span>. A 2-cycle is a <strong>transposition</strong> 对换. Two cycles are <strong>disjoint</strong> if no element appears in both.</p>
+<p>The notation is not unique. A cycle may be started anywhere,</p>
+<p><span class="math display">\[(2\,3\,4) = (3\,4\,2) = (4\,2\,3),\]</span></p>
+<p>and reversing it gives the inverse, <span class="math inline">\((2\,3\,4)^{-1} = (4\,3\,2)\)</span>. Disjoint cycles commute, since each fixes what the other moves,</p>
+<p><span class="math display">\[(2\,3\,4)(5\,6) = (5\,6)(2\,3\,4),\]</span></p>
+<p>while cycles sharing an element need not,</p>
+<p><span class="math display">\[(1\,2)(2\,3) = (1\,2\,3), \qquad (2\,3)(1\,2) = (1\,3\,2).\]</span></p>
+</section>
+<section id="theorem-5.2-cycle-decomposition-轮换分解" class="level3">
+<h3 class="anchored" data-anchor-id="theorem-5.2-cycle-decomposition-轮换分解">Theorem 5.2 (Cycle decomposition 轮换分解)</h3>
+<p>Every <span class="math inline">\(\varphi\in S_n\)</span> has a complete factorization into disjoint cycles, one for each orbit on <span class="math inline">\(X\)</span> of <span class="math inline">\(\langle\varphi\rangle = \{\varphi^k : k\in\mathbb Z\}\)</span>, including a 1-cycle for each fixed point. It is unique up to the order of the cycles and cyclic rotation of their entries.</p>
+<p><em>Proof.</em> <strong>One orbit.</strong> For <span class="math inline">\(x\in X\)</span>, let <span class="math inline">\(r\)</span> be the first step at which the sequence <span class="math inline">\(x, \varphi(x), \varphi^2(x), \dots\)</span> repeats an entry. Since <span class="math inline">\(X\)</span> has <span class="math inline">\(n\)</span> elements, <span class="math inline">\(1 \le r \le n\)</span>, and the <span class="math inline">\(r\)</span> points <span class="math inline">\(x, \varphi(x), \dots, \varphi^{r-1}(x)\)</span> are distinct. Write <span class="math inline">\(\varphi^r(x) = \varphi^i(x)\)</span> with <span class="math inline">\(0 \le i &lt; r\)</span>. Applying <span class="math inline">\(\varphi^{-i}\)</span> gives</p>
+<p><span class="math display">\[\varphi^{r-i}(x) = x.\]</span></p>
+<p>If <span class="math inline">\(i &gt; 0\)</span> this repeats <span class="math inline">\(x\)</span> at step <span class="math inline">\(r - i &lt; r\)</span>, against the choice of <span class="math inline">\(r\)</span>. So <span class="math inline">\(i = 0\)</span> and the sequence closes into a cycle,</p>
+<p><span class="math display">\[x \mapsto \varphi(x) \mapsto \cdots \mapsto \varphi^{r-1}(x) \mapsto x.\]</span></p>
+<p>Both <span class="math inline">\(\varphi\)</span> and <span class="math inline">\(\varphi^{-1}\)</span> move along this chain, so its entries are exactly the orbit of <span class="math inline">\(x\)</span> under <span class="math inline">\(\langle\varphi\rangle\)</span>.</p>
+<p><strong>All orbits.</strong> The orbits partition <span class="math inline">\(X\)</span> by Proposition 4.9. Form the cycle above for each orbit, including <span class="math inline">\((x)\)</span> when <span class="math inline">\(x\)</span> is fixed. These cycles are disjoint, and their product agrees with <span class="math inline">\(\varphi\)</span> at every point of <span class="math inline">\(X\)</span>.</p>
+<p><strong>Uniqueness.</strong> In any complete factorization into disjoint cycles, the cycle containing <span class="math inline">\(x\)</span> must follow <span class="math inline">\(x, \varphi(x), \varphi^2(x), \dots\)</span> until it returns to <span class="math inline">\(x\)</span>, since every other factor fixes each entry of that cycle. It is therefore the cycle just constructed, and only its starting entry and the order of the disjoint cycles can vary. <span class="math inline">\(\blacksquare\)</span></p>
+<p>The orbits of size one are the fixed points, and a cycle notation usually leaves them out. Writing them in gives the complete factorization, one cycle for each orbit,</p>
+<p><span class="math display">\[\varphi = \begin{pmatrix} 1 &amp; 2 &amp; 3 &amp; 4 &amp; 5 &amp; 6 \\ 1 &amp; 3 &amp; 2 &amp; 6 &amp; 5 &amp; 4 \end{pmatrix} = (1)(2\,3)(4\,6)(5),\]</span></p>
+<p>which has four cycles where the usual notation <span class="math inline">\((2\,3)(4\,6)\)</span> shows two.</p>
+</section>
+<section id="proposition-5.3" class="level3">
+<h3 class="anchored" data-anchor-id="proposition-5.3">Proposition 5.3</h3>
+<p>The order of a permutation is the least common multiple of the lengths of the cycles in its complete factorization.</p>
+<p><em>Proof.</em> Let <span class="math inline">\(\varphi = \gamma_1\cdots\gamma_t\)</span> be disjoint, of lengths <span class="math inline">\(r_1,\dots,r_t\)</span>. Disjoint cycles commute, so <span class="math inline">\(\varphi^m = \gamma_1^m\cdots\gamma_t^m\)</span>, and these factors move disjoint sets of points. So <span class="math inline">\(\varphi^m\)</span> is the identity exactly when every <span class="math inline">\(\gamma_i^m\)</span> is, that is, when <span class="math inline">\(r_i\)</span> divides <span class="math inline">\(m\)</span> for each <span class="math inline">\(i\)</span>. <span class="math inline">\(\blacksquare\)</span></p>
+</section>
+<section id="example-5.4-reading-off-a-decomposition" class="level3">
+<h3 class="anchored" data-anchor-id="example-5.4-reading-off-a-decomposition">Example 5.4 (Reading off a decomposition)</h3>
+<p>For</p>
+<p><span class="math display">\[\varphi = \begin{pmatrix} 1 &amp; 2 &amp; 3 &amp; 4 \\ 2 &amp; 4 &amp; 1 &amp; 3 \end{pmatrix},\]</span></p>
+<p>follow <span class="math inline">\(1\mapsto 2\mapsto 4\mapsto 3\mapsto 1\)</span>, so <span class="math inline">\(\varphi = (1\,2\,4\,3)\)</span>, of order 4. For <span class="math inline">\(\psi = (1\,2\,3)(4\,5) \in S_6\)</span> the complete factorization is <span class="math inline">\((1\,2\,3)(4\,5)(6)\)</span> and the order is <span class="math inline">\(\mathrm{lcm}(3,2,1) = 6\)</span>.</p>
+<p><strong>Quiz 5.1.</strong> Write the permutation <span class="math inline">\(1\mapsto 3\)</span>, <span class="math inline">\(2\mapsto 5\)</span>, <span class="math inline">\(3\mapsto 6\)</span>, <span class="math inline">\(4\mapsto 2\)</span>, <span class="math inline">\(5\mapsto 4\)</span>, <span class="math inline">\(6\mapsto 1\)</span> of <span class="math inline">\(S_6\)</span> in cycles, and give its order. How many elements of <span class="math inline">\(S_4\)</span> have order 4?</p>
+<p>It is <span class="math inline">\((1\,3\,6)(2\,5\,4)\)</span>, of order 3. In <span class="math inline">\(S_4\)</span> the elements of order 4 are the 4-cycles, and there are 6 of them.</p>
+<hr>
+</section>
+</section>
+<section id="cayleys-theorem" class="level2">
+<h2 class="anchored" data-anchor-id="cayleys-theorem">5.2 Cayley’s theorem</h2>
+<section id="theorem-5.5-cayley-凯莱定理" class="level3">
+<h3 class="anchored" data-anchor-id="theorem-5.5-cayley-凯莱定理">Theorem 5.5 (Cayley 凯莱定理)</h3>
+<p>Every group <span class="math inline">\(G\)</span> is isomorphic to a subgroup of <span class="math inline">\(S_G\)</span>. If <span class="math inline">\(|G| = n\)</span>, then <span class="math inline">\(G\)</span> is isomorphic to a subgroup of <span class="math inline">\(S_n\)</span>.</p>
+<p><em>Proof.</em> Let <span class="math inline">\(G\)</span> act on itself by left multiplication, <span class="math inline">\(h\cdot g = hg\)</span>, as in Example 4.4. The action is a homomorphism</p>
+<p><span class="math display">\[L : G \to S_G, \qquad L(h)(g) = hg,\]</span></p>
+<p>and <span class="math inline">\(L(h) = \mathrm{id}\)</span> forces <span class="math inline">\(h = he = e\)</span>, so <span class="math inline">\(L\)</span> is injective by Proposition 3.3. Therefore <span class="math inline">\(G \cong \mathrm{im}\,L\)</span>, a subgroup of <span class="math inline">\(S_G\)</span>. Numbering the elements of <span class="math inline">\(G\)</span> as <span class="math inline">\(1,\dots,n\)</span> identifies <span class="math inline">\(S_G\)</span> with <span class="math inline">\(S_n\)</span>.</p>
+<p>To make the numbering explicit, let <span class="math inline">\(f : G \to \{1,\dots,n\}\)</span> be a bijection. Left multiplication, written in these labels, is the permutation</p>
+<p><span class="math display">\[L_f(h) = f \circ L(h) \circ f^{-1} \in S_n.\]</span></p>
+<p>Suppose we choose another numbering <span class="math inline">\(f'\)</span>. The permutation <span class="math inline">\(\sigma = f'\circ f^{-1}\)</span> converts an old label into its new label, so <span class="math inline">\(f' = \sigma\circ f\)</span>. Therefore</p>
+<p><span class="math display">\[L_{f'}(h) = f'\circ L(h)\circ(f')^{-1} = \sigma\circ f\circ L(h)\circ f^{-1}\circ\sigma^{-1} = \sigma\, L_f(h)\,\sigma^{-1}.\]</span></p>
+<p>Reading the last expression right to left, we convert a new label back to the old label, apply the old permutation, and convert the result to its new label. Consequently the two subgroups of <span class="math inline">\(S_n\)</span> satisfy</p>
+<p><span class="math display">\[\mathrm{im}\,L_{f'} = \sigma\,(\mathrm{im}\,L_f)\,\sigma^{-1}.\]</span></p>
+<p>Left multiplication defines <span class="math inline">\(\mathrm{im}\,L \subset S_G\)</span> intrinsically. A numbering realizes this subgroup inside <span class="math inline">\(S_n\)</span>; different numberings give conjugate subgroups, each isomorphic to the same group <span class="math inline">\(G\)</span>. <span class="math inline">\(\blacksquare\)</span></p>
+</section>
+<section id="example-5.6-cyclic-groups" class="level3">
+<h3 class="anchored" data-anchor-id="example-5.6-cyclic-groups">Example 5.6 (Cyclic groups)</h3>
+<p>For <span class="math inline">\(G = \mathbb Z_n\)</span>, label the elements <span class="math inline">\(0,1,\dots,n-1\)</span> by <span class="math inline">\(1,2,\dots,n\)</span> respectively. The element <span class="math inline">\(1\)</span> acts by adding one to everything, which is the <span class="math inline">\(n\)</span>-cycle <span class="math inline">\((1\,2\,\cdots\,n)\)</span>. So <span class="math inline">\(\mathbb Z_n \cong \langle(1\,2\,\cdots\,n)\rangle\)</span>, and for <span class="math inline">\(n = 3\)</span>,</p>
+<p><span class="math display">\[\mathbb Z_3 \cong \{e, (1\,2\,3), (1\,3\,2)\} \subset S_3.\]</span></p>
+<p>For a concrete change of numbering, take <span class="math inline">\(G = \mathbb Z_4\)</span> and choose</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>element of <span class="math inline">\(\mathbb Z_4\)</span></th>
+<th>0</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>old label <span class="math inline">\(f\)</span></td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td>new label <span class="math inline">\(f'\)</span></td>
+<td>1</td>
+<td>3</td>
+<td>2</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<p>The relabelling is <span class="math inline">\(\sigma = (2\,3)\)</span>. Addition by 1 gives <span class="math inline">\(L_f(1) = (1\,2\,3\,4)\)</span> in the old labels and <span class="math inline">\(L_{f'}(1) = (1\,3\,2\,4)\)</span> in the new ones. They satisfy</p>
+<p><span class="math display">\[(2\,3)(1\,2\,3\,4)(2\,3)^{-1} = (1\,3\,2\,4).\]</span></p>
+<p>Thus the image changes from <span class="math inline">\(\langle(1\,2\,3\,4)\rangle\)</span> to <span class="math inline">\(\langle(1\,3\,2\,4)\rangle\)</span>. These subgroups are distinct. Their unique elements of order two are respectively <span class="math inline">\((1\,3)(2\,4)\)</span> and <span class="math inline">\((1\,2)(3\,4)\)</span>. Both still describe the same addition modulo four.</p>
+</section>
+<section id="example-5.7-the-klein-four-group" class="level3">
+<h3 class="anchored" data-anchor-id="example-5.7-the-klein-four-group">Example 5.7 (The Klein four-group)</h3>
+<p>Write <span class="math inline">\(V = \{e, a, b, c\}\)</span> with <span class="math inline">\(a^2 = b^2 = c^2 = e\)</span> and <span class="math inline">\(ab = c\)</span>. The numbering and the labels obtained by left multiplication are</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th><span class="math inline">\(x\)</span></th>
+<th><span class="math inline">\(e\)</span></th>
+<th><span class="math inline">\(a\)</span></th>
+<th><span class="math inline">\(b\)</span></th>
+<th><span class="math inline">\(c\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(f(x)\)</span></td>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(f(ax)\)</span></td>
+<td>2</td>
+<td>1</td>
+<td>4</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(f(bx)\)</span></td>
+<td>3</td>
+<td>4</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(f(cx)\)</span></td>
+<td>4</td>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>Reading each of the last three rows as a permutation of the labels gives</p>
+<p><span class="math display">\[L_f(a) = (1\,2)(3\,4), \qquad L_f(b) = (1\,3)(2\,4), \qquad L_f(c) = (1\,4)(2\,3).\]</span></p>
+<p>These three, with the identity, are a subgroup of <span class="math inline">\(S_4\)</span> isomorphic to <span class="math inline">\(V\)</span>. Each row of the multiplication table of <span class="math inline">\(G\)</span> is a permutation of the elements, and Cayley’s theorem is the observation that these permutations multiply as the group does.</p>
+</section>
+<section id="example-5.8-a-smaller-home-for-d_4" class="level3">
+<h3 class="anchored" data-anchor-id="example-5.8-a-smaller-home-for-d_4">Example 5.8 (A smaller home for <span class="math inline">\(D_4\)</span>)</h3>
+<p>Cayley’s theorem puts <span class="math inline">\(D_4\)</span>, of order 8, inside <span class="math inline">\(S_8\)</span>. Its action on the four vertices of the square does better. With the vertices numbered around the square as in Example 4.7, the quarter turn and the reflection in the horizontal axis are</p>
+<p><span class="math display">\[A = (1\,2\,3\,4), \qquad B = (1\,4)(2\,3), \qquad AB = (2\,4),\]</span></p>
+<p>so <span class="math inline">\(D_4\)</span> is isomorphic to a subgroup of <span class="math inline">\(S_4\)</span>. The embedding of Cayley’s proof is the regular action, which is free, while the vertex action is not, and a faithful action on a smaller set gives a smaller symmetric group.</p>
+<p><strong>Quiz 5.2.</strong> Write out the eight permutations of <span class="math inline">\(\{1,2,3,4\}\)</span> given by <span class="math inline">\(D_4\)</span> acting on the vertices, and check that they are closed under composition. Which elements of <span class="math inline">\(S_4\)</span> are missing, and what do they do to the square?</p>
+<p>The eight are <span class="math inline">\(e\)</span>, <span class="math inline">\((1\,2\,3\,4)\)</span>, <span class="math inline">\((1\,3)(2\,4)\)</span>, <span class="math inline">\((1\,4\,3\,2)\)</span>, <span class="math inline">\((1\,4)(2\,3)\)</span>, <span class="math inline">\((2\,4)\)</span>, <span class="math inline">\((1\,2)(3\,4)\)</span>, <span class="math inline">\((1\,3)\)</span>. Missing are the four 4-cycles other than the two rotations and the four transpositions: a transposition such as <span class="math inline">\((1\,2)\)</span> fixes two vertices and exchanges the other two, which no rigid motion of the square does.</p>
+<hr>
+</section>
+</section>
+<section id="transpositions-parity-and-the-alternating-group" class="level2">
+<h2 class="anchored" data-anchor-id="transpositions-parity-and-the-alternating-group">5.3 Transpositions, parity, and the alternating group</h2>
+<section id="proposition-5.9" class="level3">
+<h3 class="anchored" data-anchor-id="proposition-5.9">Proposition 5.9</h3>
+<p>Every <span class="math inline">\(r\)</span>-cycle with <span class="math inline">\(r\ge 2\)</span> is a product of transpositions,</p>
+<p><span class="math display">\[(a_1\, a_2\, \cdots\, a_r) = (a_1\, a_r)(a_1\, a_{r-1})\cdots(a_1\, a_2),\]</span></p>
+<p>so the transpositions generate <span class="math inline">\(S_n\)</span> for <span class="math inline">\(n\ge 2\)</span>. A 1-cycle is the identity, the empty product.</p>
+<p><em>Proof.</em> Read the right-hand side from the right. It sends <span class="math inline">\(a_1\)</span> to <span class="math inline">\(a_2\)</span>, and it sends <span class="math inline">\(a_i\)</span> for <span class="math inline">\(i\ge 2\)</span> first to <span class="math inline">\(a_1\)</span> and then to <span class="math inline">\(a_{i+1}\)</span>, with <span class="math inline">\(a_r\)</span> going to <span class="math inline">\(a_1\)</span>. Points outside the cycle are untouched. Every permutation is a product of cycles by Theorem 5.2. <span class="math inline">\(\blacksquare\)</span></p>
+<p>The adjacent transpositions <span class="math inline">\(s_i = (i\;\; i+1)\)</span> generate <span class="math inline">\(S_n\)</span>. To build an arbitrary exchange <span class="math inline">\((a\,b)\)</span>, first suppose <span class="math inline">\(a + 1 &lt; b\)</span> and conjugate it by <span class="math inline">\(s_a\)</span>. Reading <span class="math inline">\(s_a(a\,b)s_a\)</span> from right to left gives</p>
+<p><span class="math display">\[a+1 \mapsto a \mapsto b \mapsto b, \qquad b \mapsto b \mapsto a \mapsto a+1.\]</span></p>
+<p>The label <span class="math inline">\(a\)</span> returns to itself, and every other label is fixed. Thus conjugation has changed the exchange of <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> into the exchange of <span class="math inline">\(a+1\)</span> and <span class="math inline">\(b\)</span>. Since <span class="math inline">\(s_a^2 = e\)</span>, we can also reverse this step,</p>
+<p><span class="math display">\[s_a(a\,b)s_a = (a+1\;\; b), \qquad (a\,b) = s_a(a+1\;\; b)s_a.\]</span></p>
+<p>Repeating this step moves the first entry towards <span class="math inline">\(b\)</span>, until the exchange is between the adjacent labels <span class="math inline">\(b-1\)</span> and <span class="math inline">\(b\)</span>. For example, in <span class="math inline">\(S_5\)</span>,</p>
+<p><span class="math display">\[(1\,5) = s_1(2\,5)s_1 = s_1s_2(3\,5)s_2s_1 = s_1s_2s_3(4\,5)s_3s_2s_1 = s_1s_2s_3s_4s_3s_2s_1.\]</span></p>
+<p>The general expression is therefore, for <span class="math inline">\(b \ge a+2\)</span>,</p>
+<p><span class="math display">\[(a\,b) = s_a s_{a+1}\cdots s_{b-2}\, s_{b-1}\, s_{b-2}\cdots s_{a+1}s_a.\]</span></p>
+<p>For <span class="math inline">\(b = a+1\)</span> the exchange is already <span class="math inline">\(s_a\)</span>. Since every permutation is a product of transpositions, these adjacent exchanges generate <span class="math inline">\(S_n\)</span>.</p>
+<p>For <span class="math inline">\(n\ge 2\)</span>, let <span class="math inline">\(c = (1\,2\,\cdots\,n)\)</span>. Conjugating by <span class="math inline">\(c\)</span> shifts both entries of an adjacent exchange forward by one. The exchange <span class="math inline">\((1\,2)\)</span> becomes <span class="math inline">\((2\,3)\)</span>, then <span class="math inline">\((3\,4)\)</span>, and so on up to <span class="math inline">\((n-1\;\; n)\)</span>. Starting from <span class="math inline">\(s_1\)</span>, after <span class="math inline">\(i-1\)</span> such shifts we obtain <span class="math inline">\(s_i\)</span>, so</p>
+<p><span class="math display">\[c^{i-1}s_1c^{-(i-1)} = s_i \qquad (1\le i &lt; n).\]</span></p>
+<p>Thus <span class="math inline">\(s_1\)</span> and <span class="math inline">\(c\)</span> produce every adjacent transposition, and <span class="math inline">\(S_n = \langle s_1, c\rangle\)</span>.</p>
+<p>A presentation of <span class="math inline">\(S_n\)</span>, stated here without proof, is</p>
+<p><span class="math display">\[S_n = \langle s_1,\dots,s_{n-1} \mid s_i^2 = 1,\ s_is_j = s_js_i\ (|i-j|\ge 2),\ s_is_{i+1}s_i = s_{i+1}s_is_{i+1}\rangle.\]</span></p>
+<p>Each <span class="math inline">\(s_i\)</span> squares to the identity, disjoint exchanges commute, and both sides of the last relation exchange <span class="math inline">\(i\)</span> with <span class="math inline">\(i+2\)</span>.</p>
+<p>A transposition pair <span class="math inline">\(\tau\tau = e\)</span> can be inserted into any product, increasing the number of factors by two without changing the permutation. The distinction between an even and an odd number of factors is the parity 奇偶性 of a permutation.</p>
+</section>
+<section id="definition-5.10-even-偶置换-and-odd-奇置换" class="level3">
+<h3 class="anchored" data-anchor-id="definition-5.10-even-偶置换-and-odd-奇置换">Definition 5.10 (Even 偶置换 and odd 奇置换)</h3>
+<p>A permutation is <strong>even</strong> if it can be written as a product of an even number of transpositions, and <strong>odd</strong> if it can be written as a product of an odd number of transpositions. The identity is even, as the empty product.</p>
+<p>The determinant of a permutation matrix shows that every decomposition of a given permutation has the same parity.</p>
+</section>
+<section id="definition-5.11-permutation-matrix-and-sign-符号" class="level3">
+<h3 class="anchored" data-anchor-id="definition-5.11-permutation-matrix-and-sign-符号">Definition 5.11 (Permutation matrix and sign 符号)</h3>
+<p>For <span class="math inline">\(\varphi\in S_n\)</span> let <span class="math inline">\(P(\varphi)\)</span> be the matrix with <span class="math inline">\(P(\varphi)\hat e_i = \hat e_{\varphi(i)}\)</span>, that is <span class="math inline">\(P(\varphi)_{ji} = \delta_{j,\varphi(i)}\)</span>, and set</p>
+<p><span class="math display">\[\mathrm{sgn}(\varphi) := \det P(\varphi).\]</span></p>
+</section>
+<section id="proposition-5.12-parity-and-sign" class="level3">
+<h3 class="anchored" data-anchor-id="proposition-5.12-parity-and-sign">Proposition 5.12 (Parity and sign)</h3>
+<p><span class="math inline">\(P : S_n \to GL(n,\kappa)\)</span> is an injective homomorphism, and <span class="math inline">\(\mathrm{sgn} : S_n \to \{\pm 1\}\)</span> is a homomorphism with <span class="math inline">\(\mathrm{sgn}(\tau) = -1\)</span> for every transposition <span class="math inline">\(\tau\)</span>. If <span class="math inline">\(\varphi\)</span> is a product of <span class="math inline">\(k\)</span> transpositions then <span class="math inline">\(\mathrm{sgn}(\varphi) = (-1)^k\)</span>, so the parity of <span class="math inline">\(k\)</span> depends only on <span class="math inline">\(\varphi\)</span>.</p>
+<p><em>Proof.</em> <span class="math inline">\(P(\varphi)P(\psi)\hat e_i = P(\varphi)\hat e_{\psi(i)} = \hat e_{\varphi\psi(i)}\)</span>, so <span class="math inline">\(P\)</span> is a homomorphism, and <span class="math inline">\(P(\varphi) = \mathbb 1\)</span> forces <span class="math inline">\(\varphi = \mathrm{id}\)</span>. The determinant is multiplicative, so sgn is a homomorphism, and its values are <span class="math inline">\(\pm 1\)</span> because <span class="math inline">\(P(\varphi)^{-1} = P(\varphi^{-1})\)</span> has integer entries. The matrix of a transposition is <span class="math inline">\(\mathbb 1\)</span> with two columns exchanged, of determinant <span class="math inline">\(-1\)</span>. If two decompositions of <span class="math inline">\(\varphi\)</span> contain <span class="math inline">\(k\)</span> and <span class="math inline">\(\ell\)</span> transpositions, respectively, their determinants give</p>
+<p><span class="math display">\[(-1)^k = \det P(\varphi) = (-1)^\ell.\]</span></p>
+<p>Hence <span class="math inline">\(k\)</span> and <span class="math inline">\(\ell\)</span> have the same parity. Every permutation is therefore either even or odd, and <span class="math inline">\(\mathrm{sgn}(\varphi)\)</span> is <span class="math inline">\(+1\)</span> for an even permutation and <span class="math inline">\(-1\)</span> for an odd one. <span class="math inline">\(\blacksquare\)</span></p>
+</section>
+<section id="proposition-5.13" class="level3">
+<h3 class="anchored" data-anchor-id="proposition-5.13">Proposition 5.13</h3>
+<p>An <span class="math inline">\(r\)</span>-cycle has sign <span class="math inline">\((-1)^{r-1}\)</span>. If the complete factorization of <span class="math inline">\(\varphi\in S_n\)</span> has <span class="math inline">\(t\)</span> cycles then <span class="math inline">\(\mathrm{sgn}(\varphi) = (-1)^{n-t}\)</span>.</p>
+<p><em>Proof.</em> An <span class="math inline">\(r\)</span>-cycle is a product of <span class="math inline">\(r-1\)</span> transpositions by Proposition 5.9. If the complete factorization has cycles of lengths <span class="math inline">\(r_1,\dots,r_t\)</span> then <span class="math inline">\(\sum_i r_i = n\)</span>, since every point lies in exactly one cycle, and <span class="math inline">\(\mathrm{sgn}(\varphi) = \prod_i(-1)^{r_i-1} = (-1)^{n-t}\)</span>. <span class="math inline">\(\blacksquare\)</span></p>
+</section>
+<section id="example-5.14-the-sign-in-vector-calculus" class="level3">
+<h3 class="anchored" data-anchor-id="example-5.14-the-sign-in-vector-calculus">Example 5.14 (The sign in vector calculus)</h3>
+<p>The Levi–Civita symbol 列维–奇维塔符号 packages the sign of a permutation into indices. For <span class="math inline">\(\sigma\in S_n\)</span>, set</p>
+<p><span class="math display">\[\epsilon_{\sigma(1)\cdots\sigma(n)} = \mathrm{sgn}(\sigma),\]</span></p>
+<p>and set it to zero when an index is repeated. Thus <span class="math inline">\(\epsilon_{123} = \epsilon_{231} = 1\)</span> and <span class="math inline">\(\epsilon_{132} = -1\)</span>. In three dimensions,</p>
+<p><span class="math display">\[(\vec a\times\vec b)_i = \sum_{j,k=1}^{3}\epsilon_{ijk}\,a_jb_k.\]</span></p>
+<p>Exchanging <span class="math inline">\(j\)</span> and <span class="math inline">\(k\)</span> changes the sign, giving <span class="math inline">\(\vec b\times\vec a = -\vec a\times\vec b\)</span>. The same permutation sign appears in the determinant expansion,</p>
+<p><span class="math display">\[\det M = \sum_{\sigma\in S_n}\mathrm{sgn}(\sigma)\prod_{i=1}^{n} M_{i,\sigma(i)}.\]</span></p>
+<p>Parity therefore already occurs in familiar calculations with areas, volumes, and cross products.</p>
+</section>
+<section id="definition-5.15-alternating-group-交错群" class="level3">
+<h3 class="anchored" data-anchor-id="definition-5.15-alternating-group-交错群">Definition 5.15 (Alternating group 交错群)</h3>
+<p><span class="math inline">\(A_n := \ker(\mathrm{sgn})\)</span>, the even permutations in <span class="math inline">\(S_n\)</span>.</p>
+<p>It is a subgroup, being a kernel. For <span class="math inline">\(n\ge 2\)</span>, the odd permutations form the coset <span class="math inline">\((1\,2)A_n\)</span>. Multiplication by <span class="math inline">\((1\,2)\)</span> reverses parity. For any odd <span class="math inline">\(\sigma\)</span>, <span class="math inline">\((1\,2)\sigma\)</span> is even, so <span class="math inline">\(\sigma = (1\,2)\bigl((1\,2)\sigma\bigr) \in (1\,2)A_n\)</span>. Thus every permutation belongs to one of the two cosets,</p>
+<p><span class="math display">\[S_n = A_n \sqcup (1\,2)A_n.\]</span></p>
+<p>There are two cosets, so <span class="math inline">\([S_n:A_n] = 2\)</span> and</p>
+<p><span class="math display">\[|A_n| = \frac{n!}{2}.\]</span></p>
+</section>
+<section id="example-5.16-small-alternating-groups" class="level3">
+<h3 class="anchored" data-anchor-id="example-5.16-small-alternating-groups">Example 5.16 (Small alternating groups)</h3>
+<p><span class="math inline">\(A_2 = \{e\}\)</span> and <span class="math inline">\(A_3 = \{e, (1\,2\,3), (1\,3\,2)\} \cong \mathbb Z_3\)</span>. Next,</p>
+<p><span class="math display">\[A_4 = \{e\} \cup \{\text{the eight 3-cycles}\} \cup \{(1\,2)(3\,4), (1\,3)(2\,4), (1\,4)(2\,3)\},\]</span></p>
+<p>of order 12. The three double transpositions with <span class="math inline">\(e\)</span> form the Klein four-group of Example 5.7. While <span class="math inline">\(A_3\)</span> is abelian, <span class="math inline">\(A_4\)</span> is not,</p>
+<p><span class="math display">\[(1\,2\,3)(1\,2\,4) = (1\,3)(2\,4), \qquad (1\,2\,4)(1\,2\,3) = (1\,4)(2\,3).\]</span></p>
+</section>
+<section id="proposition-5.17" class="level3">
+<h3 class="anchored" data-anchor-id="proposition-5.17">Proposition 5.17</h3>
+<p><span class="math inline">\(A_4\)</span> has no subgroup of order 6.</p>
+<p><em>Proof.</em> Suppose <span class="math inline">\(H\subset A_4\)</span> is a subgroup with <span class="math inline">\(|H| = 6\)</span>, so <span class="math inline">\([A_4:H] = 2\)</span> and the two cosets <span class="math inline">\(H\)</span> and <span class="math inline">\(gH\)</span> partition <span class="math inline">\(A_4\)</span> for any <span class="math inline">\(g\notin H\)</span>. Then <span class="math inline">\(g^2 \in H\)</span>, since <span class="math inline">\(g^2 \in gH\)</span> would give <span class="math inline">\(g \in H\)</span>. So every square in <span class="math inline">\(A_4\)</span> lies in <span class="math inline">\(H\)</span>. A 3-cycle <span class="math inline">\(\sigma\)</span> satisfies <span class="math inline">\(\sigma^3 = e\)</span>, hence <span class="math inline">\(\sigma = \sigma^4 = (\sigma^2)^2\)</span>, and is a square. All eight 3-cycles would therefore lie in <span class="math inline">\(H\)</span>, which has six elements. <span class="math inline">\(\blacksquare\)</span></p>
+<p>This is the counterexample promised in §4.5. A divisor of the order of a group need not be the order of a subgroup.</p>
+</section>
+<section id="remark-5.18-sylows-first-theorem" class="level3">
+<h3 class="anchored" data-anchor-id="remark-5.18-sylows-first-theorem">Remark 5.18 (Sylow’s first theorem)</h3>
+<p>If <span class="math inline">\(|G| = p^am\)</span> with <span class="math inline">\(p\)</span> prime and <span class="math inline">\(p\)</span> not dividing <span class="math inline">\(m\)</span>, then <span class="math inline">\(G\)</span> has a subgroup of order <span class="math inline">\(p^a\)</span>. We state this without proof. For <span class="math inline">\(A_4\)</span> it gives a subgroup of order 4, which is the Klein four-group of Example 5.7.</p>
+<p>The polyhedral groups of §4.6 can now be named.</p>
+</section>
+<section id="proposition-5.19" class="level3">
+<h3 class="anchored" data-anchor-id="proposition-5.19">Proposition 5.19</h3>
+<p>The rotation group of the regular tetrahedron is isomorphic to <span class="math inline">\(A_4\)</span>, and that of the cube to <span class="math inline">\(S_4\)</span>.</p>
+<p><em>Proof.</em> A rotation of the tetrahedron permutes its four vertices. Their position vectors measured from the centre span <span class="math inline">\(\mathbb R^3\)</span>, so a rotation fixing all four is the identity and the resulting homomorphism into <span class="math inline">\(S_4\)</span> is injective. The identity, the eight rotations through <span class="math inline">\(\pm 2\pi/3\)</span> about the four vertex axes, and the three half-turns about the axes through midpoints of opposite edges account for all 12 rotations, by Theorem 4.35. They give the identity, 3-cycles and double transpositions, all even, so the image is a subgroup of <span class="math inline">\(A_4\)</span> with 12 elements and equals <span class="math inline">\(A_4\)</span>.</p>
+<p>A rotation of the cube permutes its four body diagonals. The six half-turns about axes through midpoints of opposite edges give the six transpositions, which generate <span class="math inline">\(S_4\)</span>, so the homomorphism is onto. The rotation group has 24 elements, as does <span class="math inline">\(S_4\)</span>, so it is an isomorphism. <span class="math inline">\(\blacksquare\)</span></p>
+<p>We state without proof that the rotation group of the icosahedron is isomorphic to <span class="math inline">\(A_5\)</span>. Five cubes can be inscribed in the dodecahedron, each using one diagonal of every face, and the rotations permute them.</p>
+<p><strong>Quiz 5.3.</strong> Is the set of odd permutations a subgroup of <span class="math inline">\(S_n\)</span>? Check that <span class="math inline">\(\mathrm{sgn}\bigl((1\,2\,3)(4\,5)\bigr) = -1\)</span> in two ways, by counting transpositions and by Proposition 5.13.</p>
+<p>It is not: it contains no identity, and the product of two odd permutations is even. Here <span class="math inline">\((1\,2\,3)(4\,5) = (1\,3)(1\,2)(4\,5)\)</span> is a product of three transpositions, and <span class="math inline">\(n - t = 5 - 2 = 3\)</span>.</p>
+<hr>
+</section>
+</section>
+<section id="conjugacy-classes-of-s_n-and-young-diagrams" class="level2">
+<h2 class="anchored" data-anchor-id="conjugacy-classes-of-s_n-and-young-diagrams">5.4 Conjugacy classes of <span class="math inline">\(S_n\)</span> and Young diagrams</h2>
+<section id="proposition-5.20" class="level3">
+<h3 class="anchored" data-anchor-id="proposition-5.20">Proposition 5.20</h3>
+<p>For <span class="math inline">\(\sigma\in S_n\)</span> and a cycle <span class="math inline">\((a_1\,\cdots\,a_r)\)</span>,</p>
+<p><span class="math display">\[\sigma\,(a_1\,a_2\,\cdots\,a_r)\,\sigma^{-1} = (\sigma(a_1)\;\sigma(a_2)\;\cdots\;\sigma(a_r)).\]</span></p>
+<p><em>Proof.</em> Apply the left-hand side to <span class="math inline">\(\sigma(a_i)\)</span>. First <span class="math inline">\(\sigma^{-1}\)</span> gives <span class="math inline">\(a_i\)</span>, then the cycle gives <span class="math inline">\(a_{i+1}\)</span>, then <span class="math inline">\(\sigma\)</span> gives <span class="math inline">\(\sigma(a_{i+1})\)</span>, with <span class="math inline">\(a_{r+1}\)</span> read as <span class="math inline">\(a_1\)</span>. A point outside <span class="math inline">\(\{\sigma(a_1),\dots,\sigma(a_r)\}\)</span> comes from a point outside the cycle and is left alone. The right-hand side does the same. <span class="math inline">\(\blacksquare\)</span></p>
+<p>Conjugation therefore relabels the entries of a cycle without changing its length, and applying it to a decomposition relabels every cycle at once.</p>
+</section>
+<section id="definition-5.21-cycle-type-轮换型" class="level3">
+<h3 class="anchored" data-anchor-id="definition-5.21-cycle-type-轮换型">Definition 5.21 (Cycle type 轮换型)</h3>
+<p>The <strong>cycle type</strong> of <span class="math inline">\(\varphi\in S_n\)</span> is the tuple <span class="math inline">\(\lambda = (\lambda_1,\dots,\lambda_t)\)</span>, where <span class="math inline">\(\lambda_i\)</span> is the length of the <span class="math inline">\(i\)</span>-th cycle in its complete factorization, ordered so that <span class="math inline">\(\lambda_1 \ge \cdots \ge \lambda_t \ge 1\)</span>. The lengths sum to <span class="math inline">\(n\)</span>, so <span class="math inline">\(\lambda\)</span> is a <strong>partition</strong> 分拆 of <span class="math inline">\(n\)</span>. Write <span class="math inline">\(m_i(\lambda)\)</span> for the number of cycles of length <span class="math inline">\(i\)</span>.</p>
+<p>For example, <span class="math inline">\((1\,2)(3\,4)(5)\in S_5\)</span> has <span class="math inline">\(\lambda = (2,2,1)\)</span>, with <span class="math inline">\(m_2(\lambda) = 2\)</span> and <span class="math inline">\(m_1(\lambda) = 1\)</span>.</p>
+</section>
+<section id="theorem-5.22-classes-of-s_n" class="level3">
+<h3 class="anchored" data-anchor-id="theorem-5.22-classes-of-s_n">Theorem 5.22 (Classes of <span class="math inline">\(S_n\)</span>)</h3>
+<p>Two permutations are conjugate in <span class="math inline">\(S_n\)</span> exactly when they have the same cycle type, so the conjugacy classes of <span class="math inline">\(S_n\)</span> are in bijection with the partitions of <span class="math inline">\(n\)</span>. The class of type <span class="math inline">\(\lambda\)</span> has size</p>
+<p><span class="math display">\[\frac{n!}{\prod_i i^{m_i(\lambda)}\, m_i(\lambda)!}.\]</span></p>
+<p><em>Proof.</em> Proposition 5.20 shows that conjugate permutations have the same cycle type. Conversely, let <span class="math inline">\(\varphi\)</span> and <span class="math inline">\(\psi\)</span> have the same type. Write their complete factorizations with cycles of equal length aligned, and let <span class="math inline">\(\sigma\)</span> send each entry of <span class="math inline">\(\varphi\)</span> to the entry standing below it in <span class="math inline">\(\psi\)</span>. This <span class="math inline">\(\sigma\)</span> is a permutation, and <span class="math inline">\(\sigma\varphi\sigma^{-1} = \psi\)</span> by Proposition 5.20.</p>
+<p>For the class size, take the group <span class="math inline">\(G = S_n\)</span> acting on the set <span class="math inline">\(X = S_n\)</span> by conjugation, with the action <span class="math inline">\(\sigma\cdot\varphi = \sigma\varphi\sigma^{-1}\)</span>. The orbit of <span class="math inline">\(\varphi\)</span> is its conjugacy class <span class="math inline">\(\mathrm{Cl}(\varphi)\)</span>. Its stabilizer consists of the permutations whose conjugation leaves <span class="math inline">\(\varphi\)</span> unchanged. This is the centralizer</p>
+<p><span class="math display">\[G_\varphi = \{\sigma\in S_n : \sigma\varphi\sigma^{-1} = \varphi\} = C_{S_n}(\varphi).\]</span></p>
+<p>By Theorem 4.20, <span class="math inline">\(|\mathrm{Cl}(\varphi)| = n!/|C_{S_n}(\varphi)|\)</span>. To count this stabilizer, note that a stabilizing <span class="math inline">\(\sigma\)</span> leaves every power of <span class="math inline">\(\varphi\)</span> unchanged under conjugation, so <span class="math inline">\(\sigma(\varphi^k(x)) = \varphi^k(\sigma(x))\)</span>. Thus <span class="math inline">\(\sigma\)</span> maps each cycle onto a cycle of the same length, and the image of one point determines the images of all points in that cycle. For the <span class="math inline">\(m_i = m_i(\lambda)\)</span> cycles of length <span class="math inline">\(i\)</span>, there are <span class="math inline">\(m_i!\)</span> ways to assign target cycles and <span class="math inline">\(i\)</span> choices for the image of a chosen point in each cycle, giving <span class="math inline">\(i^{m_i}\)</span> choices. Conversely, each such assignment defines a permutation leaving <span class="math inline">\(\varphi\)</span> unchanged under conjugation. The choices for different lengths are independent, giving</p>
+<p><span class="math display">\[|C_{S_n}(\varphi)| = \prod_i i^{m_i(\lambda)}\,m_i(\lambda)!.\]</span></p>
+<p>Substituting into the orbit–stabilizer formula gives the class size. <span class="math inline">\(\blacksquare\)</span></p>
+</section>
+<section id="example-5.23-the-classes-of-s_4" class="level3">
+<h3 class="anchored" data-anchor-id="example-5.23-the-classes-of-s_4">Example 5.23 (The classes of <span class="math inline">\(S_4\)</span>)</h3>
+<p>There are <span class="math inline">\(p(4) = 5\)</span> partitions of 4, hence five classes.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>partition</th>
+<th>representative</th>
+<th>class size</th>
+<th>order</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(1+1+1+1\)</span></td>
+<td><span class="math inline">\(e\)</span></td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(2+1+1\)</span></td>
+<td><span class="math inline">\((1\,2)\)</span></td>
+<td>6</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(2+2\)</span></td>
+<td><span class="math inline">\((1\,2)(3\,4)\)</span></td>
+<td>3</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(3+1\)</span></td>
+<td><span class="math inline">\((1\,2\,3)\)</span></td>
+<td>8</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(4\)</span></td>
+<td><span class="math inline">\((1\,2\,3\,4)\)</span></td>
+<td>6</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<p>The sizes add to <span class="math inline">\(1 + 6 + 3 + 8 + 6 = 24 = |S_4|\)</span>, as the classes partition the group, and each divides 24 as (4.1) requires.</p>
+<p>A partition is drawn as a <strong>Young diagram</strong> 杨图, a left-justified array of boxes with <span class="math inline">\(\lambda_i\)</span> boxes in the <span class="math inline">\(i\)</span>-th row. The five partitions of <span class="math inline">\(4\)</span> are <span class="math inline">\(1+1+1+1\)</span>, <span class="math inline">\(2+1+1\)</span>, <span class="math inline">\(2+2\)</span>, <span class="math inline">\(3+1\)</span>, <span class="math inline">\(4\)</span>, and they label the five classes of Example 5.23 in the same order. The number of classes of <span class="math inline">\(S_n\)</span> is the number of partitions of <span class="math inline">\(n\)</span>, the <strong>partition function</strong> 分拆函数 <span class="math inline">\(p(n)\)</span>, which runs <span class="math inline">\(1,2,3,5,7,11,15,\dots\)</span> for <span class="math inline">\(n = 1,2,\dots\)</span> and has no simple closed form.</p>
+</section>
+<section id="definition-5.24-young-tableau-杨表" class="level3">
+<h3 class="anchored" data-anchor-id="definition-5.24-young-tableau-杨表">Definition 5.24 (Young tableau 杨表)</h3>
+<p>A <strong>Young tableau</strong> is a Young diagram with <span class="math inline">\(n\)</span> boxes filled with <span class="math inline">\(1,\dots,n\)</span>, each used once. It is <strong>standard</strong> when entries increase from left to right in every row and from top to bottom in every column.</p>
+<p>For shape <span class="math inline">\((2,1)\)</span> there are <span class="math inline">\(3! = 6\)</span> tableaux, of which exactly two are standard, namely</p>
+<pre><code>1 2    1 3
+3      2</code></pre>
+</section>
+<section id="remark-5.25-one-shape-two-uses" class="level3">
+<h3 class="anchored" data-anchor-id="remark-5.25-one-shape-two-uses">Remark 5.25 (One shape, two uses)</h3>
+<p>Here a Young diagram records cycle lengths and labels a conjugacy class. In Part II the same shapes will also label irreducible representations through constructions that symmetrise tensor positions along rows and antisymmetrise them along columns.</p>
+</section>
+<section id="remark-5.26-conjugacy-classes-in-a_4" class="level3">
+<h3 class="anchored" data-anchor-id="remark-5.26-conjugacy-classes-in-a_4">Remark 5.26 (Conjugacy classes in <span class="math inline">\(A_4\)</span>)</h3>
+<p>The eight 3-cycles form a single class of <span class="math inline">\(S_4\)</span>. In <span class="math inline">\(A_4\)</span> the centralizer of <span class="math inline">\((1\,2\,3)\)</span> is <span class="math inline">\(\langle(1\,2\,3)\rangle\)</span>, of order 3, so by (4.1) its <span class="math inline">\(A_4\)</span>-class has <span class="math inline">\(12/3 = 4\)</span> elements. The eight 3-cycles split into two classes of four, and the conjugating element that merges them, a transposition, is missing from <span class="math inline">\(A_4\)</span>.</p>
+<p><strong>Quiz 5.4.</strong> List the partitions of 5 and the class sizes of <span class="math inline">\(S_5\)</span>, and check that they sum to 120. Which classes of <span class="math inline">\(S_5\)</span> lie in <span class="math inline">\(A_5\)</span>? Do any of them split into more than one <span class="math inline">\(A_5\)</span>-class?</p>
+<p>The partitions are <span class="math inline">\(5\)</span>, <span class="math inline">\(4+1\)</span>, <span class="math inline">\(3+2\)</span>, <span class="math inline">\(3+1+1\)</span>, <span class="math inline">\(2+2+1\)</span>, <span class="math inline">\(2+1+1+1\)</span>, <span class="math inline">\(1+1+1+1\)</span>, with class sizes <span class="math inline">\(24, 30, 20, 20, 15, 10, 1\)</span>, summing to 120. Those in <span class="math inline">\(A_5\)</span> are the even types, of sizes <span class="math inline">\(24, 20, 15, 1\)</span>, summing to 60. The 5-cycles split into two <span class="math inline">\(A_5\)</span>-classes of 12.</p>
+<hr>
+</section>
+</section>
+<section id="permutations-in-physical-systems" class="level2">
+<h2 class="anchored" data-anchor-id="permutations-in-physical-systems">5.5 Permutations in physical systems</h2>
+<p>Permutation symmetry occurs in coupled oscillators, tensor indices, and identical-particle states.</p>
+<section id="identical-coupled-oscillators" class="level3">
+<h3 class="anchored" data-anchor-id="identical-coupled-oscillators">5.5.1 Identical coupled oscillators</h3>
+</section>
+<section id="example-5.27-a-collective-motion-and-relative-motions" class="level3">
+<h3 class="anchored" data-anchor-id="example-5.27-a-collective-motion-and-relative-motions">Example 5.27 (A collective motion and relative motions)</h3>
+<p>Consider <span class="math inline">\(n\ge 2\)</span> identical scalar coordinates <span class="math inline">\(q_i\)</span>, with mass <span class="math inline">\(m &gt; 0\)</span>, the same restoring constant <span class="math inline">\(k_0 &gt; 0\)</span>, and the same coupling <span class="math inline">\(k &gt; 0\)</span> between every pair. Their kinetic and potential energies are</p>
+<p><span class="math display">\[T = \frac{m}{2}\sum_{i=1}^{n}\dot q_i^2, \qquad U = \frac{k_0}{2}\sum_{i=1}^{n}q_i^2 + \frac{k}{2}\sum_{i&lt;j}(q_i - q_j)^2.\]</span></p>
+<p>A permutation acts by <span class="math inline">\((\sigma\cdot q)_i = q_{\sigma^{-1}(i)}\)</span>, the matrix action of Definition 5.11. Both energies are unchanged. The first sums run over every coordinate, and the second over every unordered pair.</p>
+<p>Separate the mean displacement from the relative displacements,</p>
+<p><span class="math display">\[Q = \frac{1}{n}\sum_i q_i, \qquad r_i = q_i - Q, \qquad \sum_i r_i = 0.\]</span></p>
+<p>Relabelling leaves the collective pattern <span class="math inline">\((Q,\dots,Q)\)</span> unchanged and preserves <span class="math inline">\(\sum_i r_i = 0\)</span>. The collective displacement has one independent amplitude <span class="math inline">\(Q\)</span>. The relative displacements have <span class="math inline">\(n-1\)</span> independent amplitudes, since their <span class="math inline">\(n\)</span> components obey one sum constraint. The equations of motion are</p>
+<p><span class="math display">\[m\ddot q_i = -k_0q_i - k\sum_{j\neq i}(q_i - q_j) = -k_0q_i - nk(q_i - Q).\]</span></p>
+<p>Taking the mean, then subtracting it from each equation, gives</p>
+<p><span class="math display">\[m\ddot Q = -k_0Q, \qquad m\ddot r_i = -(k_0 + nk)r_i.\]</span></p>
+<p>There is one collective mode with <span class="math inline">\(\omega^2 = k_0/m\)</span>, and <span class="math inline">\(n-1\)</span> independent relative modes with the same <span class="math inline">\(\omega^2 = (k_0 + nk)/m\)</span>.</p>
+<p>More generally, write <span class="math inline">\(U = \frac12 q^T D q\)</span>, where <span class="math inline">\(D\)</span> is the symmetric stiffness matrix. Invariance under relabelling means</p>
+<p><span class="math display">\[P(\sigma)^T D\,P(\sigma) = D, \qquad D_{\sigma(i),\sigma(j)} = D_{ij}.\]</span></p>
+<p>Relabelling can send any coordinate to any other coordinate, and any pair of distinct coordinates to any other such pair. Thus all diagonal entries of <span class="math inline">\(D\)</span> are equal, and all off-diagonal entries are equal. Writing these entries as <span class="math inline">\(a + b\)</span> and <span class="math inline">\(b\)</span>, respectively, gives</p>
+<p><span class="math display">\[D = a\,\mathbb 1 + b\, uu^T, \qquad u = (1,\dots,1)^T.\]</span></p>
+<p>For a collective displacement <span class="math inline">\(q = Qu\)</span>, all coordinates move together. Since <span class="math inline">\(u^Tu = n\)</span>,</p>
+<p><span class="math display">\[D(Qu) = (a + nb)Qu.\]</span></p>
+<p>Thus the uniform pattern <span class="math inline">\(u\)</span> is an eigenvector of <span class="math inline">\(D\)</span> with eigenvalue <span class="math inline">\(a + nb\)</span>. For a relative displacement <span class="math inline">\(r = (r_1,\dots,r_n)^T\)</span>, the condition <span class="math inline">\(\sum_i r_i = 0\)</span> gives <span class="math inline">\(u^Tr = 0\)</span>, so</p>
+<p><span class="math display">\[Dr = ar.\]</span></p>
+<p>Every relative pattern is therefore multiplied by the same eigenvalue <span class="math inline">\(a\)</span>. Since the equations of motion are <span class="math inline">\(m\ddot q = -Dq\)</span>, the collective mode has <span class="math inline">\(\omega^2 = (a+nb)/m\)</span>, and all <span class="math inline">\(n-1\)</span> relative modes have <span class="math inline">\(\omega^2 = a/m\)</span>. In this example, <span class="math inline">\(a = k_0 + nk\)</span> and <span class="math inline">\(b = -k\)</span>, recovering the two frequencies above.</p>
+<p>The symmetry does not solve the problem. It says in advance that the stiffness matrix has only two eigenvalues and which normal modes they belong to, which is all a permutation can see.</p>
+</section>
+<section id="exchanging-indices-and-rotating-components" class="level3">
+<h3 class="anchored" data-anchor-id="exchanging-indices-and-rotating-components">5.5.2 Exchanging indices and rotating components</h3>
+<p>We can exchange the two index positions of an array <span class="math inline">\(A_{ij}\)</span> or rotate both indices. For a real <span class="math inline">\(3\times 3\)</span> array these operations are</p>
+<p><span class="math display">\[\tau(A) = A^T, \qquad \mathcal R_R(A) = RAR^T, \qquad R \in SO(3).\]</span></p>
+<p>Here <span class="math inline">\(\tau^2 = \mathrm{id}\)</span>, so <span class="math inline">\(\tau\)</span> defines an <span class="math inline">\(S_2\)</span> action on the two index positions in <span class="math inline">\(A_{ij}\)</span>, with each index ranging over <span class="math inline">\(1,2,3\)</span>. The rotations give a second action, and the two commute, since</p>
+<p><span class="math display">\[(RAR^T)^T = R A^T R^T.\]</span></p>
+<p>Every array has the unique decomposition</p>
+<p><span class="math display">\[A = S + K, \qquad S = \frac{A + A^T}{2}, \qquad K = \frac{A - A^T}{2}.\]</span></p>
+<p>Thus <span class="math inline">\(\tau(S) = S\)</span> and <span class="math inline">\(\tau(K) = -K\)</span>. The two operations <span class="math inline">\(\Pi_\pm = (\mathrm{id}\pm\tau)/2\)</span> satisfy <span class="math inline">\(\Pi_\pm^2 = \Pi_\pm\)</span> and <span class="math inline">\(\Pi_+\Pi_- = 0\)</span>. They project onto the symmetric and antisymmetric arrays. These are the simplest examples of the symmetrising and antisymmetrising operations later associated with a row of two boxes and a column of two boxes. Because rotations commute with <span class="math inline">\(\tau\)</span>, they preserve both spaces.</p>
+<p>For a <span class="math inline">\(3\times 3\)</span> array, this <span class="math inline">\(S_2\)</span> action separates the nine components into six symmetric and three antisymmetric components. Rotations further separate the symmetric part into its trace and a traceless part,</p>
+<p><span class="math display">\[S = \frac{\mathrm{Tr}\,S}{3}\,\mathbb 1 + S_0, \qquad \mathrm{Tr}\,S_0 = 0.\]</span></p>
+<p>The trace supplies one independent number, while the traceless condition leaves five independent symmetric components. Since <span class="math inline">\(R\mathbb 1 R^T = \mathbb 1\)</span> and <span class="math inline">\(\mathrm{Tr}(RSR^T) = \mathrm{Tr}\,S\)</span>, rotations preserve these parts separately. Thus</p>
+<p><span class="math display">\[9 = (1 + 5) + 3.\]</span></p>
+<p>The inertia tensor provides a symmetric array; a quadrupole moment is described by a symmetric traceless one. An antisymmetric array can be written as <span class="math inline">\(K_{ij} = \sum_k \epsilon_{ijk}a_k\)</span> and carries a vector under proper rotations. In Part II the <span class="math inline">\(1\)</span>, <span class="math inline">\(3\)</span>, and <span class="math inline">\(5\)</span> dimensional spaces will be identified with angular momenta <span class="math inline">\(0\)</span>, <span class="math inline">\(1\)</span>, and <span class="math inline">\(2\)</span>.</p>
+<p>For an array with <span class="math inline">\(n\)</span> index positions, the index exchange generalises to an <span class="math inline">\(S_n\)</span> action, which commutes with applying the same matrix <span class="math inline">\(g\)</span> to every index. These commuting actions connect Young diagrams with representations of matrix groups, as developed in Part II.</p>
+</section>
+<section id="particle-exchange" class="level3">
+<h3 class="anchored" data-anchor-id="particle-exchange">5.5.3 Particle exchange</h3>
+<p>The exchange of two particles discussed in the earlier chapters extends to <span class="math inline">\(n\)</span> particles. Let <span class="math inline">\(P_\sigma\)</span> be the operator permuting their labels, with <span class="math inline">\(P_\sigma P_\rho = P_{\sigma\rho}\)</span>. The usual bosonic and fermionic exchange rules are respectively</p>
+<p><span class="math display">\[P_\sigma\psi = \psi, \qquad P_\sigma\psi = \mathrm{sgn}(\sigma)\psi.\]</span></p>
+<p>Since sgn is a homomorphism, the fermionic rule gives the same sign for every sequence of pair exchanges producing <span class="math inline">\(\sigma\)</span>. All one-particle variables, including spin, are exchanged together, so these rules apply to the full state.</p>
+<hr>
+</section>
+</section>
+<section id="key-points" class="level2">
+<h2 class="anchored" data-anchor-id="key-points">Key points</h2>
+<ul>
+<li>Disjoint cycles are the orbits of <span class="math inline">\(\langle\varphi\rangle\)</span>; their lengths determine the order of <span class="math inline">\(\varphi\)</span> by taking the least common multiple.</li>
+<li>Cayley’s theorem embeds <span class="math inline">\(G\)</span> in <span class="math inline">\(S_G\)</span> through left multiplication, and a choice of numbering embeds it in <span class="math inline">\(S_n\)</span>; a different numbering conjugates the image.</li>
+<li><span class="math inline">\(\mathrm{sgn}(\varphi) = \det P(\varphi)\)</span> makes parity well defined. Its kernel <span class="math inline">\(A_n\)</span> has order <span class="math inline">\(n!/2\)</span> for <span class="math inline">\(n\ge 2\)</span>, and <span class="math inline">\(A_4\)</span> has no subgroup of order 6.</li>
+<li>The classes of <span class="math inline">\(S_n\)</span> are its cycle types, labelled by partitions of <span class="math inline">\(n\)</span> and drawn as Young diagrams; <span class="math inline">\(|\mathrm{Cl}(\varphi)| = n!/\prod_i i^{m_i}m_i!\)</span>.</li>
+<li>The rotation groups of the tetrahedron, cube and icosahedron are <span class="math inline">\(A_4\)</span>, <span class="math inline">\(S_4\)</span> and <span class="math inline">\(A_5\)</span>.</li>
+<li>Permutations organise physical coordinates and tensor positions: identical oscillators split into one collective and <span class="math inline">\(n-1\)</span> relative modes, and the <span class="math inline">\(S_2\)</span> action on a <span class="math inline">\(3\times 3\)</span> array splits <span class="math inline">\(9 = (1+5)+3\)</span>.</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "已复制");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "已复制");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/wenjium88-png\.github\.io\/my-blog\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+      window.quartoDecorateExternalLinks = function (root) {
+     var links = (root || window.document).querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+          if (!link.classList.contains('no-external-icon')) {
+          }
+        }
+      }
+      };
+      window.quartoDecorateExternalLinks(window.document);
+    // Esc closes the popup (WCAG 1.4.13) and focus leaving both trigger and
+    // popup closes it (WCAG 2.4.11); tippy handles neither for interactive popups.
+    const hideOnEscAndFocusOut = {
+      name: 'hideOnEscAndFocusOut',
+      defaultValue: true,
+      fn(instance) {
+        const dismiss = () => {
+          // A show scheduled by the trigger delay would otherwise reopen it
+          instance.clearDelayTimeouts();
+          instance.hide();
+        };
+        const onKeyDown = (event) => {
+          if (event.key !== 'Escape') {
+            return;
+          }
+          // Keep Esc from also reaching page handlers (e.g. reveal.js overview),
+          // except an open reveal.js slide menu, which Esc should close too.
+          // The menu handles keys only when its keyboard option is on.
+          const menuHandlesEsc = window.Reveal?.getPlugin?.('menu')?.isOpen() &&
+            window.Reveal.getConfig().menu?.keyboard !== false;
+          if (!menuHandlesEsc) {
+            event.stopPropagation();
+          }
+          if (instance.popper.contains(window.document.activeElement)) {
+            // Disabled while refocusing so the focus trigger does not reopen it
+            instance.disable();
+            instance.reference.focus();
+            instance.enable();
+          }
+          dismiss();
+        };
+        const onFocusOut = (event) => {
+          const target = event.relatedTarget;
+          if (target && !instance.reference.contains(target) &&
+              !instance.popper.contains(target)) {
+            dismiss();
+          }
+        };
+        // On the trigger too: a click trigger (code-annotations: select) has no
+        // blur handling. Attached for the instance's lifetime so leaving the
+        // trigger also cancels a show still pending on the trigger delay.
+        instance.reference.addEventListener('focusout', onFocusOut);
+        return {
+          onShow() {
+            window.document.addEventListener('keydown', onKeyDown, true);
+            instance.popper.addEventListener('focusout', onFocusOut);
+          },
+          onHide() {
+            window.document.removeEventListener('keydown', onKeyDown, true);
+            instance.popper.removeEventListener('focusout', onFocusOut);
+          },
+          onDestroy() {
+            instance.reference.removeEventListener('focusout', onFocusOut);
+          },
+        };
+      },
+    };
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+        plugins: [hideOnEscAndFocusOut],
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          // Each band is positioned against its own containing block, which is
+          // not the offsetParent of the lines, so place it from client rects.
+          const placeBand = (band, firstEl, lastEl, codeBlock) => {
+            const container = band.offsetParent;
+            if (container === null) {
+              return;
+            }
+            const containerRect = container.getBoundingClientRect();
+            // Reveal.js scales slides with a transform, so convert client
+            // pixels back to the CSS pixels of the container.
+            const scale = containerRect.height / container.offsetHeight || 1;
+            const firstRect = firstEl.getBoundingClientRect();
+            const lastRect = lastEl.getBoundingClientRect();
+            const top = (firstRect.top - containerRect.top) / scale - container.clientTop + container.scrollTop;
+            const height = (lastRect.bottom - firstRect.top) / scale;
+            band.style.top = top - 2 + "px";
+            band.style.height = height + 4 + "px";
+            if (codeBlock) {
+              // Without the copy button wrapper, the containing block is wider
+              // than the code block, so span the code block explicitly.
+              const blockRect = codeBlock.getBoundingClientRect();
+              band.style.left = (blockRect.left - containerRect.left) / scale - container.clientLeft + container.scrollLeft + "px";
+              band.style.width = blockRect.width / scale + "px";
+            }
+          };
+          if (lineIds.length > 0) {
+            const el = window.document.getElementById(lineIds[0]);
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const parent = el.parentElement.parentElement;
+            // cook up a div (if necessary) and position it
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            placeBand(div, el, lastEl, parent.closest("div.sourceCode") || parent);
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            placeBand(gutterDiv, el, lastEl);
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+  <script type="application/javascript">
+  window.quartoScrollableRegionsLabels = {"code":"可滚动的代码","output":"可滚动的输出"};
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026 Wenjium</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Built with Quarto</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
