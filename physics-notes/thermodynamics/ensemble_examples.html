@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-Hans" xml:lang="zh-Hans"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.11.9">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>电子气体·光子气体·玻色-爱因斯坦凝聚 – Wenjium</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/scrollable-regions/scrollable-regions.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-cb61c712ca1a7fe70a83faed8e4da2d7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "没有结果",
+    "search-matching-documents-text": "匹配的文档",
+    "search-copy-link-title": "复制搜索链接",
+    "search-hide-matches-text": "隐藏其它匹配结果",
+    "search-more-match-text": "更多匹配结果",
+    "search-more-matches-text": "更多匹配结果",
+    "search-clear-button-title": "清除",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "提交",
+    "search-label": "搜索"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-document-content">跳至主要内容</a>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark" aria-label="网站">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Wenjium</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="展开或折叠导航栏" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../projects/index.html"> 
+<span class="menu-text">Projects</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../physics-notes/index.html"> 
+<span class="menu-text">Notes</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/wenjium88-png"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+            <div id="quarto-search" class="" title="搜索"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" aria-labelledby="toc-title" class="toc-active">
+    <h2 id="toc-title">该页面内容</h2>
+   
+  <ul>
+  <li><a href="#基本的工具" id="toc-基本的工具" class="nav-link active" data-scroll-target="#基本的工具">基本的工具</a>
+  <ul class="collapse">
+  <li><a href="#配分函数" id="toc-配分函数" class="nav-link" data-scroll-target="#配分函数">配分函数</a></li>
+  <li><a href="#电子气体" id="toc-电子气体" class="nav-link" data-scroll-target="#电子气体">电子气体</a></li>
+  <li><a href="#光子气体" id="toc-光子气体" class="nav-link" data-scroll-target="#光子气体">光子气体</a></li>
+  <li><a href="#玻色-爱因斯坦凝聚" id="toc-玻色-爱因斯坦凝聚" class="nav-link" data-scroll-target="#玻色-爱因斯坦凝聚">玻色-爱因斯坦凝聚</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content" tabindex="-1">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">电子气体·光子气体·玻色-爱因斯坦凝聚</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="基本的工具" class="level1">
+<h1>基本的工具</h1>
+<p>假设我们现在拥有了利用配分函数描述系统热力学量的方法，那么我们可以通过求解这个模型的配分函数来解决费米和玻色统计模型的一些问题。电子气体是强简并的费米体系，光子气体是弱关联玻色体系，而玻色-爱因斯坦凝聚则是玻色体系的一个特殊现象。下面我们将分别从头开始推导。</p>
+<section id="配分函数" class="level2">
+<h2 class="anchored" data-anchor-id="配分函数">配分函数</h2>
+<p>巨配分函数（grand canonical partition function）可以表示为：</p>
+<p><span class="math display">\[
+\mathcal{Z} =  \prod_{i=1} \mathcal{Z}_i = \prod_{i=1}(1 \mp e^{-\alpha - \beta \epsilon_i})^{\mp \omega_i}
+\]</span></p>
+<p>我们接下来需要求解三个问题的一些需要用到的宏观热力学量包括：</p>
+<ol type="1">
+<li><p>平均粒子数 <span class="math inline">\(\bar{N} = - \frac{\partial}{\partial \alpha} \ln \mathcal{Z}\)</span></p></li>
+<li><p>能量 <span class="math inline">\(U = - \frac{\partial}{\partial \beta} \ln \mathcal{Z}\)</span></p></li>
+<li><p>压强 <span class="math inline">\(P = \frac{1}{\beta} \frac{\partial}{\partial V} \ln \mathcal{Z}\)</span></p></li>
+<li><p>熵 <span class="math inline">\(S = k_B (\ln \mathcal{Z} + \beta U - \alpha \bar{N})\)</span></p></li>
+<li><p>巨热力学势 <span class="math inline">\(\Omega = - \frac{1}{\beta} \ln \mathcal{Z}\)</span></p></li>
+</ol>
+<p>可能5.巨热力学势不会用在本推导的这三个例子中。对于电子气体，他是一个强简并问题，能够求出费米能级（截断能量）、费米压强、费米温度；对于光子气体，我们将要求出他的能量密度随着温度和频率的关系，最后积分它得到总能量然后得到 <span class="math inline">\(U\)</span> 与温度 <span class="math inline">\(T\)</span> 的四次方正比的关系以及维恩定律，随后给出压强、熵、辐射通量密度；对于玻色-爱因斯坦凝聚，我们会根据化学势不能够低于最低能级的事实，给出玻色-爱因斯坦凝聚的条件以及临界温度，随后给出凝聚态的粒子数与温度的关系，以及能量的统计平均值和定容热容。</p>
+<p><strong><em>So let’s get started.</em></strong></p>
+</section>
+<section id="电子气体" class="level2">
+<h2 class="anchored" data-anchor-id="电子气体">电子气体</h2>
+<p>电子是费米子，对于电子的能量，我们假设电子的动能远远小于 <span class="math inline">\(mc^2\)</span>，直接考虑非相对论效应，那么电子的能级为<span class="math inline">\(\epsilon_i = \frac{\hbar^2k_i^2}{2m}\)</span>，自旋的简并度为 <span class="math inline">\(\omega = 2\)</span>,根据泡利不相容原理，每一个量子态最多只能容纳一个电子。代入到我们的配分函数公式里面：</p>
+<p><span class="math display">\[
+\mathcal{Z} = \prod_k (1+e^{-(\epsilon-\mu)/kT} )^{2}=\prod_k (1+e^{-(\frac{\hbar^2k^2}{2m}-\mu)/kT} )^{2}
+\]</span></p>
+<p>我们已经用到了<span class="math inline">\(\alpha = -\frac{\mu}{kT} , \beta = \frac{1}{kT}\)</span></p>
+<p>这里我们必须解释一下巨配分函数给出的原始公式里连乘以及简并度的具体含义，这个其实是一个核心的统计物理的议题。事实上，对于某一个能级的简并度<span class="math inline">\(\omega_i\)</span>为多少取决于下标i是什么，如果i遍历所有的单粒子态，那么<span class="math inline">\(\omega_i\)</span>就是1,如果我们在相空间考虑简并度，由于我们已经解除了相轨道的同一能级的简并度，因此我们只需要考虑自旋内禀自由度2,如果我们没有接触相轨道的简并度，也就是i遍历的仅仅是能级，那么我们就要乘以这个能级简并度，在这里就是能量壳层里的总态数，在这里就是:</p>
+<p><span class="math display">\[
+\omega(\epsilon)d\epsilon = \frac{V}{4\pi^2}(\frac{2m}{\hbar^2})^{3/2}\sqrt{\epsilon} d\epsilon
+\]</span></p>
+<p>由于我们这里对能级遍历很方便，所以我们就这么做：</p>
+<p><span class="math display">\[
+\mathcal{Z} = \prod_{\epsilon} (1+e^{-(\epsilon-\mu)/kT} )^{\omega(\epsilon) d\epsilon} ,\omega(\epsilon) d\epsilon = \frac{V}{2\pi^2}(\frac{2m}{\hbar^2})^{3/2}\sqrt{\epsilon} d\epsilon
+\]</span></p>
+<p>接下来我们把连乘拆开，再把它连续化。</p>
+<p>对 <span class="math inline">\(\mathcal{Z}\)</span> 取自然对数，连乘变求和，幂次变成系数：</p>
+<p><span class="math display">\[
+\ln\mathcal{Z}=\sum_{\varepsilon}\ln\left[\left(1+e^{-(\varepsilon-\mu)/kT}\right)^{\omega(\varepsilon)d\varepsilon}\right]=\sum_{\varepsilon}\omega(\varepsilon)d\varepsilon\,\ln\left(1+e^{-(\varepsilon-\mu)/kT}\right)
+\]</span></p>
+<p>求和过渡成积分：</p>
+<p><span class="math display">\[
+\sum_{\varepsilon}\omega(\varepsilon)d\varepsilon\,F(\varepsilon)\;\longrightarrow\;\int_0^\infty F(\varepsilon)\,\omega(\varepsilon)\,d\varepsilon
+\]</span></p>
+<p>于是：</p>
+<p><span class="math display">\[
+\ln\mathcal{Z}=\frac{V}{2\pi^2}\left(\frac{2m}{\hbar^2}\right)^{3/2}\int_0^\infty \sqrt{\varepsilon}\ln\left(1+ e^{-(\varepsilon-\mu)/kT}\right)d\varepsilon
+\]</span></p>
+<p>因此我们接下来终于可以开始正式讨论这个问题了。</p>
+<p>我们先考虑<span class="math inline">\(\bar{N}\)</span>:</p>
+<p><span class="math display">\[
+\bar{N} = - \frac{\partial}{\partial \alpha} \ln \mathcal{Z} = \frac{V}{2\pi^2}\left(\frac{2m}{\hbar^2}\right)^{3/2}\int_0^\infty \frac{\sqrt{\varepsilon}}{e^{(\varepsilon-\mu)/kT}+1}\,d\varepsilon
+\]</span></p>
+<p>貌似现在还看不出来有什么直接的用处，嗯对，不过我查了查资料，一般来说，N都是直接给定的，所以惯常的做法是可以通过这个积分来求出来化学势<span class="math inline">\(\mu\)</span>，那问题就是怎么求出这个积分了。我粗略看过去应该这个积分是没有初等闭式的。鉴于我已经知道费米能级这个东西，那么T = 0 K 的情况肯定是需要重点考虑，而一般情况还得去进行展开来求积分的。</p>
+<p>对于T = 0 K,取极限以后自动给出阶跃：</p>
+<p><span class="math display">\[
+\frac{1}{e^{(\varepsilon-\mu)/kT}+1} \xrightarrow{\ T\to0}
+\begin{cases}
+1, &amp; \epsilon&lt;\mu\\
+0, &amp; \epsilon&gt;\mu
+\end{cases}
+\]</span></p>
+<p>回代入原积分得到：</p>
+<p><span class="math display">\[
+\bar{N}=\frac{V}{2\pi^2}\left(\frac{2m}{\hbar^2}\right)^{3/2}\int_0^{\mu}\sqrt{\varepsilon}\,d\varepsilon
+\]</span></p>
+<p>其中</p>
+<p><span class="math display">\[
+\int_0^{\varepsilon_F}\sqrt{\varepsilon}\,d\varepsilon=\frac{2}{3}\varepsilon_F^{3/2}
+\]</span></p>
+<p>反解得费米能级</p>
+<p><span class="math display">\[
+\varepsilon_F=\frac{\hbar^2}{2m}\left(3\pi^2\frac{\bar{N}}{V}\right)^{2/3}
+\]</span></p>
+<p>以上的计算说明了在T=0K时，电子气体的分布是一个阶跃分布，在截断能级之前电子随着能量均匀分布，在截断能级之后没有电子分布，电子按能级从低到高自觉地均匀填满了所有的能级，直到费米能级为止。拥有了费米能级以后，我们就可以显然地求出费米动量、费米温度、内能和简并压了。</p>
+<p><span class="math display">\[
+p_F=\sqrt{2m\varepsilon_F}=\sqrt{2m\cdot\frac{\hbar^2}{2m}\left(\frac{3\pi^2N}{V}\right)^{2/3}}=\hbar\left(3\pi^2n\right)^{1/3}
+\]</span></p>
+<p><span class="math display">\[
+T_F=\frac{\varepsilon_F}{k_B}=\frac{\hbar^2}{2mk_B}\left(\frac{3\pi^2N}{V}\right)^{2/3}
+\]</span></p>
+<p><span class="math display">\[
+U=\int_0^{\varepsilon_F}\varepsilon\,g(\varepsilon)\,d\varepsilon=\frac{V}{2\pi^2}\left(\frac{2m}{\hbar^2}\right)^{3/2}\int_0^{\varepsilon_F}\varepsilon^{3/2}d\varepsilon
+\]</span></p>
+<p>求出这个积分：</p>
+<p><span class="math display">\[
+U=\frac{V}{5\pi^2}\left(\frac{2m}{\hbar^2}\right)^{3/2}\varepsilon_F^{5/2}=\frac{3}{5}N\varepsilon_F
+\]</span></p>
+<p><span class="math display">\[
+P=\frac{2}{3}\frac{U}{V}=\frac{2}{5}n\varepsilon_F
+\]</span></p>
+</section>
+<section id="光子气体" class="level2">
+<h2 class="anchored" data-anchor-id="光子气体">光子气体</h2>
+<p>对于光子气体，必须要考虑极端相对论效应<span class="math inline">\(\epsilon=\hbar\omega\)</span>而且光子是一个玻色子，他的自旋内禀简并度为2,因此对于能量壳层结构，</p>
+<p><span class="math display">\[
+g(\epsilon)d\epsilon =2\times\frac{V}{(2\pi)^3}4\pi k^2dk = \frac{V}{\pi^2c^3}\omega^2d\omega
+\]</span></p>
+<p>同样的，我们先按照类似的数学方法得到<span class="math inline">\(\ln\mathcal{Z}\)</span>的表达式：</p>
+<p><span class="math display">\[
+\ln\mathcal{Z}=-\int_0^{\infty}g(\varepsilon)\ln\left(1-e^{-\beta\varepsilon}\right)d\varepsilon=-\frac{V}{\pi^2c^3}\int_0^{\infty}\omega^2\ln\left(1-e^{-\beta\hbar\omega}\right)d\omega
+\]</span></p>
+<p>代入到能量的公式：</p>
+<p><span class="math display">\[
+\bar{U}=-\frac{\partial}{\partial\beta}\ln\mathcal{Z}=\int_0^{\infty}\frac{\varepsilon\,g(\varepsilon)}{e^{\beta\varepsilon}-1}d\varepsilon=\frac{V}{\pi^2c^3}\int_0^{\infty}\frac{\hbar\omega^3}{e^{\beta\hbar\omega}-1}d\omega
+\]</span></p>
+<p>这里需要理解这个积分的含义，这个积分表达的是以角频率为自变量积分被积函数得到能量，那么被积函数就是能量按照频率的分布，</p>
+<p><span class="math display">\[
+\bar{U}=\int_0^{\infty}u(\omega)\,d\omega,\qquad u(\omega)d\omega=\frac{V}{\pi^2c^3}\frac{\hbar\omega^3}{e^{\hbar\omega/k_BT}-1}d\omega
+\]</span></p>
+<p>将 <span class="math inline">\(u(\omega,T)\)</span> 对全部频率积分，即得总能量。令 <span class="math inline">\(x=\hbar\omega/k_BT\)</span>：</p>
+<p><span class="math display">\[
+\bar{U}=\int_0^{\infty}u(\omega,T)\,d\omega=\frac{V}{\pi^2c^3}\left(\frac{k_BT}{\hbar}\right)^4\int_0^{\infty}\frac{x^3}{e^x-1}dx=\frac{V}{\pi^2c^3}\left(\frac{k_BT}{\hbar}\right)^4\frac{\pi^4}{15}
+\]</span></p>
+<p><span class="math display">\[
+U=\frac{\pi^2k_B^4}{15\hbar^3c^3}VT^4=aVT^4,\qquad a=\frac{\pi^2k_B^4}{15\hbar^3c^3}
+\]</span></p>
+<p>能量密度 <span class="math inline">\(u=U/V=aT^4\)</span>，与 <span class="math inline">\(T^4\)</span> 成正比，这就是斯特藩-玻尔兹曼定律。</p>
+<p>维恩位移定律由 <span class="math inline">\(u(\omega,T)\)</span> 的峰值给出，令 <span class="math inline">\(x=\hbar\omega/k_BT\)</span>：</p>
+<p><span class="math display">\[
+\frac{d}{dx}\left(\frac{x^3}{e^x-1}\right)=0\ \Longrightarrow\ x=2.821\ldots
+\]</span></p>
+<p><span class="math display">\[
+\omega_{\max}=2.821\frac{k_BT}{\hbar},\qquad \nu_{\max}=2.821\frac{k_BT}{h},\qquad \lambda_{\max}T=\frac{hc}{4.965k_B}=2.898\times10^{-3}\ \mathrm{m\cdot K}
+\]</span></p>
+<p>压强由 <span class="math inline">\(\ln\mathcal{Z}\)</span> 对体积求导得到，注意 <span class="math inline">\(\ln\mathcal{Z}\propto V\)</span> 且 <span class="math inline">\(\bar{U}=3k_BT\ln\mathcal{Z}\)</span>：</p>
+<p><span class="math display">\[
+P=\frac{1}{\beta}\left(\frac{\partial\ln\mathcal{Z}}{\partial V}\right)_T=\frac{\pi^2k_B^4}{45\hbar^3c^3}T^4=\frac{1}{3}\frac{\bar{U}}{V}=\frac{1}{3}aT^4
+\]</span></p>
+<p>熵由 <span class="math inline">\(S=k_B(\ln\mathcal{Z}+\beta\bar{U})\)</span> 给出，同样利用 <span class="math inline">\(\bar{U}=3k_BT\ln\mathcal{Z}\)</span>：</p>
+<p><span class="math display">\[
+S=k_B\left(\ln\mathcal{Z}+\frac{\bar{U}}{k_BT}\right)=4k_B\ln\mathcal{Z}=\frac{4}{3}aT^3V
+\]</span></p>
+<p>辐射通量密度是单位面积单位时间通过的能量，对各向同性辐射取 <span class="math inline">\(c/4\)</span>：</p>
+<p><span class="math display">\[
+J=\frac{1}{4}\frac{c\bar{U}}{V}=\frac{c}{4}aT^4=\sigma T^4,\qquad \sigma=\frac{\pi^2k_B^4}{60\hbar^3c^2}=\frac{ac}{4}
+\]</span></p>
+</section>
+<section id="玻色-爱因斯坦凝聚" class="level2">
+<h2 class="anchored" data-anchor-id="玻色-爱因斯坦凝聚">玻色-爱因斯坦凝聚</h2>
+<p>玻色-爱因斯坦凝聚指的是对于一团全同玻色子（假设玻色子全同），当体系低于某个临界温度时，会有宏观数目的玻色子集体聚集在基态能量（<span class="math inline">\(\epsilon=0\)</span>）上，形成一个宏观量子态。仍然按照之前的理论范式，粒子数守恒的玻色气体，巨配分函数对占据数求和：</p>
+<p><span class="math display">\[
+\mathcal{Z}=\prod_i\left(1-e^{-\alpha-\beta\varepsilon_i}\right)^{-\omega_i},\qquad \alpha=-\frac{\mu}{k_BT},\quad \beta=\frac{1}{k_BT}
+\]</span></p>
+<p>取对数和，把对能级的求和化为对能量的积分：</p>
+<p><span class="math display">\[
+\ln\mathcal{Z}=-\int_0^{\infty}g(\varepsilon)\ln\left(1-e^{-(\varepsilon-\mu)/k_BT}\right)d\varepsilon,\qquad g(\varepsilon)d\varepsilon=\frac{V}{2\pi^2}\left(\frac{2m}{\hbar^2}\right)^{3/2}\sqrt{\varepsilon}\,d\varepsilon
+\]</span></p>
+<p>粒子数由化学势方程给出：</p>
+<p><span class="math display">\[
+\bar{N}=-\frac{\partial\ln\mathcal{Z}}{\partial\alpha}=\int_0^{\infty}\frac{g(\varepsilon)}{e^{(\varepsilon-\mu)/k_BT}-1}d\varepsilon
+\]</span></p>
+<p>内能同理：</p>
+<p><span class="math display">\[
+\bar{U}=-\frac{\partial\ln\mathcal{Z}}{\partial\beta}=\int_0^{\infty}\frac{\varepsilon\,g(\varepsilon)}{e^{(\varepsilon-\mu)/k_BT}-1}d\varepsilon
+\]</span></p>
+<p>我们认为体系的基态能量设置为0,那么对于玻色体系化学势必须低于基态能量，也就是：</p>
+<p><span class="math display">\[
+\mu &lt; 0
+\]</span></p>
+<p>否则的话粒子数的积分公式里粒子数密度分布在一段定义域区间会小于0,这是物理上不可能的，或者从另一个角度来论证，如果化学势低于基态能量，巨配分函数本身就无法收敛。考虑临界状态 <span class="math inline">\(\mu=0\)</span>，此时对粒子数积分，得到的正是激发态能容纳的最大粒子数；令它等于<span class="math inline">\(N\)</span>，即可解出<span class="math inline">\(T_c\)</span>：</p>
+<p><span class="math display">\[
+N=\int_0^{\infty}\frac{g(\varepsilon)}{e^{\varepsilon/k_BT_c}-1}d\varepsilon=\frac{V}{2\pi^2}\left(\frac{2m}{\hbar^2}\right)^{3/2}\int_0^{\infty}\frac{\sqrt{\varepsilon}}{e^{\varepsilon/k_BT_c}-1}d\varepsilon
+\]</span></p>
+<p>令 <span class="math inline">\(x=\varepsilon/k_BT_c\)</span> 作变量代换，即 <span class="math inline">\(\varepsilon=k_BT_c x\)</span>、<span class="math inline">\(d\varepsilon=k_BT_c\,dx\)</span>：</p>
+<p><span class="math display">\[
+\int_0^{\infty}\frac{\sqrt{\varepsilon}}{e^{\varepsilon/k_BT_c}-1}d\varepsilon=(k_BT_c)^{3/2}\int_0^{\infty}\frac{\sqrt{x}}{e^{x}-1}dx
+\]</span></p>
+<p>把被积函数按几何级数展开：</p>
+<p><span class="math display">\[
+\frac{1}{e^x-1}=\frac{e^{-x}}{1-e^{-x}}=\sum_{n=1}^{\infty}e^{-nx}
+\]</span></p>
+<p>交换求和与积分，逐项积分时用代换 <span class="math inline">\(t=nx\)</span>：</p>
+<p><span class="math display">\[
+\int_0^{\infty}\frac{\sqrt{x}}{e^x-1}dx=\sum_{n=1}^{\infty}\int_0^{\infty}\sqrt{x}\,e^{-nx}dx=\sum_{n=1}^{\infty}\frac{1}{n^{3/2}}\int_0^{\infty}t^{1/2}e^{-t}dt=\sum_{n=1}^{\infty}\frac{\Gamma\!\left(\tfrac{3}{2}\right)}{n^{3/2}}=\Gamma\!\left(\tfrac{3}{2}\right)\zeta\!\left(\tfrac{3}{2}\right)
+\]</span></p>
+<p>代入 <span class="math inline">\(\Gamma(3/2)=\sqrt{\pi}/2\)</span>、<span class="math inline">\(\zeta(3/2)=2.612\)</span> 的数值：</p>
+<p><span class="math display">\[
+\int_0^{\infty}\frac{\sqrt{x}}{e^x-1}dx=\frac{\sqrt{\pi}}{2}\times2.612=2.315
+\]</span></p>
+<p>代回粒子数表达式，并用热波长 <span class="math inline">\(\lambda=h/\sqrt{2\pi mk_BT_c}\)</span> 表示：</p>
+<p><span class="math display">\[
+N=\frac{V}{2\pi^2}\left(\frac{2m}{\hbar^2}\right)^{3/2}(k_BT_c)^{3/2}\Gamma\!\left(\tfrac{3}{2}\right)\zeta\!\left(\tfrac{3}{2}\right)=\zeta\!\left(\tfrac{3}{2}\right)\frac{V}{\lambda^3}
+\]</span></p>
+<p>于是 <span class="math inline">\(n=N/V=2.612/\lambda^3\)</span>，反解出临界温度：</p>
+<p><span class="math display">\[
+T_c=\frac{h^2}{2\pi mk_B}\left(\frac{n}{2.612}\right)^{2/3},\qquad n=\frac{N}{V}
+\]</span></p>
+<p>接下来求凝聚态粒子数和温度的关系，<span class="math inline">\(T&lt;T_c\)</span> 时化学势仍然是0,，激发态按 <span class="math inline">\(\mu=0\)</span> 填满，剩余的粒子全部进入基态，粒子数守恒写成：</p>
+<p><span class="math display">\[
+N=N_0+N_{ex},\qquad N_{ex}=\int_0^{\infty}\frac{g(\varepsilon)}{e^{\varepsilon/k_BT}-1}d\varepsilon=\zeta\!\left(\tfrac{3}{2}\right)\frac{V}{\lambda^3},\qquad \lambda=\frac{h}{\sqrt{2\pi mk_BT}}
+\]</span></p>
+<p>临界温度处基态尚未被宏观占据，全部粒子都在激发态：</p>
+<p><span class="math display">\[
+N=\zeta\!\left(\tfrac{3}{2}\right)\frac{V}{\lambda_c^3},\qquad \lambda_c=\frac{h}{\sqrt{2\pi mk_BT_c}}
+\]</span></p>
+<p>两式相除，利用 <span class="math inline">\(\lambda\propto T^{-1/2}\)</span> 得</p>
+<p><span class="math display">\[
+\frac{N_{ex}}{N}=\left(\frac{\lambda_c}{\lambda}\right)^{3}=\left(\frac{T}{T_c}\right)^{3/2}
+\]</span></p>
+<p>于是凝聚在基态的粒子数为</p>
+<p><span class="math display">\[
+N_0=N-N_{ex}=N\left[1-\left(\frac{T}{T_c}\right)^{3/2}\right],\qquad T\leq T_c
+\]</span></p>
+<p>相应的数密度为</p>
+<p><span class="math display">\[
+n_0=\frac{N_0}{V}=n\left[1-\left(\frac{T}{T_c}\right)^{3/2}\right],\qquad n=\frac{N}{V}
+\]</span></p>
+<p><span class="math inline">\(T=T_c\)</span> 时 <span class="math inline">\(N_0=0\)</span>；<span class="math inline">\(T=0\)</span> 时全部粒子都在基态，<span class="math inline">\(N_0=N\)</span>。<span class="math inline">\(T&gt;T_c\)</span> 无凝聚，<span class="math inline">\(N_0=0\)</span>。</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "已复制");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "已复制");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/wenjium88-png\.github\.io\/my-blog\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+      window.quartoDecorateExternalLinks = function (root) {
+     var links = (root || window.document).querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+          if (!link.classList.contains('no-external-icon')) {
+          }
+        }
+      }
+      };
+      window.quartoDecorateExternalLinks(window.document);
+    // Esc closes the popup (WCAG 1.4.13) and focus leaving both trigger and
+    // popup closes it (WCAG 2.4.11); tippy handles neither for interactive popups.
+    const hideOnEscAndFocusOut = {
+      name: 'hideOnEscAndFocusOut',
+      defaultValue: true,
+      fn(instance) {
+        const dismiss = () => {
+          // A show scheduled by the trigger delay would otherwise reopen it
+          instance.clearDelayTimeouts();
+          instance.hide();
+        };
+        const onKeyDown = (event) => {
+          if (event.key !== 'Escape') {
+            return;
+          }
+          // Keep Esc from also reaching page handlers (e.g. reveal.js overview),
+          // except an open reveal.js slide menu, which Esc should close too.
+          // The menu handles keys only when its keyboard option is on.
+          const menuHandlesEsc = window.Reveal?.getPlugin?.('menu')?.isOpen() &&
+            window.Reveal.getConfig().menu?.keyboard !== false;
+          if (!menuHandlesEsc) {
+            event.stopPropagation();
+          }
+          if (instance.popper.contains(window.document.activeElement)) {
+            // Disabled while refocusing so the focus trigger does not reopen it
+            instance.disable();
+            instance.reference.focus();
+            instance.enable();
+          }
+          dismiss();
+        };
+        const onFocusOut = (event) => {
+          const target = event.relatedTarget;
+          if (target && !instance.reference.contains(target) &&
+              !instance.popper.contains(target)) {
+            dismiss();
+          }
+        };
+        // On the trigger too: a click trigger (code-annotations: select) has no
+        // blur handling. Attached for the instance's lifetime so leaving the
+        // trigger also cancels a show still pending on the trigger delay.
+        instance.reference.addEventListener('focusout', onFocusOut);
+        return {
+          onShow() {
+            window.document.addEventListener('keydown', onKeyDown, true);
+            instance.popper.addEventListener('focusout', onFocusOut);
+          },
+          onHide() {
+            window.document.removeEventListener('keydown', onKeyDown, true);
+            instance.popper.removeEventListener('focusout', onFocusOut);
+          },
+          onDestroy() {
+            instance.reference.removeEventListener('focusout', onFocusOut);
+          },
+        };
+      },
+    };
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+        plugins: [hideOnEscAndFocusOut],
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          // Each band is positioned against its own containing block, which is
+          // not the offsetParent of the lines, so place it from client rects.
+          const placeBand = (band, firstEl, lastEl, codeBlock) => {
+            const container = band.offsetParent;
+            if (container === null) {
+              return;
+            }
+            const containerRect = container.getBoundingClientRect();
+            // Reveal.js scales slides with a transform, so convert client
+            // pixels back to the CSS pixels of the container.
+            const scale = containerRect.height / container.offsetHeight || 1;
+            const firstRect = firstEl.getBoundingClientRect();
+            const lastRect = lastEl.getBoundingClientRect();
+            const top = (firstRect.top - containerRect.top) / scale - container.clientTop + container.scrollTop;
+            const height = (lastRect.bottom - firstRect.top) / scale;
+            band.style.top = top - 2 + "px";
+            band.style.height = height + 4 + "px";
+            if (codeBlock) {
+              // Without the copy button wrapper, the containing block is wider
+              // than the code block, so span the code block explicitly.
+              const blockRect = codeBlock.getBoundingClientRect();
+              band.style.left = (blockRect.left - containerRect.left) / scale - container.clientLeft + container.scrollLeft + "px";
+              band.style.width = blockRect.width / scale + "px";
+            }
+          };
+          if (lineIds.length > 0) {
+            const el = window.document.getElementById(lineIds[0]);
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const parent = el.parentElement.parentElement;
+            // cook up a div (if necessary) and position it
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            placeBand(div, el, lastEl, parent.closest("div.sourceCode") || parent);
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            placeBand(gutterDiv, el, lastEl);
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+  <script type="application/javascript">
+  window.quartoScrollableRegionsLabels = {"code":"可滚动的代码","output":"可滚动的输出"};
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2026 Wenjium</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Built with Quarto</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
