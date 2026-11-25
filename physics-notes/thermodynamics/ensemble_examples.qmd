@@ -1,0 +1,313 @@
+---
+title: "电子气体·光子气体·玻色-爱因斯坦凝聚"
+format:
+  html:
+    number-equations: true
+    toc: true
+crossref:
+  eq-prefix: ""
+---
+
+# 基本的工具
+
+假设我们现在拥有了利用配分函数描述系统热力学量的方法，那么我们可以通过求解这个模型的配分函数来解决费米和玻色统计模型的一些问题。电子气体是强简并的费米体系，光子气体是弱关联玻色体系，而玻色-爱因斯坦凝聚则是玻色体系的一个特殊现象。下面我们将分别从头开始推导。
+
+## 配分函数
+
+巨配分函数（grand canonical partition function）可以表示为：
+
+$$
+\mathcal{Z} =  \prod_{i=1} \mathcal{Z}_i = \prod_{i=1}(1 \mp e^{-\alpha - \beta \epsilon_i})^{\mp \omega_i}
+$$
+
+我们接下来需要求解三个问题的一些需要用到的宏观热力学量包括：
+
+1.  平均粒子数 $\bar{N} = - \frac{\partial}{\partial \alpha} \ln \mathcal{Z}$
+
+2.  能量 $U = - \frac{\partial}{\partial \beta} \ln \mathcal{Z}$
+
+3.  压强 $P = \frac{1}{\beta} \frac{\partial}{\partial V} \ln \mathcal{Z}$
+
+4.  熵 $S = k_B (\ln \mathcal{Z} + \beta U - \alpha \bar{N})$
+
+5.  巨热力学势 $\Omega = - \frac{1}{\beta} \ln \mathcal{Z}$
+
+可能5.巨热力学势不会用在本推导的这三个例子中。对于电子气体，他是一个强简并问题，能够求出费米能级（截断能量）、费米压强、费米温度；对于光子气体，我们将要求出他的能量密度随着温度和频率的关系，最后积分它得到总能量然后得到 $U$ 与温度 $T$ 的四次方正比的关系以及维恩定律，随后给出压强、熵、辐射通量密度；对于玻色-爱因斯坦凝聚，我们会根据化学势不能够低于最低能级的事实，给出玻色-爱因斯坦凝聚的条件以及临界温度，随后给出凝聚态的粒子数与温度的关系，以及能量的统计平均值和定容热容。
+
+***So let's get started.***
+
+## 电子气体
+
+电子是费米子，对于电子的能量，我们假设电子的动能远远小于 $mc^2$，直接考虑非相对论效应，那么电子的能级为$\epsilon_i = \frac{\hbar^2k_i^2}{2m}$，自旋的简并度为 $\omega = 2$,根据泡利不相容原理，每一个量子态最多只能容纳一个电子。代入到我们的配分函数公式里面：
+
+$$
+\mathcal{Z} = \prod_k (1+e^{-(\epsilon-\mu)/kT} )^{2}=\prod_k (1+e^{-(\frac{\hbar^2k^2}{2m}-\mu)/kT} )^{2}
+$$
+
+我们已经用到了$\alpha = -\frac{\mu}{kT} , \beta = \frac{1}{kT}$
+
+这里我们必须解释一下巨配分函数给出的原始公式里连乘以及简并度的具体含义，这个其实是一个核心的统计物理的议题。事实上，对于某一个能级的简并度$\omega_i$为多少取决于下标i是什么，如果i遍历所有的单粒子态，那么$\omega_i$就是1,如果我们在相空间考虑简并度，由于我们已经解除了相轨道的同一能级的简并度，因此我们只需要考虑自旋内禀自由度2,如果我们没有接触相轨道的简并度，也就是i遍历的仅仅是能级，那么我们就要乘以这个能级简并度，在这里就是能量壳层里的总态数，在这里就是:
+
+$$
+\omega(\epsilon)d\epsilon = \frac{V}{4\pi^2}(\frac{2m}{\hbar^2})^{3/2}\sqrt{\epsilon} d\epsilon
+$$
+
+由于我们这里对能级遍历很方便，所以我们就这么做：
+
+$$
+\mathcal{Z} = \prod_{\epsilon} (1+e^{-(\epsilon-\mu)/kT} )^{\omega(\epsilon) d\epsilon} ,\omega(\epsilon) d\epsilon = \frac{V}{2\pi^2}(\frac{2m}{\hbar^2})^{3/2}\sqrt{\epsilon} d\epsilon
+$$
+
+接下来我们把连乘拆开，再把它连续化。
+
+对 $\mathcal{Z}$ 取自然对数，连乘变求和，幂次变成系数：
+
+$$
+\ln\mathcal{Z}=\sum_{\varepsilon}\ln\left[\left(1+e^{-(\varepsilon-\mu)/kT}\right)^{\omega(\varepsilon)d\varepsilon}\right]=\sum_{\varepsilon}\omega(\varepsilon)d\varepsilon\,\ln\left(1+e^{-(\varepsilon-\mu)/kT}\right)
+$$
+
+求和过渡成积分：
+
+$$
+\sum_{\varepsilon}\omega(\varepsilon)d\varepsilon\,F(\varepsilon)\;\longrightarrow\;\int_0^\infty F(\varepsilon)\,\omega(\varepsilon)\,d\varepsilon
+$$
+
+于是：
+
+$$
+\ln\mathcal{Z}=\frac{V}{2\pi^2}\left(\frac{2m}{\hbar^2}\right)^{3/2}\int_0^\infty \sqrt{\varepsilon}\ln\left(1+ e^{-(\varepsilon-\mu)/kT}\right)d\varepsilon
+$$
+
+因此我们接下来终于可以开始正式讨论这个问题了。
+
+我们先考虑$\bar{N}$:
+
+$$
+\bar{N} = - \frac{\partial}{\partial \alpha} \ln \mathcal{Z} = \frac{V}{2\pi^2}\left(\frac{2m}{\hbar^2}\right)^{3/2}\int_0^\infty \frac{\sqrt{\varepsilon}}{e^{(\varepsilon-\mu)/kT}+1}\,d\varepsilon
+$$
+
+貌似现在还看不出来有什么直接的用处，嗯对，不过我查了查资料，一般来说，N都是直接给定的，所以惯常的做法是可以通过这个积分来求出来化学势$\mu$，那问题就是怎么求出这个积分了。我粗略看过去应该这个积分是没有初等闭式的。鉴于我已经知道费米能级这个东西，那么T = 0 K 的情况肯定是需要重点考虑，而一般情况还得去进行展开来求积分的。
+
+对于T = 0 K,取极限以后自动给出阶跃：
+
+$$
+\frac{1}{e^{(\varepsilon-\mu)/kT}+1} \xrightarrow{\ T\to0}
+\begin{cases}
+1, & \epsilon<\mu\\
+0, & \epsilon>\mu
+\end{cases}
+$$
+
+回代入原积分得到：
+
+$$
+\bar{N}=\frac{V}{2\pi^2}\left(\frac{2m}{\hbar^2}\right)^{3/2}\int_0^{\mu}\sqrt{\varepsilon}\,d\varepsilon
+$$
+
+其中
+
+$$
+\int_0^{\varepsilon_F}\sqrt{\varepsilon}\,d\varepsilon=\frac{2}{3}\varepsilon_F^{3/2}
+$$
+
+反解得费米能级
+
+$$
+\varepsilon_F=\frac{\hbar^2}{2m}\left(3\pi^2\frac{\bar{N}}{V}\right)^{2/3}
+$$
+
+以上的计算说明了在T=0K时，电子气体的分布是一个阶跃分布，在截断能级之前电子随着能量均匀分布，在截断能级之后没有电子分布，电子按能级从低到高自觉地均匀填满了所有的能级，直到费米能级为止。拥有了费米能级以后，我们就可以显然地求出费米动量、费米温度、内能和简并压了。
+
+$$
+p_F=\sqrt{2m\varepsilon_F}=\sqrt{2m\cdot\frac{\hbar^2}{2m}\left(\frac{3\pi^2N}{V}\right)^{2/3}}=\hbar\left(3\pi^2n\right)^{1/3}
+$$
+
+$$
+T_F=\frac{\varepsilon_F}{k_B}=\frac{\hbar^2}{2mk_B}\left(\frac{3\pi^2N}{V}\right)^{2/3}
+$$
+
+$$
+U=\int_0^{\varepsilon_F}\varepsilon\,g(\varepsilon)\,d\varepsilon=\frac{V}{2\pi^2}\left(\frac{2m}{\hbar^2}\right)^{3/2}\int_0^{\varepsilon_F}\varepsilon^{3/2}d\varepsilon
+$$
+
+求出这个积分：
+
+$$
+U=\frac{V}{5\pi^2}\left(\frac{2m}{\hbar^2}\right)^{3/2}\varepsilon_F^{5/2}=\frac{3}{5}N\varepsilon_F
+$$
+
+$$
+P=\frac{2}{3}\frac{U}{V}=\frac{2}{5}n\varepsilon_F
+$$
+
+## 光子气体
+
+对于光子气体，必须要考虑极端相对论效应$\epsilon=\hbar\omega$而且光子是一个玻色子，他的自旋内禀简并度为2,因此对于能量壳层结构，
+
+$$
+g(\epsilon)d\epsilon =2\times\frac{V}{(2\pi)^3}4\pi k^2dk = \frac{V}{\pi^2c^3}\omega^2d\omega
+$$
+
+同样的，我们先按照类似的数学方法得到$\ln\mathcal{Z}$的表达式：
+
+$$
+\ln\mathcal{Z}=-\int_0^{\infty}g(\varepsilon)\ln\left(1-e^{-\beta\varepsilon}\right)d\varepsilon=-\frac{V}{\pi^2c^3}\int_0^{\infty}\omega^2\ln\left(1-e^{-\beta\hbar\omega}\right)d\omega
+$$
+
+代入到能量的公式：
+
+$$
+\bar{U}=-\frac{\partial}{\partial\beta}\ln\mathcal{Z}=\int_0^{\infty}\frac{\varepsilon\,g(\varepsilon)}{e^{\beta\varepsilon}-1}d\varepsilon=\frac{V}{\pi^2c^3}\int_0^{\infty}\frac{\hbar\omega^3}{e^{\beta\hbar\omega}-1}d\omega
+$$
+
+这里需要理解这个积分的含义，这个积分表达的是以角频率为自变量积分被积函数得到能量，那么被积函数就是能量按照频率的分布，
+
+$$
+\bar{U}=\int_0^{\infty}u(\omega)\,d\omega,\qquad u(\omega)d\omega=\frac{V}{\pi^2c^3}\frac{\hbar\omega^3}{e^{\hbar\omega/k_BT}-1}d\omega
+$$
+
+将 $u(\omega,T)$ 对全部频率积分，即得总能量。令 $x=\hbar\omega/k_BT$：
+
+$$
+\bar{U}=\int_0^{\infty}u(\omega,T)\,d\omega=\frac{V}{\pi^2c^3}\left(\frac{k_BT}{\hbar}\right)^4\int_0^{\infty}\frac{x^3}{e^x-1}dx=\frac{V}{\pi^2c^3}\left(\frac{k_BT}{\hbar}\right)^4\frac{\pi^4}{15}
+$$
+
+$$
+U=\frac{\pi^2k_B^4}{15\hbar^3c^3}VT^4=aVT^4,\qquad a=\frac{\pi^2k_B^4}{15\hbar^3c^3}
+$$
+
+能量密度 $u=U/V=aT^4$，与 $T^4$ 成正比，这就是斯特藩-玻尔兹曼定律。
+
+维恩位移定律由 $u(\omega,T)$ 的峰值给出，令 $x=\hbar\omega/k_BT$：
+
+$$
+\frac{d}{dx}\left(\frac{x^3}{e^x-1}\right)=0\ \Longrightarrow\ x=2.821\ldots
+$$
+
+$$
+\omega_{\max}=2.821\frac{k_BT}{\hbar},\qquad \nu_{\max}=2.821\frac{k_BT}{h},\qquad \lambda_{\max}T=\frac{hc}{4.965k_B}=2.898\times10^{-3}\ \mathrm{m\cdot K}
+$$
+
+压强由 $\ln\mathcal{Z}$ 对体积求导得到，注意 $\ln\mathcal{Z}\propto V$ 且 $\bar{U}=3k_BT\ln\mathcal{Z}$：
+
+$$
+P=\frac{1}{\beta}\left(\frac{\partial\ln\mathcal{Z}}{\partial V}\right)_T=\frac{\pi^2k_B^4}{45\hbar^3c^3}T^4=\frac{1}{3}\frac{\bar{U}}{V}=\frac{1}{3}aT^4
+$$
+
+熵由 $S=k_B(\ln\mathcal{Z}+\beta\bar{U})$ 给出，同样利用 $\bar{U}=3k_BT\ln\mathcal{Z}$：
+
+$$
+S=k_B\left(\ln\mathcal{Z}+\frac{\bar{U}}{k_BT}\right)=4k_B\ln\mathcal{Z}=\frac{4}{3}aT^3V
+$$
+
+辐射通量密度是单位面积单位时间通过的能量，对各向同性辐射取 $c/4$：
+
+$$
+J=\frac{1}{4}\frac{c\bar{U}}{V}=\frac{c}{4}aT^4=\sigma T^4,\qquad \sigma=\frac{\pi^2k_B^4}{60\hbar^3c^2}=\frac{ac}{4}
+$$
+
+## 玻色-爱因斯坦凝聚
+
+玻色-爱因斯坦凝聚指的是对于一团全同玻色子（假设玻色子全同），当体系低于某个临界温度时，会有宏观数目的玻色子集体聚集在基态能量（$\epsilon=0$）上，形成一个宏观量子态。仍然按照之前的理论范式，粒子数守恒的玻色气体，巨配分函数对占据数求和：
+
+$$
+\mathcal{Z}=\prod_i\left(1-e^{-\alpha-\beta\varepsilon_i}\right)^{-\omega_i},\qquad \alpha=-\frac{\mu}{k_BT},\quad \beta=\frac{1}{k_BT}
+$$
+
+取对数和，把对能级的求和化为对能量的积分：
+
+$$
+\ln\mathcal{Z}=-\int_0^{\infty}g(\varepsilon)\ln\left(1-e^{-(\varepsilon-\mu)/k_BT}\right)d\varepsilon,\qquad g(\varepsilon)d\varepsilon=\frac{V}{2\pi^2}\left(\frac{2m}{\hbar^2}\right)^{3/2}\sqrt{\varepsilon}\,d\varepsilon
+$$
+
+粒子数由化学势方程给出：
+
+$$
+\bar{N}=-\frac{\partial\ln\mathcal{Z}}{\partial\alpha}=\int_0^{\infty}\frac{g(\varepsilon)}{e^{(\varepsilon-\mu)/k_BT}-1}d\varepsilon
+$$
+
+内能同理：
+
+$$
+\bar{U}=-\frac{\partial\ln\mathcal{Z}}{\partial\beta}=\int_0^{\infty}\frac{\varepsilon\,g(\varepsilon)}{e^{(\varepsilon-\mu)/k_BT}-1}d\varepsilon
+$$
+
+我们认为体系的基态能量设置为0,那么对于玻色体系化学势必须低于基态能量，也就是：
+
+$$
+\mu < 0
+$$
+
+否则的话粒子数的积分公式里粒子数密度分布在一段定义域区间会小于0,这是物理上不可能的，或者从另一个角度来论证，如果化学势低于基态能量，巨配分函数本身就无法收敛。考虑临界状态 $\mu=0$，此时对粒子数积分，得到的正是激发态能容纳的最大粒子数；令它等于$N$，即可解出$T_c$：
+
+$$
+N=\int_0^{\infty}\frac{g(\varepsilon)}{e^{\varepsilon/k_BT_c}-1}d\varepsilon=\frac{V}{2\pi^2}\left(\frac{2m}{\hbar^2}\right)^{3/2}\int_0^{\infty}\frac{\sqrt{\varepsilon}}{e^{\varepsilon/k_BT_c}-1}d\varepsilon
+$$
+
+令 $x=\varepsilon/k_BT_c$ 作变量代换，即 $\varepsilon=k_BT_c x$、$d\varepsilon=k_BT_c\,dx$：
+
+$$
+\int_0^{\infty}\frac{\sqrt{\varepsilon}}{e^{\varepsilon/k_BT_c}-1}d\varepsilon=(k_BT_c)^{3/2}\int_0^{\infty}\frac{\sqrt{x}}{e^{x}-1}dx
+$$
+
+把被积函数按几何级数展开：
+
+$$
+\frac{1}{e^x-1}=\frac{e^{-x}}{1-e^{-x}}=\sum_{n=1}^{\infty}e^{-nx}
+$$
+
+交换求和与积分，逐项积分时用代换 $t=nx$：
+
+$$
+\int_0^{\infty}\frac{\sqrt{x}}{e^x-1}dx=\sum_{n=1}^{\infty}\int_0^{\infty}\sqrt{x}\,e^{-nx}dx=\sum_{n=1}^{\infty}\frac{1}{n^{3/2}}\int_0^{\infty}t^{1/2}e^{-t}dt=\sum_{n=1}^{\infty}\frac{\Gamma\!\left(\tfrac{3}{2}\right)}{n^{3/2}}=\Gamma\!\left(\tfrac{3}{2}\right)\zeta\!\left(\tfrac{3}{2}\right)
+$$
+
+代入 $\Gamma(3/2)=\sqrt{\pi}/2$、$\zeta(3/2)=2.612$ 的数值：
+
+$$
+\int_0^{\infty}\frac{\sqrt{x}}{e^x-1}dx=\frac{\sqrt{\pi}}{2}\times2.612=2.315
+$$
+
+代回粒子数表达式，并用热波长 $\lambda=h/\sqrt{2\pi mk_BT_c}$ 表示：
+
+$$
+N=\frac{V}{2\pi^2}\left(\frac{2m}{\hbar^2}\right)^{3/2}(k_BT_c)^{3/2}\Gamma\!\left(\tfrac{3}{2}\right)\zeta\!\left(\tfrac{3}{2}\right)=\zeta\!\left(\tfrac{3}{2}\right)\frac{V}{\lambda^3}
+$$
+
+于是 $n=N/V=2.612/\lambda^3$，反解出临界温度：
+
+$$
+T_c=\frac{h^2}{2\pi mk_B}\left(\frac{n}{2.612}\right)^{2/3},\qquad n=\frac{N}{V}
+$$
+
+接下来求凝聚态粒子数和温度的关系，$T<T_c$ 时化学势仍然是0,，激发态按 $\mu=0$ 填满，剩余的粒子全部进入基态，粒子数守恒写成：
+
+$$
+N=N_0+N_{ex},\qquad N_{ex}=\int_0^{\infty}\frac{g(\varepsilon)}{e^{\varepsilon/k_BT}-1}d\varepsilon=\zeta\!\left(\tfrac{3}{2}\right)\frac{V}{\lambda^3},\qquad \lambda=\frac{h}{\sqrt{2\pi mk_BT}}
+$$
+
+临界温度处基态尚未被宏观占据，全部粒子都在激发态：
+
+$$
+N=\zeta\!\left(\tfrac{3}{2}\right)\frac{V}{\lambda_c^3},\qquad \lambda_c=\frac{h}{\sqrt{2\pi mk_BT_c}}
+$$
+
+两式相除，利用 $\lambda\propto T^{-1/2}$ 得
+
+$$
+\frac{N_{ex}}{N}=\left(\frac{\lambda_c}{\lambda}\right)^{3}=\left(\frac{T}{T_c}\right)^{3/2}
+$$
+
+于是凝聚在基态的粒子数为
+
+$$
+N_0=N-N_{ex}=N\left[1-\left(\frac{T}{T_c}\right)^{3/2}\right],\qquad T\leq T_c
+$$
+
+相应的数密度为
+
+$$
+n_0=\frac{N_0}{V}=n\left[1-\left(\frac{T}{T_c}\right)^{3/2}\right],\qquad n=\frac{N}{V}
+$$
+
+$T=T_c$ 时 $N_0=0$；$T=0$ 时全部粒子都在基态，$N_0=N$。$T>T_c$ 无凝聚，$N_0=0$。
